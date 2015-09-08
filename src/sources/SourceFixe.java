@@ -8,6 +8,7 @@ public class SourceFixe extends Source<Boolean> {
 	      public SourceFixe(String messageSimulateur) throws Exception {
 	    	  	super();
 	    		this.informationGeneree = new Information<Boolean>();
+				//TODO simmplify since it's already check by the args analyze
 	    		for(int i=0; i<messageSimulateur.length(); i++){
 	    			switch(messageSimulateur.charAt(i)) {
 	    				case '1' :

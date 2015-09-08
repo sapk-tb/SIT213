@@ -202,7 +202,7 @@ public class Simulateur {
 	 *
 	 */
 	public void execute() throws Exception {
-		//source.emettre();
+		source.emettre();
 	}
 
 	/**
@@ -212,9 +212,16 @@ public class Simulateur {
 	 * @return La valeur du Taux dErreur Binaire.
 	 */
 	public float calculTauxErreurBinaire() {
-
-		// A compléter
-		return 0.0f;
+		//source.getInformationEmise().iterator()
+		//TODO make clean and light version
+		int errors = 0; 
+		for (int i = 0; i < source.getInformationEmise().nbElements(); i++) {
+			if(source.getInformationEmise().iemeElement(i) != destination.getInformationRecue().iemeElement(i)){
+				errors++;
+			}
+		}
+	
+		return (float)errors/(float)source.getInformationEmise().nbElements();
 	}
 
 	/**
@@ -249,5 +256,4 @@ public class Simulateur {
 			System.exit(-2);
 		}
 	}
-
 }
