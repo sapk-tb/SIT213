@@ -1,0 +1,25 @@
+package sources;
+
+import information.Information;
+
+public class SourceFixe extends Source<Boolean> {
+
+	   
+	      public SourceFixe(String messageSimulateur) throws Exception {
+	    	  	super();
+	    		this.informationGeneree = new Information<Boolean>();
+	    		for(int i=0; i<messageSimulateur.length(); i++){
+	    			switch(messageSimulateur.charAt(i)) {
+	    				case '1' :
+	    					this.informationGeneree.add(true);
+	    				break;
+	    				case '0' : 
+	    					this.informationGeneree.add(false);
+	    				break;
+	    				default:
+	    					throw new Exception("Caractère invalide dans la chaine de caractère : "+messageSimulateur.charAt(i));
+	    			}
+	    			
+	    		}
+	      }
+}
