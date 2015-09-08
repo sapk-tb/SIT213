@@ -24,8 +24,8 @@ package information;
    	
    
    /**
-    * pour construire à partir d'un tableau de T une information
-    * @param content le tableau d'éléments pour initialiser l'information construite
+    * pour construire Ã  partir d'un tableau de T une information
+    * @param content le tableau d'Ã©lÃ¨ments pour initialiser l'information construite
     */
       public Information(T [] content) {
          this.content = new LinkedList <T> (); 
@@ -36,16 +36,16 @@ package information;
    
    
    /**
-    * pour connaître le nombre d'éléments d'une information
-    * @return le nombre d'éléments de l'information
+    * pour connaitre le nombre d'Ã©lÃ¨ments d'une information
+    * @return le nombre d'Ã©lÃ¨ments de l'information
     */
       public int nbElements() {
          return this.content.size();
       }
    
    /**
-    * pour renvoyer un élément d'une information
-    * @return le ieme élément de l'information
+    * pour renvoyer un Ã©lÃ¨ment d'une information
+    * @return le ieme Ã©lÃ¨ment de l'information
     */
       public T iemeElement(int i) {
          return this.content.get(i);
@@ -53,16 +53,16 @@ package information;
 
    
    /**
-    * pour modifier le ième élément d'une information
-    * @return le ieme élément de l'information
+    * pour modifier le iÃ¨me Ã©lÃ¨ment d'une information
+    * @return le ieme Ã©lÃ¨ment de l'information
     */
       public void setIemeElement(int i, T v) {
          this.content.set(i, v);
       }
    
    /**
-    * pour ajouter un élément à la fin de l'information 
-    * @param valeur  l'élément à rajouter
+    * pour ajouter un Ã©lÃ¨ment Ã  la fin de l'information 
+    * @param valeur  l'Ã©lÃ¨ment Ã  rajouter
     */
       public void add(T valeur) {
          this.content.add(valeur);
@@ -72,7 +72,7 @@ package information;
    /**
     * pour comparer l'information courante avec une autre information
     * @param o  l'information  avec laquelle se comparer
-    * @return "true" si les 2 informations contiennent les mêmes éléments aux mêmes places; "false" dans les autres cas
+    * @return "true" si les 2 informations contiennent les mÃªmes Ã©lÃ¨ments aux mÃªmes places; "false" dans les autres cas
     */	 
       @SuppressWarnings("unchecked")
       public boolean equals(Object o) {

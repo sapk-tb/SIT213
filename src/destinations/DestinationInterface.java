@@ -4,20 +4,20 @@ package destinations;
 
 
 /** 
- * Interface d'un composant ayant le comportement d'une destination d'informations dont les éléments sont de type T 
+ * Interface d'un composant ayant le comportement d'une destination d'informations dont les Ã©lÃ¨ments sont de type T 
  * @author prou
  */
     public  interface DestinationInterface <T>  {   
    
    /**
-    * pour obtenir la dernière information reçue par une destination.
+    * pour obtenir la derniÃ¨re information reÃ§ue par une destination.
     * @return une information   
     */  
        public Information <T>  getInformationRecue(); 
    	 
    /**
-    * pour recevoir une information  de la source qui nous est connectée 
-    * @param information  l'information  à recevoir
+    * pour recevoir une information  de la source qui nous est connectÃ©e 
+    * @param information  l'information  Ã  recevoir
     */
        public void recevoir(Information <T> information) throws InformationNonConforme;
    	    

@@ -5,18 +5,18 @@
 
 
 /** 
- * Classe réalisant l'affichage d'information composée d'éléments booléens
+ * Classe rÃ©alisant l'affichage d'information composÃ©e d'Ã©lÃ¨ments boolÃ©ens
  * @author prou
  */
    public class SondeLogique extends Sonde <Boolean> {
    
-   /** le nombre de pixels en largeur pour un élément d'information Boolean à afficher dans la fenêtre */
+   /** le nombre de pixels en largeur pour un Ã©lÃ¨ment d'information Boolean Ã  afficher dans la fenÃªtre */
       private int nbPixels;
    
    /**
     * pour construire une sonde logique  
-    * @param nom  le nom de la fenêtre d'affichage
-    * @param nbPixels  le nombre pixels en largeur pour un élément d'information Boolean à afficher dans la fenêtre
+    * @param nom  le nom de la fenÃªtre d'affichage
+    * @param nbPixels  le nombre pixels en largeur pour un Ã©lÃ¨ment d'information Boolean Ã  afficher dans la fenÃªtre
     */
       public SondeLogique(String nom, int nbPixels) {
          super(nom);

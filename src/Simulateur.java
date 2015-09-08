@@ -20,7 +20,7 @@
    import java.io.PrintWriter;
 
 
-/** La classe Simulateur permet de construire et simuler une chaîne de transmission composée d'une Source, d'un nombre variable de Transmetteur(s) et d'une Destination.  
+/** La classe Simulateur permet de construire et simuler une chaine de transmission composÃ©e d'une Source, d'un nombre variable de Transmetteur(s) et d'une Destination.  
  * @author cousin
  * @author prou
  *
@@ -29,15 +29,15 @@
       	
    /** indique si le Simulateur utilise des sondes d'affichage */
       private          boolean affichage = false;
-   /** indique si le Simulateur utilise un message généré de manière aléatoire */
+   /** indique si le Simulateur utilise un message gÃ©nÃ©rÃ© de maniÃ¨re alÃ©atoire */
       private          boolean messageAleatoire = true;
-   /** indique si le Simulateur utilise un germe pour initialiser les générateurs aléatoires */
+   /** indique si le Simulateur utilise un germe pour initialiser les gÃ©nÃ©rateurs alÃ©atoires */
       private          boolean aleatoireAvecGerme = false;
-   /** la valeur de la semence utilisée pour les générateurs aléatoires */
+   /** la valeur de la semence utilisÃ©e pour les gÃ©nÃ©rateurs alÃ©atoires */
       private          Integer seed = null;
-   /** la longueur du message aléatoire à transmettre si un message n'est pas impose */
+   /** la longueur du message alÃ©atoire Ã  transmettre si un message n'est pas impose */
       private          int nbBitsMess = 100; 
-   /** la chaîne de caractères correspondant à m dans l'argument -mess m */
+   /** la chaine de caractÃ¨res correspondant Ã  m dans l'argument -mess m */
       private          String messageString = "100";
    	
    
@@ -51,56 +51,56 @@
       private			  Destination <Boolean>  destination = null;
    	
    
-   /** Le constructeur de Simulateur construit une chaîne de transmission composée d'une Source <Boolean>, d'une Destination <Boolean> et de Transmetteur(s) [voir la méthode analyseArguments]...  
-   * <br> Les différents composants de la chaîne de transmission (Source, Transmetteur(s), Destination, Sonde(s) de visualisation) sont créés et connectés.
-   * @param args le tableau des différents arguments.
+   /** Le constructeur de Simulateur construit une chaine de transmission composÃ©e d'une Source <Boolean>, d'une Destination <Boolean> et de Transmetteur(s) [voir la mÃ©thode analyseArguments]...  
+   * <br> Les diffÃ©rents composants de la chaine de transmission (Source, Transmetteur(s), Destination, Sonde(s) de visualisation) sont crÃ©Ã©s et connectÃ©s.
+   * @param args le tableau des diffÃ©rents arguments.
    *
    * @throws ArgumentsException si un des arguments est incorrect
    *
    */   
       public  Simulateur(String [] args) throws ArgumentsException {
       
-      	// analyser et récupérer les arguments
+      	// analyser et rÃ©cupÃ©rer les arguments
       	
          analyseArguments(args);
       
       	      
-      	// A compléter
+      	// A complÃ©ter
       	
       		
       }
    
    
    
-   /** La méthode analyseArguments extrait d'un tableau de chaînes de caractères les différentes options de la simulation. 
-   * Elle met à jour les attributs du Simulateur.
+   /** La mÃ©thode analyseArguments extrait d'un tableau de chaines de caractÃ©res les diffÃ©rentes options de la simulation. 
+   * Elle met Ã  jour les attributs du Simulateur.
    *
-   * @param args le tableau des différents arguments.
+   * @param args le tableau des diffÃ©rents arguments.
    * <br>
-   * <br>Les arguments autorisés sont : 
+   * <br>Les arguments autorisÃ©s sont : 
    * <br> 
    * <dl>
-   * <dt> -mess m  </dt><dd> m (String) constitué de 7 ou plus digits à 0 | 1, le message à transmettre</dd>
-   * <dt> -mess m  </dt><dd> m (int) constitué de 1 à 6 digits, le nombre de bits du message "aléatoire" à  transmettre</dd> 
+   * <dt> -mess m  </dt><dd> m (String) constituÃ© de 7 ou plus digits Ã  0 | 1, le message Ã  transmettre</dd>
+   * <dt> -mess m  </dt><dd> m (int) constituÃ© de 1 Ã  6 digits, le nombre de bits du message "alÃ©atoire" Ã  transmettre</dd> 
    * <dt> -s </dt><dd> utilisation des sondes d'affichage</dd>
-   * <dt> -seed v </dt><dd> v (int) d'initialisation pour les générateurs aléatoires</dd> 
+   * <dt> -seed v </dt><dd> v (int) d'initialisation pour les gÃ©nÃ©rateurs alÃ©atoires</dd> 
    * <br>
-   * <dt> -form f </dt><dd>  codage (String) RZ, NRZR, NRZT, la forme d'onde du signal à transmettre (RZ par défaut)</dd>
-   * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne >= 6 pour du RZ, ne >= 9 pour du NRZT, ne >= 18 pour du RZ,  30 par défaut))</dd>
-   * <dt> -ampl min max </dt><dd>  min (float) et max (float), les amplitudes min et max du signal analogique à transmettre ( min < max, 0.0 et 1.0 par défaut))</dd> 
+   * <dt> -form f </dt><dd>  codage (String) RZ, NRZR, NRZT, la forme d'onde du signal Ã  transmettre (RZ par dÃ©faut)</dd>
+   * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'Ã©chantillons par bit (ne >= 6 pour du RZ, ne >= 9 pour du NRZT, ne >= 18 pour du RZ,  30 par dÃ©faut))</dd>
+   * <dt> -ampl min max </dt><dd>  min (float) et max (float), les amplitudes min et max du signal analogique Ã  transmettre ( min < max, 0.0 et 1.0 par dÃ©faut))</dd> 
    * <br>
    * <dt> -snr s </dt><dd> s (float) le rapport signal/bruit en dB</dd>
    * <br>
-   * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 à 5), dt (int) valeur du decalage temporel du ième trajet indirect 
-   * en nombre d'échantillons par bit, ar (float) amplitude relative au signal initial du signal ayant effectué le ième trajet indirect</dd>
+   * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 Ã  5), dt (int) valeur du decalage temporel du iÃ¨me trajet indirect 
+   * en nombre d'Ã©chantillons par bit, ar (float) amplitude relative au signal initial du signal ayant effectuÃ© le iÃ¨me trajet indirect</dd>
    * <br>
    * <dt> -transducteur </dt><dd> utilisation de transducteur</dd>
    * <br>
-   * <dt> -aveugle </dt><dd> les récepteurs ne connaissent ni l'amplitude min et max du signal, ni les différents trajets indirects (s'il y en a).</dd>
+   * <dt> -aveugle </dt><dd> les rÃ©cepteurs ne connaissent ni l'amplitude min et max du signal, ni les diffÃ©rents trajets indirects (s'il y en a).</dd>
    * <br>
    * </dl>
    * <br> <b>Contraintes</b> :
-   * Il y a des interdépendances sur les paramètres effectifs. 
+   * Il y a des interdÃ©pendances sur les paramÃ¨tres effectifs. 
    *
    * @throws ArgumentsException si un des arguments est incorrect.
    *
@@ -150,10 +150,10 @@
      
     
    	
-   /** La méthode execute effectue un envoi de message par la source de la chaîne de transmission du Simulateur. 
+   /** La mÃ©thode execute effectue un envoi de message par la source de la chaine de transmission du Simulateur. 
    * @return les options explicites de simulation.
    *
-   * @throws Exception si un problème survient lors de l'exécution
+   * @throws Exception si un problÃ¨me survient lors de l'exÃ©cution
    *
    */ 
       public void execute() throws Exception {      
@@ -164,13 +164,13 @@
    
    	   	
    	
-   /** La méthode qui calcule le taux d'erreur binaire en comparant les bits du message émis avec ceux du message reçu.
+   /** La mÃ©thode qui calcule le taux d'erreur binaire en comparant les bits du message Ã©mis avec ceux du message reÃ§u.
    *
    * @return  La valeur du Taux dErreur Binaire.
    */   	   
       public float  calculTauxErreurBinaire() {
       
-      	// A compléter
+      	// A complÃ©ter
       	
          return  0.0f;
       }
@@ -178,8 +178,8 @@
    
    
    
-   /** La fonction main instancie un Simulateur à l'aide des arguments paramètres et affiche le résultat de l'exécution d'une transmission.
-   *  @param args les différents arguments qui serviront à l'instanciation du Simulateur.
+   /** La fonction main instancie un Simulateur Ã  l'aide des arguments paramÃ¨tres et affiche le rÃ©sultat de l'exÃ©cution d'une transmission.
+   *  @param args les diffÃ©rents arguments qui serviront Ã  l'instanciation du Simulateur.
    */
       public static void main(String [] args) { 
       

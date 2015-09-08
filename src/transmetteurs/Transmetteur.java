@@ -8,31 +8,31 @@ package transmetteurs;
    import java.util.*;
 
 /** 
- * Classe Abstraite d'un composant transmetteur d'informations dont les éléments sont de type R en entrée et de type E en sortie;
- * l'entrée du transmetteur implémente l'interface DestinationInterface, 
- * la sortie du transmetteur implémente l'interface SourceInterface
+ * Classe Abstraite d'un composant transmetteur d'informations dont les Ã©lÃ¨ments sont de type R en entrÃ©e et de type E en sortie;
+ * l'entrÃ©e du transmetteur implÃ©mente l'interface DestinationInterface, 
+ * la sortie du transmetteur implÃ©mente l'interface SourceInterface
  * @author prou
  */
     public abstract  class Transmetteur <R,E> implements  DestinationInterface <R>, SourceInterface <E> {
    
    
    /** 
-   * la liste des composants destination connectés en sortie du transmetteur 
+   * la liste des composants destination connectÃ©s en sortie du transmetteur 
    */
       protected LinkedList <DestinationInterface <E>> destinationsConnectees;
    
    /** 
-   * l'information reçue en entrée du transmetteur     */
+   * l'information reÃ§ue en entrÃ©e du transmetteur     */
       protected Information <R>  informationRecue;
 		
    /** 
-   * l'information émise en sortie du transmetteur  
+   * l'information Ã©mise en sortie du transmetteur  
    */		
       protected Information <E>  informationEmise;
 
    
    /** 
-   * un constructeur factorisant les initialisations communes aux réalisations de la classe abstraite Transmetteur 
+   * un constructeur factorisant les initialisations communes aux rÃ©alisations de la classe abstraite Transmetteur 
    */
        public Transmetteur() {
          destinationsConnectees = new LinkedList <DestinationInterface <E>> ();
@@ -43,7 +43,7 @@ package transmetteurs;
      
    	
    /**
-    * retourne la dernière information reçue en entrée du transmetteur
+    * retourne la derniÃ¨re information reÃ§ue en entrÃ©e du transmetteur
     * @return une information   
     */
        public Information <R>  getInformationRecue() {
@@ -51,7 +51,7 @@ package transmetteurs;
       }
 
    /**
-    * retourne la dernière information émise en sortie du transmetteur
+    * retourne la derniÃ¨re information Ã©mise en sortie du transmetteur
 	 * @return une information   
     */
        public Information <E>  getInformationEmise() {
@@ -60,8 +60,8 @@ package transmetteurs;
  
 
    /**
-    * connecte une  destination à la sortie du transmetteur 
-    * @param destination  la destination à connecter
+    * connecte une  destination Ã  la sortie du transmetteur 
+    * @param destination  la destination Ã  connecter
 	 */
        public void connecter (DestinationInterface <E> destination) {
          destinationsConnectees.add(destination); 
@@ -69,8 +69,8 @@ package transmetteurs;
 
    
    /**
-    * déconnecte une  destination de la la sortie du transmetteur 
-    * @param destination  la destination à déconnecter
+    * dÃ©connecte une  destination de la la sortie du transmetteur 
+    * @param destination  la destination Ã  dÃ©connecter
     */
        public void deconnecter (DestinationInterface <E> destination) {
          destinationsConnectees.remove(destination); 
@@ -78,15 +78,15 @@ package transmetteurs;
 
    	    
    /**
-    * reçoit une information. 
-	 * Cette méthode, en fin d'exécution, appelle la méthode émettre.
-    * @param information  l'information  reçue
+    * reÃ§oit une information. 
+	 * Cette mÃ©thode, en fin d'exÃ©cution, appelle la mÃ©thode Ã©mettre.
+    * @param information  l'information  reÃ§ue
     */
        public  abstract void recevoir(Information <R> information) throws InformationNonConforme;
       
    
     /**
-    * émet l'information construite par le transmetteur  
+    * Ã©met l'information construite par le transmetteur  
     */
       public  abstract void emettre() throws InformationNonConforme;   
    }

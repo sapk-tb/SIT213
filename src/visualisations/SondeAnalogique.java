@@ -5,7 +5,7 @@
 
 
 /** 
- * Classe réalisant l'affichage d'information composée d'éléments réels (float)
+ * Classe rÃ©alisant l'affichage d'information composÃ©e d'Ã©lÃ¨ments rÃ©els (float)
  * @author prou
  */
    public class SondeAnalogique extends Sonde <Float> {
@@ -13,7 +13,7 @@
    
     /**
     * pour construire une sonde analogique  
-    * @param nom  le nom de la fenêtre d'affichage
+    * @param nom  le nom de la fenÃªtre d'affichage
     */
       public SondeAnalogique(String nom) {
          super(nom);

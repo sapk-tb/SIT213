@@ -6,28 +6,28 @@
 	import destinations.Destination;
 
 /** 
- * Classe Abstraite d'un composant destination réalisant un affichage
+ * Classe Abstraite d'un composant destination rÃ©alisant un affichage
  * @author prou
  */
     public  abstract class Sonde <T> extends Destination <T> {
    
    
    /**
-    * nom de la fenêtre d'affichage
+    * nom de la fenÃ¨tre d'affichage
     */   
       protected String nom;
    
    /**
     *  
-    * @param nom  le nom de la fenêtre d'affichage
+    * @param nom  le nom de la fenÃ¨tre d'affichage
     */   
        public Sonde(String nom) {
          this.nom = nom;
       }
 		
    /**
-    * pour recevoir et afficher l'information  transmise par la source qui nous est connectée 
-    * @param information  l'information  à recevoir
+    * pour recevoir et afficher l'information  transmise par la source qui nous est connectÃ©e 
+    * @param information  l'information  Ã  recevoir
     */   
        public abstract void recevoir(Information <T> information);     
    }

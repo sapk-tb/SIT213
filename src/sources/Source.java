@@ -6,30 +6,30 @@
    import java.util.*;
 
 /** 
- * Classe Abstraite d'un composant source d'informations dont les éléments sont de type T 
+ * Classe Abstraite d'un composant source d'informations dont les Ã©lÃ¨ments sont de type T 
  * @author prou
  */
    public  abstract class Source <T> implements  SourceInterface <T> {
    
    
    /** 
-   * la liste des composants destination connectés 
+   * la liste des composants destination connectÃ©s 
    */
       protected LinkedList <DestinationInterface <T>> destinationsConnectees;
    
    /** 
-   * l'information générée par la source 
+   * l'information gÃ©nÃ©rÃ©e par la source 
    */
       protected Information <T>  informationGeneree;
    	
    /** 
-   * l'information émise par la source 
+   * l'information Ã©mise par la source 
    */
       protected Information <T>  informationEmise;
    	
    
    /** 
-   * un constructeur factorisant les initialisations communes aux réalisations de la classe abstraite Source 
+   * un constructeur factorisant les initialisations communes aux rÃ©alisations de la classe abstraite Source 
    */
       public Source () {
          destinationsConnectees = new LinkedList <DestinationInterface <T>> ();
@@ -39,7 +39,7 @@
    
     
    /**
-    * retourne la dernière information émise par la source
+    * retourne la derniÃ¨re information Ã©mise par la source
     * @return une information   
     */
       public Information <T>  getInformationEmise() {
@@ -48,8 +48,8 @@
    
    
    /**
-    * connecte une  destination à la source 
-    * @param destination  la destination à connecter
+    * connecte une  destination Ã  la source 
+    * @param destination  la destination Ã  connecter
     */
       public void connecter (DestinationInterface <T> destination) {
          destinationsConnectees.add(destination); 
@@ -57,18 +57,18 @@
    
    
    /**
-    * déconnecte une  destination de la source 
-    * @param destination  la destination à déconnecter
+    * dÃ©connecte une  destination de la source 
+    * @param destination  la destination Ã  dÃ©connecter
     */
       public void deconnecter (DestinationInterface <T> destination) {
          destinationsConnectees.remove(destination); 
       }
    
    /**
-    * émet l'information  générée  
+    * Ã©met l'information  gÃ©nÃ©rÃ©e  
     */
       public   void emettre() throws InformationNonConforme {
-       	// émission vers les composants connectés  
+       	// Ã©mission vers les composants connectÃ©s  
          for (DestinationInterface <T> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(informationGeneree);
          }
