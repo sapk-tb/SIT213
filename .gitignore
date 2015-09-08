@@ -9,8 +9,8 @@ nb-configuration.xml
 .nb-gradle/
 
 ### Custom Netbeans ###
-nbproject/
-build.xml
+#nbproject/
+#build.xml
 manifest.mf
 
 ### Java ###
