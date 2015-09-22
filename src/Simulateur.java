@@ -91,7 +91,11 @@ public class Simulateur {
 			
 		if (messageAleatoire) {
 			System.out.println("Mode aléatoire : "+nbBitsMess);
-			source = new SourceAleatoire(nbBitsMess);
+                        if(aleatoireAvecGerme){
+                            source = new SourceAleatoire(nbBitsMess,seed);
+                        }else{
+                            source = new SourceAleatoire(nbBitsMess);
+                        }
 			System.out.println("Mode aléatoire fini");
 		} else {
 			System.out.println("Mode  non aléatoire : "+messageString);
