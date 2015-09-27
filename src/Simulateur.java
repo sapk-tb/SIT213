@@ -58,10 +58,12 @@ public class Simulateur {
     private Destination<Boolean> destination = null;
 
     /**
-     * <p>Le constructeur de Simulateur construit une chaine de transmission
+     * <p>
+     * Le constructeur de Simulateur construit une chaine de transmission
      * composée d'une Source Boolean, d'une Destination Boolean et de
      * Transmetteur(s) [voir la méthode analyseArguments]...</p>
-     * <p> Les différents composants de la chaine de transmission (Source,
+     * <p>
+     * Les différents composants de la chaine de transmission (Source,
      * Transmetteur(s), Destination, Sonde(s) de visualisation) sont créés et
      * connectés.</p>
      *
@@ -74,7 +76,7 @@ public class Simulateur {
 
         // analyser et récupérer les arguments
         analyseArguments(args);
-		//*
+        //*
         //TODO instanscier chaine de transmission et execter
 
         if (messageAleatoire) {
@@ -91,13 +93,15 @@ public class Simulateur {
             System.out.println("Mode non aléatoire fini");
         }
         transmetteurLogique = new TransmetteurParfait();
-        source.connecter(new SondeLogique("sondeApresEmission",256));
         source.connecter(transmetteurLogique);
 
-        
         destination = new DestinationFinale();
-        source.connecter(new SondeLogique("sondeApresTransmission",256));
         transmetteurLogique.connecter(destination);
+
+        if (affichage) {
+            source.connecter(new SondeLogique("sondeApresEmission", 256));
+            transmetteurLogique.connecter(new SondeLogique("sondeApresTransmission", 256));
+        }
     }
 
     /**
@@ -106,9 +110,10 @@ public class Simulateur {
      * du Simulateur.
      *
      * @param args le tableau des différents arguments.
-     * 
-     * <p>Les arguments autorisés sont :</p>
-     * 
+     *
+     * <p>
+     * Les arguments autorisés sont :</p>
+     *
      * <dl>
      * <dt> -mess m  </dt><dd> m (String) constitué de 7 ou plus digits à 0 | 1,
      * le message à transmettre</dd>
@@ -117,31 +122,31 @@ public class Simulateur {
      * <dt> -s </dt><dd> utilisation des sondes d'affichage</dd>
      * <dt> -seed v </dt><dd> v (int) d'initialisation pour les générateurs
      * aléatoires</dd>
-     * 
+     *
      * <dt> -form f </dt><dd> codage (String) RZ, NRZR, NRZT, la forme d'onde du
      * signal à transmettre (RZ par défaut)</dd>
-     * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne &gt;=
-     * 6 pour du RZ, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30 par
-     * défaut))</dd>
+     * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne
+     * &gt;= 6 pour du RZ, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30
+     * par défaut))</dd>
      * <dt> -ampl min max </dt><dd> min (float) et max (float), les amplitudes
-     * min et max du signal analogique à transmettre ( min &lt; max, 0.0 et 1.0 par
-     * défaut))</dd> 
-     * 
+     * min et max du signal analogique à transmettre ( min &lt; max, 0.0 et 1.0
+     * par défaut))</dd>
+     *
      * <dt> -snr s</dt>
      * <dd> s (float) le rapport signal/bruit en dB</dd>
-     * 
+     *
      * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 à 5),
      * dt (int) valeur du decalage temporel du ième trajet indirect en nombre
      * d'échantillons par bit, ar (float) amplitude relative au signal initial
      * du signal ayant effectué le ième trajet indirect</dd>
-     * 
+     *
      * <dt> -transducteur </dt><dd> utilisation de transducteur</dd>
-     * 
+     *
      * <dt> -aveugle </dt><dd> les récepteurs ne connaissent ni l'amplitude min
      * et max du signal, ni les différents trajets indirects (s'il y en a).</dd>
-     * 
+     *
      * </dl>
-     *  <b>Contraintes</b> : Il y a des interdépendances sur les paramètres
+     * <b>Contraintes</b> : Il y a des interdépendances sur les paramètres
      * effectifs.
      *
      * @throws ArgumentsException si un des arguments est incorrect.
@@ -203,7 +208,7 @@ public class Simulateur {
      * @return La valeur du Taux dErreur Binaire.
      */
     public float calculTauxErreurBinaire() {
-		//source.getInformationEmise().iterator()
+        //source.getInformationEmise().iterator()
         //TODO make clean and light version
         int errors = 0;
         for (int i = 0; i < source.getInformationEmise().nbElements(); i++) {
