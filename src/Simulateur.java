@@ -121,12 +121,10 @@ public class Simulateur {
      * défaut))</dd>
      * <dt> -ampl min max </dt><dd> min (float) et max (float), les amplitudes
      * min et max du signal analogique à transmettre ( min < max, 0.0 et 1.0 par
-     * défaut))</dd> <br>
-     * <dt> -snr s
-     * <
-     * /dt
-     * ><d
-     * d> s (float) le rapport signal/bruit en dB</dd>
+     * défaut))</dd> 
+     * <br>
+     * <dt> -snr s</dt>
+     * <dd> s (float) le rapport signal/bruit en dB</dd>
      * <br>
      * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 à 5),
      * dt (int) valeur du decalage temporel du ième trajet indirect en nombre
