@@ -2,25 +2,25 @@ package sources;
 
 import information.Information;
 
+/**
+ * Classe d'un composant source d'informations fixé dont les élèments sont de
+ * type Boolean
+ *
+ * @author Antoine GIRARD
+ * @author Cédric HERZOG
+ */
 public class SourceFixe extends Source<Boolean> {
 
-	   
-	      public SourceFixe(String messageSimulateur) throws Exception {
-	    	  	super();
-	    		this.informationGeneree = new Information<Boolean>();
-				//TODO simmplify since it's already check by the args analyze
-	    		for(int i=0; i<messageSimulateur.length(); i++){
-	    			switch(messageSimulateur.charAt(i)) {
-	    				case '1' :
-	    					this.informationGeneree.add(true);
-	    				break;
-	    				case '0' : 
-	    					this.informationGeneree.add(false);
-	    				break;
-	    				default:
-	    					throw new Exception("Caractère invalide dans la chaine de caractère : "+messageSimulateur.charAt(i));
-	    			}
-	    			
-	    		}
-	      }
+    /**
+    * Un constructeur qui génère les bites basé sur messageSimulateur
+     * @param messageSimulateur le message qui fixe les bites */
+    public SourceFixe(String messageSimulateur) {
+        super();
+        this.informationGeneree = new Information<Boolean>();
+
+        for (int i = 0; i < messageSimulateur.length(); i++) {
+            //Le messageSimulateur est une suite de 0 et 1 (vérifié lors du controle des arguments).
+            this.informationGeneree.add(messageSimulateur.charAt(i) == '1');
+        }
+    }
 }
