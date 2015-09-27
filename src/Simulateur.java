@@ -2,6 +2,7 @@
 import sources.*;
 import destinations.*;
 import transmetteurs.*;
+import visualisations.SondeLogique;
 
 /**
  * La classe Simulateur permet de construire et simuler une chaine de
@@ -90,9 +91,12 @@ public class Simulateur {
             System.out.println("Mode non aléatoire fini");
         }
         transmetteurLogique = new TransmetteurParfait();
+        source.connecter(new SondeLogique("sondeApresEmission",256));
         source.connecter(transmetteurLogique);
 
+        
         destination = new DestinationFinale();
+        source.connecter(new SondeLogique("sondeApresTransmission",256));
         transmetteurLogique.connecter(destination);
     }
 
