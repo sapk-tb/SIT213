@@ -24,4 +24,5 @@ deploy:
   - dist/SIT213.jar
   - dist/doc.tar.gz
   on:
-    repo: sapk/SIT213
+    tags: true
+
