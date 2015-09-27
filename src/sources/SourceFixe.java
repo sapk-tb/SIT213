@@ -12,8 +12,8 @@ import information.Information;
 public class SourceFixe extends Source<Boolean> {
 
     /**
-    * Un constructeur qui génère les bites basé sur messageSimulateur
-     * @param messageSimulateur le message qui fixe les bites */
+    * Un constructeur qui génère les bits basé sur messageSimulateur
+     * @param messageSimulateur le message qui fixe les bits */
     public SourceFixe(String messageSimulateur) {
         super();
         this.informationGeneree = new Information<Boolean>();

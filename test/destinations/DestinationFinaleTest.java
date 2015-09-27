@@ -41,8 +41,8 @@ public class DestinationFinaleTest {
     @Test
     public void testRecevoir() {
         System.out.println("Test recevoir");
-        Boolean bites[] = {true, false, true};
-        Information<Boolean> information = new Information<>(bites);
+        Boolean bits[] = {true, false, true};
+        Information<Boolean> information = new Information<>(bits);
         DestinationFinale instance = new DestinationFinale();
         try {
             instance.recevoir(information);

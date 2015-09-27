@@ -42,8 +42,8 @@ public class TransmetteurParfaitTest {
     @Test
     public void testRecevoir() throws Exception {
         System.out.println("Test recevoir");
-        Boolean bites[] = {true, false, true};
-        Information<Boolean> information = new Information<>(bites);
+        Boolean bits[] = {true, false, true};
+        Information<Boolean> information = new Information<>(bits);
         TransmetteurParfait instance = new TransmetteurParfait();
         instance.recevoir(information);
 
