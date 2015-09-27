@@ -8,11 +8,24 @@ sudo: false
 script: 
   - ant run
   - ant jar
+  - ant javadoc
+  - ant test
   - java -classpath ./dist/SIT213.jar Simulateur -seed 42
   - java -classpath ./dist/SIT213.jar Simulateur -mess "0101011100111"
   - java -classpath ./dist/SIT213.jar Simulateur -mess 12
   - java -classpath ./dist/SIT213.jar Simulateur 
+  - tar cz -f dist/doc.tar.gz -C dist/javadoc .
 
 notifications:
   email:
     - sapk@sapk.fr
+
+deploy:
+  provider: releases
+  api_key: "5885805b5a6b7a1bb4003f8235cbfd5264ff453a"
+  file:
+    - ./dist/SIT213.jar
+    - ./dist/doc.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
