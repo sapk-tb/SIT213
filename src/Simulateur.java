@@ -57,12 +57,12 @@ public class Simulateur {
     private Destination<Boolean> destination = null;
 
     /**
-     * Le constructeur de Simulateur construit une chaine de transmission
-     * composée d'une Source <Boolean>, d'une Destination <Boolean> et de
-     * Transmetteur(s) [voir la méthode analyseArguments]...
-     * <br> Les différents composants de la chaine de transmission (Source,
+     * <p>Le constructeur de Simulateur construit une chaine de transmission
+     * composée d'une Source Boolean, d'une Destination Boolean et de
+     * Transmetteur(s) [voir la méthode analyseArguments]...</p>
+     * <p> Les différents composants de la chaine de transmission (Source,
      * Transmetteur(s), Destination, Sonde(s) de visualisation) sont créés et
-     * connectés.
+     * connectés.</p>
      *
      * @param args le tableau des différents arguments.
      *
@@ -102,9 +102,9 @@ public class Simulateur {
      * du Simulateur.
      *
      * @param args le tableau des différents arguments.
-     * <br>
-     * <br>Les arguments autorisés sont :
-     * <br>
+     * 
+     * <p>Les arguments autorisés sont :</p>
+     * 
      * <dl>
      * <dt> -mess m  </dt><dd> m (String) constitué de 7 ou plus digits à 0 | 1,
      * le message à transmettre</dd>
@@ -113,31 +113,31 @@ public class Simulateur {
      * <dt> -s </dt><dd> utilisation des sondes d'affichage</dd>
      * <dt> -seed v </dt><dd> v (int) d'initialisation pour les générateurs
      * aléatoires</dd>
-     * <br>
+     * 
      * <dt> -form f </dt><dd> codage (String) RZ, NRZR, NRZT, la forme d'onde du
      * signal à transmettre (RZ par défaut)</dd>
-     * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne >=
-     * 6 pour du RZ, ne >= 9 pour du NRZT, ne >= 18 pour du RZ, 30 par
+     * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne &gt;=
+     * 6 pour du RZ, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30 par
      * défaut))</dd>
      * <dt> -ampl min max </dt><dd> min (float) et max (float), les amplitudes
-     * min et max du signal analogique à transmettre ( min < max, 0.0 et 1.0 par
+     * min et max du signal analogique à transmettre ( min &lt; max, 0.0 et 1.0 par
      * défaut))</dd> 
-     * <br>
+     * 
      * <dt> -snr s</dt>
      * <dd> s (float) le rapport signal/bruit en dB</dd>
-     * <br>
+     * 
      * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 à 5),
      * dt (int) valeur du decalage temporel du ième trajet indirect en nombre
      * d'échantillons par bit, ar (float) amplitude relative au signal initial
      * du signal ayant effectué le ième trajet indirect</dd>
-     * <br>
+     * 
      * <dt> -transducteur </dt><dd> utilisation de transducteur</dd>
-     * <br>
+     * 
      * <dt> -aveugle </dt><dd> les récepteurs ne connaissent ni l'amplitude min
      * et max du signal, ni les différents trajets indirects (s'il y en a).</dd>
-     * <br>
+     * 
      * </dl>
-     * <br> <b>Contraintes</b> : Il y a des interdépendances sur les paramètres
+     *  <b>Contraintes</b> : Il y a des interdépendances sur les paramètres
      * effectifs.
      *
      * @throws ArgumentsException si un des arguments est incorrect.
@@ -184,8 +184,6 @@ public class Simulateur {
     /**
      * La méthode execute effectue un envoi de message par la source de la
      * chaine de transmission du Simulateur.
-     *
-     * @return les options explicites de simulation.
      *
      * @throws Exception si un problème survient lors de l'exécution
      *
