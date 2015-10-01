@@ -2,6 +2,7 @@
 import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
+import recepteurs.RecepteurAnalogique;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeLogique;
@@ -60,13 +61,18 @@ public class Simulateur {
      */
     private Destination<Boolean> destination = null;
     /**
-     * le composant Transmetteur parfati analogique de la chaine de transmission
+     * le composant Transmetteur parfait analogique de la chaine de transmission
      */
     private final TransmetteurAnalogiqueParfait transmetteurAnalogique;
+    /**
+     * le composant Recepteur parfait analogique de la chaine de transmission
+     */
+    private final RecepteurAnalogique recepteur;
     /**
      * le composant Emetteur logique->analogique de la chaine de transmission
      */
     private final EmetteurAnalogique emetteur;
+    private String form = "RZ";
 
     /**
      * <p>
@@ -106,15 +112,20 @@ public class Simulateur {
 
         source.connecter(new SondeLogique("sondeApresSource", 256));
 
-        //EmetteurAnalogique emetteur = new EmetteurAnalogique("RZ", 100, 0.0f, 1.0f);
-        //EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
-        emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
+        emetteur = new EmetteurAnalogique("RZ", 100, -1.0f, 1.0f);
+        //emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
+        //emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
         source.connecter(emetteur);
         emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
 
         transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
         emetteur.connecter(transmetteurAnalogique);
         transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
+
+        recepteur = new RecepteurAnalogique("RZ", 100, -1.0f, 1.0f);
+        transmetteurAnalogique.connecter(recepteur);
+        recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
+
         /*
          transmetteurLogique = new TransmetteurBooleanParfait();
          source.connecter(transmetteurLogique);
@@ -206,6 +217,17 @@ public class Simulateur {
                 } else {
                     throw new ArgumentsException("Valeur du parametre -mess invalide : " + args[i]);
                 }
+
+            } else if (args[i].matches("-form")) {
+                if (i+1 < args.length || args[i+1].startsWith("-")) {
+                    throw new ArgumentsException("Valeur du parametre -form non saisie !");
+                }
+                i++;
+                form = args[i];
+                if (!form.matches("RZ") || !form.matches("NRZR") || !form.matches("NRZT")){
+                    throw new ArgumentsException("Valeur du parametre -form invalide : " + args[i]);
+                }
+
             } else {
                 throw new ArgumentsException("Option invalide :" + args[i]);
             }

@@ -17,16 +17,17 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
 
     private final String form;
     private final int nbEch;
-    private final float amplMin;
+    private float amplMin;
     private final float amplMax;
-    private final float tmpMontee =  (float)1/(float)3; //temps de montée ou de descente à 1/3 du temps bit
+    private final float tmpMontee = (float) 1 / (float) 3; //temps de montée ou de descente à 1/3 du temps bit
+    private final float dutyCycle = (float) 1 / (float) 2; //temps haut ou bas du siganl RZ
 
     public EmetteurAnalogique(String form, int nbEch, float amplMin, float amplMax) {
         super();
         //TODO check validity of args
         this.form = form;
         this.nbEch = nbEch;
-        this.amplMin = (form == "RZ") ? 0.0f : amplMin;
+        this.amplMin = amplMin;
         this.amplMax = amplMax;
     }
 
@@ -47,12 +48,19 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
         float deltaEntreEch = coefDirecteur * 1; // *1 echantillon
 
         //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
+        
         for (int i = 0; i < informationRecue.nbElements(); i++) {
             Boolean bit = informationRecue.iemeElement(i);
             for (int n = 0; n < nbEch; n++) {
                 //TODO NRZT check for not to have delay ????
                 switch (form) {
-                    case "RZ":
+                    case "RZ":       
+                        if (n < nbEch * dutyCycle) {
+                            informationAEmettre.add((float) (bit ? amplMax : amplMin));
+                        } else {
+                            informationAEmettre.add(0f);
+                        }
+                        break;
                     case "NRZR":
                         informationAEmettre.add((float) (bit ? amplMax : amplMin));
                         break;
