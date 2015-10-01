@@ -19,7 +19,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
     private final int nbEch;
     private final float amplMin;
     private final float amplMax;
-    private final float dutyCycle = 0.5f;
+    private final float tmpMontee =  (float)1/(float)3; //temps de montée ou de descente à 1/3 du temps bit
 
     public EmetteurAnalogique(String form, int nbEch, float amplMin, float amplMax) {
         super();
@@ -41,16 +41,16 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
         Information<Float> informationAEmettre = new Information<Float>();
 
         float niveauPrecedent = 0f;
-        int nbEchTransition = (int) ((1 - dutyCycle) * nbEch);
+        int nbEchTransition = (int) (tmpMontee * nbEch);
         float deltaAmplitude = amplMax - amplMin;
         float coefDirecteur = deltaAmplitude / nbEchTransition; //TODO think if not to be ammply in the loop
         float deltaEntreEch = coefDirecteur * 1; // *1 echantillon
 
-        System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
+        //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
         for (int i = 0; i < informationRecue.nbElements(); i++) {
             Boolean bit = informationRecue.iemeElement(i);
             for (int n = 0; n < nbEch; n++) {
-                //TODO NRZT
+                //TODO NRZT check for not to have delay ????
                 switch (form) {
                     case "RZ":
                     case "NRZR":
@@ -59,7 +59,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                     case "NRZT":
                         float niveauAnalogique = (float) (bit ? amplMax : amplMin);
                         //TODO simplify
-                        System.out.println("Debug loop : " + niveauPrecedent + " / " + niveauAnalogique + " / " + deltaEntreEch);
+                        //System.out.println("Debug loop : " + niveauPrecedent + " / " + niveauAnalogique + " / " + deltaEntreEch);
 
                         if (Math.abs(niveauPrecedent - niveauAnalogique) > deltaEntreEch) {
                             if (Math.max(niveauPrecedent, niveauAnalogique) == niveauAnalogique) {

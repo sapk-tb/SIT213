@@ -59,6 +59,14 @@ public class Simulateur {
      * le composant Destination de la chaine de transmission
      */
     private Destination<Boolean> destination = null;
+    /**
+     * le composant Transmetteur parfati analogique de la chaine de transmission
+     */
+    private final TransmetteurAnalogiqueParfait transmetteurAnalogique;
+    /**
+     * le composant Emetteur logique->analogique de la chaine de transmission
+     */
+    private final EmetteurAnalogique emetteur;
 
     /**
      * <p>
@@ -100,12 +108,15 @@ public class Simulateur {
 
         //EmetteurAnalogique emetteur = new EmetteurAnalogique("RZ", 100, 0.0f, 1.0f);
         //EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
-        EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
+        emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
         source.connecter(emetteur);
         emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
 
+        transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
+        emetteur.connecter(transmetteurAnalogique);
+        transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
         /*
-         transmetteurLogique = new TransmetteurParfait();
+         transmetteurLogique = new TransmetteurBooleanParfait();
          source.connecter(transmetteurLogique);
          destination = new DestinationFinale();
          transmetteurLogique.connecter(destination);

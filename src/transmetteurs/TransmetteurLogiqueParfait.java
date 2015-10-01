@@ -11,7 +11,7 @@ import information.InformationNonConforme;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurParfait extends Transmetteur<Boolean, Boolean> {
+public class TransmetteurLogiqueParfait extends Transmetteur<Boolean, Boolean> {
 
 
     @Override

@@ -13,9 +13,9 @@ import static org.junit.Assert.*;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurParfaitTest {
+public class TransmetteurLogiqueParfaitTest {
 
-    public TransmetteurParfaitTest() {
+    public TransmetteurLogiqueParfaitTest() {
     }
 
     @BeforeClass
@@ -35,7 +35,7 @@ public class TransmetteurParfaitTest {
     }
 
     /**
-     * Test of recevoir method, of class TransmetteurParfait.
+     * Test of recevoir method, of class TransmetteurLogiqueParfait.
      *
      * @throws java.lang.Exception
      */
@@ -44,7 +44,7 @@ public class TransmetteurParfaitTest {
         System.out.println("Test recevoir");
         Boolean bits[] = {true, false, true};
         Information<Boolean> information = new Information<>(bits);
-        TransmetteurParfait instance = new TransmetteurParfait();
+        TransmetteurLogiqueParfait instance = new TransmetteurLogiqueParfait();
         instance.recevoir(information);
 
         assertEquals(instance.informationRecue, information);
@@ -53,12 +53,12 @@ public class TransmetteurParfaitTest {
     }
 
     /**
-     * Test of emettre method, of class TransmetteurParfait.
+     * Test of emettre method, of class TransmetteurLogiqueParfait.
      */
     @Test
     public void testEmettre() throws Exception {
         System.out.println("emettre");
-        TransmetteurParfait instance = new TransmetteurParfait();
+        TransmetteurLogiqueParfait instance = new TransmetteurLogiqueParfait();
         instance.emettre();
         assertEquals(instance.informationEmise, null);
     }
