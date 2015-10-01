@@ -72,12 +72,34 @@ public class Simulateur {
      * le composant Emetteur logique->analogique de la chaine de transmission
      */
     private final EmetteurAnalogique emetteur;
+
+    /**
+     * la forme du signal, par défaut il s'agit d'un signal RZ
+     */
     private String form = "RZ";
+
+    /**
+     * l'amplitude minimale du signal, par défaut il s'agit de 0
+     */
     private Float amplMin = 0.0f;
+
+    /**
+     * l'amplitude maximale du signal, par défaut il s'agit de 1
+     */
     private Float amplMax = 1.0f;
+
+    /**
+     * le nombre d'échantillons du signal, par défaut il s'agit de 30
+     */
     private Integer nbEch = 30;
-    private final float dutyCycleRZ = (float) 1 / (float) 2; //temps haut ou bas du siganl RZ
-    private final float tmpMontee = (float) 1 / (float) 3; //temps de montée ou de descente à 1/3 du temps bit
+    /**
+     * le temps haut ou bas du signal RZ
+     */
+    private final float dutyCycleRZ = (float) 1 / (float) 2;
+    /**
+     * le temps de montée ou de descente à 1/3 du temps bit
+     */
+    private final float tmpMontee = (float) 1 / (float) 3;
 
     /**
      * <p>
@@ -115,21 +137,55 @@ public class Simulateur {
             System.out.println("Mode non aléatoire fini");
         }
 
+        /**
+         * Affichage des paramètres
+         */
         System.out.println("Paramètre de transmission : " + form + " / " + nbEch + " / " + amplMin + " / " + amplMax);
 
+        /**
+         * instancie emetteur de type EmetteurAnalogique avec les paramètres
+         * propres à la classe
+         */
         emetteur = new EmetteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
         //emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
         //emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
+
+        /**
+         * On relie la source à l'emetteur
+         */
         source.connecter(emetteur);
 
+        /**
+         * instancie transmetteurAnalogique de type
+         * TransmetteurAnalogiqueParfait
+         */
         transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
+        /**
+         * On relie l'emetteur au transmetteurAnalogique
+         */
         emetteur.connecter(transmetteurAnalogique);
 
+        /**
+         * instancie recepteur de type RecepteurAnalogique avec les paramètres
+         * propres à la classe
+         */
         recepteur = new RecepteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
+        /**
+         * On relie le transmetteurAnalogique au recepteur
+         */
         transmetteurAnalogique.connecter(recepteur);
+        /**
+         * instancie destination de type DestinationFinale
+         */
         destination = new DestinationFinale();
+        /**
+         * On relie le recepteur à la destination
+         */
         recepteur.connecter(destination);
 
+        /**
+         * Affichage des sondes
+         */
         if (affichage) {
             source.connecter(new SondeLogique("sondeApresSource", 256));
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
@@ -137,7 +193,7 @@ public class Simulateur {
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
-        /*
+        /* Ancienne chaîne :
          transmetteurLogique = new TransmetteurBooleanParfait();
          source.connecter(transmetteurLogique);
          destination = new DestinationFinale();

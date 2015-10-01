@@ -13,13 +13,21 @@ import information.InformationNonConforme;
  */
 public class TransmetteurLogiqueParfait extends Transmetteur<Boolean, Boolean> {
 
-
+    /**
+     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
+     * méthode emettre.
+     *
+     * @param information l'information reçue
+     */
     @Override
     public void recevoir(Information<Boolean> information) throws InformationNonConforme {
         this.informationRecue = information;
         emettre();
     }
 
+    /**
+     * émet l'information construite par la transmetteur
+     */
     @Override
     public void emettre() throws InformationNonConforme {
         for (DestinationInterface<Boolean> destinationConnectee : destinationsConnectees) {
