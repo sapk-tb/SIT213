@@ -99,7 +99,8 @@ public class Simulateur {
         source.connecter(new SondeLogique("sondeApresSource", 256));
 
         //EmetteurAnalogique emetteur = new EmetteurAnalogique("RZ", 100, 0.0f, 1.0f);
-        EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
+        //EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
+        EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
         source.connecter(emetteur);
         emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
 
