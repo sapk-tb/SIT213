@@ -4,6 +4,7 @@ import information.Information;
 import information.InformationNonConforme;
 
 /**
+ * Classe d'un composant qui recoit des informations de type Boolean et les stockes.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
