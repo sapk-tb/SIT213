@@ -73,6 +73,11 @@ public class Simulateur {
      */
     private final EmetteurAnalogique emetteur;
     private String form = "RZ";
+    private Float amplMin = 0.0f;
+    private Float amplMax = 1.0f;
+    private Integer nbEch = 30;
+    private final float dutyCycleRZ = (float) 1 / (float) 2; //temps haut ou bas du siganl RZ
+    private final float tmpMontee = (float) 1 / (float) 3; //temps de montée ou de descente à 1/3 du temps bit
 
     /**
      * <p>
@@ -110,21 +115,27 @@ public class Simulateur {
             System.out.println("Mode non aléatoire fini");
         }
 
-        source.connecter(new SondeLogique("sondeApresSource", 256));
+        System.out.println("Paramètre de transmission : " + form + " / " + nbEch + " / " + amplMin + " / " + amplMax);
 
-        emetteur = new EmetteurAnalogique("RZ", 100, -1.0f, 1.0f);
+        emetteur = new EmetteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
         //emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
         //emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
         source.connecter(emetteur);
-        emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
 
         transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
         emetteur.connecter(transmetteurAnalogique);
-        transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
 
-        recepteur = new RecepteurAnalogique("RZ", 100, -1.0f, 1.0f);
+        recepteur = new RecepteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
         transmetteurAnalogique.connecter(recepteur);
-        recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
+        destination = new DestinationFinale();
+        recepteur.connecter(destination);
+
+        if (affichage) {
+            source.connecter(new SondeLogique("sondeApresSource", 256));
+            emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
+            transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
+            recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
+        }
 
         /*
          transmetteurLogique = new TransmetteurBooleanParfait();
@@ -160,7 +171,7 @@ public class Simulateur {
      * <dt> -form f </dt><dd> codage (String) RZ, NRZR, NRZT, la forme d'onde du
      * signal à transmettre (RZ par défaut)</dd>
      * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne
-     * &gt;= 6 pour du RZ, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30
+     * &gt;= 6 pour du NRZR, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30
      * par défaut))</dd>
      * <dt> -ampl min max </dt><dd> min (float) et max (float), les amplitudes
      * min et max du signal analogique à transmettre ( min &lt; max, 0.0 et 1.0
@@ -219,18 +230,66 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-form")) {
-                if (i+1 < args.length || args[i+1].startsWith("-")) {
+                if (i + 1 >= args.length || args[i + 1].startsWith("-")) {
                     throw new ArgumentsException("Valeur du parametre -form non saisie !");
                 }
                 i++;
                 form = args[i];
-                if (!form.matches("RZ") || !form.matches("NRZR") || !form.matches("NRZT")){
+                if (!form.matches("RZ") && !form.matches("NRZR") && !form.matches("NRZT")) {
                     throw new ArgumentsException("Valeur du parametre -form invalide : " + args[i]);
+                }
+
+            } else if (args[i].matches("-ampl")) {
+                if (i + 1 >= args.length) {
+                    throw new ArgumentsException("Valeur du parametre min -ampl non saisie !");
+                }
+                if (i + 2 >= args.length) {
+                    throw new ArgumentsException("Valeur du parametre max -ampl non saisie !");
+                }
+
+                i++;
+                amplMin = new Float(args[i]);
+                i++; // on passe à l'argument suivant
+                amplMax = new Float(args[i]);
+
+                if (amplMax <= amplMin) {
+                    throw new ArgumentsException("Valeurs du parametre -ampl invalide : min:" + amplMin + " > max:" + amplMax);
+                }
+            } else if (args[i].matches("-nbEch")) {
+                i++;
+                // traiter la valeur associee
+                try {
+                    nbEch = new Integer(args[i]);
+                } catch (Exception e) {
+                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide :" + args[i]);
+                }
+
+                if (nbEch <= 0) {
+                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide (<=0):" + args[i]);
                 }
 
             } else {
                 throw new ArgumentsException("Option invalide :" + args[i]);
             }
+        }
+
+        switch (form) {
+            case "NRZR":
+                if (nbEch < 6) {
+                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide < 6 pour form NRZR:" + nbEch);
+                }
+                break;
+            case "NRZT":
+                if (nbEch < 9) {
+                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide < 9 pour form NRZT:" + nbEch);
+                }
+                break;
+            case "RZ":
+                if (nbEch < 18) {
+                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide < 18 pour form RZ:" + nbEch);
+                }
+                break;
+
         }
 
     }
@@ -285,14 +344,14 @@ public class Simulateur {
 
         try {
             simulateur.execute();
-            /*
-             float tauxErreurBinaire = simulateur.calculTauxErreurBinaire();
-             String s = "java  Simulateur  ";
-             for (int i = 0; i < args.length; i++) {
-             s += args[i] + "  ";
-             }
-             System.out.println(s + "  =>   TEB : " + tauxErreurBinaire);
-             */
+            //*
+            float tauxErreurBinaire = simulateur.calculTauxErreurBinaire();
+            String s = "java  Simulateur  ";
+            for (int i = 0; i < args.length; i++) {
+                s += args[i] + "  ";
+            }
+            System.out.println(s + "  =>   TEB : " + tauxErreurBinaire);
+            //*/
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();

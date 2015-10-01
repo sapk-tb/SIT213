@@ -19,14 +19,18 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     private final int nbEch;
     private final float amplMin;
     private final float amplMax;
+    private final float dutyCycleRZ;
+    private final float tmpMontee;
 
-    public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax) {
+    public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ,float tmpMontee) {
         super();
         //TODO check validity of args
         this.form = form;
         this.nbEch = nbEch;
         this.amplMin = amplMin;
         this.amplMax = amplMax;
+        this.dutyCycleRZ = dutyCycleRZ;
+        this.tmpMontee = tmpMontee;
     }
 
     @Override
@@ -38,20 +42,31 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     @Override
     public void emettre() throws InformationNonConforme {
         Information<Boolean> informationAEmettre = new Information<Boolean>();
-        float total[] = new float[informationRecue.nbElements()/nbEch];
+        float total[] = new float[informationRecue.nbElements() / nbEch];
         for (int i = 0; i < informationRecue.nbElements(); i++) {
-            total[(int) i/nbEch] += informationRecue.iemeElement(i);
+            total[(int) i / nbEch] += informationRecue.iemeElement(i);
         }
-        
-        for (int i = 0; i < informationRecue.nbElements()/nbEch; i++) {
-            float moy_symbole = total[i]/(float)nbEch;
+
+        for (int i = 0; i < informationRecue.nbElements() / nbEch; i++) {
+            float moy_symbole = total[i] / (float) nbEch;
             /* if (Math.abs(amplMax-moy_symbole) < Math.abs(amplMin-moy_symbole)) {
-                informationAEmettre.add(true);
-            } else {
-                informationAEmettre.add(false);
-            }*/
-            informationAEmettre.add((Math.abs(amplMax - moy_symbole) < Math.abs(amplMin - moy_symbole)));
-            
+             informationAEmettre.add(true);
+             } else {
+             informationAEmettre.add(false);
+             }*/
+            switch (form) {
+                case "RZ":
+                    informationAEmettre.add((Math.abs(amplMax * dutyCycleRZ - moy_symbole) < Math.abs(amplMin * dutyCycleRZ - moy_symbole)));
+                    break;
+                case "NRZR":
+                    informationAEmettre.add((Math.abs(amplMax - moy_symbole) < Math.abs(amplMin - moy_symbole)));
+                    break;
+                case "NRZT":
+                    informationAEmettre.add((Math.abs(amplMax*(1-tmpMontee/2) - moy_symbole) < Math.abs(amplMin*(1-tmpMontee/2) - moy_symbole)));
+                    break;
+
+            }
+
         }
 
         for (DestinationInterface<Boolean> destinationConnectee : destinationsConnectees) {
