@@ -13,7 +13,8 @@ import visualisations.SondeLogique;
  * @author prou
  * @author Antoine GIRARD
  * @author Cédric HERZOG
- *
+ * @author Pierrick CHOVELON
+ * @author Mélanie CORRE
  */
 public class Simulateur {
 
