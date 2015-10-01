@@ -1,7 +1,9 @@
 
 import sources.*;
 import destinations.*;
+import emetteurs.EmetteurAnalogique;
 import transmetteurs.*;
+import visualisations.SondeAnalogique;
 import visualisations.SondeLogique;
 
 /**
@@ -93,16 +95,24 @@ public class Simulateur {
             source = new SourceFixe(messageString);
             System.out.println("Mode non aléatoire fini");
         }
-        transmetteurLogique = new TransmetteurParfait();
-        source.connecter(transmetteurLogique);
 
-        destination = new DestinationFinale();
-        transmetteurLogique.connecter(destination);
+        source.connecter(new SondeLogique("sondeApresSource", 256));
 
-        if (affichage) {
-            source.connecter(new SondeLogique("sondeApresEmission", 256));
-            transmetteurLogique.connecter(new SondeLogique("sondeApresTransmission", 256));
-        }
+        //EmetteurAnalogique emetteur = new EmetteurAnalogique("RZ", 100, 0.0f, 1.0f);
+        EmetteurAnalogique emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
+        source.connecter(emetteur);
+        emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
+
+        /*
+         transmetteurLogique = new TransmetteurParfait();
+         source.connecter(transmetteurLogique);
+         destination = new DestinationFinale();
+         transmetteurLogique.connecter(destination);
+         if (affichage) {
+         source.connecter(new SondeLogique("sondeApresEmission", 256));
+         transmetteurLogique.connecter(new SondeLogique("sondeApresTransmission", 256));
+         }
+         */
     }
 
     /**
@@ -241,12 +251,14 @@ public class Simulateur {
 
         try {
             simulateur.execute();
-            float tauxErreurBinaire = simulateur.calculTauxErreurBinaire();
-            String s = "java  Simulateur  ";
-            for (int i = 0; i < args.length; i++) {
-                s += args[i] + "  ";
-            }
-            System.out.println(s + "  =>   TEB : " + tauxErreurBinaire);
+            /*
+             float tauxErreurBinaire = simulateur.calculTauxErreurBinaire();
+             String s = "java  Simulateur  ";
+             for (int i = 0; i < args.length; i++) {
+             s += args[i] + "  ";
+             }
+             System.out.println(s + "  =>   TEB : " + tauxErreurBinaire);
+             */
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
