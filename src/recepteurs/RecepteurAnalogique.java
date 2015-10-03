@@ -89,7 +89,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
                 case "RZ":
                     informationAEmettre.add((Math.abs(amplMax * dutyCycleRZ - moy_symbole) < Math.abs(amplMin * dutyCycleRZ - moy_symbole)));
                     break;
-                case "NRZR":
+                case "NRZ":
                     informationAEmettre.add((Math.abs(amplMax - moy_symbole) < Math.abs(amplMin - moy_symbole)));
                     break;
                 case "NRZT":

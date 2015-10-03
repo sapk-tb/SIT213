@@ -86,7 +86,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                             informationAEmettre.add(0f);
                         }
                         break;
-                    case "NRZR":
+                    case "NRZ":
                         informationAEmettre.add((float) (bit ? amplMax : amplMin));
                         break;
                     case "NRZT":

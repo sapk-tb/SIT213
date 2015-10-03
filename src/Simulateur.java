@@ -147,8 +147,8 @@ public class Simulateur {
          * propres à la classe
          */
         emetteur = new EmetteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
-        //emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
-        //emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
+        //emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
+        //emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
 
         /*
          * On relie la source à l'emetteur
@@ -224,10 +224,10 @@ public class Simulateur {
      * <dt> -seed v </dt><dd> v (int) d'initialisation pour les générateurs
      * aléatoires</dd>
      *
-     * <dt> -form f </dt><dd> codage (String) RZ, NRZR, NRZT, la forme d'onde du
+     * <dt> -form f </dt><dd> codage (String) RZ, NRZ, NRZT, la forme d'onde du
      * signal à transmettre (RZ par défaut)</dd>
      * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne
-     * &gt;= 6 pour du NRZR, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30
+     * &gt;= 6 pour du NRZ, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30
      * par défaut))</dd>
      * <dt> -ampl min max </dt><dd> min (float) et max (float), les amplitudes
      * min et max du signal analogique à transmettre ( min &lt; max, 0.0 et 1.0
@@ -292,7 +292,7 @@ public class Simulateur {
                 }
                 i++;
                 form = args[i];
-                if (!form.matches("RZ") && !form.matches("NRZR") && !form.matches("NRZT")) {
+                if (!form.matches("RZ") && !form.matches("NRZ") && !form.matches("NRZT")) {
                     throw new ArgumentsException("Valeur du parametre -form invalide : " + args[i]);
                 }
 
@@ -332,26 +332,6 @@ public class Simulateur {
                 throw new ArgumentsException("Option invalide : " + args[i]);
             }
         }
-
-        switch (form) {
-            case "NRZR":
-                if (nbEch < 6) {
-                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide < 6 pour form NRZR:" + nbEch);
-                }
-                break;
-            case "NRZT":
-                if (nbEch < 9) {
-                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide < 9 pour form NRZT:" + nbEch);
-                }
-                break;
-            case "RZ":
-                if (nbEch < 18) {
-                    throw new ArgumentsException("Valeur du parametre -nbEch  invalide < 18 pour form RZ:" + nbEch);
-                }
-                break;
-
-        }
-
     }
 
     /**
