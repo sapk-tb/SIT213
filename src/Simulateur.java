@@ -313,6 +313,9 @@ public class Simulateur {
                     throw new ArgumentsException("Valeurs du parametre -ampl invalide : min:" + amplMin + " > max:" + amplMax);
                 }
             } else if (args[i].matches("-nbEch")) {
+                if (i + 1 >= args.length) {
+                    throw new ArgumentsException("Valeur du parametre nbEch de -nbEch non saisie !");
+                }
                 i++;
                 // traiter la valeur associee
                 try {
