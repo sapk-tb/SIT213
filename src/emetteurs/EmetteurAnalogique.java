@@ -69,7 +69,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
         for (int i = 0; i < informationRecue.nbElements(); i++) {
             Boolean bit = informationRecue.iemeElement(i);
             for (int n = 0; n < nbEch; n++) {
-                /**
+                /*
                  * Pour chaque échantillon de chaque information reçue, on
                  * vérifie : si la forme du signal est RZ et si l'échantillon
                  * courant est inférieur au nombre d'échantillon * le dutyCycle,

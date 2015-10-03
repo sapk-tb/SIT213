@@ -67,14 +67,14 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     public void emettre() throws InformationNonConforme {
         Information<Boolean> informationAEmettre = new Information<Boolean>();
         float total[] = new float[informationRecue.nbElements() / nbEch];
-        /**
+        /*
          * Calcul de la somme pour chaque échantillon
          */
         for (int i = 0; i < informationRecue.nbElements(); i++) {
             total[(int) i / nbEch] += informationRecue.iemeElement(i);
         }
 
-        /**
+        /*
          * Calcul de la moyenne d'un symbole afin de retrouver le niveau de
          * chaque échantillon
          */
