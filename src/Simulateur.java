@@ -137,12 +137,12 @@ public class Simulateur {
             System.out.println("Mode non aléatoire fini");
         }
 
-        /**
+        /*
          * Affichage des paramètres
          */
         System.out.println("Paramètre de transmission : " + form + " / " + nbEch + " / " + amplMin + " / " + amplMax);
 
-        /**
+        /*
          * instancie emetteur de type EmetteurAnalogique avec les paramètres
          * propres à la classe
          */
@@ -150,40 +150,40 @@ public class Simulateur {
         //emetteur = new EmetteurAnalogique("NRZR", 100, -1.0f, 1.0f);
         //emetteur = new EmetteurAnalogique("NRZT", 100, -1.0f, 1.0f);
 
-        /**
+        /*
          * On relie la source à l'emetteur
          */
         source.connecter(emetteur);
 
-        /**
+        /*
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
         transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
-        /**
+        /*
          * On relie l'emetteur au transmetteurAnalogique
          */
         emetteur.connecter(transmetteurAnalogique);
 
-        /**
+        /*
          * instancie recepteur de type RecepteurAnalogique avec les paramètres
          * propres à la classe
          */
         recepteur = new RecepteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
-        /**
+        /*
          * On relie le transmetteurAnalogique au recepteur
          */
         transmetteurAnalogique.connecter(recepteur);
-        /**
+        /*
          * instancie destination de type DestinationFinale
          */
         destination = new DestinationFinale();
-        /**
+        /*
          * On relie le recepteur à la destination
          */
         recepteur.connecter(destination);
 
-        /**
+        /*
          * Affichage des sondes
          */
         if (affichage) {
@@ -275,7 +275,8 @@ public class Simulateur {
                 if (args[i].matches("[0,1]{7,}")) {
                     messageAleatoire = false;
                     nbBitsMess = args[i].length();
-                } else if (args[i].matches("[0-9]{1,6}")) {
+                } 
+                else if (args[i].matches("[0-9]{1,6}")) {
                     messageAleatoire = true;
                     nbBitsMess = new Integer(args[i]);
                     if (nbBitsMess < 1) {
@@ -325,7 +326,7 @@ public class Simulateur {
                 }
 
             } else {
-                throw new ArgumentsException("Option invalide :" + args[i]);
+                throw new ArgumentsException("Option invalide : " + args[i]);
             }
         }
 
