@@ -65,6 +65,12 @@ public class SimulateurTest {
         new Simulateur(args);
     }
     @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsnbEchInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsEmpty");
+        String[] args = ("-nbEch").split(" ");
+        new Simulateur(args);
+    }
+    @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplInvalide() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsAmplInvalide");
         String[] args = ("-ampl 3 1").split(" ");

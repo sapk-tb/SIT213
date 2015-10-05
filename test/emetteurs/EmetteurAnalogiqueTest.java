@@ -224,7 +224,7 @@ public class EmetteurAnalogiqueTest {
      */
     @Test(expected = InformationNonConforme.class)
     public void testEmettreVide() throws Exception {
-        System.out.println("Test methode : recevoir");
+        System.out.println("Test methode : emettre");
         instance_RZ.emettre();
     }
 
