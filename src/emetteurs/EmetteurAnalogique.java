@@ -22,6 +22,30 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
 
     private final String form;
     private final int nbEch;
+
+    public String getForm() {
+        return form;
+    }
+
+    public int getNbEch() {
+        return nbEch;
+    }
+
+    public float getAmplMin() {
+        return amplMin;
+    }
+
+    public float getAmplMax() {
+        return amplMax;
+    }
+
+    public float getTmpMontee() {
+        return tmpMontee;
+    }
+
+    public float getDutyCycleRZ() {
+        return dutyCycleRZ;
+    }
     private float amplMin;
     private final float amplMax;
     private final float tmpMontee;
@@ -58,6 +82,10 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
      */
     @Override
     public void emettre() throws InformationNonConforme {
+        if (informationRecue == null) {
+            throw new InformationNonConforme("informationRecue == null");
+        }
+
         Information<Float> informationAEmettre = new Information<Float>();
         float niveauPrecedent = 0f;
         int nbEchTransition = (int) (tmpMontee * nbEch);
