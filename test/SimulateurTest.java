@@ -49,7 +49,6 @@ public class SimulateurTest {
     /**
      * Test of main method, of class Simulateur.
      */
-    
     @Test
     public void testMain() {
         System.out.println("Test main");
@@ -58,18 +57,29 @@ public class SimulateurTest {
     }
     
     
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
     @Test
     public void testAnalyseArgumentsEmpty() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsEmpty");
         String[] args = {};
         new Simulateur(args);
     }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchInvalide() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsEmpty");
         String[] args = ("-nbEch").split(" ");
         new Simulateur(args);
     }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplInvalide() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsAmplInvalide");
@@ -77,6 +87,9 @@ public class SimulateurTest {
         new Simulateur(args);
     }
     
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsFormInvalide() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsFormInvalide");
@@ -84,12 +97,14 @@ public class SimulateurTest {
         new Simulateur(args);
     }    
     
-    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsForm2Invalide() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsForm2Invalide");
         String[] args = ("-form ").split(" ");
         new Simulateur(args);
     }    
-    //TODO Check all other params
+    
 }

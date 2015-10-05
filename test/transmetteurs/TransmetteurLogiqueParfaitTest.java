@@ -1,5 +1,6 @@
 package transmetteurs;
 
+import destinations.DestinationFinale;
 import information.Information;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -45,11 +46,14 @@ public class TransmetteurLogiqueParfaitTest {
         Boolean bits[] = {true, false, true};
         Information<Boolean> information = new Information<>(bits);
         TransmetteurLogiqueParfait instance = new TransmetteurLogiqueParfait();
+        DestinationFinale dest = new DestinationFinale();
+        instance.connecter(dest);
         instance.recevoir(information);
 
-        assertEquals(instance.informationRecue, information);
+        assertEquals(instance.getInformationRecue(), information);
         //Comme recevoir lance emettre cette donction est aussi testé ici. 
-        assertEquals(instance.informationEmise, information);
+        assertEquals(instance.getInformationEmise(), information);
+        assertEquals(dest.getInformationRecue(), information);
     }
 
     /**
