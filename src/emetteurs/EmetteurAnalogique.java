@@ -53,6 +53,12 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
 
     /**
      * un constructeur de l'émetteur analogique
+     * @param form Forme du signal à recevoir
+     * @param nbEch Nombre d'écahntillon par symbole
+     * @param amplMin Amplitude pour la valeur binaire 0
+     * @param amplMax Amplitude pour la valeur binaire 1
+     * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme NRZT
      */
     public EmetteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
         super();

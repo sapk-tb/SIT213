@@ -54,12 +54,12 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     /**
      * Constructeur du récepteur analogique
      *
-     * @param form
-     * @param nbEch
-     * @param amplMin
-     * @param amplMax
-     * @param dutyCycleRZ
-     * @param tmpMontee
+     * @param form Forme du signal à émettre
+     * @param nbEch Nombre d'écahntillon par symbole
+     * @param amplMin Amplitude pour la valeur binaire 0
+     * @param amplMax Amplitude pour la valeur binaire 1
+     * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme NRZT
      */
     public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
         super();

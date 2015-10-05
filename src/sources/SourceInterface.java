@@ -23,7 +23,8 @@ package sources;
        public void connecter (DestinationInterface <T> destination);
    
    /**
-    * pour émettre l'information  contenue dans une source  
+    * pour émettre l'information  contenue dans une source
+     * @throws information.InformationNonConforme Décrit un information null ou non valide
     */
        public void emettre() throws InformationNonConforme; 
    

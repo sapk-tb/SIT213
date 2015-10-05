@@ -12,7 +12,7 @@ public class SourceAleatoire extends Source<Boolean> {
 
     /**
     * Un constructeur qui génère nbBits aléatoirement
-     * @param nbBits
+     * @param nbBits nombre de bit à générer
     */
     public SourceAleatoire(int nbBits) {
         this(nbBits, (int) (Math.random() * 1024));
@@ -20,8 +20,8 @@ public class SourceAleatoire extends Source<Boolean> {
 
     /**
     * Un constructeur qui génère nbBits aléatoirement basé sur un seed
-     * @param nbBits
-     * @param seed
+     * @param nbBits nombre de bit à générer
+     * @param seed graine utilisé comme base pour le message pseudo-aléatoire
     */
     public SourceAleatoire(int nbBits, int seed) {
         super();
