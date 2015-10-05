@@ -27,7 +27,7 @@ public class EmetteurAnalogiqueTest {
     private EmetteurAnalogique instance_NRZ;
     private int instance_NRZ_nbEch = 42;
     private EmetteurAnalogique instance_NRZT;
-    private int instance_NRZT_nbEch = 14;
+    private int instance_NRZT_nbEch = 44;
     private float instance_NRZT_tempsMontee = 0.33f;
     private RecepteurAnalogique recepteur_NRZ;
     private RecepteurAnalogique recepteur_RZ;
@@ -92,6 +92,7 @@ public class EmetteurAnalogiqueTest {
     public void testConstructor() throws Exception {
         //TODO if the args are to be check in constructor
     }
+
     /**
      * Test of constructor of class EmetteurAnalogique.
      */
@@ -99,12 +100,12 @@ public class EmetteurAnalogiqueTest {
     public void testInvalidConstructor() throws Exception {
         //TODO if the args are to be check in constructor
     }
-    
+
     /**
-     * Test of recevoir method, of class EmetteurAnalogique.
+     * Test of recevoir for RZ method, of class EmetteurAnalogique.
      */
     @Test
-    public void testRecevoir() throws Exception {
+    public void testRecevoirRZ() throws Exception {
         System.out.println("Test methode : recevoir");
         Boolean[] bits = getRandomBooleanArray(42);
         Information<Boolean> information = new Information<>(bits);
@@ -139,10 +140,17 @@ public class EmetteurAnalogiqueTest {
         assertEquals(recepteur_RZ.getInformationEmise(), instance_RZ.getInformationRecue());
 
         //Test du nombe de niveau proche (<1%) du nb de niveau global necesaire pour chaque valeur
-        assertEquals(niveau[0], (1f - instance_RZ.getDutyCycleRZ())* instance_RZ.getNbEch() * bits.length, 0.01f* instance_RZ.getNbEch() * bits.length);
-        assertEquals(niveau[1], getNumberOfIn(Boolean.FALSE, bits) * instance_RZ.getNbEch() *instance_RZ.getDutyCycleRZ(), 0.01f* instance_RZ.getNbEch() * bits.length); 
-        assertEquals(niveau[2], getNumberOfIn(Boolean.TRUE, bits) * instance_RZ.getNbEch() *instance_RZ.getDutyCycleRZ(), 0.01f* instance_RZ.getNbEch() * bits.length); 
+        assertEquals(niveau[0], (1f - instance_RZ.getDutyCycleRZ()) * instance_RZ.getNbEch() * bits.length, 0.01f * instance_RZ.getNbEch() * bits.length);
+        assertEquals(niveau[1], getNumberOfIn(Boolean.FALSE, bits) * instance_RZ.getNbEch() * instance_RZ.getDutyCycleRZ(), 0.01f * instance_RZ.getNbEch() * bits.length);
+        assertEquals(niveau[2], getNumberOfIn(Boolean.TRUE, bits) * instance_RZ.getNbEch() * instance_RZ.getDutyCycleRZ(), 0.01f * instance_RZ.getNbEch() * bits.length);
+    }
 
+    /**
+     * Test of recevoir for NRZ method, of class EmetteurAnalogique.
+     */
+    @Test
+    public void testRecevoirNRZ() throws Exception {
+        System.out.println("Test methode : recevoir");
         Boolean[] bits2 = getRandomBooleanArray(31);
         Information<Boolean> information2 = new Information<>(bits2);
         instance_NRZ.recevoir(information2);
@@ -173,16 +181,38 @@ public class EmetteurAnalogiqueTest {
         //On verifie que le décodeur peut décoder l'information émise
         assertEquals(recepteur_NRZ.getInformationRecue(), instance_NRZ.getInformationEmise());
         assertEquals(recepteur_NRZ.getInformationEmise(), instance_NRZ.getInformationRecue());
+    }
 
-        Information<Boolean> information3 = new Information<>(getRandomBooleanArray(15));
+    /**
+     * Test of recevoir for NRZT method, of class EmetteurAnalogique.
+     */
+    @Test
+    public void testRecevoirNRZT() throws Exception {
+        System.out.println("Test methode : recevoir");
+        Boolean[] bits3 = getRandomBooleanArray(15);
+        Information<Boolean> information3 = new Information<>(bits3);
         instance_NRZT.recevoir(information3);
         assertEquals(information3, instance_NRZT.informationRecue);
         assertEquals(information3, instance_NRZT.getInformationRecue());
         assertEquals("NRZT", instance_NRZT.getForm());
+        assertEquals(instance_NRZT_nbEch, instance_NRZT.getNbEch());
+        assertEquals(1, instance_NRZT.getAmplMax(), 0f);
+        assertEquals(-3, instance_NRZT.getAmplMin(), 0f);
         assertEquals(instance_NRZT.getNbEch() * instance_NRZT.getInformationRecue().nbElements(), instance_NRZT.informationEmise.nbElements());
         assertEquals(instance_NRZT_tempsMontee, instance_NRZT.getTmpMontee(), 0.0f);
-        //TODO vérification du temps de montée
+
         
+        float diff_max = (float) (Math.abs(instance_NRZT.getAmplMax() - instance_NRZT.getAmplMin()) / Math.floor(instance_NRZT.getNbEch() * instance_NRZT.getTmpMontee()));
+        diff_max += 0.000001f; //Marge d'erreur
+        
+        for (int i = 1; i < instance_NRZT.getInformationEmise().nbElements(); i++) {
+            float diff = instance_NRZT.getInformationEmise().iemeElement(i - 1) - instance_NRZT.getInformationEmise().iemeElement(i);
+            //System.out.println(diff_max + " / " + diff + " / " + instance_NRZT.getInformationEmise().iemeElement(i - 1) + " / " + instance_NRZT.getInformationEmise().iemeElement(i));
+            if (Math.abs(diff) > diff_max) {
+                throw new Exception("Variation trop importante");
+            }
+        }
+
         //On verifie que le décodeur peut décoder l'information émise
         assertEquals(recepteur_NRZT.getInformationRecue(), instance_NRZT.getInformationEmise());
         assertEquals(recepteur_NRZT.getInformationEmise(), instance_NRZT.getInformationRecue());

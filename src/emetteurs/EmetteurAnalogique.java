@@ -88,9 +88,9 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
 
         Information<Float> informationAEmettre = new Information<Float>();
         float niveauPrecedent = 0f;
-        int nbEchTransition = (int) (tmpMontee * nbEch);
+        int nbEchTransition = (int) (tmpMontee * nbEch); //TODO determine if not should be Math.ceil or keep a truncature ?
         float deltaAmplitude = amplMax - amplMin;
-        float coefDirecteur = deltaAmplitude / nbEchTransition; //TODO think if not to be ammply in the loop
+        float coefDirecteur = deltaAmplitude / nbEchTransition;
         float deltaEntreEch = coefDirecteur * 1; // *1 : echantillon
 
         //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
@@ -132,7 +132,6 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                             niveauPrecedent = niveauAnalogique;
                         }
                         informationAEmettre.add(niveauPrecedent);
-
                         break;
                 }
             }
