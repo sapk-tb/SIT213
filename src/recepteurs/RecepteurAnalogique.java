@@ -24,6 +24,30 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     private final int nbEch;
     private final float amplMin;
     private final float amplMax;
+
+    public String getForm() {
+        return form;
+    }
+
+    public int getNbEch() {
+        return nbEch;
+    }
+
+    public float getAmplMin() {
+        return amplMin;
+    }
+
+    public float getAmplMax() {
+        return amplMax;
+    }
+
+    public float getDutyCycleRZ() {
+        return dutyCycleRZ;
+    }
+
+    public float getTmpMontee() {
+        return tmpMontee;
+    }
     private final float dutyCycleRZ;
     private final float tmpMontee;
 
@@ -65,6 +89,10 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      */
     @Override
     public void emettre() throws InformationNonConforme {
+        if (informationRecue == null) {
+            throw new InformationNonConforme("informationRecue == null");
+        }
+
         Information<Boolean> informationAEmettre = new Information<Boolean>();
         float total[] = new float[informationRecue.nbElements() / nbEch];
         /*
