@@ -58,4 +58,32 @@ public class SimulateurTest {
     }
     
     
+    @Test
+    public void testAnalyseArgumentsEmpty() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsEmpty");
+        String[] args = {};
+        new Simulateur(args);
+    }
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsAmplInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsAmplInvalide");
+        String[] args = ("-ampl 3 1").split(" ");
+        new Simulateur(args);
+    }
+    
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsFormInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsFormInvalide");
+        String[] args = ("-form NRTE").split(" ");
+        new Simulateur(args);
+    }    
+    
+    
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsForm2Invalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsForm2Invalide");
+        String[] args = ("-form ").split(" ");
+        new Simulateur(args);
+    }    
+    //TODO Check all other params
 }
