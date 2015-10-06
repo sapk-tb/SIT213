@@ -53,12 +53,14 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
 
     /**
      * un constructeur de l'émetteur analogique
+     *
      * @param form Forme du signal à émettre
      * @param nbEch Nombre d'écahntillon par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme NRZT
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
+     * NRZT
      */
     public EmetteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
         super();
@@ -111,7 +113,6 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                  * l'amplitude minimale si le bit vaut faux, autrement on ajoute
                  * 0.
                  */
-                //TODO NRZT check for not to have delay ????
                 switch (form) {
                     case "RZ":
                         if (n < nbEch * dutyCycleRZ) {
@@ -127,15 +128,18 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                         float niveauAnalogique = (float) (bit ? amplMax : amplMin);
                         //TODO simplify
                         //System.out.println("Debug loop : " + niveauPrecedent + " / " + niveauAnalogique + " / " + deltaEntreEch);
-
-                        if (Math.abs(niveauPrecedent - niveauAnalogique) > deltaEntreEch) {
-                            if (Math.max(niveauPrecedent, niveauAnalogique) == niveauAnalogique) {
-                                niveauPrecedent = niveauPrecedent + deltaEntreEch;
-                            } else {
-                                niveauPrecedent = niveauPrecedent - deltaEntreEch;
-                            }
+                        if (i == 0 && n == 0) {
+                            niveauPrecedent = 0; // On démarre à 0
                         } else {
-                            niveauPrecedent = niveauAnalogique;
+                            if (Math.abs(niveauPrecedent - niveauAnalogique) > deltaEntreEch) {
+                                if (Math.max(niveauPrecedent, niveauAnalogique) == niveauAnalogique) {
+                                    niveauPrecedent = niveauPrecedent + deltaEntreEch;
+                                } else {
+                                    niveauPrecedent = niveauPrecedent - deltaEntreEch;
+                                }
+                            } else {
+                                niveauPrecedent = niveauAnalogique;
+                            }
                         }
                         informationAEmettre.add(niveauPrecedent);
                         break;
