@@ -132,11 +132,9 @@ public class Simulateur {
             } else {
                 source = new SourceAleatoire(nbBitsMess);
             }
-            System.out.println("Mode aléatoire fini");
         } else {
             System.out.println("Mode  non aléatoire : " + messageString);
             source = new SourceFixe(messageString);
-            System.out.println("Mode non aléatoire fini");
         }
 
         /*
@@ -195,16 +193,6 @@ public class Simulateur {
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
-        /* Ancienne chaîne :
-         transmetteurLogique = new TransmetteurBooleanParfait();
-         source.connecter(transmetteurLogique);
-         destination = new DestinationFinale();
-         transmetteurLogique.connecter(destination);
-         if (affichage) {
-         source.connecter(new SondeLogique("sondeApresEmission", 256));
-         transmetteurLogique.connecter(new SondeLogique("sondeApresTransmission", 256));
-         }
-         */
     }
 
     /**
