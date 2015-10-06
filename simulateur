@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#TODO améliorer et compiler si necessaire
+#if [ ! -f ./dist/SIT213.jar ]; then
+#    ant jar
+#fi;
+
+ant compile 
+
+#echo $@
+
+java -classpath ./build/classes/ Simulateur $@

@@ -14,6 +14,7 @@ package information;
  */
 public class InformationAnalogique extends Information<Float> {
 
+    //TODO generate moyenne at add?
     public float getMoyenne() {
         float total = 0;
         for (Float content : this.content) {
