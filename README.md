@@ -17,7 +17,7 @@ ant jar
 ant javadoc run
 
 #Commande unique :
-Une fois l'application packagé (ant jar) executé comme ceci :
-java -classpath ./dist/SIT213.jar Simulateur ARGS
-Exemple : java -classpath ./dist/SIT213.jar Simulateur -seed 42
+Dans le dossier du projet :
+./simulateur ARGS
+Exemple : ./simulateur -s
 ```
