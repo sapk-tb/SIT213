@@ -2,7 +2,6 @@ package transmetteurs;
 
 import destinations.DestinationInterface;
 import information.Information;
-import information.InformationAnalogique;
 import information.InformationNonConforme;
 import sources.SourceBruitGaussien;
 import tools.Tool;
@@ -27,7 +26,6 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
         this.SNR = SNR;
     }
 
-
     /**
      * reçoit une information. Cette méthode, en fin d'exécution, appelle la
      * méthode emettre.
@@ -48,14 +46,18 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
         //TODO add bruit
         //TODO implement snr to constructor
-        SourceBruitGaussien bruit = new SourceBruitGaussien(this.informationRecue.nbElements(), Tool.getMoyenne(this.informationRecue) / this.SNR);
+        SourceBruitGaussien bruit = new SourceBruitGaussien(this.informationRecue.nbElements(), Tool.getPuissance(this.informationRecue) / this.SNR);
+        bruit.emettre();
+        Information<Float> InfBruit = bruit.getInformationEmise();
 
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(informationRecue);
         }
         this.informationEmise = this.informationRecue;
-        for (int i = 0; i < this.informationRecue.iemeElement(i); i++) {
-            this.informationEmise.setIemeElement(i, this.informationEmise.iemeElement(i) + bruit.getInformationEmise().iemeElement(i));
+        System.out.println(Tool.getPuissance(this.informationRecue) + " / " + this.SNR + " / " + Tool.getPuissance(this.informationRecue) / this.SNR+ " / " + Tool.getPuissance(InfBruit));
+        for (int i = 0; i < this.informationRecue.nbElements(); i++) {
+            //System.out.println(this.informationEmise.iemeElement(i) + "/" + InfBruit.iemeElement(i));
+            this.informationEmise.setIemeElement(i, this.informationEmise.iemeElement(i) + InfBruit.iemeElement(i));
         }
 
     }

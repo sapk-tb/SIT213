@@ -27,7 +27,7 @@ public class SourceBruitGaussien extends Source<Float> {
         this.informationGeneree = new Information<Float>();
         Random generator = new Random((long) (Math.random() * 1024));
         for (int i = 0; i < nbEch; i++) {
-            this.informationGeneree.add(puissance*((float) generator.nextGaussian()));
+            this.informationGeneree.add((float)Math.sqrt(2)*puissance*((float) generator.nextGaussian())); //TODO check 
         }
     }
 }
