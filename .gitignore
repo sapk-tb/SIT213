@@ -25,3 +25,4 @@ manifest.mf
 hs_err_pid*
 
 !lib/*
+/bin/

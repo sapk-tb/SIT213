@@ -57,6 +57,7 @@ public class SimulateurTest {
     }
     
     
+    
     /**
      * Test of analyze of args of class Simulateur.
      */
@@ -81,9 +82,59 @@ public class SimulateurTest {
      * Test of analyze of args of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsnbEchLettreInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsEmpty");
+        String[] args = ("-nbEch A").split(" ");
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsnbEchInvalideNul() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsEmpty");
+        String[] args = ("-nbEch 0").split(" ");
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgumentsnbEch() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsnbEchValide");
+        String[] args = ("-nbEch 100").split(" ");
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplInvalide() throws ArgumentsException, Exception {
         System.out.println("Test AnalyseArgumentsAmplInvalide");
         String[] args = ("-ampl 3 1").split(" ");
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsAmplMaxInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsAmplInvalide");
+        String[] args = ("-ampl  ").split(" ");
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsAmplMinInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentsAmplInvalide");
+        String[] args = ("-ampl 3").split(" ");
         new Simulateur(args);
     }
     
@@ -105,6 +156,57 @@ public class SimulateurTest {
         System.out.println("Test AnalyseArgumentsForm2Invalide");
         String[] args = ("-form ").split(" ");
         new Simulateur(args);
-    }    
+    } 
+
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgumentsSeedValide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentSeed");
+        String[] args = ("-seed 2").split(" ");
+        new Simulateur(args);
+    } 
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsSeedInvalide() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentSeedInvalide");
+        String[] args = ("-seed A").split(" ");
+        new Simulateur(args);
+    } 
+    
+    /**
+     * Test of analyze of args of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgumentsVisualisation() throws ArgumentsException, Exception {
+        System.out.println("Test AnalyseArgumentSimulation");
+        String[] args = ("-s").split(" ");
+        new Simulateur(args);
+    } 
+    
+    /**
+     * Test of main method, of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgmuentsMessValideFixe() {
+        System.out.println("Test main");
+        String[] args = ("-mess 10010110101010110").split(" ");
+        Simulateur.main(args);
+    }
+    
+    /**
+     * Test of main method, of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgmuentsMessValideAleatoire() {
+        System.out.println("Test main");
+        String[] args = ("-mess 2445").split(" ");
+        Simulateur.main(args);
+    }
+    
     
 }
