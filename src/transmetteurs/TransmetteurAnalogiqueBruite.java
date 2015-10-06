@@ -46,7 +46,13 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
         //TODO add bruit
         //TODO implement snr to constructor
-        SourceBruitGaussien bruit = new SourceBruitGaussien(this.informationRecue.nbElements(), Tool.getPuissance(this.informationRecue) / this.SNR);
+        float puissance_bruit = 0;
+        
+        if(this.SNR != 0f){
+            puissance_bruit = Tool.getPuissance(this.informationRecue) / this.SNR;
+        }
+        
+        SourceBruitGaussien bruit = new SourceBruitGaussien(this.informationRecue.nbElements(), puissance_bruit);
         bruit.emettre();
         Information<Float> InfBruit = bruit.getInformationEmise();
 

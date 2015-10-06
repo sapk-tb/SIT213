@@ -100,6 +100,7 @@ public class Simulateur {
      * le temps de montée ou de descente à 1/3 du temps bit
      */
     private final float tmpMontee = (float) 1 / (float) 3;
+    private Float snr = 0f;
 
     /**
      * <p>
@@ -159,7 +160,7 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        transmetteurAnalogique = new TransmetteurAnalogiqueBruite(1f);
+        transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -268,7 +269,15 @@ public class Simulateur {
                 } catch (Exception e) {
                     throw new ArgumentsException("Valeur du parametre -seed  invalide :" + args[i]);
                 }
-            } else if (args[i].matches("-mess")) {
+            } else if (args[i].matches("-snr")) {
+                i++;
+                // traiter la valeur associee
+                try {
+                    snr = new Float(args[i]);
+                } catch (Exception e) {
+                    throw new ArgumentsException("Valeur du parametre -snr  invalide :" + args[i]);
+                }
+            }  else if (args[i].matches("-mess")) {
                 i++;
                 // traiter la valeur associee
                 messageString = args[i];
