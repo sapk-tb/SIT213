@@ -63,7 +63,7 @@ public class Simulateur {
     /**
      * le composant Transmetteur parfait analogique de la chaine de transmission
      */
-    private final TransmetteurAnalogiqueParfait transmetteurAnalogique;
+    private final Transmetteur transmetteurAnalogique;
     /**
      * le composant Recepteur parfait analogique de la chaine de transmission
      */
@@ -159,7 +159,7 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        transmetteurAnalogique = new TransmetteurAnalogiqueParfait();
+        transmetteurAnalogique = new TransmetteurAnalogiqueBruite(1f);
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */

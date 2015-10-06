@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package information;
+package tools;
+
+import information.Information;
 
 /**
- * Information analogique pour ajouter des fonction spécifique à ces signaux.
+ * Classe d'outils static
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  * @author Pierrick CHOVELON
  * @author Mélanie CORRE
  */
-public class InformationAnalogique extends Information<Float> {
+public class Tool {
 
-    //TODO generate moyenne at add?
-    public float getMoyenne() {
+    public static float getMoyenne(Information<Float> inf) {
         float total = 0;
-        for (Float content : this.content) {
+        for (Float content : inf) {
             total += (float) content;
         }
-        return total / this.content.size();
+        return total / inf.nbElements();
     }
-
 }
