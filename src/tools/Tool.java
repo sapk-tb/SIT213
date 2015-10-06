@@ -33,4 +33,7 @@ public class Tool {
         }
         return total / inf.nbElements();
     }
+    public static float dBToLin(float db) {
+        return (float) Math.pow(10, db/10f);
+    }
 }

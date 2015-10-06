@@ -3,6 +3,7 @@ import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
 import recepteurs.RecepteurAnalogique;
+import tools.Tool;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeLogique;
@@ -100,7 +101,7 @@ public class Simulateur {
      * le temps de montée ou de descente à 1/3 du temps bit
      */
     private final float tmpMontee = (float) 1 / (float) 3;
-    private Float snr = 0f;
+    private Float snr = 0f; // en linéaires
 
     /**
      * <p>
@@ -274,6 +275,9 @@ public class Simulateur {
                 // traiter la valeur associee
                 try {
                     snr = new Float(args[i]);
+                    System.out.println("SNR en dB saisie : "+snr);
+                    snr = Tool.dBToLin(snr);
+                    System.out.println("SNR en Lin : "+snr);
                 } catch (Exception e) {
                     throw new ArgumentsException("Valeur du parametre -snr  invalide :" + args[i]);
                 }
