@@ -54,7 +54,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     /**
      * Constructeur du récepteur analogique
      *
-     * @param form Forme du signal à émettre
+     * @param form Forme du signal à recevoir
      * @param nbEch Nombre d'écahntillon par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1

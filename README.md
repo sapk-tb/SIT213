@@ -4,7 +4,7 @@
 #Generation de la Javadoc :
 ant javadoc
 
-#Lancement du programme avec les pamètre par défaut
+#Lancement du programme avec les paramètres par défaut
 ant run
 
 #Lancement des Tests
