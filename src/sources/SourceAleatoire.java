@@ -25,7 +25,7 @@ public class SourceAleatoire extends Source<Boolean> {
     */
     public SourceAleatoire(int nbBits, int seed) {
         super();
-        this.informationGeneree = new Information<Boolean>();
+        this.informationGeneree = new Information<Boolean>(nbBits);
         Random generator = new Random(seed);
         for (int i = 0; i < nbBits; i++) {
             this.informationGeneree.add(generator.nextBoolean());

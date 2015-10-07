@@ -1,6 +1,7 @@
 package information;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * La classe Information sert à contenir des d'un signal logique ou numérique.
@@ -13,13 +14,22 @@ import java.util.*;
  */
 public class Information<T> implements Iterable<T> {
 
-    LinkedList<T> content;
+    ArrayList<T> content;
 
     /**
      * pour construire une information vide
      */
     public Information() {
-        this.content = new LinkedList<T>();
+        this.content = new ArrayList<T>();
+    }
+
+    /**
+     * pour construire à partir d'un tableau de T une information
+     *
+     * @param default_size la taille du tableau par défaut
+     */
+    public Information(int default_size) {
+        this.content = new ArrayList<T>(default_size);
     }
 
     /**
@@ -29,10 +39,14 @@ public class Information<T> implements Iterable<T> {
      * construite
      */
     public Information(T[] content) {
-        this.content = new LinkedList<T>();
-        for (int i = 0; i < content.length; i++) {
-            this.content.addLast(content[i]);
+        //this.content.add(Arrays.asList(content));
+        //*
+        this(content.length);
+        int l = content.length;
+        for (int i = 0; i < l; i++) {
+            this.content.add(content[i]);
         }
+        //*/
     }
 
     /**
@@ -45,14 +59,25 @@ public class Information<T> implements Iterable<T> {
     }
 
     /**
+     * pour recuperer le stream des données d'une information
+     *
+     * @return le stream des données d'une information
+     */
+    /*
+     public Stream<T> getStream() {
+     return this.content.parallelStream();
+     }
+     */
+    /**
      * pour renvoyer un tableau basique d'élèment d'une information
      *
      * @param array Le tableau a remplir avec les valeurs
      */
-    public void toArray(T[] array) {
-        this.content.toArray(array);
-    }
-
+    //*
+     public void toArray(T[] array) {
+     this.content.toArray(array);
+     }
+     //*/
     /**
      * pour renvoyer un élèment d'une information
      *

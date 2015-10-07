@@ -91,16 +91,17 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
 
         int nbEchTotal = informationRecue.nbElements();
         int nbSymbole = nbEchTotal / nbEch;
-        Information<Boolean> informationAEmettre = new Information<Boolean>();
-        Float allEch[] = new Float[nbEchTotal];
+        Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);
+        //Float allEch[] = new Float[nbEchTotal];
         float total[] = new float[nbSymbole];
 
-        informationRecue.toArray(allEch);
+//        informationRecue.toArray(allEch);
         /*
          * Calcul de la somme pour chaque échantillon
          */
         for (int i = 0; i < nbEchTotal; i++) {
-            total[(int) i / nbEch] += allEch[i];
+            //total[(int) i / nbEch] += allEch[i];
+            total[(int) i / nbEch] += informationRecue.iemeElement(i);       
         }
 
         /*

@@ -6,6 +6,8 @@
 package tools;
 
 import information.Information;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Classe d'outils static
@@ -25,7 +27,7 @@ public class Tool {
      return total / inf.nbElements();
      }
      */
-
+    //*
     public static float getPuissance(Information<Float> inf) {
         Double total = 0.0;
         for (Float content : inf) {
@@ -33,7 +35,18 @@ public class Tool {
         }
         return (float)(total / (float)inf.nbElements());
     }
+    //*/
+    /*
+    public static float getPuissance(Information<Float> inf) {
+
+        Float total = inf.getStream().reduce(0f, Float::sum);
+//        double total = inf.getStream().mapToDouble(d->d).sum();
+                //.mapToDouble(Double::doubleValue).sum();
+
+        return (float) (total / (float) inf.nbElements());
+    }
+    //*/
     public static float dBToLin(float db) {
-        return (float) Math.pow(10, db/10f);
+        return (float) Math.pow(10, db / 10f);
     }
 }

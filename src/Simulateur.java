@@ -194,14 +194,14 @@ public class Simulateur {
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
             emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
-            transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));            
-            
+            transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
+
             if (snr != 0f) {
-                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr)-1, Math.max(amplMax, amplMax * 1 / snr)+1));
+                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
             } else {
-                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", amplMin-1, amplMax+1));
+                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", amplMin - 1, amplMax + 1));
             }
-            
+
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
@@ -367,8 +367,16 @@ public class Simulateur {
         //source.getInformationEmise().iterator()
         //TODO make clean and light version
         int errors = 0;
-        for (int i = 0; i < source.getInformationEmise().nbElements(); i++) {
-            if (source.getInformationEmise().iemeElement(i) != destination.getInformationRecue().iemeElement(i)) {
+        int nbSymbole = source.getInformationEmise().nbElements();
+//*
+        Boolean Emits[] = new Boolean[nbSymbole];
+        source.getInformationEmise().toArray(Emits);
+        Boolean Recus[] = new Boolean[nbSymbole];
+       destination.getInformationRecue().toArray(Recus);
+//*/
+        for (int i = 0; i < nbSymbole; i++) {
+            if (Emits[i] != Recus[i]) {
+            //if (source.getInformationEmise().iemeElement(i) != destination.getInformationRecue().iemeElement(i)) {
                 errors++;
             }
         }

@@ -94,15 +94,18 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
             throw new InformationNonConforme("informationRecue == null");
         }
 
-        Information<Float> informationAEmettre = new Information<Float>();
         float niveauPrecedent = 0f;
         int nbEchTransition = (int) (tmpMontee * nbEch); //TODO determine if not should be Math.ceil or keep a truncature ?
         float deltaAmplitude = amplMax - amplMin;
         float coefDirecteur = deltaAmplitude / nbEchTransition;
         float deltaEntreEch = coefDirecteur * 1; // *1 : echantillon
 
+        int nbSymbole = informationRecue.nbElements();
+        Information<Float> informationAEmettre = new Information<Float>(nbSymbole * nbEch);
+
+
         //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
-        for (int i = 0; i < informationRecue.nbElements(); i++) {
+        for (int i = 0; i < nbSymbole; i++) {
             Boolean bit = informationRecue.iemeElement(i);
             for (int n = 0; n < nbEch; n++) {
                 /*
