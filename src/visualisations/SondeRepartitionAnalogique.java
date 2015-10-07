@@ -11,7 +11,6 @@ import information.Information;
 public class SondeRepartitionAnalogique extends Sonde<Float> {
 
     //TODO use a cubic représentation and add some textual inf to the vue
-
     private float resolution = 0.01f;
     private final float max;
     private final float min;
@@ -21,19 +20,44 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * pour construire une sonde répartition analogique
      *
      * @param nom le nom de la fenêtre d'affichage
+     * @param min la limite à gauche du graphique
+     * @param max la limite à gauche du graphique
+     * @throws java.lang.Exception
      */
-    public SondeRepartitionAnalogique(String nom, float min, float max) {
+    public SondeRepartitionAnalogique(String nom, float min, float max) throws Exception {
         super(nom);
+        if (min > max) {
+            throw new Exception("Error : min > max");
+        }
         this.min = min;
         this.max = max;
     }
 
-    public SondeRepartitionAnalogique(String nom, float min, float max, float resolution) {
+    /**
+     * pour construire une sonde répartition analogique avec une résolution d'analyse définie
+     *
+     * @param nom le nom de la fenêtre d'affichage
+     * @param min la limite à gauche du graphique
+     * @param max la limite à gauche du graphique
+     * @param resolution la résolution de l'analyse
+     * @throws java.lang.Exception
+     */
+    public SondeRepartitionAnalogique(String nom, float min, float max, float resolution) throws Exception {
         this(nom, min, max);
         this.resolution = resolution;
     }
 
-    public SondeRepartitionAnalogique(String nom, float min, float max, float resolution, int nbPixels) {
+    /**
+     * pour construire une sonde répartition analogique avec une résolution d'analyse définie avec un nombre de pixel par pas
+     *
+     * @param nom le nom de la fenêtre d'affichage
+     * @param min la limite à gauche du graphique
+     * @param max la limite à gauche du graphique
+     * @param resolution la résolution de l'analyse
+     * @param nbPixels Nombre de pixel par pas
+     * @throws java.lang.Exception
+     */
+    public SondeRepartitionAnalogique(String nom, float min, float max, float resolution, int nbPixels) throws Exception {
         this(nom, min, max, resolution);
         this.nbPixels = nbPixels;
     }
@@ -48,14 +72,14 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
         for (float f : information) {
             //System.out.println("Test : " + f + /*" / " + f % resolution + */" / "+(f-(f%resolution))+" / "+(int)(f-(f%resolution) - min)*1/resolution + " / " +(int)(f*resolution) - min );
             //table[(int) ((f - (f % resolution) - min) * 1 / resolution)]++;
-                 int index = (int)((f-min)*1/resolution);
+            int index = (int) ((f - min) * 1 / resolution);
             if (index >= 0 && index < nbElements) {
                 /*
                  int index = (int)((f-min)*1/resolution)*2;
                  table[index]++;
                  table[index+1]++;
                  */
-                 table[index]++;
+                table[index]++;
             } else {
                 //System.out.println("Value hors intervalle : " + f + " Index : " + (int) ((f - min) * 1 / resolution));
             }
