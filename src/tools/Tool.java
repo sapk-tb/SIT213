@@ -27,11 +27,11 @@ public class Tool {
      */
 
     public static float getPuissance(Information<Float> inf) {
-        float total = 0;
+        Double total = 0.0;
         for (Float content : inf) {
-            total += (float) Math.pow(content, 2);
+            total += Math.pow(content, 2);
         }
-        return total / inf.nbElements();
+        return (float)(total / (float)inf.nbElements());
     }
     public static float dBToLin(float db) {
         return (float) Math.pow(10, db/10f);

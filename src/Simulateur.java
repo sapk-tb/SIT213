@@ -7,6 +7,7 @@ import tools.Tool;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeLogique;
+import visualisations.SondePuissance;
 
 /**
  * La classe Simulateur permet de construire et simuler une chaine de
@@ -189,7 +190,9 @@ public class Simulateur {
         if (affichage) {
             source.connecter(new SondeLogique("sondeApresSource", 256));
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
+            emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
+            transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
