@@ -6,8 +6,6 @@
 package tools;
 
 import information.Information;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Classe d'outils static

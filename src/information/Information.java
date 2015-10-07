@@ -1,7 +1,6 @@
 package information;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * La classe Information sert à contenir des d'un signal logique ou numérique.

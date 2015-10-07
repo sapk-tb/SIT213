@@ -5,7 +5,6 @@ import information.Information;
 import information.InformationNonConforme;
 import sources.SourceBruitGaussien;
 import tools.Tool;
-import visualisations.VueCourbe;
 
 /**
  * Classe d'un composant qui transmet des informations de type Float sans
