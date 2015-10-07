@@ -45,6 +45,15 @@ public class Information<T> implements Iterable<T> {
     }
 
     /**
+     * pour renvoyer un tableau basique d'élèment d'une information
+     *
+     * @return les élèment de l'information
+     */
+    public void toArray(T[] array) {
+        this.content.toArray(array);
+    }
+
+    /**
      * pour renvoyer un élèment d'une information
      *
      * @param i indice de l'élèmetn à retourné

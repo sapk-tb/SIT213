@@ -55,15 +55,24 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
         SourceBruitGaussien bruit = new SourceBruitGaussien(this.informationRecue.nbElements(), puissance_bruit);
         bruit.emettre();
-        Information<Float> InfBruit = bruit.getInformationEmise();
+        this.informationBruit = bruit.getInformationEmise();
 
-        this.informationEmise = new Information<Float>();
-        System.out.println("Puissance signal recu : " + Tool.getPuissance(this.informationRecue) + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(InfBruit));
+        //this.informationEmise = new Information<Float>();
+        //Float[] output = new Float[this.informationRecue.nbElements()];
+        //*
+        int nbEl = this.informationRecue.nbElements();
+        Float[] output = new Float[nbEl];
+        this.informationRecue.toArray(output);
+        Float[] b = new Float[nbEl];
+        this.informationBruit.toArray(b);
+        //*/
+        System.out.println("Puissance signal recu : " + Tool.getPuissance(this.informationRecue) + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
         for (int i = 0; i < this.informationRecue.nbElements(); i++) {
-            //System.out.println(this.informationEmise.iemeElement(i) + "/" + InfBruit.iemeElement(i));
-            this.informationEmise.add(this.informationRecue.iemeElement(i) + InfBruit.iemeElement(i));
+        //for (int i = 0; i < nbEl; i++) {
+            //this.informationEmise.add(this.informationRecue.iemeElement(i) + this.informationBruit.iemeElement(i));
+            output[i] += b[i];
         }
-
+        this.informationEmise = new Information<Float>(output);
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(informationEmise);
         }
