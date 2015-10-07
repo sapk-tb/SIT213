@@ -8,6 +8,7 @@ import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeLogique;
 import visualisations.SondePuissance;
+import visualisations.SondeRepartitionAnalogique;
 
 /**
  * La classe Simulateur permet de construire et simuler une chaine de
@@ -65,7 +66,8 @@ public class Simulateur {
     /**
      * le composant Transmetteur parfait analogique de la chaine de transmission
      */
-    private final Transmetteur transmetteurAnalogique;
+    private final TransmetteurAnalogiqueBruite transmetteurAnalogique;
+    //private final Transmetteur transmetteurAnalogique;
     /**
      * le composant Recepteur parfait analogique de la chaine de transmission
      */
@@ -193,6 +195,7 @@ public class Simulateur {
             emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
+            transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartiotionBruitTransmetteur", amplMin*1/snr, amplMax*1/snr));
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
@@ -266,21 +269,20 @@ public class Simulateur {
                 // traiter la valeur associee
                 try {
                     snr = new Float(args[i]);
-                    System.out.println("SNR en dB saisie : "+snr);
+                    System.out.println("SNR en dB saisie : " + snr);
                     snr = Tool.dBToLin(snr);
-                    System.out.println("SNR en Lin : "+snr);
+                    System.out.println("SNR en Lin : " + snr);
                 } catch (Exception e) {
                     throw new ArgumentsException("Valeur du parametre -snr  invalide :" + args[i]);
                 }
-            }  else if (args[i].matches("-mess")) {
+            } else if (args[i].matches("-mess")) {
                 i++;
                 // traiter la valeur associee
                 messageString = args[i];
                 if (args[i].matches("[0,1]{7,}")) {
                     messageAleatoire = false;
                     nbBitsMess = args[i].length();
-                } 
-                else if (args[i].matches("[0-9]{1,6}")) {
+                } else if (args[i].matches("[0-9]{1,6}")) {
                     messageAleatoire = true;
                     nbBitsMess = new Integer(args[i]);
                     if (nbBitsMess < 1) {

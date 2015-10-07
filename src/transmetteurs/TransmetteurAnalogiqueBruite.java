@@ -5,6 +5,7 @@ import information.Information;
 import information.InformationNonConforme;
 import sources.SourceBruitGaussien;
 import tools.Tool;
+import visualisations.VueCourbe;
 
 /**
  * Classe d'un composant qui transmet des informations de type Float sans
@@ -47,17 +48,17 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
         //TODO add bruit
         //TODO implement snr to constructor
         float puissance_bruit = 0;
-        
-        if(this.SNR != 0f){
+
+        if (this.SNR != 0f) {
             puissance_bruit = Tool.getPuissance(this.informationRecue) / this.SNR;
         }
-        
+
         SourceBruitGaussien bruit = new SourceBruitGaussien(this.informationRecue.nbElements(), puissance_bruit);
         bruit.emettre();
         Information<Float> InfBruit = bruit.getInformationEmise();
 
         this.informationEmise = new Information<Float>();
-        System.out.println("Puissance signal recu : "+Tool.getPuissance(this.informationRecue) + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(InfBruit));
+        System.out.println("Puissance signal recu : " + Tool.getPuissance(this.informationRecue) + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(InfBruit));
         for (int i = 0; i < this.informationRecue.nbElements(); i++) {
             //System.out.println(this.informationEmise.iemeElement(i) + "/" + InfBruit.iemeElement(i));
             this.informationEmise.add(this.informationRecue.iemeElement(i) + InfBruit.iemeElement(i));
