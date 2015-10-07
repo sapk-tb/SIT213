@@ -5,7 +5,7 @@
 #    ant jar
 #fi;
 
-ant -silent compile 
+ant -quiet compile 
 
 #echo $@
 
