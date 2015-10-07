@@ -4,10 +4,10 @@ jdk:
 - oraclejdk8
 sudo: false
 script:
-- ant run
-- ant jar
-- ant javadoc
-- ant test
+- ant -silent run
+- ant -silent jar
+- ant -silent javadoc
+- ant -silent test
 - ./simulateur -seed 42
 - ./simulateur -mess "0101011100111"
 - ./simulateur -mess 12
