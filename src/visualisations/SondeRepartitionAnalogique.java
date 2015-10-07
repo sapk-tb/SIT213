@@ -10,7 +10,7 @@ import information.Information;
  */
 public class SondeRepartitionAnalogique extends Sonde<Float> {
 
-    //TODO use a cubic représentation
+    //TODO use a cubic représentation and add some textual inf to the vue
 
     private float resolution = 0.01f;
     private final float max;
@@ -57,7 +57,7 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
                  */
                  table[index]++;
             } else {
-                System.out.println("Value hors intervalle : " + f + " Index : " + (int) ((f - min) * 1 / resolution));
+                //System.out.println("Value hors intervalle : " + f + " Index : " + (int) ((f - min) * 1 / resolution));
             }
         }
         new VueCourbe(table, nbPixels, nom);

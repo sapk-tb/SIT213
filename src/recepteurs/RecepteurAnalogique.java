@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package recepteurs;
 
 import destinations.DestinationInterface;
@@ -59,7 +54,8 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme NRZT
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
+     * NRZT
      */
     public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
         super();
@@ -93,27 +89,28 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
             throw new InformationNonConforme("informationRecue == null");
         }
 
+        int nbEchTotal = informationRecue.nbElements();
+        int nbSymbole = nbEchTotal / nbEch;
         Information<Boolean> informationAEmettre = new Information<Boolean>();
-        float total[] = new float[informationRecue.nbElements() / nbEch];
+        Float allEch[] = new Float[nbEchTotal];
+        float total[] = new float[nbSymbole];
+
+        informationRecue.toArray(allEch);
         /*
          * Calcul de la somme pour chaque échantillon
          */
-        for (int i = 0; i < informationRecue.nbElements(); i++) {
-            total[(int) i / nbEch] += informationRecue.iemeElement(i);
+        for (int i = 0; i < nbEchTotal; i++) {
+            total[(int) i / nbEch] += allEch[i];
         }
 
         /*
          * Calcul de la moyenne d'un symbole afin de retrouver le niveau de
          * chaque échantillon
          */
-        for (int i = 0; i < informationRecue.nbElements() / nbEch; i++) {
+        for (int i = 0; i < nbEchTotal / nbEch; i++) {
             float moy_symbole = total[i] / (float) nbEch;
-			//System.out.println("Moy symbole : "+moy_symbole);
-            /* if (Math.abs(amplMax-moy_symbole) < Math.abs(amplMin-moy_symbole)) {
-             informationAEmettre.add(true);
-             } else {
-             informationAEmettre.add(false);
-             }*/
+            //System.out.println("Moy symbole : "+moy_symbole);
+
             switch (form) {
                 case "RZ":
                     informationAEmettre.add((Math.abs(amplMax * dutyCycleRZ - moy_symbole) < Math.abs(amplMin * dutyCycleRZ - moy_symbole)));
@@ -125,7 +122,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
                     informationAEmettre.add((Math.abs(amplMax * (1 - tmpMontee / 2) - moy_symbole) < Math.abs(amplMin * (1 - tmpMontee / 2) - moy_symbole)));
                     break;
             }
-
+                //TODO check if we replace inforamtion à emetrre par un Float[]  for performance ?
         }
 
         for (DestinationInterface<Boolean> destinationConnectee : destinationsConnectees) {

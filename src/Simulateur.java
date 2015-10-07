@@ -197,9 +197,9 @@ public class Simulateur {
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));            
             
             if (snr != 0f) {
-                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartiotionBruitTransmetteur", Math.min(amplMin, amplMin * 1 / snr)-1, Math.max(amplMax, amplMax * 1 / snr)+1));
+                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr)-1, Math.max(amplMax, amplMax * 1 / snr)+1));
             } else {
-                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartiotionBruitTransmetteur", amplMin-1, amplMax+1));
+                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", amplMin-1, amplMax+1));
             }
             
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
