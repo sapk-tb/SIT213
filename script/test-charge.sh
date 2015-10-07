@@ -3,7 +3,6 @@ NB_ECH=30
 NB_SYM=10000
 ARGS="-form NRZ  -snr 0 -ampl -1 1"
 
-cd ..
 
 time ./simulateur $ARGS  -mess 1000  -nbEch 30
 

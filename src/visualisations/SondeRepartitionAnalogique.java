@@ -12,7 +12,7 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
 
     //TODO use a cubic représentation
 
-    private float resolution = 0.001f;
+    private float resolution = 0.01f;
     private final float max;
     private final float min;
     private int nbPixels = 10; //Largeur en pixel par point 
