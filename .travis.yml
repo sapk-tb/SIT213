@@ -8,10 +8,12 @@ script:
 - ant jar
 - ant javadoc
 - ant test
-- java -classpath ./dist/SIT213.jar Simulateur -seed 42
-- java -classpath ./dist/SIT213.jar Simulateur -mess "0101011100111"
-- java -classpath ./dist/SIT213.jar Simulateur -mess 12
-- java -classpath ./dist/SIT213.jar Simulateur
+- ./simulateur -seed 42
+- ./simulateur -mess "0101011100111"
+- ./simulateur -mess 12
+- ./simulateur
+- ./script/test-snr.sh
+- ./script/test-charge.sh
 - tar cz -f dist/doc.tar.gz -C dist/javadoc .
 notifications:
   email:
