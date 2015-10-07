@@ -108,6 +108,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
          */
         for (int i = 0; i < informationRecue.nbElements() / nbEch; i++) {
             float moy_symbole = total[i] / (float) nbEch;
+			//System.out.println("Moy symbole : "+moy_symbole);
             /* if (Math.abs(amplMax-moy_symbole) < Math.abs(amplMin-moy_symbole)) {
              informationAEmettre.add(true);
              } else {
@@ -123,7 +124,6 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
                 case "NRZT":
                     informationAEmettre.add((Math.abs(amplMax * (1 - tmpMontee / 2) - moy_symbole) < Math.abs(amplMin * (1 - tmpMontee / 2) - moy_symbole)));
                     break;
-
             }
 
         }

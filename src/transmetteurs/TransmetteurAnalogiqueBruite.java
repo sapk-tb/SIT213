@@ -56,9 +56,6 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
         bruit.emettre();
         Information<Float> InfBruit = bruit.getInformationEmise();
 
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationRecue);
-        }
         this.informationEmise = this.informationRecue;
         System.out.println("Puissance signal recu : "+Tool.getPuissance(this.informationRecue) + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(InfBruit));
         for (int i = 0; i < this.informationRecue.nbElements(); i++) {
@@ -66,6 +63,9 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
             this.informationEmise.setIemeElement(i, this.informationEmise.iemeElement(i) + InfBruit.iemeElement(i));
         }
 
+        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+            destinationConnectee.recevoir(informationRecue);
+        }
     }
 
 }
