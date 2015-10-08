@@ -21,7 +21,7 @@
     			]
 		};
 
-		$.get("https://raw.githubusercontent.com/sapk-tb/SIT213/gh-pages/data/teb-by-snr.csv",function(csv){
+		$.get("data/teb-by-snr.csv",function(csv){
 			console.log(csv);
 			//for( let line of csv.split("\n") ){
 			csv.split("\n").forEach(function (line, index) {
