@@ -23,7 +23,7 @@
 
 		$.get("https://raw.githubusercontent.com/sapk-tb/SIT213/gh-pages/data/teb-by-snr.csv",function(csv){
 			console.log(csv);
-			for each( var line in csv.split("\n")){
+			for( let line of csv.split("\n") ){
 				line = line.split(",");
 				data.labels.push(line[0]);
 				data.datasets[0].push(line[1]);
