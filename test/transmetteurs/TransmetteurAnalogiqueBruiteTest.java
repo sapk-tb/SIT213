@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author Antoine GIRARD
  */
-public class TransmetteurAnalogiqueParfaitTest {
+public class TransmetteurAnalogiqueBruiteTest {
     
-    public TransmetteurAnalogiqueParfaitTest() {
+    public TransmetteurAnalogiqueBruiteTest() {
     }
     
     @BeforeClass
@@ -46,11 +46,11 @@ public class TransmetteurAnalogiqueParfaitTest {
         System.out.println("Test recevoir");
         Float bits[] = {-1f, 2f, 0f};
         Information<Float> information = new Information<>(bits);
-        TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
+        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(0);
         instance.recevoir(information);
 
         assertEquals(instance.informationRecue, information);
-        //Comme recevoir lance emettre cette donction est aussi testé ici. 
+        //Comme recevoir lance emettre cette fonction est aussi testé ici. 
         assertEquals(instance.informationEmise, information);
     }
 
@@ -60,9 +60,10 @@ public class TransmetteurAnalogiqueParfaitTest {
     @Test
     public void testEmettre() throws Exception {
         System.out.println("emettre");
-        TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
+        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1);
         instance.emettre();
-        assertEquals(instance.informationEmise, null);
+        //assertEquals(instance.informationEmise.iemeElement(0), null);
+        assertTrue(instance.informationEmise.iemeElement(0)>instance.informationEmise.iemeElement(1));
     }
     
 }
