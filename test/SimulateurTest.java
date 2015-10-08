@@ -208,5 +208,16 @@ public class SimulateurTest {
         Simulateur.main(args);
     }
     
+    /**
+     * Test of main method, of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgmuentsSNRValide() {
+        System.out.println("Test main");
+        String[] args = ("-snr 5").split(" ");
+        Simulateur.main(args);
+    }
+
+    
     
 }

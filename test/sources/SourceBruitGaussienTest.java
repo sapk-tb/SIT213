@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
+ * @author Mélanie CORRE
+ * @author Pierrick CHOVELON
  */
 public class SourceBruitGaussienTest {
 
