@@ -8,6 +8,31 @@
 	<h1>Résultats de la simulation</h1>
 	<br>
 	<h2>TEB en fonction du SNR</h2>
-	<div id="chart-teb-by-snr" class="chart"></div>
+	<canvas id="chart-teb-by-snr" class="chart"  width="400" height="400" ></canvas>
+	<script>
+	    $(function(){
+		data = {
+			labels: [],
+			datasets: [
+        {
+            label: "TEB en fonction du SNR",
+            data: []
+        }
+    			]
+		}
+
+		$.get("https://raw.githubusercontent.com/sapk-tb/SIT213/gh-pages/data/teb-by-snr.csv",function(csv){
+			console.log(csv);
+			for each( var line in csv.split("\n")){
+				line = line.split(",");
+				data.labels.push(line[0]);
+				data.datasets[0].push(line[1]);
+			}
+			console.log(data);
+	                var chartTEB-SNR = new Chart($("#chart-teb-by-snr").get(0).getContext("2d")).Line(data, options);
+		})
+ //           	var chartTEB-SNR = new Chart($("#chart-teb-by-snr").get(0).getContext("2d")).Line(data, options);
+            })
+	</script>
     </body>
 </html>
