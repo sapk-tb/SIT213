@@ -3,7 +3,7 @@
 
 function get-teb-by-snr {
     NB_ECH=30
-    NB_SYM=999999
+    NB_SYM=99999
     FORM=${2:-"NRZ"}
     ARGS="-form $FORM -mess $NB_SYM -nbEch $NB_ECH -ampl -1 1"
     ./simulateur $ARGS -snr $1 | grep TEB | cut -d":" -f2 | tr -d " "
