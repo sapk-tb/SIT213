@@ -18,12 +18,26 @@
 				labels: [],
 				datasets: [
 	        {
-	            label: "TEB en fonction du SNR",
-	            strokeColor: "rgba(151,187,205,1)",
-	            pointColor: "rgba(151,187,205,1)",
+	            label: "TEB en fonction du SNR (Signal RZ)",
+	            strokeColor: "rgba(205,151,187,0.9)",
+	            pointColor: "rgba(205,151,187,0.9)",
 	            pointStrokeColor: "#fff",
 	            data: []
-	        }
+	        },
+	        {
+	            label: "TEB en fonction du SNR (Signal NRZ)",
+	            strokeColor: "rgba(151,187,205,0.9)",
+	            pointColor: "rgba(151,187,205,0.9)",
+	            pointStrokeColor: "#fff",
+	            data: []
+	        },
+	        {
+	            label: "TEB en fonction du SNR (Signal NRZT)",
+	            strokeColor: "rgba(187,205,151,0.9)",
+	            pointColor: "rgba(187,205,151,0.9)",
+	            pointStrokeColor: "#fff",
+	            data: []
+	        },
 	    			]
 			};
 
@@ -34,7 +48,9 @@
 					if(index == 0 || index == 72) return;
 					l = line.split(",");
 					data.labels.push(l[0]);
-					data.datasets[0].data.push(l[1]);
+					for (i=1;i<l.length;i++){
+						data.datasets[i-1].data.push(l[i]);
+					}
 				});
 				console.log(data);
 		        var chartTEBSNR = new Chart($("#chart-teb-by-snr").get(0).getContext("2d")).Line(data, 
