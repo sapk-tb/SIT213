@@ -99,7 +99,7 @@ public class Simulateur {
     /**
      * le temps haut ou bas du signal RZ
      */
-    private final float dutyCycleRZ = (float) 1 / (float) 2;
+    private final float dutyCycleRZ = (float) 1 / (float) 3;
     /**
      * le temps de montée ou de descente à 1/3 du temps bit
      */

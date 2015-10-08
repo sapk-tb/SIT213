@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package emetteurs;
 
 import destinations.DestinationInterface;
@@ -46,7 +41,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
     public float getDutyCycleRZ() {
         return dutyCycleRZ;
     }
-    private float amplMin;
+    private final float amplMin;
     private final float amplMax;
     private final float tmpMontee;
     private final float dutyCycleRZ;
@@ -103,6 +98,8 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
         int nbSymbole = informationRecue.nbElements();
         Information<Float> informationAEmettre = new Information<Float>(nbSymbole * nbEch);
 
+        float tempsA0 = nbEch * (1 - dutyCycleRZ) / 2;
+        System.out.println("Tier : " + tempsA0+" dutyCycleRZ : " + dutyCycleRZ+" nbEch : " + nbEch);
 
         //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
         for (int i = 0; i < nbSymbole; i++) {
@@ -118,10 +115,10 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                  */
                 switch (form) {
                     case "RZ":
-                        if (n < nbEch * dutyCycleRZ) {
-                            informationAEmettre.add((float) (bit ? amplMax : amplMin));
-                        } else {
+                        if (n < tempsA0 || n > nbEch-tempsA0) {
                             informationAEmettre.add(0f);
+                        } else {
+                            informationAEmettre.add((float) (bit ? amplMax : amplMin));
                         }
                         break;
                     case "NRZ":
