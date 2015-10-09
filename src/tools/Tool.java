@@ -44,6 +44,12 @@ public class Tool {
         return (float) errors / (float) nbSymbole;
     }
 
+    /**
+     * Retourne la puissance d'une information contenant des échantillons
+     *
+     * @param inf l'Information contenant le signal
+     * @return
+     */
     //*
     public static float getPuissance(Information<Float> inf) {
         Double total = 0.0;
@@ -52,6 +58,7 @@ public class Tool {
         }
         return (float) (total / (float) inf.nbElements());
     }
+
     //*/
     /*
      public static float getPuissance(Information<Float> inf) {
@@ -64,6 +71,11 @@ public class Tool {
      }
      //*/
 
+    /**
+     * Fait la transformation de dB en linaire
+     * @param db la valeur à linéariser
+     * @return
+     */
     public static float dBToLin(float db) {
         return (float) Math.pow(10, db / 10f);
     }
