@@ -107,7 +107,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
         int nb_thread = Runtime.getRuntime().availableProcessors();
 
         ExecutorService pool = Executors.newFixedThreadPool(nb_thread);
-        int nbEchByThread = nbEl / nb_thread;
+        int nbEchByThread = Math.max(nbEl / nb_thread, 1);
         int i = 0;
         while (i < nbEl) {
             //int start = i;

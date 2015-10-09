@@ -55,7 +55,7 @@ public class SourceBruitGaussien extends Source<Float> {
             private final Float[] bruit;
             private final int index_start;
             private final int index_end;
-            private final Random rand  = new Random();
+            private final Random rand = new Random();
 
             GetNextGaussionThread(Float[] b, int start, int end, float p) {
                 bruit = b;
@@ -73,7 +73,7 @@ public class SourceBruitGaussien extends Source<Float> {
         }
 
         ExecutorService pool = Executors.newFixedThreadPool(nb_thread);
-        int nbEchByThread = nbEch / nb_thread;
+        int nbEchByThread = Math.max(nbEch / nb_thread, 1);
         int i = 0;
         while (i < nbEch) {
             //int start = i;
@@ -81,7 +81,7 @@ public class SourceBruitGaussien extends Source<Float> {
             pool.execute(new GetNextGaussionThread(bruit, i, end, puissance_sqrt));
             i = end;
         }
-        
+
         pool.shutdown();
         try {
             pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
