@@ -6,6 +6,7 @@ import recepteurs.RecepteurAnalogique;
 import tools.Tool;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
+import visualisations.SondeDiagrammeOeil;
 import visualisations.SondeLogique;
 import visualisations.SondePuissance;
 import visualisations.SondeRepartitionAnalogique;
@@ -193,8 +194,11 @@ public class Simulateur {
             source.connecter(new SondeLogique("sondeApresSource", 256));
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
             emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
+
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
 
             if (snr != 0f) {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));

@@ -6,7 +6,6 @@ package visualisations;
 */
 import java.awt.*;
 import java.awt.geom.*;
-import java.lang.*;
 
 public class VueCourbe extends Vue {
 
@@ -91,6 +90,43 @@ public class VueCourbe extends Vue {
         paint();
     }
 
+    public VueCourbe(float[][] tab_valeurs, String nom) {
+
+        super(nom);
+
+        int xPosition = Vue.getXPosition();
+        int yPosition = Vue.getYPosition();
+        setLocation(xPosition, yPosition);
+        int largeur_sym = tab_valeurs[0].length;
+        yMax = 0;
+        yMin = 0;
+
+        this.coordonnees = new Point2D.Float[tab_valeurs.length * largeur_sym];
+        for (int n = 0; n < tab_valeurs.length; n++) {
+            float[] valeurs = tab_valeurs[n];
+
+            for (int i = 0; i < valeurs.length; i++) {
+                if (valeurs[i] > yMax) {
+                    yMax = valeurs[i];
+                }
+                if (valeurs[i] < yMin) {
+                    yMin = valeurs[i];
+                }
+                coordonnees[n * largeur_sym + i] = new Point2D.Float(i, valeurs[i]);
+            }
+        }
+        System.out.println("Nb Sym = " + tab_valeurs.length + " nbEchParSym : " + largeur_sym + " nbElements " + coordonnees.length);
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        int largeur = largeur_sym + 10;
+        if (largeur > 1000) {
+            largeur = 1000;
+        }
+        setSize(largeur, 200);
+        setVisible(true);
+        paint(getGraphics());
+    }
+
     public void changer(boolean[] valeurs) {
 
         this.coordonnees = new Point2D.Float[(2 * valeurs.length) + 1];
@@ -167,7 +203,7 @@ public class VueCourbe extends Vue {
         getContentPane().getGraphics().drawLine(x0Axe + 5, 5, x0Axe, 0);
         getContentPane().getGraphics().drawLine(x0Axe - 5, 5, x0Axe, 0);
 
-      	// tracer la courbe
+        // tracer la courbe
         float dx = deltaX / (float) coordonnees[coordonnees.length - 1].getX();
         float dy = 0.0f;
         if ((yMax >= 0) && (yMin <= 0)) {
@@ -177,15 +213,20 @@ public class VueCourbe extends Vue {
         } else if (yMax < 0) {
             dy = -(deltaY / yMin);
         }
-
         for (int i = 1; i < coordonnees.length; i++) {
+
             int x1 = (int) (coordonnees[i - 1].getX() * dx);
             int x2 = (int) (coordonnees[i].getX() * dx);
             int y1 = (int) (coordonnees[i - 1].getY() * dy);
             int y2 = (int) (coordonnees[i].getY() * dy);
+            if (x1 > x2) { //We don't go back
+                continue;
+            }
+            //System.out.print("1:{x:" + x1 + ",y:" + y1 + "}");
+            //System.out.println("2:{x:" + x2 + ",y:" + y2 + "}");
             getContentPane().getGraphics().drawLine(x0Axe + x1, y0Axe - y1, x0Axe + x2, y0Axe - y2);
         }
-
+        //*/
     }
 
 }

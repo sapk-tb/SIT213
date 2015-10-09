@@ -6,7 +6,6 @@
 *
 */
    import javax.swing.*;
-   import java.lang.*;
 
     public class Vue extends JFrame{
 
@@ -27,7 +26,7 @@
    	
    
        public  Vue (String nom) {          
-         super(nom);       	
+         super(nom);  
       }
       
    
