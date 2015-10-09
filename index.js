@@ -73,8 +73,7 @@ var S = {
 				                value: 0,
 				                width: 1,
 				                color: '#808080'
-				            }],
-				            max : 0.5
+				            }]/*,max : 0.5*/
 				        },
 				        legend: {
 				            layout: 'vertical',
