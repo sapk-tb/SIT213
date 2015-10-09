@@ -364,24 +364,14 @@ public class Simulateur {
      * @return La valeur du Taux dErreur Binaire.
      */
     public float calculTauxErreurBinaire() {
-        //source.getInformationEmise().iterator()
-        //TODO make clean and light version
-        int errors = 0;
         int nbSymbole = source.getInformationEmise().nbElements();
-//*
+
         Boolean Emits[] = new Boolean[nbSymbole];
         source.getInformationEmise().toArray(Emits);
         Boolean Recus[] = new Boolean[nbSymbole];
-       destination.getInformationRecue().toArray(Recus);
-//*/
-        for (int i = 0; i < nbSymbole; i++) {
-            if (Emits[i] != Recus[i]) {
-            //if (source.getInformationEmise().iemeElement(i) != destination.getInformationRecue().iemeElement(i)) {
-                errors++;
-            }
-        }
+        destination.getInformationRecue().toArray(Recus);
 
-        return (float) errors / (float) source.getInformationEmise().nbElements();
+        return Tool.compare(Recus, Emits);
     }
 
     /**
