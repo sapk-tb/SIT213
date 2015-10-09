@@ -107,6 +107,7 @@ public class Simulateur {
     private final float tmpMontee = (float) 1 / (float) 3;
     private Float snr = 0f; // en linéaires
     private boolean generate_pictures = false;
+    private Float snrdB;
 
     /**
      * <p>
@@ -211,8 +212,8 @@ public class Simulateur {
         }
 
         if (generate_pictures) { //TODO use args to be able to choose folder
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-"+nbBitsMess+"-"+nbEch+".png"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-"+nbBitsMess+"-"+nbEch+".png"));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
         }
     }
 
@@ -285,9 +286,9 @@ public class Simulateur {
                 i++;
                 // traiter la valeur associee
                 try {
-                    snr = new Float(args[i]);
-                    System.out.println("SNR en dB saisie : " + snr);
-                    snr = Tool.dBToLin(snr);
+                    snrdB = new Float(args[i]);
+                    System.out.println("SNR en dB saisie : " + snrdB);
+                    snr = Tool.dBToLin(snrdB);
                     System.out.println("SNR en Lin : " + snr);
                 } catch (Exception e) {
                     throw new ArgumentsException("Valeur du parametre -snr  invalide :" + args[i]);
