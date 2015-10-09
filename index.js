@@ -90,8 +90,8 @@ var S = {
                                         y: e.pageY || e.clientY
                                     },
                                     headingText: this.series.name,
-                                    maincontentText: "<img src='data/img/sondeDiagrammeOeilApresEmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+this.x+".0.png'/>"+
-                                    					"<img src='data/img/sondeDiagrammeOeilApresTransmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+this.x+".0.png'/>",
+                                    maincontentText: "<img src='data/img/sondeDiagrammeOeilApresEmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+(this.x-60)+".0.png'/>"+
+                                    					"<img src='data/img/sondeDiagrammeOeilApresTransmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+(this.x-60)+".0.png'/>",
                                     width: 200
                                 });
                             }
