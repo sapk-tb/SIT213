@@ -30,8 +30,8 @@ public class Tool {
      * Retourne le pourcentage de différence entre deux tableau de Boolean
      *
      * @param a Le premier tableau
-     * @param b le seconds tableau
-     * @return
+     * @param b le second tableau
+     * @return float : le rapport erreur/nbSymbole
      */
     public static float compare(Boolean[] a, Boolean[] b) {
         int nbSymbole = a.length;
