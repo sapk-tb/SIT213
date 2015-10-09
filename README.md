@@ -1,4 +1,4 @@
-# SIT213 [![Build Status](https://travis-ci.org/sapk/SIT213.svg?branch=master)](https://travis-ci.org/sapk/SIT213)
+# SIT213 [![Build Status](https://travis-ci.org/sapk-tb/SIT213.svg?branch=master)](https://travis-ci.org/sapk-tb/SIT213)
 
 ```bash
 #Generation de la Javadoc :
