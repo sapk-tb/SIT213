@@ -212,8 +212,8 @@ public class Simulateur {
         }
 
         if (generate_pictures) { //TODO use args to be able to choose folder
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-"+form+"-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-"+form+"-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
         }
     }
 
