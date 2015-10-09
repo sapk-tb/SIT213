@@ -67,7 +67,8 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
             } catch (IOException ex) {
                 Logger.getLogger(SondeDiagrammeOeil.class.getName()).log(Level.SEVERE, null, ex);
             }
-            vue.dispatchEvent(new WindowEvent(vue, WindowEvent.WINDOW_CLOSING));
+            vue.dispose();
+            //vue.dispatchEvent(new WindowEvent(vue, WindowEvent.WINDOW_CLOSING));
         }
         
     }
