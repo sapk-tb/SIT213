@@ -52,6 +52,9 @@ public class Tool {
      */
     //*
     public static float getPuissance(Information<Float> inf) {
+        if (inf == null) {
+            throw new NullPointerException("Information non définie");
+        }
         Double total = 0.0;
         for (Float content : inf) {
             total += Math.pow(content, 2);
@@ -70,9 +73,9 @@ public class Tool {
      return (float) (total / (float) inf.nbElements());
      }
      //*/
-
     /**
      * Fait la transformation de dB en linaire
+     *
      * @param db la valeur à linéariser
      * @return
      */
