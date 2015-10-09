@@ -66,7 +66,7 @@ public class Information<T> implements Iterable<T> {
      public Stream<T> getStream() {
      return this.content.parallelStream();
      }
-     */
+     //*/
     /**
      * pour renvoyer un tableau basique d'élèment d'une information
      *

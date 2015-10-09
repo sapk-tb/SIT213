@@ -99,7 +99,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
         Information<Float> informationAEmettre = new Information<Float>(nbSymbole * nbEch);
 
         float tempsA0 = nbEch * (1 - dutyCycleRZ) / 2;
-        System.out.println("Tier : " + tempsA0+" dutyCycleRZ : " + dutyCycleRZ+" nbEch : " + nbEch);
+        //System.out.println("Tier : " + tempsA0+" dutyCycleRZ : " + dutyCycleRZ+" nbEch : " + nbEch);
 
         //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
         for (int i = 0; i < nbSymbole; i++) {
