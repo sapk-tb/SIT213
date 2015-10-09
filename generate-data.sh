@@ -19,6 +19,9 @@ function generate-teb-by-snr {
 		echo "$snr,$TEB_RZ,$TEB_NRZ,$TEB_NRZT"
     done
 }
+rm data/img/*
+mkdir data/img
+
 git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
 for nbSym in 9 99 999 9999 99999 999999
