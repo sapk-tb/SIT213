@@ -1,10 +1,11 @@
 var S = {
 	tool : {
-		parseData : function(csv){
+		parseData : function(csv,nbSym,nbEch){
 			data = {
 	    		labels :  [],
 		    	series :  [
 				        {
+				        	info : {form : "RZ"},
 				            name: "TEB en fonction du SNR (Signal RZ)",
 				            marker : {
 				            	radius : 3
@@ -12,6 +13,7 @@ var S = {
 				            data: []
 				        },
 				        {
+				        	info : {form : "NRZ"},
 				            name: "TEB en fonction du SNR (Signal NRZ)",
 				            marker : {
 				            	radius : 3
@@ -19,6 +21,7 @@ var S = {
 				            data: []
 				        },
 				        {
+				        	info : {form : "NRZT"},
 				            name: "TEB en fonction du SNR (Signal NRZT)",
 				            marker : {
 				            	radius : 3
@@ -73,8 +76,30 @@ var S = {
 				                value: 0,
 				                width: 1,
 				                color: '#808080'
-				            }]/*,max : 0.5*/
+				            }],
+				            max : 0.5
 				        },
+			            plotOptions: {
+			                series: {
+			                    cursor: 'pointer',
+			                    point: {
+			            events: {
+                            click: function (e) {
+                                hs.htmlExpand(null, {
+                                    pageOrigin: {
+                                        x: e.pageX || e.clientX,
+                                        y: e.pageY || e.clientY
+                                    },
+                                    headingText: this.series.name,
+                                    maincontentText: "<img src='data/img/sondeDiagrammeOeilApresEmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+this.x+".0.png'/>"+
+                                    					"<img src='data/img/sondeDiagrammeOeilApresTransmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+this.x+".0.png'/>",
+                                    width: 200
+                                });
+                            }
+                        }
+			                    }
+			                }
+			            },
 				        legend: {
 				            layout: 'vertical',
 				            align: 'right',
@@ -93,7 +118,7 @@ var S = {
 			console.log("Paramètre graphique : ",nbSym,nbEch);
 			urlData = "data/teb-by-snr-"+nbSym+"-"+nbEch+".csv";
 			$.get(urlData+"?"+Date.now(),function(csv){
-				S.chart.draw(S.tool.parseData(csv),{nbSym:nbSym,nbEch:nbEch});
+				S.chart.draw(S.tool.parseData(csv,nbSym,nbEch),{nbSym:nbSym,nbEch:nbEch});
 			});
 		}
 	}
