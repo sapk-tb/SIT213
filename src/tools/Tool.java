@@ -6,6 +6,8 @@
 package tools;
 
 import information.Information;
+import java.awt.Component;
+import java.awt.image.BufferedImage;
 
 /**
  * Classe d'outils static
@@ -82,4 +84,5 @@ public class Tool {
     public static float dBToLin(float db) {
         return (float) Math.pow(10, db / 10f);
     }
+
 }

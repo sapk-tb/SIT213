@@ -106,6 +106,7 @@ public class Simulateur {
      */
     private final float tmpMontee = (float) 1 / (float) 3;
     private Float snr = 0f; // en linéaires
+    private boolean generate_pictures = false;
 
     /**
      * <p>
@@ -209,6 +210,10 @@ public class Simulateur {
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
+        if (generate_pictures) {
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "data/img/sondeDiagrammeOeilApresEmetteur-"+nbBitsMess+"-"+nbEch+".png"));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "data/img/sondeDiagrammeOeilApresTransmetteur-"+nbBitsMess+"-"+nbEch+".png"));
+        }
     }
 
     /**
@@ -265,6 +270,8 @@ public class Simulateur {
 
             if (args[i].matches("-s")) {
                 affichage = true;
+            } else if (args[i].matches("-stat-img")) {
+                generate_pictures = true;
             } else if (args[i].matches("-seed")) {
                 aleatoireAvecGerme = true;
                 i++;

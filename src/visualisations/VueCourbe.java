@@ -91,6 +91,10 @@ public class VueCourbe extends Vue {
     }
 
     public VueCourbe(float[][] tab_valeurs, String nom) {
+        this(tab_valeurs, nom, true);
+    }
+
+    public VueCourbe(float[][] tab_valeurs, String nom, boolean toPaint) {
 
         super(nom);
 
@@ -115,7 +119,7 @@ public class VueCourbe extends Vue {
                 coordonnees[n * largeur_sym + i] = new Point2D.Float(i, valeurs[i]);
             }
         }
-        System.out.println("Nb Sym = " + tab_valeurs.length + " nbEchParSym : " + largeur_sym + " nbElements " + coordonnees.length);
+        //System.out.println("Nb Sym = " + tab_valeurs.length + " nbEchParSym : " + largeur_sym + " nbElements " + coordonnees.length);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         int largeur = largeur_sym + 10;
@@ -124,7 +128,9 @@ public class VueCourbe extends Vue {
         }
         setSize(largeur, 200);
         setVisible(true);
-        paint(getGraphics());
+        if (toPaint) {
+            paint(getGraphics());
+        }
     }
 
     public void changer(boolean[] valeurs) {
@@ -195,13 +201,13 @@ public class VueCourbe extends Vue {
         } else if (yMax <= 0) {
             y0Axe += 0;
         }
-        getContentPane().getGraphics().drawLine(x0Axe, y0Axe, x0Axe + (int) deltaX + x0Axe, y0Axe);
-        getContentPane().getGraphics().drawLine(x0Axe + (int) deltaX + x0Axe - 5, y0Axe - 5, x0Axe + (int) deltaX + x0Axe, y0Axe);
-        getContentPane().getGraphics().drawLine(x0Axe + (int) deltaX + x0Axe - 5, y0Axe + 5, x0Axe + (int) deltaX + x0Axe, y0Axe);
+        g.drawLine(x0Axe, y0Axe, x0Axe + (int) deltaX + x0Axe, y0Axe);
+        g.drawLine(x0Axe + (int) deltaX + x0Axe - 5, y0Axe - 5, x0Axe + (int) deltaX + x0Axe, y0Axe);
+        g.drawLine(x0Axe + (int) deltaX + x0Axe - 5, y0Axe + 5, x0Axe + (int) deltaX + x0Axe, y0Axe);
 
-        getContentPane().getGraphics().drawLine(x0Axe, y0Axe, x0Axe, y0Axe - (int) deltaY - y0Axe);
-        getContentPane().getGraphics().drawLine(x0Axe + 5, 5, x0Axe, 0);
-        getContentPane().getGraphics().drawLine(x0Axe - 5, 5, x0Axe, 0);
+        g.drawLine(x0Axe, y0Axe, x0Axe, y0Axe - (int) deltaY - y0Axe);
+        g.drawLine(x0Axe + 5, 5, x0Axe, 0);
+        g.drawLine(x0Axe - 5, 5, x0Axe, 0);
 
         // tracer la courbe
         float dx = deltaX / (float) coordonnees[coordonnees.length - 1].getX();
@@ -224,7 +230,7 @@ public class VueCourbe extends Vue {
             }
             //System.out.print("1:{x:" + x1 + ",y:" + y1 + "}");
             //System.out.println("2:{x:" + x2 + ",y:" + y2 + "}");
-            getContentPane().getGraphics().drawLine(x0Axe + x1, y0Axe - y1, x0Axe + x2, y0Axe - y2);
+            g.drawLine(x0Axe + x1, y0Axe - y1, x0Axe + x2, y0Axe - y2);
         }
         //*/
     }
