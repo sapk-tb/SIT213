@@ -1,98 +1,41 @@
 <html>
     <head>
 		<meta charset="UTF-8">
-		<title>SIT213 - Résultats</title>
-	    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
+		<title></title>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" ></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/4.1.9/highcharts.js" ></script>
+		<script src="index.js" ></script>
     </head>
     <body>
 	<h1>Résultats de la simulation</h1>
 	<br>
+<div id="chart-teb-by-snr">
 	<h2>TEB en fonction du SNR</h2>
-	<div id="chart-teb-by-snr" class="chart"  style="width:100%; height:480px;"> ></div>
-	<script>
-	    $(function(){
-	    	/*
-	    	$("#chart-teb-by-snr").attr("width",($(window).width()-100)+"px");
-	    	$("#chart-teb-by-snr").attr("height",($(window).height()-100)+"px");
-	    	*/
-	    	
-			$.get("data/teb-by-snr.csv?"+Date.now(),function(csv){
-				data = parseData(csv);
-				console.log(data);
-		    	$("#chart-teb-by-snr").highcharts({
-				        title: {
-				            text: 'TEB en fonction du SNR',
-				            x: -20 //center
-				        },
-				        subtitle: {
-				            text: 'NbEch: 30, NbSymbole : 999999',
-				            x: -20
-				        },
-				        xAxis: {
-				            categories: data.labels,
-				            title: {
-				                text: 'SNR (dB)'
-				            }
-				        },
-				        yAxis: {
-				            title: {
-				                text: 'TEB'
-				            },
-				            plotLines: [{
-				                value: 0,
-				                width: 1,
-				                color: '#808080'
-				            }],
-				            max : 0.5
-				        },
-				        legend: {
-				            layout: 'vertical',
-				            align: 'right',
-				            verticalAlign: 'top',
-				            floating : true,
-				            borderWidth: 0
-				        },
-				        series: data.series
-				});
-		    });
-	    	function parseData(csv){
-	    		data = {
-	    			labels :  [],
-		    		series :  [
-				        {
-				            name: "TEB en fonction du SNR (Signal RZ)",
-				            marker : {
-				            	radius : 3
-				            },
-				            data: []
-				        },
-				        {
-				            name: "TEB en fonction du SNR (Signal NRZ)",
-				            marker : {
-				            	radius : 3
-				            },
-				            data: []
-				        },
-				        {
-				            name: "TEB en fonction du SNR (Signal NRZT)",
-				            marker : {
-				            	radius : 3
-				            },
-				            data: []
-				        }]
-	    		};
-				csv.split("\n").slice(1, -1).forEach(function (line, index) {
-//					if(index == 0 || index == 72) return;
-					l = line.split(",");
-					data.labels.push(l[0]);
-					for (i=1;i<l.length;i++){
-						data.series[i-1].data.push(parseFloat(l[i]));
-					}
-				});
-	    		return data;
-	    	}
-	    });
-	</script>
+	<p> 
+		<span>
+			Nombre Symbole :
+			<select id="nbSym" onchange="S.chart.update();">
+				<option selected="selected">999999</option>
+				<option>99999</option>
+				<option>9999</option>
+				<option>999</option>
+				<option>99</option>
+				<option>9</option>
+			</select>
+		</span>
+		<span>
+			Nombre Echantillon :
+			<select id="nbEch" onchange="S.chart.update();">
+				<option>60</option>
+				<option selected="selected">30</option>
+				<option>15</option>
+				<option>10</option>
+				<option>5</option>
+				<option>3</option>
+			</select>
+		</span>
+	</p>
+	<div class="chart" style="width:100%; height:480px;"></div>
+</div>
     </body>
 </html>
