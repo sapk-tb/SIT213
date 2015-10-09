@@ -125,6 +125,8 @@ public class VueCourbe extends Vue {
         int largeur = largeur_sym + 10;
         if (largeur > 1000) {
             largeur = 1000;
+        }else if (largeur < 180){
+            largeur = 180;
         }
         setSize(largeur, 200);
         setVisible(true);
