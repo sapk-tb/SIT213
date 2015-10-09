@@ -31,7 +31,7 @@ public class SourceBruitGaussien extends Source<Float> {
      * @param nbEch Nombre de bit à générer
      * @param puissance Puissance du signal
      */
-    //*
+    /*
      public SourceBruitGaussien(int nbEch, float puissance) {
      super();
      this.informationGeneree = new Information<Float>(nbEch);
@@ -42,7 +42,7 @@ public class SourceBruitGaussien extends Source<Float> {
      }
      }
      //*/
-    /*
+    //*
     public SourceBruitGaussien(int nbEch, float puissance) {
         super();
         //this.informationGeneree = new Information<Float>(nbEch);
