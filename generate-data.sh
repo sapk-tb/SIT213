@@ -25,7 +25,8 @@ for nbSym in 9 99 999 9999 99999 999999
 	do
 	for nbEch in 3 5 10 15 30 60
 		do
-    	generate-teb-by-snr -60 10 $nbSym $nbEch > "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		echo "generate-teb-by-snr -60 10 $nbSym $nbEch"
+    	time generate-teb-by-snr -60 10 $nbSym $nbEch > "../data/teb-by-snr-$nbSym-$nbEch.csv"
     done
 done
 cd ..
