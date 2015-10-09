@@ -11,7 +11,7 @@
 
       private static final long serialVersionUID = 1917L;
     
-	 	private JLabel jLabel;
+	 	private final JLabel jLabel;
 		
 		
   

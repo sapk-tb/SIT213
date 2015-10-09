@@ -24,13 +24,13 @@ import static org.junit.Assert.*;
 public class RecepteurAnalogiqueTest {
 
     private RecepteurAnalogique instance_RZ;
-    private float instance_RZ_dutyCycle = 0.5f;
-    private int instance_RZ_nbEch = 10;
+    private final float instance_RZ_dutyCycle = 0.5f;
+    private final int instance_RZ_nbEch = 10;
     private RecepteurAnalogique instance_NRZ;
-    private int instance_NRZ_nbEch = 42;
+    private final int instance_NRZ_nbEch = 42;
     private RecepteurAnalogique instance_NRZT;
-    private int instance_NRZT_nbEch = 44;
-    private float instance_NRZT_tempsMontee = 0.33f;
+    private final int instance_NRZT_nbEch = 44;
+    private final float instance_NRZT_tempsMontee = 0.33f;
     private EmetteurAnalogique emetteur_RZ;
     private EmetteurAnalogique emetteur_NRZ;
     private EmetteurAnalogique emetteur_NRZT;

@@ -22,13 +22,13 @@ import recepteurs.RecepteurAnalogique;
 public class EmetteurAnalogiqueTest {
 
     private EmetteurAnalogique instance_RZ;
-    private float instance_RZ_dutyCycle = 0.5f;
-    private int instance_RZ_nbEch = 10;
+    private final float instance_RZ_dutyCycle = 0.5f;
+    private final int instance_RZ_nbEch = 10;
     private EmetteurAnalogique instance_NRZ;
-    private int instance_NRZ_nbEch = 42;
+    private final int instance_NRZ_nbEch = 42;
     private EmetteurAnalogique instance_NRZT;
-    private int instance_NRZT_nbEch = 44;
-    private float instance_NRZT_tempsMontee = 0.33f;
+    private final int instance_NRZT_nbEch = 44;
+    private final float instance_NRZT_tempsMontee = 0.33f;
     private RecepteurAnalogique recepteur_NRZ;
     private RecepteurAnalogique recepteur_RZ;
     private RecepteurAnalogique recepteur_NRZT;
