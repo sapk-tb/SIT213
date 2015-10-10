@@ -6,11 +6,14 @@
 package transmetteurs;
 
 import information.Information;
+import information.InformationNonConforme;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -39,7 +42,7 @@ public class TransmetteurAnalogiqueBruiteTest {
     }
 
     /**
-     * Test of recevoir method, of class TransmetteurAnalogiqueParfait.
+     * Test of recevoir method, of class TransmetteurAnalogiqueBruite.
      */
     @Test
     public void testRecevoir() throws Exception {
@@ -55,15 +58,26 @@ public class TransmetteurAnalogiqueBruiteTest {
     }
 
     /**
-     * Test of emettre method, of class TransmetteurAnalogiqueParfait.
+     * Test of recevoir method, of class TransmetteurAnalogiqueBruite.
      */
-    @Test
+    @Test(expected = InformationNonConforme.class)//Aucune infos passée en parem
+    public void testRecevoirNonConforme() throws Exception {
+    	System.out.println("Test recevoir - Non conforme");
+    	  TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(0);
+          instance.recevoir(null);
+    }
+
+    
+    /**
+     * Test of emettre method, of class TransmetteurAnalogiqueBruite.
+     */
+    @Test(expected = NullPointerException.class) //on lui donne rien à émettre
     public void testEmettre() throws Exception {
-        System.out.println("emettre");
+        System.out.println("emettre - null pointer");
         TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1);
         instance.emettre();
-        //assertEquals(instance.informationEmise.iemeElement(0), null);
-        assertTrue(instance.informationEmise.iemeElement(0)>instance.informationEmise.iemeElement(1));
+        assertEquals(instance.informationEmise.iemeElement(0), null);
+        //assertTrue(instance.informationEmise.iemeElement(0)>instance.informationEmise.iemeElement(1));
     }
     
 }
