@@ -14,6 +14,7 @@ public class VueCourbe extends Vue {
     private Point2D.Float[] coordonnees;
     private float yMax = 0;
     private float yMin = 0;
+    private boolean transparance = false;
 
     public VueCourbe(boolean[] valeurs, int nbPixels, String nom) {
 
@@ -97,7 +98,7 @@ public class VueCourbe extends Vue {
     public VueCourbe(float[][] tab_valeurs, String nom, boolean toPaint) {
 
         super(nom);
-
+        this.transparance = true;
         int xPosition = Vue.getXPosition();
         int yPosition = Vue.getYPosition();
         setLocation(xPosition, yPosition);
@@ -125,7 +126,7 @@ public class VueCourbe extends Vue {
         int largeur = largeur_sym + 10;
         if (largeur > 1000) {
             largeur = 1000;
-        }else if (largeur < 180){
+        } else if (largeur < 180) {
             largeur = 180;
         }
         setSize(largeur, 200);
@@ -188,7 +189,11 @@ public class VueCourbe extends Vue {
         // effacement total
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.black);
+        if (transparance) {
+            g.setColor(new Color(0, 0, 0, 0.05f));
+        } else {
+            g.setColor(Color.black);
+        }
 
         int x0Axe = 10;
         float deltaX = getWidth() - (2 * x0Axe);

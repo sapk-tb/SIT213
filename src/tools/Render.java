@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 
 /**
  *
- * @author sapk
+ * @author Antoine GIRARD
  */
 public class Render {
 
@@ -15,7 +15,7 @@ public class Render {
         BufferedImage image = new BufferedImage(
                 component.getWidth(),
                 component.getHeight(),
-                BufferedImage.TYPE_INT_RGB
+                BufferedImage.TYPE_INT_ARGB
         );
         // call the Component's paint method, using
         // the Graphics object of the image.
