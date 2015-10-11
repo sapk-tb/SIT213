@@ -24,6 +24,7 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
      *
      * @param nom le nom de la fenêtre d'affichage
      * @param nbEchParSym Le nombre d'echantillon par symbole
+     * @param screen_filename Le nom du fichier ou enregistrer le screenshot
      */
     public SondeDiagrammeOeil(String nom, int nbEchParSym, String screen_filename) {
         this(nom, nbEchParSym);

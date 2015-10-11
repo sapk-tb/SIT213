@@ -18,7 +18,7 @@ public class TransmetteurAnalogiqueParfait extends Transmetteur<Float, Float> {
      * méthode emettre.
      *
      * @param information l'information reçue
-     * @throws information.InformationNonConforme
+     * @throws information.InformationNonConforme  Quand l'information est invalide
      */
     @Override
     public void recevoir(Information<Float> information) throws InformationNonConforme {

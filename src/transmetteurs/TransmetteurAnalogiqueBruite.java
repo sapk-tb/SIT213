@@ -36,11 +36,12 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      * méthode emettre.
      *
      * @param information l'information reçue
-     * @throws information.InformationNonConforme
+     * @throws information.InformationNonConforme Quand l'information est
+     * invalide
      */
     @Override
     public void recevoir(Information<Float> information) throws InformationNonConforme {
-        if(information == null){
+        if (information == null) {
             throw new InformationNonConforme("information recue == null");
         }
         this.informationRecue = information;

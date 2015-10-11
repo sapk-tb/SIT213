@@ -22,7 +22,7 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * @param nom le nom de la fenêtre d'affichage
      * @param min la limite à gauche du graphique
      * @param max la limite à gauche du graphique
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Si le max est inférieur à min
      */
     public SondeRepartitionAnalogique(String nom, float min, float max) throws Exception {
         super(nom);
@@ -34,13 +34,14 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
     }
 
     /**
-     * pour construire une sonde répartition analogique avec une résolution d'analyse définie
+     * pour construire une sonde répartition analogique avec une résolution
+     * d'analyse définie
      *
      * @param nom le nom de la fenêtre d'affichage
      * @param min la limite à gauche du graphique
      * @param max la limite à gauche du graphique
      * @param resolution la résolution de l'analyse
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Si le max est inférieur à min
      */
     public SondeRepartitionAnalogique(String nom, float min, float max, float resolution) throws Exception {
         this(nom, min, max);
@@ -48,14 +49,15 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
     }
 
     /**
-     * pour construire une sonde répartition analogique avec une résolution d'analyse définie avec un nombre de pixel par pas
+     * pour construire une sonde répartition analogique avec une résolution
+     * d'analyse définie avec un nombre de pixel par pas
      *
      * @param nom le nom de la fenêtre d'affichage
      * @param min la limite à gauche du graphique
      * @param max la limite à gauche du graphique
      * @param resolution la résolution de l'analyse
      * @param nbPixels Nombre de pixel par pas
-     * @throws java.lang.Exception
+     * @throws java.lang.Exception Si le max est inférieur à min
      */
     public SondeRepartitionAnalogique(String nom, float min, float max, float resolution, int nbPixels) throws Exception {
         this(nom, min, max, resolution);

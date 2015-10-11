@@ -18,7 +18,7 @@ public class TransmetteurLogiqueParfait extends Transmetteur<Boolean, Boolean> {
      * méthode emettre.
      *
      * @param information l'information reçue
-     * @throws information.InformationNonConforme
+     * @throws information.InformationNonConforme Quand l'information est invalide
      */
     @Override
     public void recevoir(Information<Boolean> information) throws InformationNonConforme {

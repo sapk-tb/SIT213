@@ -50,7 +50,7 @@ public class Tool {
      * Retourne la puissance d'une information contenant des échantillons
      *
      * @param inf l'Information contenant le signal
-     * @return
+     * @return Retourne la puissance du signal
      */
     //*
     public static float getPuissance(Information<Float> inf) {
@@ -79,7 +79,7 @@ public class Tool {
      * Fait la transformation de dB en linaire
      *
      * @param db la valeur à linéariser
-     * @return
+     * @return Renvoie la valeur en linéaire
      */
     public static float dBToLin(float db) {
         return (float) Math.pow(10, db / 10f);
