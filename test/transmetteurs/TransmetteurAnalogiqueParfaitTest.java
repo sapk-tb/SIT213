@@ -6,12 +6,14 @@
 package transmetteurs;
 
 import information.Information;
+import information.InformationNonConforme;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import recepteurs.RecepteurAnalogique;
 
 /**
  *
@@ -47,11 +49,14 @@ public class TransmetteurAnalogiqueParfaitTest {
         Float bits[] = {-1f, 2f, 0f};
         Information<Float> information = new Information<>(bits);
         TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
+        RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
+        instance.connecter(recepteurAnalogique);
         instance.recevoir(information);
 
         assertEquals(instance.informationRecue, information);
         //Comme recevoir lance emettre cette donction est aussi testé ici. 
         assertEquals(instance.informationEmise, information);
+        assertEquals(recepteurAnalogique.getInformationRecue(), information);
     }
 
     /**
@@ -64,5 +69,13 @@ public class TransmetteurAnalogiqueParfaitTest {
         instance.emettre();
         assertEquals(instance.informationEmise, null);
     }
-    
+        /**
+     * Test of recevoir method, of class TransmetteurAnalogiqueParfait.
+     */
+    @Test(expected = InformationNonConforme.class)//Aucune infos passée en parem
+    public void testRecevoirNonConforme() throws Exception {
+    	System.out.println("Test recevoir - Non conforme");
+    	  TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
+          instance.recevoir(null);
+    }
 }

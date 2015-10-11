@@ -2,6 +2,7 @@ package transmetteurs;
 
 import destinations.DestinationFinale;
 import information.Information;
+import information.InformationNonConforme;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -66,5 +67,13 @@ public class TransmetteurLogiqueParfaitTest {
         instance.emettre();
         assertEquals(instance.informationEmise, null);
     }
-
+    /**
+     * Test of recevoir method, of class TransmetteurLogiqueParfait.
+     */
+    @Test(expected = InformationNonConforme.class)//Aucune infos passée en parem
+    public void testRecevoirNonConforme() throws Exception {
+    	System.out.println("Test recevoir - Non conforme");
+    	  TransmetteurLogiqueParfait instance = new TransmetteurLogiqueParfait();
+          instance.recevoir(null);
+    }
 }
