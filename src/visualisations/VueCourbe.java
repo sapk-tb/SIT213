@@ -14,7 +14,8 @@ public class VueCourbe extends Vue {
     private Point2D.Float[] coordonnees;
     private float yMax = 0;
     private float yMin = 0;
-    private boolean transparance = false;
+    private float transparence;
+    private boolean isTransparance;
 
     public VueCourbe(boolean[] valeurs, int nbPixels, String nom) {
 
@@ -92,13 +93,18 @@ public class VueCourbe extends Vue {
     }
 
     public VueCourbe(float[][] tab_valeurs, String nom) {
-        this(tab_valeurs, nom, true);
+        this(tab_valeurs, 4f / (float) tab_valeurs.length, nom, true);
     }
 
     public VueCourbe(float[][] tab_valeurs, String nom, boolean toPaint) {
+        this(tab_valeurs, 4f / (float) tab_valeurs.length, nom, toPaint);
+    }
+
+    public VueCourbe(float[][] tab_valeurs, float transparence, String nom, boolean toPaint) {
 
         super(nom);
-        this.transparance = true;
+        this.isTransparance = true;
+        this.transparence = transparence;
         int xPosition = Vue.getXPosition();
         int yPosition = Vue.getYPosition();
         setLocation(xPosition, yPosition);
@@ -189,16 +195,16 @@ public class VueCourbe extends Vue {
         // effacement total
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-        if (transparance) {
-            g.setColor(new Color(0, 0, 0, 0.05f));
+        if (isTransparance) {
+            g.setColor(new Color(0, 0, 0, transparence));
         } else {
             g.setColor(Color.black);
         }
 
-        int x0Axe = 10;
+        int x0Axe = 15;
         float deltaX = getWidth() - (2 * x0Axe);
 
-        int y0Axe = 30;
+        int y0Axe = 15;
         float deltaY = getHeight() - (2 * y0Axe);
 
         if ((yMax > 0) && (yMin <= 0)) {
@@ -226,6 +232,8 @@ public class VueCourbe extends Vue {
         } else if (yMax < 0) {
             dy = -(deltaY / yMin);
         }
+        dy = (float) 0.8 * dy;
+        int recursion = 0;
         for (int i = 1; i < coordonnees.length; i++) {
 
             int x1 = (int) (coordonnees[i - 1].getX() * dx);
@@ -233,6 +241,25 @@ public class VueCourbe extends Vue {
             int y1 = (int) (coordonnees[i - 1].getY() * dy);
             int y2 = (int) (coordonnees[i].getY() * dy);
             if (x1 > x2) { //We don't go back
+                        /* //Test display a traject in color
+                 if (recursion < 4) {
+                 switch (recursion) {
+                 case 0:
+                 g.setColor(Color.BLUE);
+                 break;
+                 case 1:
+                 g.setColor(Color.RED);
+                 break;
+                 case 2:
+                 g.setColor(Color.GREEN);
+                 break;
+                 default:
+                 g.setColor(new Color(0, 0, 0, transparence));
+                 break;
+                 }
+                 recursion++;
+                 }
+                 */
                 continue;
             }
             //System.out.print("1:{x:" + x1 + ",y:" + y1 + "}");
