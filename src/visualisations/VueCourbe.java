@@ -195,11 +195,7 @@ public class VueCourbe extends Vue {
         // effacement total
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-        if (isTransparance) {
-            g.setColor(new Color(0, 0, 0, transparence));
-        } else {
-            g.setColor(Color.black);
-        }
+        g.setColor(Color.black);
 
         int x0Axe = 15;
         float deltaX = getWidth() - (2 * x0Axe);
@@ -234,6 +230,10 @@ public class VueCourbe extends Vue {
         }
         dy = (float) 0.8 * dy;
         int recursion = 0;
+
+        if (isTransparance) {
+            g.setColor(new Color(0, 0, 0, transparence));
+        }
         for (int i = 1; i < coordonnees.length; i++) {
 
             int x1 = (int) (coordonnees[i - 1].getX() * dx);
