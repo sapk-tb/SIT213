@@ -8,9 +8,9 @@ time ./simulateur $ARGS  -mess 1000  -nbEch 30
 
 time ./simulateur $ARGS  -mess 10000  -nbEch 30
 
-time ./simulateur $ARGS  -mess 100000  -nbEch 30
+#time ./simulateur $ARGS  -mess 100000  -nbEch 30
 
-time ./simulateur $ARGS  -mess 999999  -nbEch 30
+#time ./simulateur $ARGS  -mess 999999  -nbEch 30
 
 
 time ./simulateur $ARGS  -mess 10000  -nbEch 3
@@ -19,5 +19,5 @@ time ./simulateur $ARGS  -mess 10000  -nbEch 30
 
 time ./simulateur $ARGS  -mess 10000  -nbEch 300
 
-time ./simulateur $ARGS  -mess 100000  -nbEch 300
+#time ./simulateur $ARGS  -mess 100000  -nbEch 300
     

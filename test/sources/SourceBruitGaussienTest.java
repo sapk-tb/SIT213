@@ -64,7 +64,7 @@ public class SourceBruitGaussienTest {
     @Test
     public void testRepartion() {
         System.out.println("Test Repartition SourceBruitGaussien");
-        int nbEch = 1000000; //TODO augmenter
+        int nbEch = 10000000; 
         float puissance = 10;
         SourceBruitGaussien instance = new SourceBruitGaussien(nbEch, puissance);
         assertEquals(instance.informationGeneree.nbElements(), nbEch);
@@ -77,7 +77,7 @@ public class SourceBruitGaussienTest {
 
         Float min = stat.getMin();
         Float max = stat.getMax();
-        int nbInterval = 10000;
+        int nbInterval = 100000;
         Float interval = (max - min) / nbInterval;
         float[] repartition = new float[nbInterval];
         //System.out.println("Min : " + min + " Max : " + max + " Interval : " + interval);
@@ -89,7 +89,7 @@ public class SourceBruitGaussienTest {
             }
         }
         System.out.println("à 50% : " + repartition[nbInterval / 2 + 1] + " >= " + 0.5f * nbEch);
-        assertTrue(repartition[nbInterval / 2 + 1] >= (0.50f - margeErreur ) * nbEch); // on vérifie au centre avec une marge de 5% 
+        assertTrue(repartition[nbInterval / 2 + 1] >= (0.50f - margeErreur*2 ) * nbEch); // on vérifie au centre avec une marge de 5% 
         //TODO add more value to test
     }
 }
