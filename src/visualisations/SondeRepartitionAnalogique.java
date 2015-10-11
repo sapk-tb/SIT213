@@ -10,11 +10,10 @@ import information.Information;
  */
 public class SondeRepartitionAnalogique extends Sonde<Float> {
 
-    //TODO use a cubic représentation and add some textual inf to the vue
-    private float resolution = 0.01f;
     private final float max;
     private final float min;
     private int nbPixels = 10; //Largeur en pixel par point 
+    private int nbInterval = 1000;
 
     /**
      * pour construire une sonde répartition analogique
@@ -40,12 +39,12 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * @param nom le nom de la fenêtre d'affichage
      * @param min la limite à gauche du graphique
      * @param max la limite à gauche du graphique
-     * @param resolution la résolution de l'analyse
+     * @param nbInterval le nombre d'intervalle de l'analyse
      * @throws java.lang.Exception Si le max est inférieur à min
      */
-    public SondeRepartitionAnalogique(String nom, float min, float max, float resolution) throws Exception {
+    public SondeRepartitionAnalogique(String nom, float min, float max, int nbInterval) throws Exception {
         this(nom, min, max);
-        this.resolution = resolution;
+        this.nbInterval = nbInterval;
     }
 
     /**
@@ -55,19 +54,20 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * @param nom le nom de la fenêtre d'affichage
      * @param min la limite à gauche du graphique
      * @param max la limite à gauche du graphique
-     * @param resolution la résolution de l'analyse
+     * @param nbInterval le nombre d'intervalle de l'analyse
      * @param nbPixels Nombre de pixel par pas
      * @throws java.lang.Exception Si le max est inférieur à min
      */
-    public SondeRepartitionAnalogique(String nom, float min, float max, float resolution, int nbPixels) throws Exception {
-        this(nom, min, max, resolution);
+    public SondeRepartitionAnalogique(String nom, float min, float max, int nbInterval, int nbPixels) throws Exception {
+        this(nom, min, max, nbInterval);
         this.nbPixels = nbPixels;
     }
 
     public void recevoir(Information<Float> information) {
         informationRecue = information;
         //this.resolution = 10000/information.nbElements();
-        int nbElements = (int) ((max - min) / resolution);
+        int nbElements = nbInterval;
+        float resolution = ((max - min) / nbInterval);
         System.out.println("max : " + max + " min : " + min + " nbElements : " + nbElements);
         //float[] table = new float[nbElements*2]; //on multiplie par 2 afin de faire une signal carré
         float[] table = new float[nbElements];

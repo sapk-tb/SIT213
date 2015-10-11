@@ -191,10 +191,10 @@ public class VueCourbe extends Vue {
         g.setColor(Color.black);
 
         int x0Axe = 10;
-        float deltaX = getContentPane().getWidth() - (2 * x0Axe);
+        float deltaX = getWidth() - (2 * x0Axe);
 
-        int y0Axe = 10;
-        float deltaY = getContentPane().getHeight() - (2 * y0Axe);
+        int y0Axe = 30;
+        float deltaY = getHeight() - (2 * y0Axe);
 
         if ((yMax > 0) && (yMin <= 0)) {
             y0Axe += (int) (deltaY * (yMax / (yMax - yMin)));
