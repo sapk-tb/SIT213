@@ -107,6 +107,16 @@ public class Information<T> implements Iterable<T> {
     }
 
     /**
+     * pour ajouter un élèment à la fin de l'information
+     *
+     * @param i index 
+     * @param valeur l'élèment à rajouter
+     */
+    public void addAt(int i, T valeur) {
+        this.content.add(i,valeur);
+    }
+    
+    /**
      * pour comparer l'information courante avec une autre information
      *
      * @param o l'information avec laquelle se comparer
