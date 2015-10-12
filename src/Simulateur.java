@@ -206,7 +206,7 @@ public class Simulateur {
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
 
-            if (snr != 0f) {
+            if (snr != null) {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
             } else {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", amplMin - 1, amplMax + 1));
