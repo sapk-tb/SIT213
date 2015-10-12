@@ -50,7 +50,7 @@ public class TransmetteurAnalogiqueBruiteTest {
         System.out.println("Test recevoir");
         Float bits[] = {-1f, 2f, 0f};
         Information<Float> information = new Information<>(bits);
-        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(0);
+        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(null);
         RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
         instance.connecter(recepteurAnalogique);
         instance.recevoir(information);
@@ -58,7 +58,7 @@ public class TransmetteurAnalogiqueBruiteTest {
         assertEquals(instance.informationRecue, information);
         //Comme recevoir lance emettre cette fonction est aussi testé ici. 
         assertEquals(instance.informationEmise, information);
-        assertEquals(recepteurAnalogique.getInformationRecue(), information);
+        assertEquals(information, recepteurAnalogique.getInformationRecue());
     }
 //TODO tester répartion gaussienne
 
@@ -68,7 +68,7 @@ public class TransmetteurAnalogiqueBruiteTest {
     @Test(expected = InformationNonConforme.class)//Aucune infos passée en parem
     public void testRecevoirNonConforme() throws Exception {
         System.out.println("Test recevoir - Non conforme");
-        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(0);
+        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(null);
         instance.recevoir(null);
     }
 
@@ -78,7 +78,7 @@ public class TransmetteurAnalogiqueBruiteTest {
     @Test(expected = NullPointerException.class) //on lui donne rien à émettre
     public void testEmettre() throws Exception {
         System.out.println("emettre - null pointer");
-        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1);
+        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1f);
         instance.emettre();
         assertEquals(instance.informationEmise.iemeElement(0), null);
         //assertTrue(instance.informationEmise.iemeElement(0)>instance.informationEmise.iemeElement(1));

@@ -62,9 +62,25 @@ public class SourceBruitGaussienTest {
     }
 
     @Test
+    public void testRepetitionAvecSeed() {
+        System.out.println("Test Répétition SourceBruitGaussien");
+        int nbEch = 100000;
+        float puissance = 10;
+        int seed = 42;
+        SourceBruitGaussien instance1 = new SourceBruitGaussien(nbEch, puissance, seed);
+        SourceBruitGaussien instance2 = new SourceBruitGaussien(nbEch, puissance, seed);
+        assertEquals(instance1.informationGeneree.nbElements(), nbEch);
+        assertEquals(instance2.informationGeneree.nbElements(), nbEch);
+        assertEquals(Tool.getPuissance(instance1.informationGeneree), puissance, margeErreur * puissance);
+        assertEquals(Tool.getPuissance(instance2.informationGeneree), puissance, margeErreur * puissance);
+        assertEquals(instance1.informationGeneree,instance2.informationGeneree);
+
+    }
+
+    @Test
     public void testRepartion() {
         System.out.println("Test Repartition SourceBruitGaussien");
-        int nbEch = 10000000; 
+        int nbEch = 10000000;
         float puissance = 10;
         SourceBruitGaussien instance = new SourceBruitGaussien(nbEch, puissance);
         assertEquals(instance.informationGeneree.nbElements(), nbEch);
@@ -89,7 +105,7 @@ public class SourceBruitGaussienTest {
             }
         }
         System.out.println("à 50% : " + repartition[nbInterval / 2 + 1] + " >= " + 0.5f * nbEch);
-        assertTrue(repartition[nbInterval / 2 + 1] >= (0.50f - margeErreur*2 ) * nbEch); // on vérifie au centre avec une marge de 5% 
+        assertTrue(repartition[nbInterval / 2 + 1] >= (0.50f - margeErreur * 2) * nbEch); // on vérifie au centre avec une marge de 5% 
         //TODO add more value to test
     }
 }

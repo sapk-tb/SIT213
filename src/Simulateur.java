@@ -106,7 +106,7 @@ public class Simulateur {
      * le temps de montée ou de descente à 1/3 du temps bit
      */
     private final float tmpMontee = (float) 1 / (float) 3;
-    private Float snr = 0f; // en linéaires
+    private Float snr = null; // en linéaires
     private boolean generate_pictures = false;
     private Float snrdB;
     
@@ -169,8 +169,16 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
+//debut conflit git
         transmetteurAnalogique= new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt,ar);
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+
+        if (aleatoireAvecGerme) {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+        } else {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+        }
+//Fin conflit git
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -207,7 +215,7 @@ public class Simulateur {
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
 
-            if (snr != 0f) {
+            if (snr != null) {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
             } else {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", amplMin - 1, amplMax + 1));
@@ -217,8 +225,8 @@ public class Simulateur {
         }
 
         if (generate_pictures) { //TODO use args to be able to choose folder
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-"+form+"-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-"+form+"-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png"));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png"));
         }
     }
 
