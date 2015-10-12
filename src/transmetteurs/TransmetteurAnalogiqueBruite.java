@@ -25,10 +25,16 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      */
     protected Information<Float> informationBruit;
     private final float SNR;
+    private int seed;
 
-    public TransmetteurAnalogiqueBruite(float SNR) {
+    public TransmetteurAnalogiqueBruite(float SNR, int seed) {
         super();
         this.SNR = SNR;
+        this.seed = seed;
+    }
+
+    public TransmetteurAnalogiqueBruite(float SNR) {
+        this(SNR, (int) (Math.random() * 1024));
     }
 
     /**
@@ -71,7 +77,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
         this.informationRecue.toArray(output);
         //*/
         /* Génération du Bruit */
-        SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit);
+        SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
         bruit.emettre();
         this.informationBruit = bruit.getInformationEmise();
         Float[] b = new Float[nbEl];

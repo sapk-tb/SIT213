@@ -165,7 +165,11 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+        if (aleatoireAvecGerme) {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+        } else {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+        }
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -212,8 +216,8 @@ public class Simulateur {
         }
 
         if (generate_pictures) { //TODO use args to be able to choose folder
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-"+form+"-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-"+form+"-"+nbBitsMess+"-"+nbEch+"-"+snrdB+".png"));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png"));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png"));
         }
     }
 

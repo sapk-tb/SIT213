@@ -15,13 +15,19 @@ import java.util.logging.Logger;
  */
 public class SourceBruitGaussien extends Source<Float> {
 
+    private final int seed;
+
     /**
      * Un constructeur qui génère nbEch aléatoirement
      *
      * @param nbEch nombre de bit à générer
      */
     public SourceBruitGaussien(int nbEch) {
-        this(nbEch, 1f);
+        this(nbEch, 1f, (int) (Math.random() * 1024));
+    }
+
+    public SourceBruitGaussien(int nbEch, float puissance) {
+        this(nbEch, puissance, (int) (Math.random() * 1024));
     }
 
     /**
@@ -42,8 +48,9 @@ public class SourceBruitGaussien extends Source<Float> {
      }
      //*/
     //*
-    public SourceBruitGaussien(int nbEch, float puissance) {
+    public SourceBruitGaussien(int nbEch, float puissance, final int seed) {
         super();
+        this.seed = seed;
         //this.informationGeneree = new Information<Float>(nbEch);
         Float[] bruit = new Float[nbEch];
         float puissance_sqrt = (float) Math.sqrt(puissance);
@@ -55,7 +62,7 @@ public class SourceBruitGaussien extends Source<Float> {
             private final Float[] bruit;
             private final int index_start;
             private final int index_end;
-            private final Random rand = new Random();
+            private final Random rand = new Random(seed);
 
             GetNextGaussionThread(Float[] b, int start, int end, float p) {
                 bruit = b;
