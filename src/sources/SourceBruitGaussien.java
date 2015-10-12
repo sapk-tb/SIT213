@@ -102,7 +102,7 @@ public class SourceBruitGaussien extends Source<Float> {
     /*
      public SourceBruitGaussien(int nbEch, float puissance) {
      super();
-     Random generator = new Random();
+     Random generator = new Random(seed);
      Float[] data = new Float[nbEch];
      float puissance_sqrt = (float) Math.sqrt(puissance);
      for (int i = 0; i < nbEch; i++) {

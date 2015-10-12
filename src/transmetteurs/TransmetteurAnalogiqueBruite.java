@@ -24,16 +24,17 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      * l'information reçue en entrée du transmetteur
      */
     protected Information<Float> informationBruit;
-    private final float SNR;
+    private Float SNR = null;
     private int seed;
 
-    public TransmetteurAnalogiqueBruite(float SNR, int seed) {
+    public TransmetteurAnalogiqueBruite(Float SNR, int seed) {
         super();
+        
         this.SNR = SNR;
         this.seed = seed;
     }
 
-    public TransmetteurAnalogiqueBruite(float SNR) {
+    public TransmetteurAnalogiqueBruite(Float SNR) {
         this(SNR, (int) (Math.random() * 1024));
     }
 
@@ -60,12 +61,10 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
     @Override
     public void emettre() throws InformationNonConforme {
 
-        //TODO add bruit
-        //TODO implement snr to constructor
         float puissance_signal = Tool.getPuissance(this.informationRecue);
         float puissance_bruit = 0;
 
-        if (this.SNR != 0f) {
+        if (this.SNR != null) {
             puissance_bruit = puissance_signal / this.SNR;
         }
         //Float[] output = new Float[this.informationRecue.nbElements()];
