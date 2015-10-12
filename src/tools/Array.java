@@ -1,12 +1,19 @@
 package tools;
 
 import information.Information;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sources.SourceBruitGaussien;
+import tools.Thread.AddToFloatArray;
+import tools.Thread.AddToNativeFloatArray;
 
 /**
  *
  * @author Antoine GIRARD
  */
-
 //TODO optimize
 public class Array {
 
@@ -20,9 +27,23 @@ public class Array {
     public static Float[] SumArrays(Float[] t1, Float[] t2) {
         int size = Math.max(t1.length, t2.length);
         Float[] tab = new Float[size];
-        for (int i = 0; i < tab.length; i++) {
-            tab[i] = t1[i] + t2[i];
+
+        int nb_thread = Runtime.getRuntime().availableProcessors();
+        ExecutorService pool = Executors.newFixedThreadPool(nb_thread);
+        int nbEchByThread = Math.max(size / nb_thread, 1);
+        int i = 0;
+        while (i < size) {
+            int end = Math.min(i + nbEchByThread, size);
+            pool.execute(new AddToFloatArray(tab, t1, t2, i, end));
+            i = end;
         }
+        pool.shutdown();
+        try {
+            pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SourceBruitGaussien.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return tab;
     }
 
@@ -36,8 +57,20 @@ public class Array {
     public static float[] SumArrays(float[] t1, float[] t2) {
         int size = Math.max(t1.length, t2.length);
         float[] tab = new float[size];
-        for (int i = 0; i < tab.length; i++) {
-            tab[i] = t1[i] + t2[i];
+        int nb_thread = Runtime.getRuntime().availableProcessors();
+        ExecutorService pool = Executors.newFixedThreadPool(nb_thread);
+        int nbEchByThread = Math.max(size / nb_thread, 1);
+        int i = 0;
+        while (i < size) {
+            int end = Math.min(i + nbEchByThread, size);
+            pool.execute(new AddToNativeFloatArray(tab, t1, t2, i, end));
+            i = end;
+        }
+        pool.shutdown();
+        try {
+            pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SourceBruitGaussien.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tab;
     }
