@@ -108,7 +108,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
          * Calcul de la moyenne d'un symbole afin de retrouver le niveau de
          * chaque échantillon
          */
-        for (int i = 0; i < nbEchTotal / nbEch; i++) {
+        for (int i = 0; i < nbEchTotal / nbEch; i++) {	
             float moy_symbole = total[i] / (float) nbEch;
             //System.out.println("Moy symbole : "+moy_symbole);
 
