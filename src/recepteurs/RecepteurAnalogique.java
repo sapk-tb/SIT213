@@ -99,16 +99,19 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
         /*
          * Calcul de la somme pour chaque échantillon
          */
-        for (int i = 0; i < nbEchTotal; i++) {
+        //for (int i = 0; i < nbEchTotal; i++) {
+        for (int i = 0; i < nbSymbole; i++) {
             //total[(int) i / nbEch] += allEch[i];
-            total[(int) i / nbEch] += informationRecue.iemeElement(i);       
+            for (int n = 0; n < nbEch; n++) {
+                total[i] += informationRecue.iemeElement(i * nbEch + n);
+            }
         }
 
         /*
          * Calcul de la moyenne d'un symbole afin de retrouver le niveau de
          * chaque échantillon
          */
-        for (int i = 0; i < nbEchTotal / nbEch; i++) {	
+        for (int i = 0; i < nbEchTotal / nbEch; i++) {
             float moy_symbole = total[i] / (float) nbEch;
             //System.out.println("Moy symbole : "+moy_symbole);
 
@@ -123,7 +126,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
                     informationAEmettre.add((Math.abs(amplMax * (1 - tmpMontee / 2) - moy_symbole) < Math.abs(amplMin * (1 - tmpMontee / 2) - moy_symbole)));
                     break;
             }
-                //TODO check if we replace inforamtion à emetrre par un Float[]  for performance ?
+            //TODO check if we replace inforamtion à emetrre par un Float[]  for performance ?
         }
 
         for (DestinationInterface<Boolean> destinationConnectee : destinationsConnectees) {
