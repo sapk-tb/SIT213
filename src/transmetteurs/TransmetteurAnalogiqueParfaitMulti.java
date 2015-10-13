@@ -18,11 +18,11 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
 	
     private final Integer nbTrajet;
     //Décalage en échantillions
-    private final Integer dt;
+    private final Integer[] dt;
     //Amplitude relative
-    private final Float ar;
+    private final Float[] ar;
 
-    public TransmetteurAnalogiqueParfaitMulti(Integer nbTrajet, Integer dt, Float ar) {
+    public TransmetteurAnalogiqueParfaitMulti(Integer nbTrajet, Integer[] dt, Float[] ar) {
         super();
         this.nbTrajet = nbTrajet;
         this.dt=dt;
@@ -51,14 +51,18 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
      */
     @Override
     public void emettre() throws InformationNonConforme {
-        Information<Float> informationTotale=new Information<Float>(this.informationRecue.nbElements()+nbTrajet*dt);
+    	int max=0;
+    	for(int i=0 ; i<dt.length;i++){
+    		if (dt[i]>max)max=dt[i];
+    	}
+        Information<Float> informationTotale=new Information<Float>(this.informationRecue.nbElements()+nbTrajet*max);
         informationTotale=informationRecue;
         
         Float [] tmp = new Float[informationRecue.nbElements()];
         informationRecue.toArray(tmp);
         Information<Float> temp = new Information<Float>(tmp);
         for(int i=0;i<nbTrajet; i++){
-        	for(int j=0;j<dt;j++){
+        	for(int j=0;j<dt[nbTrajet];j++){
         		temp.addAt(0,0f);
         		ArrayTool.sumArrays(informationTotale, temp);
         	}

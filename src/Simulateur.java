@@ -111,8 +111,9 @@ public class Simulateur {
     private Float snrdB;
 
     private Integer nbTrajet = 1;
-    private Integer dt = 0;
-    private Float ar = 0.0f;
+    private Integer[] dt;
+    private Float[] ar;
+
 
     /**
      * <p>
@@ -366,26 +367,40 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-                if (i + 1 >= args.length) {
+                //Verification de la saisie du paramètre i
+            	if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
                 }
-                if (i + 2 >= args.length) {
+            	//Verification de la saisie des paramètres dt
+                if (i + 1 + Integer.parseInt(args[i+1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
                 }
-                if (i + 3 >= args.length) {
+                //Verification de la saisie des paramètres ar
+                if (i + 1 + 2*Integer.parseInt(args[i+1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre ar -ti non saisie !");
                 }
-
+                //On récupère le nombre de trajet
                 i++;
                 nbTrajet = new Integer(args[i]);
                 if (nbTrajet >= 1 && nbTrajet <= 5) {
                 } else {
                     throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
                 }
+                
+                //On fixe la taille des tableaux
+                dt=new Integer[nbTrajet];
+                ar=new Float[nbTrajet];
+                
+                
+                
                 i++; // on passe à l'argument suivant
-                dt = new Integer(args[i]);
-                i++;
-                ar = new Float(args[i]);
+                for(int j=0;j<nbTrajet;j++){
+                	dt[j] = new Integer(args[i+j]);
+                }
+                i+=nbTrajet;
+                for(int j=0;j<nbTrajet;j++){
+                	ar[j] = new Float(args[i+j]);
+                }
 
             } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);
