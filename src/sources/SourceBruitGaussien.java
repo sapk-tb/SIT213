@@ -1,7 +1,8 @@
 package sources;
 
 import information.Information;
-import java.util.Random;
+import tools.Random;
+/*import java.util.Random;*/
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
