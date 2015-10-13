@@ -67,7 +67,7 @@ public class Simulateur {
     /**
      * le composant Transmetteur parfait analogique de la chaine de transmission
      */
-    private final TransmetteurAnalogiqueParfaitMulti transmetteurAnalogique;
+    private final Transmetteur transmetteurAnalogique;
     //private final TransmetteurAnalogiqueBruite transmetteurAnalogique;
     //private final Transmetteur transmetteurAnalogique;
     /**
@@ -171,15 +171,15 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
+        //transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-/*
-         if (aleatoireAvecGerme) {
-         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
-         } else {
-         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-         }
-         */
+//*
+        if (aleatoireAvecGerme) {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, (int) seed);
+        } else {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+        }
+        //*/
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -210,11 +210,11 @@ public class Simulateur {
             source.connecter(new SondeLogique("sondeApresSource", 256));
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
             emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
+//            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
 
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
+//            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
 
             if (snr != null) {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
