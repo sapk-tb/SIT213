@@ -111,9 +111,12 @@ public class Simulateur {
     private Float snrdB;
 
     private Integer nbTrajet = 1;
-    private Integer[] dt;
-    private Float[] ar;
-
+    private Integer[] dt;// = new Integer[1];
+    private Float[] ar;// = new Float[1];
+    
+    
+    //dt[0] = new Integer(0);
+    //ar[0] = new Float(0.0f);
 
     /**
      * <p>
@@ -367,6 +370,7 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
+            	
                 //Verification de la saisie du paramètre i
             	if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
@@ -399,9 +403,9 @@ public class Simulateur {
                 }
                 i+=nbTrajet;
                 for(int j=0;j<nbTrajet;j++){
+                	
                 	ar[j] = new Float(args[i+j]);
                 }
-
             } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);
             }
