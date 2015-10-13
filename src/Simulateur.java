@@ -171,9 +171,9 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        //transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
+        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-//*
+/*
         if (aleatoireAvecGerme) {
             transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, (int) seed);
         } else {
