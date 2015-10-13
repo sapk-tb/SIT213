@@ -52,7 +52,7 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
     @Override
     public void emettre() throws InformationNonConforme {
     	int max=0;
-    	for(int i=0 ; i<dt.length;i++){
+    	for(int i=0 ; i<this.dt.length;i++){
     		if (dt[i]>max)max=dt[i];
     	}
         Information<Float> informationTotale=new Information<Float>(this.informationRecue.nbElements()+nbTrajet*max);
