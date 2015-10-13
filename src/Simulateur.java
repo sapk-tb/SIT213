@@ -109,10 +109,11 @@ public class Simulateur {
     private Float snr = null; // en linéaires
     private boolean generate_pictures = false;
     private Float snrdB;
-    
-    private Integer nbTrajet=1;
-    private Integer dt=0;
-    private Float ar=0.0f;
+
+    private Integer nbTrajet = 1;
+    private Integer dt = 0;
+    private Float ar = 0.0f;
+
     /**
      * <p>
      * Le constructeur de Simulateur construit une chaine de transmission
@@ -164,21 +165,20 @@ public class Simulateur {
          * On relie la source à l'emetteur
          */
         source.connecter(emetteur);
-        
+
         /*
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-//debut conflit git
-        transmetteurAnalogique= new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt,ar);
+        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-
-        if (aleatoireAvecGerme) {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
-        } else {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-        }
-//Fin conflit git
+/*
+         if (aleatoireAvecGerme) {
+         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+         } else {
+         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+         }
+         */
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -366,7 +366,7 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-            	if (i + 1 >= args.length) {
+                if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
                 }
                 if (i + 2 >= args.length) {
@@ -375,20 +375,19 @@ public class Simulateur {
                 if (i + 3 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre ar -ti non saisie !");
                 }
-                
+
                 i++;
                 nbTrajet = new Integer(args[i]);
-                if(nbTrajet>=1 && nbTrajet<=5){
+                if (nbTrajet >= 1 && nbTrajet <= 5) {
+                } else {
+                    throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
                 }
-                else{
-                	throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
-                }                
                 i++; // on passe à l'argument suivant
                 dt = new Integer(args[i]);
                 i++;
                 ar = new Float(args[i]);
-                
-            }else {
+
+            } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);
             }
         }

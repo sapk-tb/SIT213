@@ -15,7 +15,7 @@ import tools.Thread.AddToNativeFloatArray;
  * @author Antoine GIRARD
  */
 //TODO optimize
-public class Array {
+public class ArrayTool {
 
     /**
      * Additionne deux table de Float
@@ -24,7 +24,7 @@ public class Array {
      * @param t2 la deuxième table de Float
      * @return la somme des tableaux
      */
-    public static Float[] SumArrays(Float[] t1, Float[] t2) {
+    public static Float[] sumArrays(Float[] t1, Float[] t2) {
         int size = Math.max(t1.length, t2.length);
         Float[] tab = new Float[size];
 
@@ -54,7 +54,7 @@ public class Array {
      * @param t2 la deuxième table de float
      * @return la somme des tableaux
      */
-    public static float[] SumArrays(float[] t1, float[] t2) {
+    public static float[] sumArrays(float[] t1, float[] t2) {
         int size = Math.max(t1.length, t2.length);
         float[] tab = new float[size];
         int nb_thread = Runtime.getRuntime().availableProcessors();
@@ -82,14 +82,14 @@ public class Array {
      * @param i2 la deuxième Information
      * @return la somem des deux informations
      */
-    public static Information SumArrays(Information i1, Information i2) {
+    public static Information sumArrays(Information i1, Information i2) {
         Float[] t1 = new Float[i1.nbElements()];
         Float[] t2 = new Float[i2.nbElements()];
 
         i1.toArray(t1);
         i2.toArray(t2);
 
-        Float[] array = SumArrays(t1, t2);
+        Float[] array = sumArrays(t1, t2);
         return new Information(array);
     }
 }

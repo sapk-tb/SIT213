@@ -4,6 +4,7 @@ import tools.Tool;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
+import tools.ArrayTool;
 
 /**
  * Classe d'un composant qui transmet des informations de type Float sans
@@ -59,7 +60,7 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
         for(int i=0;i<nbTrajet; i++){
         	for(int j=0;j<dt;j++){
         		temp.addAt(0,0f);
-        		Tool.sumArray(informationTotale, temp);
+        		ArrayTool.sumArrays(informationTotale, temp);
         	}
         }
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {

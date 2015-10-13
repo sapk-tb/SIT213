@@ -4,7 +4,7 @@ import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
 import sources.SourceBruitGaussien;
-import tools.Array;
+import tools.ArrayTool;
 import tools.Tool;
 
 /**
@@ -74,7 +74,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
         System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
 
-        this.informationEmise = Array.SumArrays(informationRecue, informationBruit);
+        this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
         
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(informationEmise);
