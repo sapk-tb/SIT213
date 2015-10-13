@@ -110,9 +110,9 @@ public class Simulateur {
     private boolean generate_pictures = false;
     private Float snrdB;
 
-    private Integer nbTrajet = 1;
-    private Integer[] dt;
-    private Float[] ar;
+    private Integer nbTrajet = 0;
+    private Integer[] dt = new Integer[0];
+    private Float[] ar = new Float[0];
 
 
     /**
