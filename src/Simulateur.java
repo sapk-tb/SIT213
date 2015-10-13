@@ -380,10 +380,12 @@ public class Simulateur {
                 if (i + 1 + 2*Integer.parseInt(args[i+1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre ar -ti non saisie !");
                 }
+               
                 //On récupère le nombre de trajet
                 i++;
                 nbTrajet = new Integer(args[i]);
                 if (nbTrajet >= 1 && nbTrajet <= 5) {
+                    //TODO check if we have the goog number of digit after like before
                 } else {
                     throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
                 }
@@ -397,12 +399,15 @@ public class Simulateur {
                 i++; // on passe à l'argument suivant
                 for(int j=0;j<nbTrajet;j++){
                 	dt[j] = new Integer(args[i+j]);
+                        System.out.println("Dt : "+ dt[j]);
                 }
                 i+=nbTrajet;
                 for(int j=0;j<nbTrajet;j++){
                 	
                 	ar[j] = new Float(args[i+j]);
+                        System.out.println("Ar : "+ ar[j]);
                 }
+                i++; //on pas à l'analyse du suivant
             } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);
             }
