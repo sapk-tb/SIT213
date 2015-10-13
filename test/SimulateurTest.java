@@ -217,6 +217,26 @@ public class SimulateurTest {
         String[] args = ("-snr 5").split(" ");
         Simulateur.main(args);
     }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgmuentsTIValide() {
+        System.out.println("Test -ti valide");
+        String[] args = ("-ti 1 1 0.0f").split(" ");
+        Simulateur.main(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgmuentsTIInvalide() {
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 1 1").split(" ");
+        Simulateur.main(args);
+    }
 
     
     
