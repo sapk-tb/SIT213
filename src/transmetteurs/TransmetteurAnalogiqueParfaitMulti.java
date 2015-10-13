@@ -66,7 +66,7 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
         informationRecue.toArray(tmp);
         Information<Float> temp = new Information<Float>(tmp);
         for (int i = 0; i < nbTrajet; i++) {
-            for (int j = 0; j < dt[nbTrajet]; j++) {
+            for (int j = 0; j < dt[i]; j++) {
                 temp.addAt(0, 0f);
                 ArrayTool.sumArrays(informationTotale, temp);
             }
