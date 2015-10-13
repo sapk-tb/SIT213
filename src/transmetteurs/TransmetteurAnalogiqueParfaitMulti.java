@@ -59,24 +59,25 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
                 max = dt[i];
             }
         }
-        Information<Float> informationTotale = new Information<Float>(this.informationRecue.nbElements() + nbTrajet * max);
-        informationTotale = informationRecue;
 
-        Float[] tmp = new Float[informationRecue.nbElements()];
-        informationRecue.toArray(tmp);
-        Information<Float> temp = new Information<Float>(tmp);
+        Float[] recu = new Float[informationRecue.nbElements()];
+        informationRecue.toArray(recu);
+        this.informationEmise = new Information<Float>(recu);
+        System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+
         for (int i = 0; i < nbTrajet; i++) {
+            System.out.println("Generating trajet n°" + i);
+            Information<Float> temp = new Information<Float>(recu);
             for (int j = 0; j < dt[i]; j++) {
                 temp.addAt(0, 0f);
             }
-            ArrayTool.sumArrays(informationTotale, temp);
+            this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
+            System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
         }
+
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationTotale);
+            destinationConnectee.recevoir(this.informationEmise);
         }
-
-        this.informationEmise = informationTotale;
-
     }
 
 }
