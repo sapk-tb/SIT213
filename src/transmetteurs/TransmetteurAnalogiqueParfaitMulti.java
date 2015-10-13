@@ -23,7 +23,7 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
 
     public TransmetteurAnalogiqueParfaitMulti(Integer nbTrajet, Integer[] dt, Float[] ar) throws Exception {
         super();
-        if(dt.length != nbTrajet || ar.length != nbTrajet){
+        if (dt.length != nbTrajet || ar.length != nbTrajet) {
             throw new Exception("Arguments de multiple trajet donnée invalide");
         }
         this.nbTrajet = nbTrajet;
@@ -68,8 +68,8 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
         for (int i = 0; i < nbTrajet; i++) {
             for (int j = 0; j < dt[i]; j++) {
                 temp.addAt(0, 0f);
-                ArrayTool.sumArrays(informationTotale, temp);
             }
+            ArrayTool.sumArrays(informationTotale, temp);
         }
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(informationTotale);
