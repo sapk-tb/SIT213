@@ -33,7 +33,7 @@ public class SimulateurTest {
 
     /**
      * Test of calculTauxErreurBinaire method, of class Simulateur.
-     * @throws java.lang.Exception
+     * 
      */
     @Test
     public void testCalculTauxErreurBinaire() throws Exception {
@@ -46,6 +46,7 @@ public class SimulateurTest {
         assertEquals(expResult, result, 0.0);
     }
 
+    
     /**
      * Test of main method, of class Simulateur.
      */
@@ -69,7 +70,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch)of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchInvalide() throws ArgumentsException, Exception {
@@ -79,7 +80,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch), of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchLettreInvalide() throws ArgumentsException, Exception {
@@ -89,7 +90,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchInvalideNul() throws ArgumentsException, Exception {
@@ -99,7 +100,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch) of class Simulateur.
      */
     @Test
     public void testAnalyseArgumentsnbEch() throws ArgumentsException, Exception {
@@ -109,7 +110,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (ampl) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplInvalide() throws ArgumentsException, Exception {
@@ -119,7 +120,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (ampl) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplMaxInvalide() throws ArgumentsException, Exception {
@@ -129,7 +130,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (ampl) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplMinInvalide() throws ArgumentsException, Exception {
@@ -139,7 +140,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (form) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsFormInvalide() throws ArgumentsException, Exception {
@@ -149,7 +150,7 @@ public class SimulateurTest {
     }    
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (form) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsForm2Invalide() throws ArgumentsException, Exception {
@@ -159,7 +160,7 @@ public class SimulateurTest {
     } 
 
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (seed) of class Simulateur.
      */
     @Test
     public void testAnalyseArgumentsSeedValide() throws ArgumentsException, Exception {
@@ -169,7 +170,7 @@ public class SimulateurTest {
     } 
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (seed) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsSeedInvalide() throws ArgumentsException, Exception {
@@ -179,7 +180,7 @@ public class SimulateurTest {
     } 
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (s) of class Simulateur.
      */
     @Test
     public void testAnalyseArgumentsVisualisation() throws ArgumentsException, Exception {
@@ -189,31 +190,31 @@ public class SimulateurTest {
     } 
     
     /**
-     * Test of main method, of class Simulateur.
+     * Test of analyze of args (mess) of class Simulateur.
      */
     @Test
     public void testAnalyseArgmuentsMessValideFixe() {
-        System.out.println("Test main");
+        System.out.println("Test mess");
         String[] args = ("-mess 10010110101010110").split(" ");
         Simulateur.main(args);
     }
     
     /**
-     * Test of main method, of class Simulateur.
+      * Test of analyze of args (mess) of class Simulateur.
      */
     @Test
     public void testAnalyseArgmuentsMessValideAleatoire() {
-        System.out.println("Test main");
+        System.out.println("Test mess");
         String[] args = ("-mess 2445").split(" ");
         Simulateur.main(args);
     }
     
     /**
-     * Test of main method, of class Simulateur.
-     */
+      * Test of analyze of args (snr) of class Simulateur.
+      */
     @Test
     public void testAnalyseArgmuentsSNRValide() {
-        System.out.println("Test main");
+        System.out.println("Test snrn");
         String[] args = ("-snr 5").split(" ");
         Simulateur.main(args);
     }
@@ -234,7 +235,27 @@ public class SimulateurTest {
     @Test
     public void testAnalyseArgmuentsTIInvalide() {
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 1 1").split(" ");
+        String[] args = ("-ti 1 2").split(" "); //ça doit être un flottant
+        Simulateur.main(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test
+    public void testAnalyseArgmuentsTIInvalide2() {
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 2 2 0.4").split(" "); //deux trajets mais pas de données passées pour ce trajet
+        Simulateur.main(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgmuentsTIInvalide3() {
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 0 2 0.4").split(" "); //deux trajets mais pas de données passées pour ce trajet
         Simulateur.main(args);
     }
 
