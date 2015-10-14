@@ -242,7 +242,9 @@ public class SimulateurTest {
     /**
      * Test of analyze -ti, of class Simulateur.
      */
-    @Test
+    // vérifier si param ar et dt sont bien passés
+    // pour chaque trajectoire
+    @Test(expected = ArgumentsException.class)
     public void testAnalyseArgmuentsTIInvalide2() {
         System.out.println("Test -ti invalide");
         String[] args = ("-ti 2 2 0.4").split(" "); //deux trajets mais pas de données passées pour ce trajet
@@ -255,7 +257,7 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgmuentsTIInvalide3() {
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 0 2 0.4").split(" "); //deux trajets mais pas de données passées pour ce trajet
+        String[] args = ("-ti 0 2 0.4").split(" "); //0 trajet mais des données passees
         Simulateur.main(args);
     }
 

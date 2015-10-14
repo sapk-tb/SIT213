@@ -392,7 +392,8 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-
+            	
+            	//Trop complexe ?
                 //Verification de la saisie du paramètre i
                 if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
@@ -410,7 +411,7 @@ public class Simulateur {
                 i++;
                 nbTrajet = new Integer(args[i]);
                 if (nbTrajet >= 1 && nbTrajet <= 5) {
-                    //TODO check if we have the goog number of digit after like before
+                    //TODO check if we have the good number of digit after like before
                 } else {
                     throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
                 }
