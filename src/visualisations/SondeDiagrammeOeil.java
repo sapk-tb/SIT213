@@ -18,6 +18,21 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
 
     private final int nbEchParSym;
     private String filename = null;
+    private Integer screenSize = null;
+
+    /**
+     * pour construire une sonde analogique
+     *
+     * @param nom le nom de la fenêtre d'affichage
+     * @param nbEchParSym Le nombre d'echantillon par symbole
+     * @param screen_filename Le nom du fichier ou enregistrer le screenshot
+     * @param screenSize taille de la capture de l'oeil
+     */
+    public SondeDiagrammeOeil(String nom, int nbEchParSym, String screenFilename, Integer screenSize) {
+        this(nom, nbEchParSym);
+        this.filename = screenFilename;
+        this.screenSize = screenSize;
+    }
 
     /**
      * pour construire une sonde analogique
@@ -60,7 +75,9 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
          i++;
          }*/
         VueCourbe vue = new VueCourbe(table, nom);
-
+        if (screenSize != null) {
+            vue.setSize(screenSize, screenSize);
+        }
         if (filename != null) {
             BufferedImage img = tools.Render.getScreenShot(vue);
             try {
@@ -71,7 +88,7 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
             vue.dispose();
             //vue.dispatchEvent(new WindowEvent(vue, WindowEvent.WINDOW_CLOSING));
         }
-        
+
     }
 
 }
