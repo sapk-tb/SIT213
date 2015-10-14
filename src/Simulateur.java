@@ -7,6 +7,7 @@ import tools.Tool;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeDiagrammeOeil;
+import visualisations.SondeFFT;
 import visualisations.SondeLogique;
 import visualisations.SondePuissance;
 import visualisations.SondeRepartitionAnalogique;
@@ -115,6 +116,8 @@ public class Simulateur {
     private Float[] ar = new Float[0];
     private String pictureFolder;
     private Integer pictureSize;
+    private boolean affichageFFT = false;
+    private boolean affichageOeil = false;
 
     /**
      * <p>
@@ -160,6 +163,7 @@ public class Simulateur {
          * propres à la classe
          */
         emetteur = new EmetteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
+
         //emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
         //emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
 
@@ -211,11 +215,9 @@ public class Simulateur {
             source.connecter(new SondeLogique("sondeApresSource", 256));
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
             emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
 
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
 
             if (snr != null) {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
@@ -226,6 +228,13 @@ public class Simulateur {
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
+        if (affichageOeil) {
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
+        }
+        if (affichageFFT) {
+            emetteur.connecter(new SondeFFT("sondeFFTApresEmetteur"));
+        }
         if (generate_pictures) { //TODO use args to be able to choose folder../data/img/
             emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, pictureFolder + "/sondeDiagrammeOeilApresEmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png", pictureSize));
             transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, pictureFolder + "/sondeDiagrammeOeilApresTransmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png", pictureSize));
@@ -286,6 +295,10 @@ public class Simulateur {
 
             if (args[i].matches("-s")) {
                 affichage = true;
+            } else if (args[i].matches("-fft")) {
+                affichageFFT = true;
+            } else if (args[i].matches("-doeil")) {
+                affichageOeil = true;
             } else if (args[i].matches("-stat-img")) {
                 generate_pictures = true;
                 if (i + 1 >= args.length) {
