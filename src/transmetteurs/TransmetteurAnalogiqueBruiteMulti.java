@@ -90,7 +90,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
         }
 
         //------------------------Ajout bruit---------------------------
-        float puissance_signal = Tool.getPuissance(this.informationEmise);
+        float puissance_signal = Tool.getPuissance(this.informationRecue);
         float puissance_bruit = 0;
 
         if (this.SNR != null) {
@@ -102,7 +102,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
         }
         //Float[] output = new Float[this.informationRecue.nbElements()];
         //*
-        int nbEl = this.informationEmise.nbElements();
+        int nbEl = this.informationRecue.nbElements();
         //*/
         /* Génération du Bruit */
         SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
