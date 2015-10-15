@@ -7,6 +7,7 @@ import tools.Tool;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeDiagrammeOeil;
+import visualisations.SondeFFT;
 import visualisations.SondeLogique;
 import visualisations.SondePuissance;
 import visualisations.SondeRepartitionAnalogique;
@@ -67,7 +68,7 @@ public class Simulateur {
     /**
      * le composant Transmetteur parfait analogique de la chaine de transmission
      */
-    private final TransmetteurAnalogiqueParfaitMulti transmetteurAnalogique;
+    private final Transmetteur transmetteurAnalogique;
     //private final TransmetteurAnalogiqueBruite transmetteurAnalogique;
     //private final Transmetteur transmetteurAnalogique;
     /**
@@ -110,13 +111,13 @@ public class Simulateur {
     private boolean generate_pictures = false;
     private Float snrdB;
 
-    private Integer nbTrajet = 1;
-    private Integer[] dt;// = new Integer[1];
-    private Float[] ar;// = new Float[1];
-    
-    
-    //dt[0] = new Integer(0);
-    //ar[0] = new Float(0.0f);
+    private Integer nbTrajet = 0;
+    private Integer[] dt = new Integer[0];
+    private Float[] ar = new Float[0];
+    private String pictureFolder;
+    private Integer pictureSize;
+    private boolean affichageFFT = false;
+    private boolean affichageOeil = false;
 
     /**
      * <p>
@@ -162,6 +163,7 @@ public class Simulateur {
          * propres à la classe
          */
         emetteur = new EmetteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
+
         //emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
         //emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
 
@@ -174,15 +176,15 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
+        //transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-/*
-         if (aleatoireAvecGerme) {
-         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
-         } else {
-         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-         }
-         */
+//*
+        if (aleatoireAvecGerme) {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+        } else {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+        }
+        //*/
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -213,11 +215,9 @@ public class Simulateur {
             source.connecter(new SondeLogique("sondeApresSource", 256));
             emetteur.connecter(new SondeAnalogique("sondeApresEmetteur"));
             emetteur.connecter(new SondePuissance("sondePuissanceApresEmetteur"));
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
 
             transmetteurAnalogique.connecter(new SondeAnalogique("sondeApresTransmetteur"));
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
 
             if (snr != null) {
                 transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
@@ -228,9 +228,16 @@ public class Simulateur {
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
         }
 
-        if (generate_pictures) { //TODO use args to be able to choose folder
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresEmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png"));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, "../data/img/sondeDiagrammeOeilApresTransmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png"));
+        if (affichageOeil) {
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
+        }
+        if (affichageFFT) {
+            emetteur.connecter(new SondeFFT("sondeFFTApresEmetteur"));
+        }
+        if (generate_pictures) { //TODO use args to be able to choose folder../data/img/
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, pictureFolder + "/sondeDiagrammeOeilApresEmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png", pictureSize));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch, pictureFolder + "/sondeDiagrammeOeilApresTransmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png", pictureSize));
         }
     }
 
@@ -288,8 +295,23 @@ public class Simulateur {
 
             if (args[i].matches("-s")) {
                 affichage = true;
+            } else if (args[i].matches("-fft")) {
+                affichageFFT = true;
+            } else if (args[i].matches("-doeil")) {
+                affichageOeil = true;
             } else if (args[i].matches("-stat-img")) {
                 generate_pictures = true;
+                if (i + 1 >= args.length) {
+                    throw new ArgumentsException("Valeur du parametre folder -stat-img non saisie !");
+                }
+                if (i + 2 >= args.length) {
+                    throw new ArgumentsException("Valeur du parametre size -stat-img non saisie !");
+                }
+
+                i++;
+                pictureFolder = args[i];
+                i++; // on passe à l'argument suivant
+                pictureSize = new Integer(args[i]);
             } else if (args[i].matches("-seed")) {
                 aleatoireAvecGerme = true;
                 i++;
@@ -371,41 +393,45 @@ public class Simulateur {
 
             } else if (args[i].matches("-ti")) {
             	
+            	//Trop complexe ?
                 //Verification de la saisie du paramètre i
-            	if (i + 1 >= args.length) {
+                if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
                 }
-            	//Verification de la saisie des paramètres dt
-                if (i + 1 + Integer.parseInt(args[i+1]) >= args.length) {
+                //Verification de la saisie des paramètres dt
+                if (i + 1 + Integer.parseInt(args[i + 1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
                 }
                 //Verification de la saisie des paramètres ar
-                if (i + 1 + 2*Integer.parseInt(args[i+1]) >= args.length) {
+                if (i + 1 + 2 * Integer.parseInt(args[i + 1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre ar -ti non saisie !");
                 }
+
                 //On récupère le nombre de trajet
                 i++;
                 nbTrajet = new Integer(args[i]);
                 if (nbTrajet >= 1 && nbTrajet <= 5) {
+                    //TODO check if we have the good number of digit after like before
                 } else {
                     throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
                 }
-                
+
                 //On fixe la taille des tableaux
-                dt=new Integer[nbTrajet];
-                ar=new Float[nbTrajet];
-                
-                
-                
+                dt = new Integer[nbTrajet];
+                ar = new Float[nbTrajet];
+
                 i++; // on passe à l'argument suivant
-                for(int j=0;j<nbTrajet;j++){
-                	dt[j] = new Integer(args[i+j]);
+                for (int j = 0; j < nbTrajet; j++) {
+                    dt[j] = new Integer(args[i + j]);
+                    System.out.println("Dt : " + dt[j]);
                 }
-                i+=nbTrajet;
-                for(int j=0;j<nbTrajet;j++){
-                	
-                	ar[j] = new Float(args[i+j]);
+                i += nbTrajet;
+                for (int j = 0; j < nbTrajet; j++) {
+
+                    ar[j] = new Float(args[i + j]);
+                    System.out.println("Ar : " + ar[j]);
                 }
+                i++; //on pas à l'analyse du suivant
             } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);
             }

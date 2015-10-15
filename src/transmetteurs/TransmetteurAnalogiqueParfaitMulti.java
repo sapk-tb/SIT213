@@ -14,31 +14,33 @@ import tools.ArrayTool;
  */
 public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Float> {
 
-	
     private final Integer nbTrajet;
     //Décalage en échantillions
     private final Integer[] dt;
     //Amplitude relative
     private final Float[] ar;
 
-    public TransmetteurAnalogiqueParfaitMulti(Integer nbTrajet, Integer[] dt, Float[] ar) {
+    public TransmetteurAnalogiqueParfaitMulti(Integer nbTrajet, Integer[] dt, Float[] ar) throws Exception {
         super();
+        if (dt.length != nbTrajet || ar.length != nbTrajet) {
+            throw new Exception("Arguments de multiple trajet donnée invalide");
+        }
         this.nbTrajet = nbTrajet;
-        this.dt=dt;
-        this.ar=ar;
+        this.dt = dt;
+        this.ar = ar;
     }
-    
-    
+
     /**
      * reçoit une information. Cette méthode, en fin d'exécution, appelle la
      * méthode emettre.
      *
      * @param information l'information reçue
-     * @throws information.InformationNonConforme  Quand l'information est invalide
+     * @throws information.InformationNonConforme Quand l'information est
+     * invalide
      */
     @Override
     public void recevoir(Information<Float> information) throws InformationNonConforme {
-        if(information == null){
+        if (information == null) {
             throw new InformationNonConforme("information recue == null");
         }
         this.informationRecue = information;
@@ -50,30 +52,32 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
      */
     @Override
     public void emettre() throws InformationNonConforme {
-    	int max=0;
-    	for(int i=0 ; i<this.dt.length;i++){
-    		if (dt[i]>max)max=dt[i];
-    	}
-        Information<Float> informationTotale=new Information<Float>(this.informationRecue.nbElements()+nbTrajet*max);
-        informationTotale=informationRecue;
-        
-        Float [] tmp = new Float[informationRecue.nbElements()];
-        informationRecue.toArray(tmp);
-        Information<Float> temp = new Information<Float>(tmp);
-        for(int i=0;i<nbTrajet; i++){
-        	for(int j=0;j<dt[i];j++){
-        		temp.addAt(0,0f);
-        		//On réduit l'amplitude du trajet
-        		temp=ArrayTool.factArrays(temp, ar[i]);
-        		ArrayTool.sumArrays(informationTotale, temp);
-        	}
+        int max = 0;
+        for (int i = 0; i < dt.length; i++) {
+            if (dt[i] > max) {
+                max = dt[i];
+            }
         }
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationTotale);
-        }
-    	
-        this.informationEmise = informationTotale;
 
+        Float[] recu = new Float[informationRecue.nbElements()];
+        informationRecue.toArray(recu);
+        this.informationEmise = new Information<Float>(recu);
+        System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+
+        for (int i = 0; i < nbTrajet; i++) {
+            System.out.println("Generating trajet n°" + i);
+            Information<Float> temp = new Information<Float>(recu);
+            for (int j = 0; j < dt[i]; j++) {
+                temp.addAt(0, 0f);
+            }
+            temp=ArrayTool.factArrays(temp, ar[i]);
+            this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
+            System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+        }
+
+        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+            destinationConnectee.recevoir(this.informationEmise);
+        }
     }
 
 }
