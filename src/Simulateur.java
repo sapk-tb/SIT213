@@ -393,29 +393,22 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-            	
 
                 //Verification de la saisie du paramètre i
                 if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
                 }
-                //Verification de la saisie des paramètres dt
-                if (i + 1 + Integer.parseInt(args[i + 1]) >= args.length) {
-                    throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
-                }
-                
-                //Verification de la saisie des paramètres ar
-                if (i + 1 + 2 * Integer.parseInt(args[i + 1]) >= args.length) {
-                    throw new ArgumentsException("Valeur du parametre ar -ti non saisie !");
-                }
 
                 //On récupère le nombre de trajet
                 i++;
                 nbTrajet = new Integer(args[i]);
-                if (nbTrajet >= 1 && nbTrajet <= 5) {
-                    //TODO check if we have the good number of digit after like before
-                } else {
+                if (!(nbTrajet >= 1 && nbTrajet <= 5)) {
                     throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
+                }
+
+                //Verification de la saisie des paramètres dt et ar il nous encore  nbTrajet*2 paramètre après le nombre de trajet
+                if (i + nbTrajet*2  >= args.length) {
+                    throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
                 }
 
                 //On fixe la taille des tableaux
@@ -429,7 +422,6 @@ public class Simulateur {
                 }
                 i += nbTrajet;
                 for (int j = 0; j < nbTrajet; j++) {
-
                     ar[j] = new Float(args[i + j]);
                     System.out.println("Ar : " + ar[j]);
                 }
