@@ -3,6 +3,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -191,53 +192,63 @@ public class SimulateurTest {
     
     /**
      * Test of analyze of args (mess) of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
      */
     @Test
-    public void testAnalyseArgumuentsMessValideFixe() {
+    public void testAnalyseArgumuentsMessValideFixe() throws ArgumentsException, Exception {
         System.out.println("Test mess");
         String[] args = ("-mess 10010110101010110").split(" ");
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
       * Test of analyze of args (mess) of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
      */
     @Test
-    public void testAnalyseArgumuentsMessValideAleatoire() {
+    public void testAnalyseArgumuentsMessValideAleatoire() throws ArgumentsException, Exception {
         System.out.println("Test mess");
         String[] args = ("-mess 2445").split(" ");
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
       * Test of analyze of args (snr) of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
       */
     @Test
-    public void testAnalyseArgumuentsSNRValide() {
+    public void testAnalyseArgumuentsSNRValide() throws ArgumentsException, Exception {
         System.out.println("Test snrn");
         String[] args = ("-snr 5").split(" ");
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
      * Test of analyze -ti, of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
      */
     @Test
-    public void testAnalyseArgumentsTIValide() {
+    public void testAnalyseArgumentsTIValide() throws ArgumentsException, Exception {
         System.out.println("Test -ti valide");
-        String[] args = ("-ti 1 1 0.0f").split(" ");
-        Simulateur.main(args);
+        String[] args = ("-ti 1 1 0.3").split(" ");
+        new Simulateur(args);
     }
     
     /**
      * Test of analyze -ti, of class Simulateur.
      */
+   
     @Test(expected = ArgumentsException.class)
-    public void testAnalyseArgumentsTIInvalide() throws ArgumentsException, Exception {
+    public void testAnalyseArgumentsTIInvalide() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 1 2").split(" "); //ça doit être un flottant
-        Simulateur.main(args);
+        String[] args = ("-ti").split(" "); //ça doit être un flottant
+        new Simulateur(args);
     }
+    
     
     /**
      * Test of analyze -ti, of class Simulateur.
@@ -248,7 +259,7 @@ public class SimulateurTest {
     public void testAnalyseArgumentsTIInvalide2() throws ArgumentsException, Exception {
         System.out.println("Test -ti invalide");
         String[] args = ("-ti 1 2").split(" "); //deux trajets mais pas de données passées pour les deux trajets
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
@@ -258,7 +269,7 @@ public class SimulateurTest {
     public void testAnalyseArgumentsTIInvalide3() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
         String[] args = ("-ti 0 2").split(" "); //0 trajet mais des données passees
-        Simulateur.main(args);
+        new Simulateur(args);
     }
 
     
