@@ -92,4 +92,26 @@ public class ArrayTool {
         Float[] array = sumArrays(t1, t2);
         return new Information(array);
     }
+    
+    /**
+     * Facteur table de float
+     *
+     * @param t1 la table de float
+     * @return le tableau multiplié par le facteur
+     */
+    public static Information factArrays(Information i1, float ar) {
+        //Création du tableau contenant l'info à factoriser
+    	Float[] t1 = new Float[i1.nbElements()];
+        i1.toArray(t1);
+
+        //Création d'un tableau contenant l'information factorisée
+    	int size = t1.length;
+        Float[] tab = new Float[size];
+    	for(int i=0;i<size;i++){
+    	   tab[i]=t1[i]*ar;
+       }
+    	//Créé et retourne une nouvelle info contenant le tableau précédent
+    	Information retour=new Information(tab);
+       return retour;
+    }
 }

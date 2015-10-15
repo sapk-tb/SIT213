@@ -1,6 +1,5 @@
 package transmetteurs;
 
-import tools.Tool;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
@@ -64,6 +63,8 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
         for(int i=0;i<nbTrajet; i++){
         	for(int j=0;j<dt[i];j++){
         		temp.addAt(0,0f);
+        		//On réduit l'amplitude du trajet
+        		temp=ArrayTool.factArrays(temp, ar[i]);
         		ArrayTool.sumArrays(informationTotale, temp);
         	}
         }
