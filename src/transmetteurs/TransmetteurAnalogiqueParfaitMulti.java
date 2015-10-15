@@ -72,6 +72,7 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
             }
             temp=ArrayTool.factArrays(temp, ar[i]);
             this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
+            System.out.println(this.informationEmise.toString());
             System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
         }
 

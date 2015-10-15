@@ -50,7 +50,7 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
     @Test
     public void testRecevoir() throws Exception {
         System.out.println("Test recevoir");
-        Float bits[] = {-1f, 2f, 0f};
+        Float bits[] = {1f, 1f, 1f};
         Information<Float> information = new Information<>(bits);
         int nbTrajets = 2;
         Integer[] dt = {1,2};
@@ -62,21 +62,24 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         assertEquals(instance.informationRecue, information);
         
         //construction d'une information qui est la somme de l'information + 2 trajets différents
-        
+
         Information<Float> informationTotale = new Information<>(bits);
-        Float bitsT1[] = {0.0f, -1f, 2f, 0f};//Trajet1
-        Float bitsT2[] = {0.0f, 0.0f, -1f, 2f, 0f};//Trajet2
+        Float bitsT1[] = {0.0f, 0.5f, 0.5f, 0.5f, 0.0f};//Trajet1 : *0.5
+        Float bitsT2[] = {0.0f, 0.0f, 0.5f, 0.5f, 0.5f};//Trajet2 : *0.5
         Information<Float> informationT1 = new Information<>(bitsT1);
         Information<Float> informationT2 = new Information<>(bitsT2);
-        
+
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT1);
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT2);     
+        
+        System.out.println("_________");
+        System.out.println(informationTotale.toString());
         
         //Comme recevoir lance emettre cette fonction est aussi testée ici. 
         assertEquals(instance.informationEmise, informationTotale);
         //Le récepeteur marche bien pour retrouver l'information totale. 
         //TODO tester s'il peut retrouver le signal initiale qui est dans l'informationTotale
-        assertEquals(recepteurAnalogique.getInformationRecue(), informationTotale);
+        //assertEquals(recepteurAnalogique.getInformationRecue(), information);
     }
 
     /**
