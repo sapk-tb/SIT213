@@ -234,6 +234,7 @@ public class Simulateur {
         }
         if (affichageFFT) {
             emetteur.connecter(new SondeFFT("sondeFFTApresEmetteur"));
+            transmetteurAnalogique.connecter(new SondeFFT("sondeFFTApresTransmetteur"));
         }
         if (generate_pictures) { //TODO use args to be able to choose folder../data/img/
             emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch, pictureFolder + "/sondeDiagrammeOeilApresEmetteur-" + form + "-" + nbBitsMess + "-" + nbEch + "-" + snrdB + ".png", pictureSize));
