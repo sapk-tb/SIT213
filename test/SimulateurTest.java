@@ -193,7 +193,7 @@ public class SimulateurTest {
      * Test of analyze of args (mess) of class Simulateur.
      */
     @Test
-    public void testAnalyseArgmuentsMessValideFixe() {
+    public void testAnalyseArgumuentsMessValideFixe() {
         System.out.println("Test mess");
         String[] args = ("-mess 10010110101010110").split(" ");
         Simulateur.main(args);
@@ -203,7 +203,7 @@ public class SimulateurTest {
       * Test of analyze of args (mess) of class Simulateur.
      */
     @Test
-    public void testAnalyseArgmuentsMessValideAleatoire() {
+    public void testAnalyseArgumuentsMessValideAleatoire() {
         System.out.println("Test mess");
         String[] args = ("-mess 2445").split(" ");
         Simulateur.main(args);
@@ -213,7 +213,7 @@ public class SimulateurTest {
       * Test of analyze of args (snr) of class Simulateur.
       */
     @Test
-    public void testAnalyseArgmuentsSNRValide() {
+    public void testAnalyseArgumuentsSNRValide() {
         System.out.println("Test snrn");
         String[] args = ("-snr 5").split(" ");
         Simulateur.main(args);
@@ -223,7 +223,7 @@ public class SimulateurTest {
      * Test of analyze -ti, of class Simulateur.
      */
     @Test
-    public void testAnalyseArgmuentsTIValide() {
+    public void testAnalyseArgumentsTIValide() {
         System.out.println("Test -ti valide");
         String[] args = ("-ti 1 1 0.0f").split(" ");
         Simulateur.main(args);
@@ -232,8 +232,8 @@ public class SimulateurTest {
     /**
      * Test of analyze -ti, of class Simulateur.
      */
-    @Test
-    public void testAnalyseArgmuentsTIInvalide() {
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide() throws ArgumentsException, Exception {
         System.out.println("Test -ti invalide");
         String[] args = ("-ti 1 2").split(" "); //ça doit être un flottant
         Simulateur.main(args);
@@ -242,10 +242,12 @@ public class SimulateurTest {
     /**
      * Test of analyze -ti, of class Simulateur.
      */
-    @Test
-    public void testAnalyseArgmuentsTIInvalide2() {
+    // vérifier si param ar et dt sont bien passés
+    // pour chaque trajectoire
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide2() throws ArgumentsException, Exception {
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 2 2 0.4").split(" "); //deux trajets mais pas de données passées pour ce trajet
+        String[] args = ("-ti 1 2").split(" "); //deux trajets mais pas de données passées pour les deux trajets
         Simulateur.main(args);
     }
     
@@ -253,9 +255,9 @@ public class SimulateurTest {
      * Test of analyze -ti, of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
-    public void testAnalyseArgmuentsTIInvalide3() {
+    public void testAnalyseArgumentsTIInvalide3() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 0 2 0.4").split(" "); //deux trajets mais pas de données passées pour ce trajet
+        String[] args = ("-ti 0 2").split(" "); //0 trajet mais des données passees
         Simulateur.main(args);
     }
 
