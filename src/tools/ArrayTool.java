@@ -97,7 +97,7 @@ public class ArrayTool {
      * Facteur table de float
      *
      * @param t1 la table de float
-     * @return le tableau multiplié par le facteur
+     * @return le tableau multiplié par le facteur (Dans une information)
      */
     public static Information factArrays(Information i1, float ar) {
         //Création du tableau contenant l'info à factoriser

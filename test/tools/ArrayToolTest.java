@@ -62,8 +62,21 @@ public class ArrayToolTest {
         float bitsResult[] = {0f, 0f, 0f};
         float resultat[] = ArrayTool.sumArrays(bits, bitsT1);
 
-        assertEquals(bitsResult.equals(resultat), true);
+        assertArrayEquals(resultat,bitsResult, 0.0f);
         
+    }
+    
+    @Test
+    public void testSumArraysFacto(){
+    	
+        Float bits[] = {2f, -2f, 0f};
+        float facteur = 0.5f;
+        Float bitsResult[] = {1f, -1f, 0f};
+        Information<Float>info = new Information<>(bits);
+        Information<Float>resultatAttendu = new Information<>(bitsResult);
+        Information<Float>resultat = ArrayTool.factArrays(info, facteur);
+        
+        assertEquals(resultatAttendu, resultat);
     }
     
     
