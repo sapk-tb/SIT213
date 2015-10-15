@@ -45,7 +45,7 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
     }
 
     /**
-     * Test of recevoir method, of class TransmetteurAnalogiqueParfait.
+     * Test of recevoir method, of class TransmetteurAnalogiqueParfaitMulti.
      */
     @Test
     public void testRecevoir() throws Exception {

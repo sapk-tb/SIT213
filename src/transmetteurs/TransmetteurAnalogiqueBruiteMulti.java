@@ -14,7 +14,7 @@ import tools.Tool;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float> {
+public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float>{
     
 	protected Information<Float> informationBruit;
     private final Integer nbTrajet;
@@ -28,7 +28,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
     public TransmetteurAnalogiqueBruiteMulti(Integer nbTrajet, Integer[] dt, Float[] ar, Float SNR, int seed) throws Exception {
         super();
         if (dt.length != nbTrajet || ar.length != nbTrajet) {
-            throw new Exception("Arguments de multiple trajet donnée invalide");
+            throw new Exception("Arguments de multiple trajet donnés invalides");
         }
         this.nbTrajet = nbTrajet;
         this.dt = dt;
@@ -55,14 +55,17 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
             throw new InformationNonConforme("information recue == null");
         }
         this.informationRecue = information;
+       
         emettre();
+
     }
 
     /**
      * émet l'information construite par la transmetteur
+     * @throws InformationNonConforme 
      */
     @Override
-    public void emettre() throws InformationNonConforme {
+    public void emettre() throws InformationNonConforme{
         int max = 0;
         for (int i = 0; i < dt.length; i++) {
             if (dt[i] > max) {
@@ -92,6 +95,10 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
 
         if (this.SNR != null) {
             puissance_bruit = puissance_signal / this.SNR;
+        }
+        else
+        {
+        	throw new InformationNonConforme("Le SNR est null");
         }
         //Float[] output = new Float[this.informationRecue.nbElements()];
         //*
