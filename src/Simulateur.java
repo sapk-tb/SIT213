@@ -393,7 +393,7 @@ public class Simulateur {
 
             } else if (args[i].matches("-ti")) {
             	
-            	//Trop complexe ?
+
                 //Verification de la saisie du paramètre i
                 if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
@@ -402,6 +402,7 @@ public class Simulateur {
                 if (i + 1 + Integer.parseInt(args[i + 1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
                 }
+                
                 //Verification de la saisie des paramètres ar
                 if (i + 1 + 2 * Integer.parseInt(args[i + 1]) >= args.length) {
                     throw new ArgumentsException("Valeur du parametre ar -ti non saisie !");
