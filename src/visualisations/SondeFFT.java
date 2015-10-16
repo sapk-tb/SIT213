@@ -64,7 +64,7 @@ public class SondeFFT extends Sonde<Float> {
             //System.out.println("nbElement : " + nbElements);
         }
         //nbElements = nbElements / 2;
-        System.out.println("nbElement : " + nbElements + "nbElementOri : " + nbElementsOri);
+        //System.out.println("nbElement : " + nbElements + "nbElementOri : " + nbElementsOri); 0-Padding
         float[] real = new float[nbElements];
         float[] complex = new float[nbElements];
         //informationRecue.toArray(real);
