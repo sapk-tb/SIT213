@@ -402,7 +402,7 @@ public class Simulateur {
                 //Verification de la saisie du paramètre i ar dt
                 String[] params = {"-ti", "i", "dt", "ar"};
                 for (int j = 1; j <= 3; j++) {
-                    if (i + j >= args.length || args[i + 1].startsWith("-")) {
+                    if (i + j >= args.length || args[i + j].startsWith("-")) {
                         throw new ArgumentsException("Valeur du parametre " + params[j] + " -ti non saisie !");
                     }
                 }
@@ -428,8 +428,6 @@ public class Simulateur {
                     }
                 }
                 System.out.println("nbTrajet : " + nbTrajet);
-
-                i++; //on pas à l'analyse du suivant
             } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);
             }
