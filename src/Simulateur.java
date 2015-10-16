@@ -114,8 +114,8 @@ public class Simulateur {
     private Float snrdB;
 
     private Integer nbTrajet = 0;
-    private Integer[] dt = new Integer[0];
-    private Float[] ar = new Float[0];
+    private Integer[] dt = {0};
+    private Float[] ar = {0.0f};
     private String pictureFolder;
     private Integer pictureSize;
     private boolean affichageFFT = false;
@@ -137,7 +137,7 @@ public class Simulateur {
      *
      */
     public Simulateur(String[] args) throws ArgumentsException, Exception {
-
+ 
         // analyser et récupérer les arguments
         analyseArguments(args);
         //*
