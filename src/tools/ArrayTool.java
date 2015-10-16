@@ -30,12 +30,16 @@ public class ArrayTool {
 
         int nb_thread = Runtime.getRuntime().availableProcessors();
         ExecutorService pool = Executors.newFixedThreadPool(nb_thread);
-        int nbEchByThread = Math.max(size / nb_thread, 1);
+        int nbEchByThread = 1 + (size / nb_thread);
         int i = 0;
         while (i < size) {
-            int end = Math.min(i + nbEchByThread, size);
-            pool.execute(new AddToFloatArray(tab, t1, t2, i, end));
-            i = end;
+            try {
+                int end = Math.min(i + nbEchByThread, size-1);
+                pool.execute(new AddToFloatArray(tab, t1, t2, i, end));
+                i = end+1;
+            } catch (Exception ex) {
+                Logger.getLogger(ArrayTool.class.getName()).log(Level.SEVERE, "Une erreur dans le calcul de l'index final est apparue", ex);
+            }
         }
         pool.shutdown();
         try {
@@ -62,9 +66,13 @@ public class ArrayTool {
         int nbEchByThread = Math.max(size / nb_thread, 1);
         int i = 0;
         while (i < size) {
-            int end = Math.min(i + nbEchByThread, size);
-            pool.execute(new AddToNativeFloatArray(tab, t1, t2, i, end));
-            i = end;
+            try {
+                int end = Math.min(i + nbEchByThread, size-1);
+                pool.execute(new AddToNativeFloatArray(tab, t1, t2, i, end));
+                i = end+1;
+            } catch (Exception ex) {
+                Logger.getLogger(ArrayTool.class.getName()).log(Level.SEVERE, "Une erreur dans le calcul de l'index final est apparue", ex);
+            }
         }
         pool.shutdown();
         try {
