@@ -1,3 +1,4 @@
+
 import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
@@ -112,8 +113,8 @@ public class Simulateur {
     private Float snrdB;
 
     private Integer nbTrajet = 0;
-    private Integer[] dt = new Integer[0];
-    private Float[] ar = new Float[0];
+    private Integer[] dt = {0, 0, 0, 0, 0};
+    private Float[] ar = {0f, 0f, 0f, 0f, 0f};
     private String pictureFolder;
     private Integer pictureSize;
     private boolean affichageFFT = false;
@@ -135,7 +136,7 @@ public class Simulateur {
      *
      */
     public Simulateur(String[] args) throws ArgumentsException, Exception {
- 
+
         // analyser et récupérer les arguments
         analyseArguments(args);
         //*
@@ -176,15 +177,20 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
+//        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(dt, ar);
+        if (aleatoireAvecGerme) {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, seed);
+        } else {
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr);
+        }
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
         /*
-        if (aleatoireAvecGerme) {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
-        } else {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-        }
-        //*/
+         if (aleatoireAvecGerme) {
+         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
+         } else {
+         transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
+         }
+         //*/
         /*
          * On relie l'emetteur au transmetteurAnalogique
          */
@@ -393,41 +399,36 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-                //Verification de la saisie du paramètre i
-                if (i + 1 >= args.length) {
-                    throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
+                //Verification de la saisie du paramètre i ar dt
+                String[] params = {"-ti", "i", "dt", "ar"};
+                for (int j = 1; j <= 3; j++) {
+                    if (i + j >= args.length || args[i + 1].startsWith("-")) {
+                        throw new ArgumentsException("Valeur du parametre " + params[j] + " -ti non saisie !");
+                    }
                 }
 
-                //On récupère le nombre de trajet
                 i++;
-                nbTrajet = new Integer(args[i]);
-                if (!(nbTrajet >= 1 && nbTrajet <= 5)) {
-                    throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
+                //On récupère le numero de trajet
+                Integer nTrajet = new Integer(args[i]);
+                if (!(nTrajet >= 1 && nTrajet <= 5)) {
+                    throw new ArgumentsException("Valeur du parametre numTrajet <1 ou >5");
                 }
 
-                if (i + 1 >= args.length || args[i + 1].startsWith("-")) { // On est le dernier argument ou on a un autre attribut qui commence par -
-                    continue; //On passe à l'argumetn suivant rien à faire on ignore le nb de trajet
-                }
-                
-                //Verification de la saisie des paramètres dt et ar il nous encore  nbTrajet*2 paramètre après le nombre de trajet
-                if (i + nbTrajet*2  >= args.length) {
-                    throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
-                }
+                i++;
+                //On récupère le dt du trajet
+                dt[nTrajet] = new Integer(args[i]);
+                i++;
+                //On récupère le ar du trajet
+                ar[nTrajet] = new Float(args[i]);
 
-                //On fixe la taille des tableaux
-                dt = new Integer[nbTrajet];
-                ar = new Float[nbTrajet];
+                nbTrajet = 0;
+                for (int j = 0; j < 5; j++) {
+                    if (ar[j] != 0) {
+                        nbTrajet++; //nbTrajet indique le nombre de trajet non null qui seront généré mais n'est pas indispensable
+                    }
+                }
+                System.out.println("nbTrajet : " + nbTrajet);
 
-                i++; // on passe à l'argument suivant
-                for (int j = 0; j < nbTrajet; j++) {
-                    dt[j] = new Integer(args[i + j]);
-                    System.out.println("Dt : " + dt[j]);
-                }
-                i += nbTrajet;
-                for (int j = 0; j < nbTrajet; j++) {
-                    ar[j] = new Float(args[i + j]);
-                    System.out.println("Ar : " + ar[j]);
-                }
                 i++; //on pas à l'analyse du suivant
             } else {
                 throw new ArgumentsException("Option invalide : " + args[i]);

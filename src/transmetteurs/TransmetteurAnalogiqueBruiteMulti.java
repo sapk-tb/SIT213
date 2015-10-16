@@ -14,10 +14,9 @@ import tools.Tool;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float>{
-    
-	protected Information<Float> informationBruit;
-    private final Integer nbTrajet;
+public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float> {
+
+    protected Information<Float> informationBruit;
     //Décalage en échantillions
     private final Integer[] dt;
     //Amplitude relative
@@ -25,22 +24,24 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
     private Float SNR = null;
     private int seed;
 
-    public TransmetteurAnalogiqueBruiteMulti(Integer nbTrajet, Integer[] dt, Float[] ar, Float SNR, int seed) throws Exception {
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR) throws Exception {
+        this(dt, ar, SNR, (int) (Math.random() * 1024));
+    }
+
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR, int seed) throws Exception {
         super();
-        if (dt.length != nbTrajet || ar.length != nbTrajet) {
-            throw new Exception("Arguments de multiple trajet donnés invalides");
+        if (dt.length != ar.length) {
+            throw new Exception("Arguments de multiple trajet donnée invalide");
         }
-        this.nbTrajet = nbTrajet;
         this.dt = dt;
         this.ar = ar;
         this.SNR = SNR;
         this.seed = seed;
     }
-    
-    /*public TransmetteurAnalogiqueBruiteMulti(Float SNR) {
-        this(SNR, (int) (Math.random() * 1024));
-    }*/
 
+    /*public TransmetteurAnalogiqueBruiteMulti(Float SNR) {
+     this(SNR, (int) (Math.random() * 1024));
+     }*/
     /**
      * reçoit une information. Cette méthode, en fin d'exécution, appelle la
      * méthode emettre.
@@ -55,17 +56,18 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
             throw new InformationNonConforme("information recue == null");
         }
         this.informationRecue = information;
-       
+
         emettre();
 
     }
 
     /**
      * émet l'information construite par la transmetteur
-     * @throws InformationNonConforme 
+     *
+     * @throws InformationNonConforme
      */
     @Override
-    public void emettre() throws InformationNonConforme{
+    public void emettre() throws InformationNonConforme {
         int max = 0;
         for (int i = 0; i < dt.length; i++) {
             if (dt[i] > max) {
@@ -78,13 +80,16 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
         this.informationEmise = new Information<Float>(recu);
         //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
 
-        for (int i = 0; i < nbTrajet; i++) {
+        for (int i = 0; i < dt.length; i++) {
+            if (ar[i] == 0) {
+                continue;//On continue car le signal est null
+            }
             //System.out.println("Generating trajet n°" + i);
             Information<Float> temp = new Information<Float>(recu);
             for (int j = 0; j < dt[i]; j++) {
                 temp.addAt(0, 0f);
             }
-            temp=ArrayTool.factArrays(temp, ar[i]);
+            temp = ArrayTool.factArrays(temp, ar[i]);
             this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
             //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
         }
@@ -95,10 +100,8 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
 
         if (this.SNR != null) {
             puissance_bruit = puissance_signal / this.SNR;
-        }
-        else
-        {
-        	throw new InformationNonConforme("Le SNR est null");
+        } else {
+            throw new InformationNonConforme("Le SNR est null");
         }
         //Float[] output = new Float[this.informationRecue.nbElements()];
         //*
@@ -113,7 +116,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
 
         this.informationEmise = ArrayTool.sumArrays(informationEmise, informationBruit);
         //-----------------------Fin ajout bruit---------------------------
-        
+
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(this.informationEmise);
         }
