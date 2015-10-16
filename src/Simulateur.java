@@ -2,7 +2,9 @@
 import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
+import recepteurs.Recepteur;
 import recepteurs.RecepteurAnalogique;
+import recepteurs.RecepteurAnalogiqueMulti;
 import tools.Tool;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
@@ -74,7 +76,7 @@ public class Simulateur {
     /**
      * le composant Recepteur parfait analogique de la chaine de transmission
      */
-    private final RecepteurAnalogique recepteur;
+    private final Recepteur recepteur;
     /**
      * le composant Emetteur logique->analogique de la chaine de transmission
      */
@@ -176,9 +178,9 @@ public class Simulateur {
          * instancie transmetteurAnalogique de type
          * TransmetteurAnalogiqueParfait
          */
-        //transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
+        transmetteurAnalogique = new TransmetteurAnalogiqueParfaitMulti(nbTrajet, dt, ar);
         //transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
-//*
+        /*
         if (aleatoireAvecGerme) {
             transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr, seed);
         } else {
@@ -194,7 +196,7 @@ public class Simulateur {
          * instancie recepteur de type RecepteurAnalogique avec les paramètres
          * propres à la classe
          */
-        recepteur = new RecepteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
+        recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar);
         /*
          * On relie le transmetteurAnalogique au recepteur
          */

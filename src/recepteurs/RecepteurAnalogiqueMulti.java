@@ -115,7 +115,7 @@ public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
         	for(int j=0;j<dt.length;j++){
         		if((i-dt[j])>0){
         			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
-        			infoDecodee.addAt(i, -valeur);
+        			infoDecodee.setIemeElement(i,(float)infoDecodee.iemeElement(i) - valeur);
         		}
         	}
         }
