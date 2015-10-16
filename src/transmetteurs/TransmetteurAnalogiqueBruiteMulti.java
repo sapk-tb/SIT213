@@ -3,7 +3,9 @@ package transmetteurs;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
+import sources.SourceBruitGaussien;
 import tools.ArrayTool;
+import tools.Tool;
 
 /**
  * Classe d'un composant qui transmet des informations de type Float sans
@@ -12,23 +14,32 @@ import tools.ArrayTool;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Float> {
-
+public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float>{
+    
+	protected Information<Float> informationBruit;
     private final Integer nbTrajet;
     //Décalage en échantillions
     private final Integer[] dt;
     //Amplitude relative
     private final Float[] ar;
+    private Float SNR = null;
+    private int seed;
 
-    public TransmetteurAnalogiqueParfaitMulti(Integer nbTrajet, Integer[] dt, Float[] ar) throws Exception {
+    public TransmetteurAnalogiqueBruiteMulti(Integer nbTrajet, Integer[] dt, Float[] ar, Float SNR, int seed) throws Exception {
         super();
         if (dt.length != nbTrajet || ar.length != nbTrajet) {
-            throw new Exception("Arguments de multiple trajet donnée invalide");
+            throw new Exception("Arguments de multiple trajet donnés invalides");
         }
         this.nbTrajet = nbTrajet;
         this.dt = dt;
         this.ar = ar;
+        this.SNR = SNR;
+        this.seed = seed;
     }
+    
+    /*public TransmetteurAnalogiqueBruiteMulti(Float SNR) {
+        this(SNR, (int) (Math.random() * 1024));
+    }*/
 
     /**
      * reçoit une information. Cette méthode, en fin d'exécution, appelle la
@@ -44,14 +55,17 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
             throw new InformationNonConforme("information recue == null");
         }
         this.informationRecue = information;
+       
         emettre();
+
     }
 
     /**
      * émet l'information construite par la transmetteur
+     * @throws InformationNonConforme 
      */
     @Override
-    public void emettre() throws InformationNonConforme {
+    public void emettre() throws InformationNonConforme{
         int max = 0;
         for (int i = 0; i < dt.length; i++) {
             if (dt[i] > max) {
@@ -72,10 +86,34 @@ public class TransmetteurAnalogiqueParfaitMulti extends Transmetteur<Float, Floa
             }
             temp=ArrayTool.factArrays(temp, ar[i]);
             this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
-            System.out.println(this.informationEmise.toString());
             System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
         }
 
+        //------------------------Ajout bruit---------------------------
+        float puissance_signal = Tool.getPuissance(this.informationRecue);
+        float puissance_bruit = 0;
+
+        if (this.SNR != null) {
+            puissance_bruit = puissance_signal / this.SNR;
+        }
+        else
+        {
+        	throw new InformationNonConforme("Le SNR est null");
+        }
+        //Float[] output = new Float[this.informationRecue.nbElements()];
+        //*
+        int nbEl = this.informationRecue.nbElements();
+        //*/
+        /* Génération du Bruit */
+        SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
+        bruit.emettre();
+        this.informationBruit = bruit.getInformationEmise();
+
+        System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
+
+        this.informationEmise = ArrayTool.sumArrays(informationEmise, informationBruit);
+        //-----------------------Fin ajout bruit---------------------------
+        
         for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(this.informationEmise);
         }

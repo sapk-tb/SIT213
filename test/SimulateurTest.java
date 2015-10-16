@@ -3,6 +3,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -33,7 +34,7 @@ public class SimulateurTest {
 
     /**
      * Test of calculTauxErreurBinaire method, of class Simulateur.
-     * @throws java.lang.Exception
+     * 
      */
     @Test
     public void testCalculTauxErreurBinaire() throws Exception {
@@ -46,6 +47,7 @@ public class SimulateurTest {
         assertEquals(expResult, result, 0.0);
     }
 
+    
     /**
      * Test of main method, of class Simulateur.
      */
@@ -69,7 +71,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch)of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchInvalide() throws ArgumentsException, Exception {
@@ -79,7 +81,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch), of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchLettreInvalide() throws ArgumentsException, Exception {
@@ -89,7 +91,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsnbEchInvalideNul() throws ArgumentsException, Exception {
@@ -99,7 +101,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (nbEch) of class Simulateur.
      */
     @Test
     public void testAnalyseArgumentsnbEch() throws ArgumentsException, Exception {
@@ -109,7 +111,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (ampl) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplInvalide() throws ArgumentsException, Exception {
@@ -119,7 +121,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (ampl) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplMaxInvalide() throws ArgumentsException, Exception {
@@ -129,7 +131,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (ampl) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsAmplMinInvalide() throws ArgumentsException, Exception {
@@ -139,7 +141,7 @@ public class SimulateurTest {
     }
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (form) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsFormInvalide() throws ArgumentsException, Exception {
@@ -149,7 +151,7 @@ public class SimulateurTest {
     }    
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (form) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsForm2Invalide() throws ArgumentsException, Exception {
@@ -159,7 +161,7 @@ public class SimulateurTest {
     } 
 
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (seed) of class Simulateur.
      */
     @Test
     public void testAnalyseArgumentsSeedValide() throws ArgumentsException, Exception {
@@ -169,7 +171,7 @@ public class SimulateurTest {
     } 
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (seed) of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsSeedInvalide() throws ArgumentsException, Exception {
@@ -179,7 +181,7 @@ public class SimulateurTest {
     } 
     
     /**
-     * Test of analyze of args of class Simulateur.
+     * Test of analyze of args (s) of class Simulateur.
      */
     @Test
     public void testAnalyseArgumentsVisualisation() throws ArgumentsException, Exception {
@@ -189,53 +191,85 @@ public class SimulateurTest {
     } 
     
     /**
-     * Test of main method, of class Simulateur.
+     * Test of analyze of args (mess) of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
      */
     @Test
-    public void testAnalyseArgmuentsMessValideFixe() {
-        System.out.println("Test main");
+    public void testAnalyseArgumuentsMessValideFixe() throws ArgumentsException, Exception {
+        System.out.println("Test mess");
         String[] args = ("-mess 10010110101010110").split(" ");
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
-     * Test of main method, of class Simulateur.
+      * Test of analyze of args (mess) of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
      */
     @Test
-    public void testAnalyseArgmuentsMessValideAleatoire() {
-        System.out.println("Test main");
+    public void testAnalyseArgumuentsMessValideAleatoire() throws ArgumentsException, Exception {
+        System.out.println("Test mess");
         String[] args = ("-mess 2445").split(" ");
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
-     * Test of main method, of class Simulateur.
-     */
+      * Test of analyze of args (snr) of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
+      */
     @Test
-    public void testAnalyseArgmuentsSNRValide() {
-        System.out.println("Test main");
+    public void testAnalyseArgumuentsSNRValide() throws ArgumentsException, Exception {
+        System.out.println("Test snrn");
         String[] args = ("-snr 5").split(" ");
-        Simulateur.main(args);
+        new Simulateur(args);
     }
     
     /**
      * Test of analyze -ti, of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
      */
     @Test
-    public void testAnalyseArgmuentsTIValide() {
+    public void testAnalyseArgumentsTIValide() throws ArgumentsException, Exception {
         System.out.println("Test -ti valide");
-        String[] args = ("-ti 1 1 0.0f").split(" ");
-        Simulateur.main(args);
+        String[] args = ("-ti 1 1 0.3").split(" ");
+        new Simulateur(args);
     }
     
     /**
      * Test of analyze -ti, of class Simulateur.
      */
-    @Test
-    public void testAnalyseArgmuentsTIInvalide() {
+   
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 1 1").split(" ");
-        Simulateur.main(args);
+        String[] args = ("-ti").split(" "); //ça doit être un flottant
+        new Simulateur(args);
+    }
+    
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    // vérifier si param ar et dt sont bien passés
+    // pour chaque trajectoire
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide2() throws ArgumentsException, Exception {
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 1 2").split(" "); //deux trajets mais pas de données passées pour les deux trajets
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide3() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 0 2").split(" "); //0 trajet mais des données passees
+        new Simulateur(args);
     }
 
     

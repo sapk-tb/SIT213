@@ -13,13 +13,18 @@ import information.InformationNonConforme;
  * @author Pierrick CHOVELON
  * @author Mélanie CORRE
  */
-public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
+public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
 
     private final String form;
     private final int nbEch;
     private final float amplMin;
     private final float amplMax;
-
+    private final float dutyCycleRZ;
+    private final float tmpMontee;
+    private final Integer[] dt;
+    private final Float[] ar;
+    
+    
     public String getForm() {
         return form;
     }
@@ -43,8 +48,14 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     public float getTmpMontee() {
         return tmpMontee;
     }
-    private final float dutyCycleRZ;
-    private final float tmpMontee;
+    
+    public Integer[] getDt(){
+    	return dt;
+    }
+    
+    public Float[] getAr(){
+    	return ar;
+    }
 
     /**
      * Constructeur du récepteur analogique
@@ -57,7 +68,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
      */
-    public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
+    public RecepteurAnalogiqueMulti(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee, Integer[] dt, Float[] ar) {
         super();
         //TODO check validity of args
         this.form = form;
@@ -66,6 +77,8 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
         this.amplMax = amplMax;
         this.dutyCycleRZ = dutyCycleRZ;
         this.tmpMontee = tmpMontee;
+        this.dt=dt;
+        this.ar=ar;
     }
 
     /**
@@ -88,7 +101,27 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
         if (informationRecue == null) {
             throw new InformationNonConforme("informationRecue == null");
         }
-
+        
+        //Debut debruitage du signal
+        int dtmax=0;
+        for(int i=0;i<dt.length;i++){
+        	if(dt[i]>dtmax){
+        		dtmax=dt[i];
+        	}
+        }
+        Information infoDecodee=new Information();
+        for(int i=0; i<(informationRecue.nbElements()-dtmax);i++){
+        	infoDecodee.addAt(i, informationRecue.iemeElement(i));
+        	for(int j=0;j<dt.length;j++){
+        		if((i-dt[j])>0){
+        			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
+        			infoDecodee.setIemeElement(i,(float)infoDecodee.iemeElement(i) - valeur);
+        		}
+        	}
+        }
+        //Fin debruitage du signal
+        
+        
         int nbEchTotal = informationRecue.nbElements();
         int nbSymbole = nbEchTotal / nbEch;
         Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);

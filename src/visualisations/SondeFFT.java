@@ -1,22 +1,21 @@
 package visualisations;
 
 import information.Information;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import tools.FFTBase;
 
 /**
  * Classe réalisant l'affichage d'information composée d'élèments réels (float)
  *
  * @author prou
  */
-public class SondeDiagrammeOeil extends Sonde<Float> {
+public class SondeFFT extends Sonde<Float> {
 
-    private final int nbEchParSym;
     private String filename = null;
     private Integer screenSize = null;
 
@@ -24,12 +23,11 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param nbEchParSym Le nombre d'echantillon par symbole
      * @param screen_filename Le nom du fichier ou enregistrer le screenshot
      * @param screenSize taille de la capture de l'oeil
      */
-    public SondeDiagrammeOeil(String nom, int nbEchParSym, String screenFilename, Integer screenSize) {
-        this(nom, nbEchParSym);
+    public SondeFFT(String nom, String screenFilename, Integer screenSize) {
+        this(nom);
         this.filename = screenFilename;
         this.screenSize = screenSize;
     }
@@ -38,11 +36,10 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param nbEchParSym Le nombre d'echantillon par symbole
      * @param screen_filename Le nom du fichier ou enregistrer le screenshot
      */
-    public SondeDiagrammeOeil(String nom, int nbEchParSym, String screen_filename) {
-        this(nom, nbEchParSym);
+    public SondeFFT(String nom, String screen_filename) {
+        this(nom);
         this.filename = screen_filename;
     }
 
@@ -50,31 +47,45 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param nbEchParSym Le nombre d'echantillon par symbole
      */
-    public SondeDiagrammeOeil(String nom, int nbEchParSym) {
+    public SondeFFT(String nom) {
         super(nom);
-        this.nbEchParSym = nbEchParSym;
     }
 
     @Override
     public void recevoir(Information<Float> information) {
         informationRecue = information;
-        int nbElements = information.nbElements();
-        int nbSym = nbElements / nbEchParSym;
-        float[][] table = new float[nbSym][nbEchParSym];
-        //System.out.println("Nb Sym = " + nbSym + " nbEchParSym : " + nbEchParSym + " nbElements " + nbElements);
-        for (int i = 0; i < nbSym; i++) {
-            for (int j = 0; j < nbEchParSym; j++) {
-                table[i][j] = information.iemeElement(i * nbEchParSym + j);
+        int nbElementsOri = information.nbElements();
+
+        //On détermine la puissance de 2 maximum à nbElement.
+        int nbElements = 1;
+        while (nbElements < nbElementsOri) {
+            nbElements *= 2;
+            //System.out.println("nbElement : " + nbElements);
+        }
+        //nbElements = nbElements / 2;
+        System.out.println("nbElement : " + nbElements + "nbElementOri : " + nbElementsOri);
+        float[] real = new float[nbElements];
+        float[] complex = new float[nbElements];
+        //informationRecue.toArray(real);
+        for (int i = 0; i < nbElementsOri; i++) {
+            real[i] = informationRecue.iemeElement(i);
+        }
+
+        float[] fft = FFTBase.fft(real, complex, true);
+//*
+        int milieu = fft.length / 2;
+        float[] fftCorrected = new float[fft.length];
+        for (int i = 0; i < fft.length; i++) {
+            if (i >= milieu) {
+                fftCorrected[i] = Math.abs(fft[i - milieu]);
+            } else {
+                fftCorrected[i] = Math.abs(fft[i + milieu]);
             }
         }
-        /*int i = 0;
-         for (float f : information) {
-         table[i / nbEchParSym][i % nbEchParSym] = f;
-         i++;
-         }*/
-        VueCourbe vue = new VueCourbe(table, nom);
+//*/
+        //TODO lisser la courbe en faisant une moyenne;
+        VueCourbe vue = new VueCourbe(fftCorrected, nom);
         if (screenSize != null) {
             vue.setSize(screenSize, screenSize);
         }
@@ -83,7 +94,7 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
             try {
                 ImageIO.write(img, "png", new File(filename)); //"screenshot-" + nom + ".png"
             } catch (IOException ex) {
-                Logger.getLogger(SondeDiagrammeOeil.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SondeFFT.class.getName()).log(Level.SEVERE, null, ex);
             }
             vue.dispose();
             //vue.dispatchEvent(new WindowEvent(vue, WindowEvent.WINDOW_CLOSING));
