@@ -2,7 +2,6 @@ import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
 import recepteurs.Recepteur;
-import recepteurs.RecepteurAnalogique;
 import recepteurs.RecepteurAnalogiqueMulti;
 import tools.Tool;
 import transmetteurs.*;
@@ -113,8 +112,8 @@ public class Simulateur {
     private Float snrdB;
 
     private Integer nbTrajet = 0;
-    private Integer[] dt = {0};
-    private Float[] ar = {0.0f};
+    private Integer[] dt = new Integer[0];
+    private Float[] ar = new Float[0];
     private String pictureFolder;
     private Integer pictureSize;
     private boolean affichageFFT = false;
@@ -394,7 +393,6 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-
                 //Verification de la saisie du paramètre i
                 if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre i -ti non saisie !");
@@ -407,6 +405,10 @@ public class Simulateur {
                     throw new ArgumentsException("Valeur du parametre nbTrajet <1 ou >5");
                 }
 
+                if (i + 1 >= args.length || args[i + 1].startsWith("-")) { // On est le dernier argument ou on a un autre attribut qui commence par -
+                    continue; //On passe à l'argumetn suivant rien à faire on ignore le nb de trajet
+                }
+                
                 //Verification de la saisie des paramètres dt et ar il nous encore  nbTrajet*2 paramètre après le nombre de trajet
                 if (i + nbTrajet*2  >= args.length) {
                     throw new ArgumentsException("Valeur du parametre dt -ti non saisie !");
