@@ -268,7 +268,17 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTIInvalide3() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 0 2").split(" "); //0 trajet mais des données passees
+        String[] args = ("-ti 0 2 3").split(" "); //0 trajet mais des données passees
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide4() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 2 5 0.5 0.2").split(" "); //0 trajet mais des données passees
         new Simulateur(args);
     }
 

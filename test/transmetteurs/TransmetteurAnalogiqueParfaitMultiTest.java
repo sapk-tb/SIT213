@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import recepteurs.RecepteurAnalogique;
+import recepteurs.RecepteurAnalogiqueMulti;
 import tools.ArrayTool;
 
 
@@ -56,16 +57,16 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         Integer[] dt = {1,2};
         Float[] ar = {0.5f,0.5f};
         TransmetteurAnalogiqueParfaitMulti instance = new TransmetteurAnalogiqueParfaitMulti(nbTrajets, dt, ar );
-        RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
-        instance.connecter(recepteurAnalogique);
+        RecepteurAnalogiqueMulti recepteurAnalogiqueMulti = new RecepteurAnalogiqueMulti("RZ", 3, -2f, 2f, 0.2f, 0.1f, dt, ar);
+        instance.connecter(recepteurAnalogiqueMulti);
         instance.recevoir(information);
         assertEquals(instance.informationRecue, information);
         
         //construction d'une information qui est la somme de l'information + 2 trajets différents
 
         Information<Float> informationTotale = new Information<>(bits);
-        Float bitsT1[] = {0.0f, 0.5f, 0.5f, 0.5f, 0.0f};//Trajet1 : *0.5
-        Float bitsT2[] = {0.0f, 0.0f, 0.5f, 0.5f, 0.5f};//Trajet2 : *0.5
+        Float bitsT1[] = {0.0f, 0.5f, 0.5f, 0.5f, 0.0f};//Trajet1 : * 0.5
+        Float bitsT2[] = {0.0f, 0.0f, 0.5f, 0.5f, 0.5f};//Trajet2 : * 0.5
         Information<Float> informationT1 = new Information<>(bitsT1);
         Information<Float> informationT2 = new Information<>(bitsT2);
 
@@ -79,7 +80,8 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         assertEquals(instance.informationEmise, informationTotale);
         //Le récepeteur marche bien pour retrouver l'information totale. 
         //TODO tester s'il peut retrouver le signal initiale qui est dans l'informationTotale
-        //assertEquals(recepteurAnalogique.getInformationRecue(), information);
+        System.out.println(recepteurAnalogiqueMulti.getInformationEmise());
+        //assertEquals(recepteurAnalogiqueMulti.getInformationEmise(), information);
     }
 
     /**
