@@ -76,17 +76,17 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
         Float[] recu = new Float[informationRecue.nbElements()];
         informationRecue.toArray(recu);
         this.informationEmise = new Information<Float>(recu);
-        System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+        //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
 
         for (int i = 0; i < nbTrajet; i++) {
-            System.out.println("Generating trajet n°" + i);
+            //System.out.println("Generating trajet n°" + i);
             Information<Float> temp = new Information<Float>(recu);
             for (int j = 0; j < dt[i]; j++) {
                 temp.addAt(0, 0f);
             }
             temp=ArrayTool.factArrays(temp, ar[i]);
             this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
-            System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+            //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
         }
 
         //------------------------Ajout bruit---------------------------
