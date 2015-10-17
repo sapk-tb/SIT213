@@ -130,9 +130,6 @@ public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
         }
         //Fin debruitage du signal
         
-        int nbEchTotal = infoDecodee.nbElements();
-        int nbSymbole = nbEchTotal / nbEch;
-
         Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);
         //Float allEch[] = new Float[nbEchTotal];
         float total[] = new float[nbSymbole];

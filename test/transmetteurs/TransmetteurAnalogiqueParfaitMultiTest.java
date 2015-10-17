@@ -77,7 +77,9 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         assertEquals(instance.informationEmise, informationTotale);
         //Le récepeteur marche bien pour retrouver l'information totale. 
         //TODO tester s'il peut retrouver le signal initiale qui est dans l'informationTotale
-        assertEquals(information, recepteurAnalogiqueMulti.getInformationEmise());
+        Boolean tab[] = {true, true, true};
+        Information<Boolean> inf = new Information<Boolean>(tab);
+        assertEquals(inf, recepteurAnalogiqueMulti.getInformationEmise());
     }
 
     /**

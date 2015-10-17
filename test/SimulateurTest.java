@@ -246,7 +246,7 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTIInvalide() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti").split(" "); //ça doit être un flottant
+        String[] args = ("-ti").split(" ");
         new Simulateur(args);
     }
     
@@ -259,7 +259,7 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTIInvalide2() throws ArgumentsException, Exception {
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 1 2").split(" "); //deux trajets mais pas de données passées pour les deux trajets
+        String[] args = ("-ti 1 2").split(" "); 
         new Simulateur(args);
     }
     
@@ -279,7 +279,92 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTIInvalide4() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti 2 5 0.5 0.2").split(" "); //0 trajet mais des données passees
+        String[] args = ("-ti 1 5 0.5 2").split(" "); //manque données
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
+     */
+    @Test
+    public void testAnalyseArgumentsTIValide5() throws ArgumentsException, Exception{
+        System.out.println("Test -ti valide");
+        String[] args = ("-ti 1 5 0.5 -ti 2 7 0.7 -ti 1 5 0.3").split(" "); //0 trajet mais des données passees
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     * @throws Exception 
+     * @throws ArgumentsException 
+     */
+    @Test
+    public void testAnalyseArgumentsTIValide6() throws ArgumentsException, Exception{
+        System.out.println("Test -ti valide");
+        String[] args = ("-ti 1 5 0.5 -ti 2 7 0.7").split(" "); //0 trajet mais des données passees
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide7() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 1 0.8 -ti").split(" "); //manque données
+        new Simulateur(args);
+    }
+
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide8() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 1 0.8 -ti 2").split(" "); //manque données
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide9() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 1 -ti 2").split(" "); //manque données
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide10() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti -ti 2 0.3").split(" "); //manque données
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide11() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti 2 -ti 2 0.3").split(" "); //manque données
+        new Simulateur(args);
+    }
+    
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTIInvalide12() throws ArgumentsException, Exception{
+        System.out.println("Test -ti invalide");
+        String[] args = ("-ti -ti -ti").split(" "); //manque données
         new Simulateur(args);
     }
 
