@@ -73,15 +73,11 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT1);
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT2);     
         
-        System.out.println("_________");
-        System.out.println(informationTotale.toString());
-        
         //Comme recevoir lance emettre cette fonction est aussi testée ici. 
         assertEquals(instance.informationEmise, informationTotale);
         //Le récepeteur marche bien pour retrouver l'information totale. 
         //TODO tester s'il peut retrouver le signal initiale qui est dans l'informationTotale
-        System.out.println(recepteurAnalogiqueMulti.getInformationEmise());
-        //assertEquals(recepteurAnalogiqueMulti.getInformationEmise(), information);
+        assertEquals(information, recepteurAnalogiqueMulti.getInformationEmise());
     }
 
     /**
