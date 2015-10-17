@@ -57,7 +57,7 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         Integer[] dt = {1,2};
         Float[] ar = {0.5f,0.5f};
         TransmetteurAnalogiqueParfaitMulti instance = new TransmetteurAnalogiqueParfaitMulti(dt, ar );
-        RecepteurAnalogiqueMulti recepteurAnalogiqueMulti = new RecepteurAnalogiqueMulti("RZ", 3, -2f, 2f, 0.2f, 0.1f, dt, ar);
+        RecepteurAnalogiqueMulti recepteurAnalogiqueMulti = new RecepteurAnalogiqueMulti("RZ", 1, -2f, 2f, 0.2f, 0.1f, dt, ar);
         instance.connecter(recepteurAnalogiqueMulti);
         instance.recevoir(information);
         assertEquals(instance.informationRecue, information);
