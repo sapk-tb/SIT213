@@ -40,6 +40,24 @@ var S = {
 	    	return data;
 		}	
 	},
+	oeil : {
+		init : function() {
+			S.oeil.update();
+			//TODO generate all select of SNR
+		},
+		update : function() {
+			$("#diagramme-oeil-by-snr .oeil").html("");
+			console.log("Updating graphique ...");
+			formSym = $("#diagramme-oeil-by-snr #formSym").val();
+			nbSym = $("#diagramme-oeil-by-snr #nbSym").val();
+			nbEch = $("#diagramme-oeil-by-snr #nbEch").val();
+			SNR = $("#diagramme-oeil-by-snr #SNR").val();
+			console.log("Paramètre graphique : ",formSym,nbSym,nbEch,SNR);
+			urlImgEmetteur = "data/img/sondeDiagrammeOeilApresEmetteur-"+formSym+"-"+nbSym+"-"+nbEch+"-"+SNR+".0.png";
+			urlImgTransmetteur = "data/img/sondeDiagrammeOeilApresTransmetteur-"+formSym+"-"+nbSym+"-"+nbEch+"-"+SNR+".0.png";
+			$("#diagramme-oeil-by-snr .oeil").html("<img src='"+urlImgEmetteur+"' /><img src='"+urlImgTransmetteur+"' />")
+		}
+	},
 	chart : {
 		chart : {},
 		init : function(){
@@ -125,4 +143,5 @@ var S = {
 
 $(function(){
 	S.chart.init();
+	S.oeil.init();
 })
