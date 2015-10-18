@@ -40,5 +40,53 @@
 	</p>
 	<div class="chart" style="width:100%; height:480px;"></div>
 </div>
+<div id="diagramme-oeil-by-snr">
+	<h2>Diagramme de l'oeil en fonction du SNR</h2>
+	<p> 
+		<span>
+			Forme Symbole :
+			<select id="formSym" onchange="S.oeil.update();">
+				<option selected="selected">RZ</option>
+				<option>NRZ</option>
+				<option>NRZT</option>
+			</select>
+		</span>
+		<span>
+			Nombre Symbole :
+			<select id="nbSym" onchange="S.oeil.update();">
+				<option selected="selected">9999</option>
+				<option>999</option>
+				<option>99</option>
+				<option>9</option>
+			</select>
+		</span>
+		<span>
+			Nombre Echantillon :
+			<select id="nbEch" onchange="S.oeil.update();">
+				<option selected="selected">60</option>
+				<option>30</option>
+				<option>15</option>
+				<option>10</option>
+				<option>5</option>
+				<option>3</option>
+			</select>
+		</span>
+		<span>
+			SNR :
+			<select id="SNR" onchange="S.oeil.update();">
+				<option selected="selected">-60</option>
+				<option>-30</option>
+				<option>-15</option>
+				<option>-10</option>
+				<option>-5</option>
+				<option>-3</option>
+				<option>3</option>
+				<option>5</option>
+				<option>10</option>
+			</select>
+		</span>
+	</p>
+	<div class="oeil" style="width:100%;"></div>
+</div>
     </body>
 </html>
