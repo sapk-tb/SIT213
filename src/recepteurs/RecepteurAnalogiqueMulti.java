@@ -122,8 +122,8 @@ public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
                         if(ar[j] == 0){
                             continue; //l'amplitude de la reflection est de 0 -> on passe
                         }
-        		if((i-dt[j])>0){ //TODO defini if not better >=
-        			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
+	        		if((i-dt[j])>0){ //TODO defini if not better >=
+	        			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
         			infoDecodee.setIemeElement(i,(float)infoDecodee.iemeElement(i) - valeur);
         		}
         	}

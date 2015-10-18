@@ -344,7 +344,7 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTIInvalide10() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
-        String[] args = ("-ti -ti 2 0.3").split(" "); //manque données
+        String[] args = ("-ti 6 3 0.4").split(" "); //manque données
         new Simulateur(args);
     }
     
