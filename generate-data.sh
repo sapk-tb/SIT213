@@ -25,9 +25,9 @@ function generate-oeil {
     ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img ../data/img/ 1024 "
     for snr in $(seq $1 1 $2)
     do
-    	xvfb-run ./simulateur $ARGS -snr $snr -form "RZ"
-    	xvfb-run ./simulateur $ARGS -snr $snr -form "NRZ"
-    	xvfb-run ./simulateur $ARGS -snr $snr -form "NRZT"
+    	xvfb-run -a ./simulateur $ARGS -snr $snr -form "RZ"
+    	xvfb-run -a ./simulateur $ARGS -snr $snr -form "NRZ"
+    	xvfb-run -a ./simulateur $ARGS -snr $snr -form "NRZT"
     done
 }
 rm data/img/*
