@@ -5,7 +5,7 @@ function get-teb-by-snr {
     NB_SYM=${3:-999999}
     NB_ECH=${4:-30}
     FORM=${2:-"NRZ"}
-    ARGS="-form $FORM -mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 "
+    ARGS="-form $FORM -mess $NB_SYM -nbEch $NB_ECH -ampl -1 1"
     ./simulateur $ARGS -snr $1 | grep TEB | cut -d":" -f2 | tr -d " "
 }
 function generate-teb-by-snr {
@@ -22,12 +22,12 @@ function generate-teb-by-snr {
 function generate-oeil {
     NB_SYM=${3:-9999}
     NB_ECH=${4:-30}
-    ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img data/img 1024 "
+    ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img ../data/img/ 1024 "
     for snr in $(seq $1 1 $2)
     do
-    	xvfb-run ./simulateur $ARGS -snr $nr -form "RZ"
-    	xvfb-run ./simulateur $ARGS -snr $nr -form "NRZ"
-    	xvfb-run ./simulateur $ARGS -snr $nr -form "NRZT"
+    	xvfb-run ./simulateur $ARGS -snr $snr -form "RZ"
+    	xvfb-run ./simulateur $ARGS -snr $snr -form "NRZ"
+    	xvfb-run ./simulateur $ARGS -snr $snr -form "NRZT"
     done
 }
 rm data/img/*
@@ -35,12 +35,13 @@ mkdir data/img
 
 git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
+git checkout etape4
 for nbSym in 9 99 999 9999 99999 999999
 	do
 	for nbEch in 3 5 10 15 30 60
 		do
 		echo "generate-teb-by-snr -60 10 $nbSym $nbEch"
-    		time generate-teb-by-snr -60 10 $nbSym $nbEch > "../data/teb-by-snr-$nbSym-$nbEch.csv"
+#    		time generate-teb-by-snr -60 10 $nbSym $nbEch > "../data/teb-by-snr-$nbSym-$nbEch.csv"
     	done
 done
 for nbSym in 9 99 999 9999
