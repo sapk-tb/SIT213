@@ -109,26 +109,32 @@ public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
         		dtmax=dt[i];
         	}
         }
-        Information infoDecodee=new Information();
-        for(int i=0; i<(informationRecue.nbElements()-dtmax);i++){
+        
+        int nbEchTotal = informationRecue.nbElements()-dtmax;
+        int nbSymbole = nbEchTotal / nbEch;
+        
+        //TODO optimize
+        //TODO check if dt = 0 and possible conflict
+        Information infoDecodee=new Information(nbEchTotal);
+        for(int i=0; i<(nbEchTotal);i++){
         	infoDecodee.addAt(i, informationRecue.iemeElement(i));
         	for(int j=0;j<dt.length;j++){
-        		if((i-dt[j])>0){
-        			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
+                        if(ar[j] == 0){
+                            continue; //l'amplitude de la reflection est de 0 -> on passe
+                        }
+	        		if((i-dt[j])>0){ //TODO defini if not better >=
+	        			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
         			infoDecodee.setIemeElement(i,(float)infoDecodee.iemeElement(i) - valeur);
         		}
         	}
         }
         //Fin debruitage du signal
         
-        
-        int nbEchTotal = informationRecue.nbElements();
-        int nbSymbole = nbEchTotal / nbEch;
         Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);
         //Float allEch[] = new Float[nbEchTotal];
         float total[] = new float[nbSymbole];
 
-//        informationRecue.toArray(allEch);
+        //informationRecue.toArray(allEch);
         /*
          * Calcul de la somme pour chaque échantillon
          */

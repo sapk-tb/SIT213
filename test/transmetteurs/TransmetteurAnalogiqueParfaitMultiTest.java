@@ -56,8 +56,8 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         int nbTrajets = 2;
         Integer[] dt = {1,2};
         Float[] ar = {0.5f,0.5f};
-        TransmetteurAnalogiqueParfaitMulti instance = new TransmetteurAnalogiqueParfaitMulti(nbTrajets, dt, ar );
-        RecepteurAnalogiqueMulti recepteurAnalogiqueMulti = new RecepteurAnalogiqueMulti("RZ", 3, -2f, 2f, 0.2f, 0.1f, dt, ar);
+        TransmetteurAnalogiqueParfaitMulti instance = new TransmetteurAnalogiqueParfaitMulti(dt, ar );
+        RecepteurAnalogiqueMulti recepteurAnalogiqueMulti = new RecepteurAnalogiqueMulti("RZ", 1, -2f, 2f, 0.2f, 0.1f, dt, ar);
         instance.connecter(recepteurAnalogiqueMulti);
         instance.recevoir(information);
         assertEquals(instance.informationRecue, information);
@@ -73,15 +73,13 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT1);
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT2);     
         
-        System.out.println("_________");
-        System.out.println(informationTotale.toString());
-        
         //Comme recevoir lance emettre cette fonction est aussi testée ici. 
         assertEquals(instance.informationEmise, informationTotale);
         //Le récepeteur marche bien pour retrouver l'information totale. 
         //TODO tester s'il peut retrouver le signal initiale qui est dans l'informationTotale
-        System.out.println(recepteurAnalogiqueMulti.getInformationEmise());
-        //assertEquals(recepteurAnalogiqueMulti.getInformationEmise(), information);
+        Boolean tab[] = {true, true, true};
+        Information<Boolean> inf = new Information<Boolean>(tab);
+        assertEquals(inf, recepteurAnalogiqueMulti.getInformationEmise());
     }
 
     /**
