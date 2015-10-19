@@ -108,7 +108,7 @@ public class Simulateur {
      * le temps de montée ou de descente à 1/3 du temps bit
      */
     private final float tmpMontee = (float) 1 / (float) 3;
-    private Float snr = 0.0f; // en linéaires
+    private Float snr = null; // en linéaires
     private boolean generate_pictures = false;
     private Float snrdB;
 
