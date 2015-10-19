@@ -67,7 +67,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
     /**
      * émet l'information construite par la transmetteur
      *
-     * @throws InformationNonConforme
+     * @throws InformationNonConforme Information nulle
      */
     @Override
     public void emettre() throws InformationNonConforme {

@@ -49,6 +49,7 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
      *
      * @return une information
      */
+    @Override
     public Information<R> getInformationRecue() {
         return this.informationRecue;
     }
@@ -58,6 +59,7 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
      *
      * @return une information
      */
+    @Override
     public Information<E> getInformationEmise() {
         return this.informationEmise;
     }
@@ -67,6 +69,7 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
      *
      * @param destination la destination à connecter
      */
+    @Override
     public void connecter(DestinationInterface<E> destination) {
         destinationsConnectees.add(destination);
     }
@@ -86,10 +89,12 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
      *
      * @param information l'information reçue
      */
+    @Override
     public abstract void recevoir(Information<R> information) throws InformationNonConforme;
 
     /**
      * émet l'information construite par l'emetteur
      */
+    @Override
     public abstract void emettre() throws InformationNonConforme;
 }

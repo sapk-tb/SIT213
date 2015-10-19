@@ -26,7 +26,12 @@ public class SourceBruitGaussien extends Source<Float> {
     public SourceBruitGaussien(int nbEch) {
         this(nbEch, 1f, (int) (Math.random() * 1024));
     }
-
+    /**
+     * Un constructeur qui génère nbEch aléatoirement
+     *
+     * @param nbEch nombre de bit à générer
+     * @param puissance puissance du bruit
+     */
     public SourceBruitGaussien(int nbEch, float puissance) {
         this(nbEch, puissance, (int) (Math.random() * 1024));
     }
@@ -36,18 +41,9 @@ public class SourceBruitGaussien extends Source<Float> {
      *
      * @param nbEch Nombre de bit à générer
      * @param puissance Puissance du signal
+     * @param seed le grain de génération
+     * 
      */
-    /*
-     public SourceBruitGaussien(int nbEch, float puissance) {
-     super();
-     this.informationGeneree = new Information<Float>(nbEch);
-     Random generator = new Random();
-     float puissance_sqrt = (float) Math.sqrt(puissance);
-     for (int i = 0; i < nbEch; i++) {
-     this.informationGeneree.add(puissance_sqrt * ((float) generator.nextGaussian()));
-     }
-     }
-     //*/
     //*
     public SourceBruitGaussien(int nbEch, float puissance, final int seed) {
         super();
@@ -99,18 +95,5 @@ public class SourceBruitGaussien extends Source<Float> {
         this.informationGeneree = new Information<Float>(bruit);
 
     }
-    //*/
-    /*
-     public SourceBruitGaussien(int nbEch, float puissance) {
-     super();
-     Random generator = new Random(seed);
-     Float[] data = new Float[nbEch];
-     float puissance_sqrt = (float) Math.sqrt(puissance);
-     for (int i = 0; i < nbEch; i++) {
-     data[i] = (puissance_sqrt * ((float) generator.nextGaussian()));
-     }
-     this.informationGeneree = new Information<Float>(data);
-     }
-     //*/
 
 }

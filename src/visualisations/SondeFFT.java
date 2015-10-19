@@ -23,7 +23,7 @@ public class SondeFFT extends Sonde<Float> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param screen_filename Le nom du fichier ou enregistrer le screenshot
+     * @param screenFilename Le nom du fichier ou enregistrer le screenshot
      * @param screenSize taille de la capture de l'oeil
      */
     public SondeFFT(String nom, String screenFilename, Integer screenSize) {
