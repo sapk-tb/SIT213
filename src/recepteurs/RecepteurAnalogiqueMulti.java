@@ -67,6 +67,8 @@ public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
      * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
+     * @param dt Tableau de décalage des multitrajet
+     * @param ar Tableau d'atténuation des multitrajet
      */
     public RecepteurAnalogiqueMulti(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee, Integer[] dt, Float[] ar) {
         super();
