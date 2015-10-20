@@ -52,12 +52,14 @@ public class SimulateurTest {
     /**
      * Test of main method, of class Simulateur.
      */
+    /*
     @Test
     public void testMain() {
         System.out.println("Test main");
         String[] args = ("-mess 1000").split(" ");
         Simulateur.main(args);
     }
+    */
     
     
     
@@ -365,6 +367,16 @@ public class SimulateurTest {
     public void testAnalyseArgumentsTIInvalide12() throws ArgumentsException, Exception{
         System.out.println("Test -ti invalide");
         String[] args = ("-ti -ti -ti").split(" "); //manque données
+        new Simulateur(args);
+    }
+
+    /**
+     * Test of analyze -ti, of class Simulateur.
+     */
+    @Test(expected = ArgumentsException.class)
+    public void testAnalyseArgumentsTransducteur() throws ArgumentsException, Exception{
+        System.out.println("Test -transducteur");
+        String[] args = ("-transducteur").split(" "); //manque données
         new Simulateur(args);
     }
 

@@ -34,7 +34,6 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
             throw new Exception("Arguments de multiple trajet donnée invalide");
         }
 
-        
         this.dt = dt;
         this.ar = ar;
         this.SNR = SNR;
