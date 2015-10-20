@@ -5,6 +5,8 @@ import emetteurs.EmetteurAnalogique;
 import recepteurs.Recepteur;
 import recepteurs.RecepteurAnalogiqueMulti;
 import tools.Tool;
+import transducteurs.TransducteurEmetteur;
+import transducteurs.TransducteurRecepteur;
 import transmetteurs.*;
 import visualisations.SondeAnalogique;
 import visualisations.SondeDiagrammeOeil;
@@ -82,6 +84,16 @@ public class Simulateur {
 	private final EmetteurAnalogique emetteur;
 
 	/**
+	 * le composant Transducteur en émision de la chaine de transmission
+	 */
+	private TransducteurEmetteur transducteurEmetteur;
+	
+	/**
+	 * le composant Transducteur en réception de la chaine de transmission
+	 */
+	private TransducteurRecepteur transducteurRecepteur;
+	
+	/**
 	 * la forme du signal, par défaut il s'agit d'un signal RZ
 	 */
 	private String form = "RZ";
@@ -108,7 +120,7 @@ public class Simulateur {
 	 * le temps de montée ou de descente à 1/3 du temps bit
 	 */
 	private final float tmpMontee = (float) 1 / (float) 3;
-	private Float snr = 0.0f; // en linéaires
+	private Float snr = null; // en linéaires
 	private boolean generate_pictures = false;
 	private Float snrdB;
 
@@ -142,8 +154,8 @@ public class Simulateur {
 		// analyser et récupérer les arguments
 		analyseArguments(args);
 		//*
-		//TODO instanscier chaine de transmission et execter
-
+		//TODO instanscier chaine de transmission et executer
+		
 		if (messageAleatoire) {
 			System.out.println("Mode aléatoire : " + nbBitsMess);
 			if (aleatoireAvecGerme) {
@@ -169,11 +181,24 @@ public class Simulateur {
 
 		//emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
 		//emetteur = new EmetteurAnalogique("NRZ", 100, -1.0f, 1.0f);
-
-		/*
-		 * On relie la source à l'emetteur
-		 */
-		source.connecter(emetteur);
+		
+		if(transducteur == true){
+			
+			/*
+			 * On relie la source au transducteur et le transducteur à l'émetteur
+			 */
+			transducteurEmetteur = new TransducteurEmetteur();
+			
+			source.connecter(transducteurEmetteur);
+			transducteurEmetteur.connecter(emetteur);
+			
+		}else//fonctionnement normal
+		{
+			/*
+			 * On relie la source à l'emetteur
+			 */
+			source.connecter(emetteur);
+		}
 
 		/*
 		 * instancie transmetteurAnalogique de type
@@ -211,10 +236,23 @@ public class Simulateur {
 		 * instancie destination de type DestinationFinale
 		 */
 		destination = new DestinationFinale();
-		/*
-		 * On relie le recepteur à la destination
-		 */
-		recepteur.connecter(destination);
+		
+		if(transducteur == true){
+			
+			/*
+			 * On relie le recepteur au transducteur en réception et le transducteur à la destination
+			 */
+			transducteurRecepteur = new TransducteurRecepteur();
+			recepteur.connecter(transducteurRecepteur);
+			transducteurRecepteur.connecter(destination);
+		}
+		else{//fonctionnement normal
+			/*
+			 * On relie le recepteur à la destination
+			 */
+			recepteur.connecter(destination);
+		}
+		
 
 		/*
 		 * Affichage des sondes
@@ -236,6 +274,11 @@ public class Simulateur {
 			recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
 		}
 
+		if(transducteur)
+		{
+			transducteurEmetteur.connecter(new SondeLogique("sondeApresTransducteurEmetteur",256));
+			transducteurRecepteur.connecter(new SondeLogique("sondeApresTransducteurRecepteur",256));
+		}
 		if (affichageOeil) {
 			emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
 			transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
@@ -430,11 +473,13 @@ public class Simulateur {
 					}
 				}
 				System.out.println("nbTrajet : " + nbTrajet);
-			} 
-			else if(args[i].matches("-transducteur")){
+			}
+			else if(args[i].matches("-transducteur"))
+			{
 				transducteur = true;
 
-			}else {
+			}
+			else {
 				throw new ArgumentsException("Option invalide : " + args[i]);
 			}
 		}

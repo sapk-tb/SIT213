@@ -15,89 +15,42 @@ import information.InformationNonConforme;
  * @param <R>
  */
 
-public class TransducteurRecepteur implements DestinationInterface<Boolean>, SourceInterface<Boolean> {
-
-	/** 
-	 * la liste des composants destination connectés 
-	 */
-	protected LinkedList <DestinationInterface <Boolean>> destinationsConnectees;
-
-	/** 
-	 * l'information reçue par le transducteur récepteur
-	 */
-	protected Information <Boolean>  informationRecue;
-
-	/** 
-	 * l'information générée par le transducteur récepteur
-	 */
-	protected Information <Boolean>  informationGeneree;
-
-
-	/** 
-	 * l'information émise par le transducteur après suppressions du codage de source
-	 */
-	protected Information <Boolean>  informationEmise;
+public class TransducteurRecepteur extends Transducteur<Boolean,Boolean>{
 
 	/**
 	 * Constructeur de TransducteurRecepteur
 	 */
 	public TransducteurRecepteur(){
+		super();
+		
 
-
-	}
-	
-	/**
-	 * retourne la dernière information émise par le transducteur
-	 * @return une information   
-	 */
-	public Information <Boolean>  getInformationEmise() {
-		return this.informationEmise;
-	}
-	
-	/**
-	 * retourne la dernière information recue par le transducteur
-	 * @return une information   
-	 */
-	public Information <Boolean>  getInformationRecue() {
-		return this.informationRecue;
-	}
-
-	/**
-	 * connecte une destination au transducteur 
-	 * @param destination la destination à connecter
-	 */
-	public void connecter (DestinationInterface <Boolean> destination) {
-		destinationsConnectees.add(destination); 
-	}
-
-
-	/**
-	 * déconnecte une destination du transducteur
-	 * @param destination la destination à déconnecter
-	 */
-	public void deconnecter (DestinationInterface <Boolean> destination) {
-		this.destinationsConnectees.remove(destination); 
 	}
 	
 	/**
 	 * reçoit l'information initiale à laquelle il faut supprimer le codage de source
+	 * @throws InformationNonConforme 
 	 */
-	public   void recevoir(Information<Boolean> info){
+	public   void recevoir(Information<Boolean> info) throws InformationNonConforme{
 			 			      
 		this.informationRecue = info;
+		emettre();
 	}
 
 	/**
 	 * émet l'information générée  (décodée)
 	 */
 	public   void emettre() throws InformationNonConforme {
-		
+		 if (informationRecue == null) {
+	            throw new InformationNonConforme("informationRecue == null");
+	        }
 		//déclaration de l'automate pour tester la validité des infos 
 		AutomateTransducteur automate = new AutomateTransducteur();
 		
 		int nbElements = this.informationRecue.nbElements()/3; // --> /3 pour avoir le nombre d'élément de l'information réelle
 		boolean tabTest[] = new boolean[3];//contiendra les valeurs des booleans à tester
 		
+		Boolean tabBoolean[] = new Boolean[nbElements];
+		informationGeneree = new Information<Boolean>(tabBoolean);
 		
 		for(int i = 0; i < nbElements; i++)
 		{

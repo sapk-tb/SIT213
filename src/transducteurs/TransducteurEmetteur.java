@@ -14,82 +14,33 @@ import information.InformationNonConforme;
  * @param <R>
  */
 
-public class TransducteurEmetteur implements DestinationInterface<Boolean>, SourceInterface<Boolean> {
-
-	/** 
-	 * la liste des composants destination connectés 
-	 */
-	protected LinkedList <DestinationInterface <Boolean>> destinationsConnectees;
-
-	/** 
-	 * l'information générée par la source qui est reçue par le transducteur
-	 */
-	protected Information <Boolean>  informationRecue;
-
-	/** 
-	 * l'information générée par le transducteur
-	 */
-	protected Information <Boolean>  informationGeneree;
-
-
-	/** 
-	 * l'information émise par le transducteur après ajout du codage de source
-	 */
-	protected Information <Boolean>  informationEmise;
+public class TransducteurEmetteur extends Transducteur<Boolean,Boolean> {
 
 	/**
 	 * Constructeur de TransducteurEmetteur
 	 */
 	public TransducteurEmetteur(){
+		super();
 
-
-	}
-	/**
-	 * retourne la dernière information émise par le transducteur
-	 * @return une information   
-	 */
-	public Information <Boolean>  getInformationEmise() {
-		return this.informationEmise;
-	}
-	
-	/**
-	 * retourne la dernière information recue par le transducteur
-	 * @return une information   
-	 */
-	public Information <Boolean>  getInformationRecue() {
-		return this.informationRecue;
-	}
-
-	/**
-	 * connecte une  destination au transducteur 
-	 * @param destination la destination à connecter
-	 */
-	public void connecter (DestinationInterface <Boolean> destination) {
-		destinationsConnectees.add(destination); 
-	}
-
-
-	/**
-	 * déconnecte une destination du transducteur
-	 * @param destination la destination à déconnecter
-	 */
-	public void deconnecter (DestinationInterface <Boolean> destination) {
-		destinationsConnectees.remove(destination); 
 	}
 	
 	/**
 	 * reçoit l'information initiale à laquelle il faut rajouter le codage de source
+	 * @throws InformationNonConforme 
 	 */
-	public   void recevoir(Information<Boolean> info){
+	public   void recevoir(Information<Boolean> info) throws InformationNonConforme{
 			 			      
 		this.informationRecue = info;
+		emettre();
 	}
 
 	/**
 	 * émet l'information générée  
 	 */
 	public   void emettre() throws InformationNonConforme {
-		
+		 if (informationRecue == null) {
+	            throw new InformationNonConforme("informationRecue == null");
+	        }
 		int nbElements = informationRecue.nbElements();
 		informationGeneree = new Information<Boolean>(informationRecue.nbElements()*3);//L'information envoyée sera 3 fois plus longue
 		
@@ -117,5 +68,6 @@ public class TransducteurEmetteur implements DestinationInterface<Boolean>, Sour
 		this.informationEmise = informationGeneree;   			 			      
 
 	}
+
 
 }

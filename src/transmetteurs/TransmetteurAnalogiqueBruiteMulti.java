@@ -33,9 +33,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
         if (dt.length != ar.length) {
             throw new Exception("Arguments de multiple trajet donnée invalide");
         }
-        if (SNR == null) {
-            throw new Exception("SNR null");
-        }
+
         this.dt = dt;
         this.ar = ar;
         this.SNR = SNR;
@@ -103,8 +101,6 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
 
         if (this.SNR != null) {
             puissance_bruit = puissance_signal / this.SNR;
-        } else {
-            throw new InformationNonConforme("Le SNR est null");
         }
         //Float[] output = new Float[this.informationRecue.nbElements()];
         //*
