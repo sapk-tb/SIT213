@@ -31,6 +31,7 @@ public class Information<T> implements Iterable<T> {
         this.content = new ArrayList<T>(default_size);
     }
 
+
     /**
      * pour construire à partir d'un tableau de T une information
      *
@@ -48,6 +49,16 @@ public class Information<T> implements Iterable<T> {
         //*/
     }
 
+    /**
+     * Retourne un clone
+     *
+     * @return le nombre d'élèments de l'information
+     * @throws java.lang.CloneNotSupportedException In case clone is not possible
+     */
+    @Override
+    public Information<T> clone() throws CloneNotSupportedException {
+        return (Information<T>) super.clone();
+    }
     /**
      * pour connaitre le nombre d'élèments d'une information
      *
@@ -73,10 +84,11 @@ public class Information<T> implements Iterable<T> {
      * @param array Le tableau a remplir avec les valeurs
      */
     //*
-     public void toArray(T[] array) {
-     this.content.toArray(array);
-     }
-     //*/
+    public void toArray(T[] array) {
+        this.content.toArray(array);
+    }
+
+    //*/
     /**
      * pour renvoyer un élèment d'une information
      *
@@ -109,13 +121,13 @@ public class Information<T> implements Iterable<T> {
     /**
      * pour ajouter un élèment à la fin de l'information
      *
-     * @param i index 
+     * @param i index
      * @param valeur l'élèment à rajouter
      */
     public void addAt(int i, T valeur) {
-        this.content.add(i,valeur);
+        this.content.add(i, valeur);
     }
-    
+
     /**
      * pour comparer l'information courante avec une autre information
      *

@@ -34,9 +34,9 @@ public class ArrayTool {
         int i = 0;
         while (i < size) {
             try {
-                int end = Math.min(i + nbEchByThread, size-1);
+                int end = Math.min(i + nbEchByThread, size - 1);
                 pool.execute(new AddToFloatArray(tab, t1, t2, i, end));
-                i = end+1;
+                i = end + 1;
             } catch (Exception ex) {
                 Logger.getLogger(ArrayTool.class.getName()).log(Level.SEVERE, "Une erreur dans le calcul de l'index final est apparue", ex);
             }
@@ -67,9 +67,9 @@ public class ArrayTool {
         int i = 0;
         while (i < size) {
             try {
-                int end = Math.min(i + nbEchByThread, size-1);
+                int end = Math.min(i + nbEchByThread, size - 1);
                 pool.execute(new AddToNativeFloatArray(tab, t1, t2, i, end));
-                i = end+1;
+                i = end + 1;
             } catch (Exception ex) {
                 Logger.getLogger(ArrayTool.class.getName()).log(Level.SEVERE, "Une erreur dans le calcul de l'index final est apparue", ex);
             }
@@ -100,7 +100,7 @@ public class ArrayTool {
         Float[] array = sumArrays(t1, t2);
         return new Information(array);
     }
-    
+
     /**
      * Facteur table de float
      *
@@ -108,19 +108,14 @@ public class ArrayTool {
      * @param ar Facteur de factorisation
      * @return le tableau multiplié par le facteur (Dans une information)
      */
-    public static Information factArrays(Information i1, float ar) {
-        //Création du tableau contenant l'info à factoriser
-    	Float[] t1 = new Float[i1.nbElements()];
-        i1.toArray(t1);
-
+    public static Information factArrays(Information<Float> i1, float ar) {
         //Création d'un tableau contenant l'information factorisée
-    	int size = t1.length;
+        int size = i1.nbElements();
         Float[] tab = new Float[size];
-    	for(int i=0;i<size;i++){
-    	   tab[i]=t1[i]*ar;
-       }
-    	//Créé et retourne une nouvelle info contenant le tableau précédent
-    	Information retour=new Information(tab);
-       return retour;
+        for (int i = 0; i < size; i++) {
+            tab[i] = i1.iemeElement(i) * ar;
+        }
+        //Créé et retourne une nouvelle info contenant le tableau précédent
+        return new Information(tab);
     }
 }

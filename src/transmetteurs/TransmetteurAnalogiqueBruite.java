@@ -3,6 +3,8 @@ package transmetteurs;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sources.SourceBruitGaussien;
 import tools.ArrayTool;
 import tools.Tool;
@@ -14,7 +16,7 @@ import tools.Tool;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueBruite extends TransmetteurAnalogiqueParfait {
+public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
     /**
      * l'information reçue en entrée du transmetteur
@@ -35,23 +37,56 @@ public class TransmetteurAnalogiqueBruite extends TransmetteurAnalogiqueParfait 
     }
 
     /**
-     * Ajoute le bruit au signal
+     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
+     * méthode emettre.
+     *
+     * @param information l'information reçue
+     * @throws information.InformationNonConforme Quand l'information est
+     * invalide
      */
-    private void addBruit() throws InformationNonConforme {
-        float puissance_signal = Tool.getPuissance(this.informationRecue);
-        float puissance_bruit = 0;
-
-        if (this.SNR != null) {
-            puissance_bruit = puissance_signal / this.SNR;
+    @Override
+    public void recevoir(Information<Float> information) throws InformationNonConforme {
+        if (information == null) {
+            throw new InformationNonConforme("information recue == null");
         }
-        int nbEl = this.informationRecue.nbElements();
+        this.informationRecue = information;
+        emettre();
+    }
 
-        SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
-        bruit.emettre();
-        this.informationBruit = bruit.getInformationEmise();
-        System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
+    /**
+     * Ajoute le bruit au signal
+     * @throws information.InformationNonConforme
+     */
+    protected void addBruit() throws InformationNonConforme {
+        if (this.SNR != null) { // On a du bruit
+            float puissance_signal = Tool.getPuissance(this.informationRecue);
+            float puissance_bruit = puissance_signal / this.SNR;
+            int nbEl = this.informationRecue.nbElements();
 
-        this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
+            SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
+            bruit.emettre();
+            this.informationBruit = bruit.getInformationEmise();
+            System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
+
+            this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
+        } else { // Le bruit est null
+            try {
+                this.informationEmise = this.informationRecue.clone(); //We clone the object to not affect element in amount
+            } catch (CloneNotSupportedException ex) {
+                Logger.getLogger(TransmetteurAnalogiqueBruite.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    /**
+     * Envoie l'informationEmise aux élément connectés
+     *
+     * @throws InformationNonConforme
+     */
+    protected void envoyerAuxSuivants() throws InformationNonConforme {
+        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+            destinationConnectee.recevoir(this.informationEmise);
+        }
     }
 
     /**
@@ -62,7 +97,8 @@ public class TransmetteurAnalogiqueBruite extends TransmetteurAnalogiqueParfait 
 
         /* Génération du Bruit */
         addBruit();
-        super.emettre();
+
+        envoyerAuxSuivants();
     }
 
 }
