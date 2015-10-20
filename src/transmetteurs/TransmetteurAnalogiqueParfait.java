@@ -29,16 +29,18 @@ public class TransmetteurAnalogiqueParfait extends Transmetteur<Float, Float> {
         emettre();
     }
 
+    private void envoyerAuxSuivants() throws InformationNonConforme {
+        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+            destinationConnectee.recevoir(this.informationEmise);
+        }
+    }
     /**
      * émet l'information construite par la transmetteur
      */
     @Override
     public void emettre() throws InformationNonConforme {
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationRecue);
-        }
         this.informationEmise = this.informationRecue;
-
+        envoyerAuxSuivants();
     }
 
 }
