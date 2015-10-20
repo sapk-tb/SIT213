@@ -232,7 +232,7 @@ public class VueCourbe extends Vue {
         int recursion = 0;
 
         if (isTransparance) {
-            g.setColor(new Color(0, 0, 0, Math.max(0.002f, transparence * getHeight() / 128)));
+            g.setColor(new Color(0, 0, 0, Math.min(1f, Math.max(0.002f, transparence * getHeight() / 128))));
             //g.setColor(new Color(0, 0, 0,  transparence * getHeight() / 128));
         }
         for (int i = 1; i < coordonnees.length; i++) {

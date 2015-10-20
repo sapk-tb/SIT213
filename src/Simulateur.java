@@ -217,7 +217,7 @@ public class Simulateur {
          } else {
          transmetteurAnalogique = new TransmetteurAnalogiqueBruite(snr);
          }
-         //*/
+	         //*/
 		/*
 		 * On relie l'emetteur au transmetteurAnalogique
 		 */
