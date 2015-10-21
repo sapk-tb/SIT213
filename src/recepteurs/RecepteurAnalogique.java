@@ -15,10 +15,12 @@ import information.InformationNonConforme;
  */
 public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
 
-    private final String form;
-    private final int nbEch;
-    private final float amplMin;
-    private final float amplMax;
+    protected String form;
+    protected int nbEch;
+    protected float amplMin;
+    protected float amplMax;
+    protected float dutyCycleRZ;
+    protected float tmpMontee;
 
     public String getForm() {
         return form;
@@ -43,8 +45,6 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     public float getTmpMontee() {
         return tmpMontee;
     }
-    private final float dutyCycleRZ;
-    private final float tmpMontee;
 
     /**
      * Constructeur du récepteur analogique
@@ -59,7 +59,6 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      */
     public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
         super();
-        //TODO check validity of args
         this.form = form;
         this.nbEch = nbEch;
         this.amplMin = amplMin;
@@ -81,29 +80,30 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
     }
 
     /**
-     * émet l'information construite par l'emetteur
+     * Analyze un information contenant des échantillon et en détermine les
+     * valaurs binaires en se basant sur les apramètres du recepteur
+     *
+     * @param infRecue l'information contenant les d'échantillon
+     * @return les information binaire déduite
+     * @throws InformationNonConforme
      */
-    @Override
-    public void emettre() throws InformationNonConforme {
-        if (informationRecue == null) {
+    protected Information<Boolean> parseEch(Information<Float> infRecue) throws InformationNonConforme {
+        if (infRecue == null) {
             throw new InformationNonConforme("informationRecue == null");
         }
 
-        int nbEchTotal = informationRecue.nbElements();
+        int nbEchTotal = infRecue.nbElements();
         int nbSymbole = nbEchTotal / nbEch;
         Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);
         //Float allEch[] = new Float[nbEchTotal];
         float total[] = new float[nbSymbole];
 
-//        informationRecue.toArray(allEch);
         /*
          * Calcul de la somme pour chaque échantillon
          */
-        //for (int i = 0; i < nbEchTotal; i++) {
         for (int i = 0; i < nbSymbole; i++) {
-            //total[(int) i / nbEch] += allEch[i];
             for (int n = 0; n < nbEch; n++) {
-                total[i] += informationRecue.iemeElement(i * nbEch + n);
+                total[i] += infRecue.iemeElement(i * nbEch + n);
             }
         }
 
@@ -114,7 +114,6 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
         for (int i = 0; i < nbEchTotal / nbEch; i++) {
             float moy_symbole = total[i] / (float) nbEch;
             //System.out.println("Moy symbole : "+moy_symbole);
-
             switch (form) {
                 case "RZ":
                     informationAEmettre.add((Math.abs(amplMax * dutyCycleRZ - moy_symbole) < Math.abs(amplMin * dutyCycleRZ - moy_symbole)));
@@ -126,14 +125,31 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
                     informationAEmettre.add((Math.abs(amplMax * (1 - tmpMontee / 2) - moy_symbole) < Math.abs(amplMin * (1 - tmpMontee / 2) - moy_symbole)));
                     break;
             }
-            //TODO check if we replace inforamtion à emetrre par un Float[]  for performance ?
         }
 
+        return informationAEmettre;
+    }
+
+    /**
+     * Envoie l'informationEmise aux élément connectés
+     *
+     * @throws InformationNonConforme
+     */
+    protected void envoyerAuxSuivants() throws InformationNonConforme {
         for (DestinationInterface<Boolean> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationAEmettre);
+            destinationConnectee.recevoir(this.informationEmise);
         }
+    }
 
-        this.informationEmise = informationAEmettre;
+    /**
+     * émet l'information construite par l'emetteur
+     *
+     * @throws information.InformationNonConforme
+     */
+    @Override
+    public void emettre() throws InformationNonConforme {
+        this.informationEmise = parseEch(this.informationRecue);
+        envoyerAuxSuivants();
     }
 
 }

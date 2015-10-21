@@ -1,11 +1,8 @@
 package transmetteurs;
 
-import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
-import sources.SourceBruitGaussien;
 import tools.ArrayTool;
-import tools.Tool;
 
 /**
  * Classe d'un composant qui transmet des informations de type Float sans
@@ -57,7 +54,8 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
                 continue;
             }
             System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i]+" ) ");
-            Information retard = ArrayTool.factArrays(informationRecue, ar[i]); //On génère une information factorisé par l'attenuation
+            //TODO check if we should maybe do Information retard = ArrayTool.factArrays(this.informationEmise, ar[i]); 
+            Information retard = ArrayTool.factArrays(this.informationRecue, ar[i]); //On génère une information factorisé par l'attenuation
             for (int j = 0; j < dt[i]; j++) {
                 retard.addAt(0, 0f); // On ajoute les retards
             }
