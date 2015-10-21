@@ -81,20 +81,6 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
             }
         }
         System.out.println("nbEch après nettoyage : " + informationNettoyee.nbElements());
-        /*
-         for (int i = 0; i < nbEchFinal; i++) {
-         infoDecodee.addAt(i, informationRecue.iemeElement(i));
-         for (int j = 0; j < dt.length; j++) {
-         if (ar[j] == 0) {
-         continue; //l'amplitude de la reflection est de 0 -> on passe
-         }
-         if ((i - dt[j]) > 0) { //TODO defini if not better >=
-         float valeur = (float) infoDecodee.iemeElement(i - dt[j]) * ar[j];
-         infoDecodee.setIemeElement(i, (float) infoDecodee.iemeElement(i) - valeur);
-         }
-         }
-         }
-         */
         return informationNettoyee;
     }
 
