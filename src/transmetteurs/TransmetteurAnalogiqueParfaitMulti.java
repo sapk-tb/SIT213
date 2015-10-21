@@ -6,8 +6,7 @@ import information.InformationNonConforme;
 import tools.ArrayTool;
 
 /**
- * Classe d'un composant qui transmet des informations de type Float sans
- * défaut.
+ * Classe d'un composant qui transmet des informations de type Float avec des trajets multiples mais sans défaut.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
