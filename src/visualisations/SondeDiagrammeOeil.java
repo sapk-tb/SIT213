@@ -1,7 +1,6 @@
 package visualisations;
 
 import information.Information;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

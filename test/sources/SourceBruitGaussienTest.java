@@ -1,6 +1,5 @@
 package sources;
 
-import java.util.Iterator;
 import tools.Tool;
 
 import org.junit.After;

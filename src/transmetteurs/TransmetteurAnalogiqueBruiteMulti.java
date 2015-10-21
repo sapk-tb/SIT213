@@ -2,8 +2,6 @@ package transmetteurs;
 
 import information.Information;
 import information.InformationNonConforme;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import tools.ArrayTool;
 
 /**

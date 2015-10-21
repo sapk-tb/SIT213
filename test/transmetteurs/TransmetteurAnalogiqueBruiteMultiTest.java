@@ -2,12 +2,10 @@ package transmetteurs;
 
 import static org.junit.Assert.*;
 import information.Information;
-import information.InformationNonConforme;
 
 import org.junit.Test;
 
 import recepteurs.RecepteurAnalogique;
-import tools.ArrayTool;
 
 public class TransmetteurAnalogiqueBruiteMultiTest{
 

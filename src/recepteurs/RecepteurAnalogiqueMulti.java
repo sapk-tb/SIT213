@@ -1,6 +1,5 @@
 package recepteurs;
 
-import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
 

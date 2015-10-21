@@ -1,9 +1,7 @@
 package transducteurs;
 
-import java.util.LinkedList;
 
 import automates.AutomateTransducteur;
-import sources.SourceInterface;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;

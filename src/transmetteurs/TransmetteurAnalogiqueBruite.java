@@ -3,8 +3,6 @@ package transmetteurs;
 import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import sources.SourceBruitGaussien;
 import tools.ArrayTool;
 import tools.Tool;

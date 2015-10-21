@@ -1,9 +1,6 @@
 package tools;
 
 import information.Information;
-import tools.Tool;
-
-import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.AfterClass;
