@@ -20,8 +20,6 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     private final Integer[] dt;
     //Amplitude relative
     private final Float[] ar;
-    private Float SNR = null;
-    private int seed;
 
     public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR) throws Exception {
         this(dt, ar, SNR, (int) (Math.random() * 1024));
