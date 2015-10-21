@@ -51,9 +51,9 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
             }
             System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i] + " ) ");
             //TODO check if we should maybe do Information retard = ArrayTool.factArrays(this.informationEmise, ar[i]); 
-            Information retard = ArrayTool.factArrays(infBruite, ar[i]); //On génère une information factorisé par l'attenuation
+            Information<Double> retard = ArrayTool.factArrays(infBruite, ar[i]); //On génère une information factorisé par l'attenuation
             for (int j = 0; j < dt[i]; j++) {
-                retard.addAt(0, 0f); // On ajoute les retards
+                retard.addAt(0, 0.0); // On ajoute les retards
             }
             System.out.println("Taille du tableau de retard : " + retard.nbElements());
             this.informationEmise = ArrayTool.sumArrays(this.informationEmise, retard);

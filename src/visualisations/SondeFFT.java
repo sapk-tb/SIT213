@@ -75,7 +75,7 @@ public class SondeFFT extends Sonde<Double> {
         double[] fft = FFTBase.fft(real, complex, true);
 //*
         int milieu = fft.length / 2;
-        double[] fftCorrected = new double[fft.length];
+        double[] fftCorrected = new double[fft.length]; //on ne prend pas les index impairs (iamginaire)
         for (int i = 0; i < fft.length; i++) {
             if (i >= milieu) {
                 fftCorrected[i] = Math.abs(fft[i - milieu]);
@@ -83,13 +83,21 @@ public class SondeFFT extends Sonde<Double> {
                 fftCorrected[i] = Math.abs(fft[i + milieu]);
             }
         }
-//*/
-        //TODO lisser la courbe en faisant une moyenne;
+        //*
+        //lissage de la courbe avec filtre passe bas (Filtre video);
+        double max_diff = (double) 1000 / (double) fftCorrected.length;
+        for (int i = 1; i < fftCorrected.length; i++) {
+            double diff = fftCorrected[i] - fftCorrected[i - 1];
+            fftCorrected[i] = Math.abs(diff) > max_diff ? fftCorrected[i - 1] + Math.signum(diff) * max_diff : fftCorrected[i];
+        }
+        //*/
         VueCourbe vue = new VueCourbe(fftCorrected, nom);
-        if (screenSize != null) {
+        if (screenSize
+                != null) {
             vue.setSize(screenSize, screenSize);
         }
-        if (filename != null) {
+        if (filename
+                != null) {
             BufferedImage img = tools.Render.getScreenShot(vue);
             try {
                 ImageIO.write(img, "png", new File(filename)); //"screenshot-" + nom + ".png"
