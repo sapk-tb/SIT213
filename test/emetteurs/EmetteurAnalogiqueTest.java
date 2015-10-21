@@ -22,13 +22,13 @@ import recepteurs.RecepteurAnalogique;
 public class EmetteurAnalogiqueTest {
 
     private EmetteurAnalogique instance_RZ;
-    private final float instance_RZ_dutyCycle = 0.5f;
+    private final double instance_RZ_dutyCycle = 0.5f;
     private final int instance_RZ_nbEch = 10;
     private EmetteurAnalogique instance_NRZ;
     private final int instance_NRZ_nbEch = 42;
     private EmetteurAnalogique instance_NRZT;
     private final int instance_NRZT_nbEch = 44;
-    private final float instance_NRZT_tempsMontee = 0.33f;
+    private final double instance_NRZT_tempsMontee = 0.33f;
     private RecepteurAnalogique recepteur_NRZ;
     private RecepteurAnalogique recepteur_RZ;
     private RecepteurAnalogique recepteur_NRZT;
@@ -120,7 +120,7 @@ public class EmetteurAnalogiqueTest {
         assertEquals(instance_RZ_dutyCycle, instance_RZ.getDutyCycleRZ(), 0.0f);
 
         //Check duty cycle and niveau
-        float niveau[] = {0f, 0f, 0f}; //0 min max
+        double niveau[] = {0f, 0f, 0f}; //0 min max
         for (int i = 0; i < instance_RZ.informationEmise.nbElements(); i++) {
             if (instance_RZ.informationEmise.iemeElement(i) == instance_RZ.getAmplMax()) {
                 niveau[2]++;
@@ -160,7 +160,7 @@ public class EmetteurAnalogiqueTest {
         assertEquals(instance_NRZ.getNbEch() * instance_NRZ.getInformationRecue().nbElements(), instance_NRZ.informationEmise.nbElements());
 
         //Check niveau
-        float niveau2[] = {0f, 0f, 0f}; //0 min max
+        double niveau2[] = {0f, 0f, 0f}; //0 min max
         for (int i = 0; i < instance_NRZ.informationEmise.nbElements(); i++) {
             if (instance_NRZ.informationEmise.iemeElement(i) == instance_NRZ.getAmplMax()) {
                 niveau2[2]++;
@@ -202,11 +202,11 @@ public class EmetteurAnalogiqueTest {
         assertEquals(instance_NRZT_tempsMontee, instance_NRZT.getTmpMontee(), 0.0f);
 
         
-        float diff_max = (float) (Math.abs(instance_NRZT.getAmplMax() - instance_NRZT.getAmplMin()) / Math.floor(instance_NRZT.getNbEch() * instance_NRZT.getTmpMontee()));
+        double diff_max = (Math.abs(instance_NRZT.getAmplMax() - instance_NRZT.getAmplMin()) / Math.floor(instance_NRZT.getNbEch() * instance_NRZT.getTmpMontee()));
         diff_max += 0.000001f; //Marge d'erreur
         
         for (int i = 1; i < instance_NRZT.getInformationEmise().nbElements(); i++) {
-            float diff = instance_NRZT.getInformationEmise().iemeElement(i - 1) - instance_NRZT.getInformationEmise().iemeElement(i);
+            double diff = instance_NRZT.getInformationEmise().iemeElement(i - 1) - instance_NRZT.getInformationEmise().iemeElement(i);
             //System.out.println(diff_max + " / " + diff + " / " + instance_NRZT.getInformationEmise().iemeElement(i - 1) + " / " + instance_NRZT.getInformationEmise().iemeElement(i));
             if (Math.abs(diff) > diff_max) {
                 throw new Exception("Variation trop importante");

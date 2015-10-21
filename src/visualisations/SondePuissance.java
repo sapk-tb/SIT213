@@ -5,10 +5,10 @@
 
 
 /** 
- * Classe réalisant l'affichage de la puissance d'une information composée d'élèments de type réel (float)
+ * Classe réalisant l'affichage de la puissance d'une information composée d'élèments de type réel (double)
  * @author prou
  */
-   public class SondePuissance extends Sonde <Float> {
+   public class SondePuissance extends Sonde <Double> {
    
    /**
     * pour construire une sonde puissance 
@@ -20,7 +20,7 @@
    
    
    	 
-      public void recevoir (Information <Float> information) { 
+      public void recevoir (Information <Double> information) { 
          informationRecue = information;
          int nbElements = information.nbElements();
          Double puissance = 0.0;

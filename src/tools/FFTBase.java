@@ -15,18 +15,18 @@ public class FFTBase {
      *            TRUE = direct transform, FALSE = inverse transform
      * @return a new array of length 2n
      */
-    public static float[] fft(final float[] inputReal, float[] inputImag,
+    public static double[] fft(final double[] inputReal, double[] inputImag,
 	    boolean DIRECT) {
 	// - n is the dimension of the problem
 	// - nu is its logarithm in base e
 	int n = inputReal.length;
  
 	// If n is a power of 2, then ld is an integer (_without_ decimals)
-	float ld =(float) ( Math.log(n) / Math.log(2.0));
+	double ld =( Math.log(n) / Math.log(2.0));
  
 	// Here I check if n is a power of 2. If exist decimals in ld, I quit
 	// from the function returning null.
-        //* Comment because with float it get bad
+        //* Comment because with double it get bad
 	if (((int) ld) - ld != 0) {
 	    System.out.println("The number of elements is not a power of 2.");
 	    return null;
@@ -39,17 +39,17 @@ public class FFTBase {
 	int nu = (int) ld;
 	int n2 = n / 2;
 	int nu1 = nu - 1;
-	float[] xReal = new float[n];
-	float[] xImag = new float[n];
-	float tReal, tImag, p, arg, c, s;
+	double[] xReal = new double[n];
+	double[] xImag = new double[n];
+	double tReal, tImag, p, arg, c, s;
  
 	// Here I check if I'm going to do the direct transform or the inverse
 	// transform.
-	float constant;
+	double constant;
 	if (DIRECT)
-	    constant = (float) (-2 * Math.PI);
+	    constant = (-2 * Math.PI);
 	else
-	    constant = (float) (2 * Math.PI);
+	    constant = (2 * Math.PI);
  
 	// I don't want to overwrite the input arrays, so here I copy them. This
 	// choice adds \Theta(2n) to the complexity.
@@ -66,8 +66,8 @@ public class FFTBase {
 		    p = bitreverseReference(k >> nu1, nu);
 		    // direct FFT or inverse FFT
 		    arg = constant * p / n;
-		    c = (float) Math.cos(arg);
-		    s = (float) Math.sin(arg);
+		    c = Math.cos(arg);
+		    s = Math.sin(arg);
 		    tReal = xReal[k + n2] * c + xImag[k + n2] * s;
 		    tImag = xImag[k + n2] * c - xReal[k + n2] * s;
 		    xReal[k + n2] = xReal[k] - tReal;
@@ -102,8 +102,8 @@ public class FFTBase {
 	// Here I have to mix xReal and xImag to have an array (yes, it should
 	// be possible to do this stuff in the earlier parts of the code, but
 	// it's here to readibility).
-	float[] newArray = new float[xReal.length * 2];
-	float radice = (float) (1 / Math.sqrt(n));
+	double[] newArray = new double[xReal.length * 2];
+	double radice =(1 / Math.sqrt(n));
 	for (int i = 0; i < newArray.length; i += 2) {
 	    int i2 = i / 2;
 	    // I used Stephen Wolfram's Mathematica as a reference so I'm going

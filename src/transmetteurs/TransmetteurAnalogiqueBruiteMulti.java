@@ -1,65 +1,34 @@
 package transmetteurs;
 
-import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
-import sources.SourceBruitGaussien;
 import tools.ArrayTool;
-import tools.Tool;
 
 /**
- * Classe d'un composant qui transmet des informations de type Float sans
- * défaut.
+ * Classe d'un composant qui transmet des informations de type Double dans un
+ * canal bruité et avec des tarjets .
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float> {
+public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBruite {
 
-    protected Information<Float> informationBruit;
     //Décalage en échantillions
     private final Integer[] dt;
     //Amplitude relative
-    private final Float[] ar;
-    private Float SNR = null;
-    private int seed;
+    private final Double[] ar;
 
-    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR) throws Exception {
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR) throws Exception {
         this(dt, ar, SNR, (int) (Math.random() * 1024));
     }
 
-    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR, int seed) throws Exception {
-        super();
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR, int seed) throws Exception {
+        super(SNR, seed);
         if (dt.length != ar.length) {
             throw new Exception("Arguments de multiple trajet donnée invalide");
         }
-
         this.dt = dt;
         this.ar = ar;
-        this.SNR = SNR;
-        this.seed = seed;
-    }
-
-    /*public TransmetteurAnalogiqueBruiteMulti(Float SNR) {
-     this(SNR, (int) (Math.random() * 1024));
-     }*/
-    /**
-     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
-     * méthode emettre.
-     *
-     * @param information l'information reçue
-     * @throws information.InformationNonConforme Quand l'information est
-     * invalide
-     */
-    @Override
-    public void recevoir(Information<Float> information) throws InformationNonConforme {
-        if (information == null) {
-            throw new InformationNonConforme("information recue == null");
-        }
-        this.informationRecue = information;
-
-        emettre();
-
     }
 
     /**
@@ -69,56 +38,29 @@ public class TransmetteurAnalogiqueBruiteMulti extends Transmetteur<Float, Float
      */
     @Override
     public void emettre() throws InformationNonConforme {
-        int max = 0;
-        for (int i = 0; i < dt.length; i++) {
-            if (dt[i] > max) {
-                max = dt[i];
-            }
-        }
 
-        Float[] recu = new Float[informationRecue.nbElements()];
-        informationRecue.toArray(recu);
-        this.informationEmise = new Information<Float>(recu);
-        //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+        /* Génération du Bruit */
+        addBruit();
 
+        System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
+        /* Mise en forme pour les multi-trajet */
+        Information<Double> infBruite = new Information<>(this.informationEmise);
         for (int i = 0; i < dt.length; i++) {
             if (ar[i] == 0) {
-                continue;//On continue car le signal est null
+                continue;
             }
-            //System.out.println("Generating trajet n°" + i);
-            Information<Float> temp = new Information<Float>(recu);
+            System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i] + " ) ");
+            //TODO check if we should maybe do Information retard = ArrayTool.factArrays(this.informationEmise, ar[i]); 
+            Information retard = ArrayTool.factArrays(infBruite, ar[i]); //On génère une information factorisé par l'attenuation
             for (int j = 0; j < dt[i]; j++) {
-                temp.addAt(0, 0f);
+                retard.addAt(0, 0f); // On ajoute les retards
             }
-            temp = ArrayTool.factArrays(temp, ar[i]);
-            this.informationEmise = ArrayTool.sumArrays(this.informationEmise, temp);
-            //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+            System.out.println("Taille du tableau de retard : " + retard.nbElements());
+            this.informationEmise = ArrayTool.sumArrays(this.informationEmise, retard);
         }
 
-        //------------------------Ajout bruit---------------------------
-        float puissance_signal = Tool.getPuissance(this.informationRecue);
-        float puissance_bruit = 0;
-
-        if (this.SNR != null) {
-            puissance_bruit = puissance_signal / this.SNR;
-        }
-        //Float[] output = new Float[this.informationRecue.nbElements()];
-        //*
-        int nbEl = this.informationRecue.nbElements();
-        //*/
-        /* Génération du Bruit */
-        SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
-        bruit.emettre();
-        this.informationBruit = bruit.getInformationEmise();
-
-        System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
-
-        this.informationEmise = ArrayTool.sumArrays(informationEmise, informationBruit);
-        //-----------------------Fin ajout bruit---------------------------
-
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(this.informationEmise);
-        }
+        System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+        envoyerAuxSuivants();
     }
 
 }

@@ -8,29 +8,29 @@ import tools.ArrayTool;
 import tools.Tool;
 
 /**
- * Classe d'un composant qui transmet des informations de type Float sans
+ * Classe d'un composant qui transmet des informations de type Double sans
  * défaut.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
+public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
 
     /**
      * l'information reçue en entrée du transmetteur
      */
-    protected Information<Float> informationBruit;
-    private Float SNR = null;
-    private int seed;
+    protected Information<Double> informationBruit;
+    protected Double SNR = null;
+    protected int seed;
 
-    public TransmetteurAnalogiqueBruite(Float SNR, int seed) {
+    public TransmetteurAnalogiqueBruite(Double SNR, int seed) {
         super();
-        
+
         this.SNR = SNR;
         this.seed = seed;
     }
 
-    public TransmetteurAnalogiqueBruite(Float SNR) {
+    public TransmetteurAnalogiqueBruite(Double SNR) {
         this(SNR, (int) (Math.random() * 1024));
     }
 
@@ -43,7 +43,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      * invalide
      */
     @Override
-    public void recevoir(Information<Float> information) throws InformationNonConforme {
+    public void recevoir(Information<Double> information) throws InformationNonConforme {
         if (information == null) {
             throw new InformationNonConforme("information recue == null");
         }
@@ -52,33 +52,49 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
     }
 
     /**
-     * émet l'information construite par la transmetteur
+     * Ajoute le bruit au signal
+     *
+     * @throws information.InformationNonConforme
+     */
+    protected void addBruit() throws InformationNonConforme {
+        if (this.SNR != null) { // On a du bruit
+            double puissance_signal = Tool.getPuissance(this.informationRecue);
+            double puissance_bruit = puissance_signal / this.SNR;
+            int nbEl = this.informationRecue.nbElements();
+
+            SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
+            bruit.emettre();
+            this.informationBruit = bruit.getInformationEmise();
+            System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
+
+            this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
+        } else { // Le bruit est null
+            this.informationEmise = new Information<>(this.informationRecue); //We clone the object to not affect element in amount
+        }
+    }
+
+    /**
+     * Envoie l'informationEmise aux élément connectés
+     *
+     * @throws InformationNonConforme
+     */
+    protected void envoyerAuxSuivants() throws InformationNonConforme {
+        for (DestinationInterface<Double> destinationConnectee : destinationsConnectees) {
+            destinationConnectee.recevoir(this.informationEmise);
+        }
+    }
+
+    /**
+     * émet l'information construite par la transmette
+     * @throws information.InformationNonConforme
      */
     @Override
     public void emettre() throws InformationNonConforme {
 
-        float puissance_signal = Tool.getPuissance(this.informationRecue);
-        float puissance_bruit = 0;
-
-        if (this.SNR != null) {
-            puissance_bruit = puissance_signal / this.SNR;
-        }
-        //Float[] output = new Float[this.informationRecue.nbElements()];
-        //*
-        int nbEl = this.informationRecue.nbElements();
-        //*/
         /* Génération du Bruit */
-        SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
-        bruit.emettre();
-        this.informationBruit = bruit.getInformationEmise();
+        addBruit();
 
-        System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
-
-        this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
-        
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationEmise);
-        }
+        envoyerAuxSuivants();
     }
 
 }

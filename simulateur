@@ -8,5 +8,7 @@
 ant -quiet compile 
 
 #echo $@
+#SIMU_JAVA_OPTIONS="-Xmx6G" 
+#ou export SIMU_JAVA_OPTIONS="-Xmx6G" 
 
-java -classpath ./build/classes/ Simulateur $@
+java $SIMU_JAVA_OPTIONS -classpath ./build/classes/ Simulateur $@

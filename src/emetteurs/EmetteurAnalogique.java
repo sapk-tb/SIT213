@@ -13,7 +13,7 @@ import information.InformationNonConforme;
  * @author Pierrick CHOVELON
  * @author Mélanie CORRE
  */
-public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
+public class EmetteurAnalogique extends Emetteur<Boolean, Double> {
 
     private final String form;
     private final int nbEch;
@@ -26,25 +26,25 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
         return nbEch;
     }
 
-    public float getAmplMin() {
+    public double getAmplMin() {
         return amplMin;
     }
 
-    public float getAmplMax() {
+    public double getAmplMax() {
         return amplMax;
     }
 
-    public float getTmpMontee() {
+    public double getTmpMontee() {
         return tmpMontee;
     }
 
-    public float getDutyCycleRZ() {
+    public double getDutyCycleRZ() {
         return dutyCycleRZ;
     }
-    private final float amplMin;
-    private final float amplMax;
-    private final float tmpMontee;
-    private final float dutyCycleRZ;
+    private final double amplMin;
+    private final double amplMax;
+    private final double tmpMontee;
+    private final double dutyCycleRZ;
 
     /**
      * un constructeur de l'émetteur analogique
@@ -57,7 +57,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
      * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
      */
-    public EmetteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
+    public EmetteurAnalogique(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee) {
         super();
         //TODO check validity of args
         this.form = form;
@@ -89,16 +89,16 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
             throw new InformationNonConforme("informationRecue == null");
         }
 
-        float niveauPrecedent = 0f;
+        double niveauPrecedent = 0f;
         int nbEchTransition = (int) (tmpMontee * nbEch); //TODO determine if not should be Math.ceil or keep a truncature ?
-        float deltaAmplitude = amplMax - amplMin;
-        float coefDirecteur = deltaAmplitude / nbEchTransition;
-        float deltaEntreEch = coefDirecteur * 1; // *1 : echantillon
+        double deltaAmplitude = amplMax - amplMin;
+        double coefDirecteur = deltaAmplitude / nbEchTransition;
+        double deltaEntreEch = coefDirecteur * 1; // *1 : echantillon
 
         int nbSymbole = informationRecue.nbElements();
-        Information<Float> informationAEmettre = new Information<Float>(nbSymbole * nbEch);
+        Information<Double> informationAEmettre = new Information<Double>(nbSymbole * nbEch);
 
-        float tempsA0 = nbEch * (1 - dutyCycleRZ) / 2;
+        double tempsA0 = nbEch * (1 - dutyCycleRZ) / 2;
         //System.out.println("Tier : " + tempsA0+" dutyCycleRZ : " + dutyCycleRZ+" nbEch : " + nbEch);
 
         //System.out.println("Debug : " + nbEchTransition + " / " + deltaAmplitude + " / " + coefDirecteur + " / " + deltaEntreEch);
@@ -116,16 +116,16 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
                 switch (form) {
                     case "RZ":
                         if (n < tempsA0 || n > nbEch-tempsA0) {
-                            informationAEmettre.add(0f);
+                            informationAEmettre.add(0.0);
                         } else {
-                            informationAEmettre.add((float) (bit ? amplMax : amplMin));
+                            informationAEmettre.add(bit ? amplMax : amplMin);
                         }
                         break;
                     case "NRZ":
-                        informationAEmettre.add((float) (bit ? amplMax : amplMin));
+                        informationAEmettre.add(bit ? amplMax : amplMin);
                         break;
                     case "NRZT":
-                        float niveauAnalogique = (float) (bit ? amplMax : amplMin);
+                        double niveauAnalogique = (bit ? amplMax : amplMin);
                         //TODO simplify
                         //System.out.println("Debug loop : " + niveauPrecedent + " / " + niveauAnalogique + " / " + deltaEntreEch);
                         if (i == 0 && n == 0) {
@@ -147,7 +147,7 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Float> {
             }
         }
 
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+        for (DestinationInterface<Double> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(informationAEmettre);
         }
 

@@ -1,6 +1,5 @@
 package recepteurs;
 
-import destinations.DestinationInterface;
 import information.Information;
 import information.InformationNonConforme;
 
@@ -13,48 +12,17 @@ import information.InformationNonConforme;
  * @author Pierrick CHOVELON
  * @author Mélanie CORRE
  */
-public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
+public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
 
-    private final String form;
-    private final int nbEch;
-    private final float amplMin;
-    private final float amplMax;
-    private final float dutyCycleRZ;
-    private final float tmpMontee;
     private final Integer[] dt;
-    private final Float[] ar;
-    
-    
-    public String getForm() {
-        return form;
+    private final Double[] ar;
+
+    public Integer[] getDt() {
+        return dt;
     }
 
-    public int getNbEch() {
-        return nbEch;
-    }
-
-    public float getAmplMin() {
-        return amplMin;
-    }
-
-    public float getAmplMax() {
-        return amplMax;
-    }
-
-    public float getDutyCycleRZ() {
-        return dutyCycleRZ;
-    }
-
-    public float getTmpMontee() {
-        return tmpMontee;
-    }
-    
-    public Integer[] getDt(){
-    	return dt;
-    }
-    
-    public Float[] getAr(){
-    	return ar;
+    public Double[] getAr() {
+        return ar;
     }
 
     /**
@@ -70,111 +38,60 @@ public class RecepteurAnalogiqueMulti extends Recepteur<Float, Boolean> {
      * @param dt Tableau de décalage des multitrajet
      * @param ar Tableau d'atténuation des multitrajet
      */
-    public RecepteurAnalogiqueMulti(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee, Integer[] dt, Float[] ar) {
-        super();
-        //TODO check validity of args
-        this.form = form;
-        this.nbEch = nbEch;
-        this.amplMin = amplMin;
-        this.amplMax = amplMax;
-        this.dutyCycleRZ = dutyCycleRZ;
-        this.tmpMontee = tmpMontee;
-        this.dt=dt;
-        this.ar=ar;
+    public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar) {
+        super(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
+        this.dt = dt;
+        this.ar = ar;
     }
 
     /**
-     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
-     * méthode emettre.
+     * Enlève les trajets multiples des échantillons //TODO ajouter des solution
+     * pour limiter les différents bruits
      *
-     * @param information l'information reçue
+     * @param infRecue L'information à nettoyer
+     * @return L'information nettoyée
+     * @throws InformationNonConforme
      */
-    @Override
-    public void recevoir(Information<Float> information) throws InformationNonConforme {
-        this.informationRecue = information;
-        emettre();
+    protected Information<Double> cleanEch(Information<Double> infRecue) throws InformationNonConforme {
+        if (infRecue == null) {
+            throw new InformationNonConforme("informationRecue == null");
+        }
+        /* Calcul du décalage maximum */
+        int dtmax = 0;
+        for (int i = 0; i < dt.length; i++) {
+            if (ar[i] != 0 && dt[i] > dtmax) { // Si on est au dessus et que l'on a une amplitude non nulle
+                dtmax = dt[i];
+            }
+        }
+        int nbEchTotal = infRecue.nbElements();
+        int nbEchFinal = nbEchTotal - (dtmax);
+        
+        Information<Double> informationNettoyee = new Information(nbEchTotal);
+        //TODO case dt[i] = 0;
+        for (int i = 0; i < nbEchFinal; i++) {
+            informationNettoyee.addAt(i, infRecue.iemeElement(i));
+
+            for (int j = 0; j < dt.length; j++) {
+                if (ar[j] != 0 && (i - dt[j]) >= 0) { // Si on a un décalage et que l'amplitude est non nulle
+                    double valeurSignalPrec = informationNettoyee.iemeElement(i - dt[j]);
+                    double valeurReflection = valeurSignalPrec * ar[j];
+                    informationNettoyee.setIemeElement(i, informationNettoyee.iemeElement(i) - valeurReflection);
+                }
+            }
+        }
+        System.out.println("nbEch après nettoyage : " + informationNettoyee.nbElements());
+        return informationNettoyee;
     }
 
     /**
      * émet l'information construite par l'emetteur
+     *
+     * @throws information.InformationNonConforme
      */
     @Override
     public void emettre() throws InformationNonConforme {
-        if (informationRecue == null) {
-            throw new InformationNonConforme("informationRecue == null");
-        }
-        
-        //Debut debruitage du signal
-        int dtmax=0;
-        for(int i=0;i<dt.length;i++){
-        	if(dt[i]>dtmax){
-        		dtmax=dt[i];
-        	}
-        }
-        
-        int nbEchTotal = informationRecue.nbElements()-dtmax;
-        int nbSymbole = nbEchTotal / nbEch;
-        
-        //TODO optimize
-        //TODO check if dt = 0 and possible conflict
-        Information infoDecodee=new Information(nbEchTotal);
-        for(int i=0; i<(nbEchTotal);i++){
-        	infoDecodee.addAt(i, informationRecue.iemeElement(i));
-        	for(int j=0;j<dt.length;j++){
-                        if(ar[j] == 0){
-                            continue; //l'amplitude de la reflection est de 0 -> on passe
-                        }
-	        		if((i-dt[j])>0){ //TODO defini if not better >=
-	        			float valeur=(float)infoDecodee.iemeElement(i-dt[j])*ar[j];
-        			infoDecodee.setIemeElement(i,(float)infoDecodee.iemeElement(i) - valeur);
-        		}
-        	}
-        }
-        //Fin debruitage du signal
-        
-        Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);
-        //Float allEch[] = new Float[nbEchTotal];
-        float total[] = new float[nbSymbole];
-
-        //informationRecue.toArray(allEch);
-        /*
-         * Calcul de la somme pour chaque échantillon
-         */
-        //for (int i = 0; i < nbEchTotal; i++) {
-        for (int i = 0; i < nbSymbole; i++) {
-            //total[(int) i / nbEch] += allEch[i];
-            for (int n = 0; n < nbEch; n++) {
-                total[i] += informationRecue.iemeElement(i * nbEch + n);
-            }
-        }
-
-        /*
-         * Calcul de la moyenne d'un symbole afin de retrouver le niveau de
-         * chaque échantillon
-         */
-        for (int i = 0; i < nbEchTotal / nbEch; i++) {
-            float moy_symbole = total[i] / (float) nbEch;
-            //System.out.println("Moy symbole : "+moy_symbole);
-
-            switch (form) {
-                case "RZ":
-                    informationAEmettre.add((Math.abs(amplMax * dutyCycleRZ - moy_symbole) < Math.abs(amplMin * dutyCycleRZ - moy_symbole)));
-                    break;
-                case "NRZ":
-                    informationAEmettre.add((Math.abs(amplMax - moy_symbole) < Math.abs(amplMin - moy_symbole)));
-                    break;
-                case "NRZT":
-                    informationAEmettre.add((Math.abs(amplMax * (1 - tmpMontee / 2) - moy_symbole) < Math.abs(amplMin * (1 - tmpMontee / 2) - moy_symbole)));
-                    break;
-            }
-            //TODO check if we replace inforamtion à emetrre par un Float[]  for performance ?
-        }
-
-        for (DestinationInterface<Boolean> destinationConnectee : destinationsConnectees) {
-            destinationConnectee.recevoir(informationAEmettre);
-        }
-
-        this.informationEmise = informationAEmettre;
+        this.informationEmise = parseEch(cleanEch(this.informationRecue));
+        envoyerAuxSuivants();
     }
 
 }

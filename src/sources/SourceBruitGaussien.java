@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class SourceBruitGaussien extends Source<Float> {
+public class SourceBruitGaussien extends Source<Double> {
 
     private final int seed;
 
@@ -32,7 +32,7 @@ public class SourceBruitGaussien extends Source<Float> {
      * @param nbEch nombre de bit à générer
      * @param puissance puissance du bruit
      */
-    public SourceBruitGaussien(int nbEch, float puissance) {
+    public SourceBruitGaussien(int nbEch, double puissance) {
         this(nbEch, puissance, (int) (Math.random() * 1024));
     }
 
@@ -45,23 +45,23 @@ public class SourceBruitGaussien extends Source<Float> {
      * 
      */
     //*
-    public SourceBruitGaussien(int nbEch, float puissance, final int seed) {
+    public SourceBruitGaussien(int nbEch, double puissance, final int seed) {
         super();
         this.seed = seed;
-        //this.informationGeneree = new Information<Float>(nbEch);
-        Float[] bruit = new Float[nbEch];
-        float puissance_sqrt = (float) Math.sqrt(puissance);
+        //this.informationGeneree = new Information<Double>(nbEch);
+        Double[] bruit = new Double[nbEch];
+        double puissance_sqrt = Math.sqrt(puissance);
         int nb_thread = Runtime.getRuntime().availableProcessors();
 
         class GetNextGaussionThread implements Runnable {
 
-            private final float puissance_sqrt;
-            private final Float[] bruit;
+            private final double puissance_sqrt;
+            private final Double[] bruit;
             private final int index_start;
             private final int index_end;
             private final Random rand = new Random(seed);
 
-            GetNextGaussionThread(Float[] b, int start, int end, float p) {
+            GetNextGaussionThread(Double[] b, int start, int end, double p) {
                 bruit = b;
                 puissance_sqrt = p;
                 index_start = start;
@@ -71,7 +71,7 @@ public class SourceBruitGaussien extends Source<Float> {
             @Override
             public void run() {
                 for (int i = index_start; i < index_end; i++) {
-                    bruit[i] = (puissance_sqrt * ((float) rand.nextGaussian()));
+                    bruit[i] = (puissance_sqrt * rand.nextGaussian());
                 }
             }
         }
@@ -92,7 +92,7 @@ public class SourceBruitGaussien extends Source<Float> {
         } catch (InterruptedException ex) {
             Logger.getLogger(SourceBruitGaussien.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.informationGeneree = new Information<Float>(bruit);
+        this.informationGeneree = new Information<Double>(bruit);
 
     }
 

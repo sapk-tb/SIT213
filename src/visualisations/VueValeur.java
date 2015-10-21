@@ -5,7 +5,6 @@
 *
 */
    import javax.swing.*;
-   import java.lang.*;
 
     public class VueValeur  extends Vue {
 
@@ -52,10 +51,10 @@
 //       	
 //       	
 //          int x0Axe = 10;
-//          float deltaX = getContentPane().getWidth() - (2 * x0Axe);
+//          double deltaX = getContentPane().getWidth() - (2 * x0Axe);
 //       	
 //          int y0Axe = 10;
-//          float deltaY = getContentPane().getHeight() - (2 * y0Axe);      	 
+//          double deltaY = getContentPane().getHeight() - (2 * y0Axe);      	 
 //       	
 //       	
 //          if ((yMax > 0) && (yMin <= 0)) {
@@ -78,8 +77,8 @@
 //       	
 //       	// tracer la courbe
 //       
-//          float dx =  deltaX / (float) coordonnees[coordonnees.length - 1].getX();
-//          float dy = 0.0f;
+//          double dx =  deltaX / (double) coordonnees[coordonnees.length - 1].getX();
+//          double dy = 0.0f;
 //          if ((yMax >= 0) && (yMin <= 0)) {
 //             dy =  deltaY / (yMax-yMin);
 //          }

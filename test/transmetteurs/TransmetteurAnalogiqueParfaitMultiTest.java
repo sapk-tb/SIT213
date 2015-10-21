@@ -15,7 +15,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import recepteurs.RecepteurAnalogique;
 import recepteurs.RecepteurAnalogiqueMulti;
 import tools.ArrayTool;
 
@@ -51,11 +50,11 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
     @Test
     public void testRecevoir() throws Exception {
         System.out.println("Test recevoir");
-        Float bits[] = {1f, 1f, 1f};
-        Information<Float> information = new Information<>(bits);
+        Double bits[] = {1.0, 1.0, 1.0};
+        Information<Double> information = new Information<>(bits);
         int nbTrajets = 2;
         Integer[] dt = {1,2};
-        Float[] ar = {0.5f,0.5f};
+        Double[] ar = {0.5,0.5};
         TransmetteurAnalogiqueParfaitMulti instance = new TransmetteurAnalogiqueParfaitMulti(dt, ar );
         RecepteurAnalogiqueMulti recepteurAnalogiqueMulti = new RecepteurAnalogiqueMulti("RZ", 1, -2f, 2f, 0.2f, 0.1f, dt, ar);
         instance.connecter(recepteurAnalogiqueMulti);
@@ -64,11 +63,11 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
         
         //construction d'une information qui est la somme de l'information + 2 trajets différents
 
-        Information<Float> informationTotale = new Information<>(bits);
-        Float bitsT1[] = {0.0f, 0.5f, 0.5f, 0.5f, 0.0f};//Trajet1 : * 0.5
-        Float bitsT2[] = {0.0f, 0.0f, 0.5f, 0.5f, 0.5f};//Trajet2 : * 0.5
-        Information<Float> informationT1 = new Information<>(bitsT1);
-        Information<Float> informationT2 = new Information<>(bitsT2);
+        Information<Double> informationTotale = new Information<>(bits);
+        Double bitsT1[] = {0.0, 0.5, 0.5, 0.5, 0.0};//Trajet1 : * 0.5
+        Double bitsT2[] = {0.0, 0.0, 0.5, 0.5, 0.5};//Trajet2 : * 0.5
+        Information<Double> informationT1 = new Information<>(bitsT1);
+        Information<Double> informationT2 = new Information<>(bitsT2);
 
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT1);
         informationTotale = ArrayTool.sumArrays(informationTotale, informationT2);     

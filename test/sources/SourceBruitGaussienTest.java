@@ -1,6 +1,5 @@
 package sources;
 
-import java.util.Iterator;
 import tools.Tool;
 
 import org.junit.After;
@@ -21,7 +20,7 @@ import tools.Statistic;
  */
 public class SourceBruitGaussienTest {
 
-    float margeErreur = 0.1f;
+    double margeErreur = 0.1f;
 
     public SourceBruitGaussienTest() {
     }
@@ -54,7 +53,7 @@ public class SourceBruitGaussienTest {
     public void testConstructeur2() {
         System.out.println("Test Constucteur2 SourceBruitGaussien");
         int nbEch = 1000000;
-        float puissance = 1000;
+        double puissance = 1000;
         SourceBruitGaussien instance = new SourceBruitGaussien(nbEch, puissance);
         assertEquals(instance.informationGeneree.nbElements(), nbEch);
         assertEquals(Tool.getPuissance(instance.informationGeneree), puissance, margeErreur * puissance);
@@ -65,7 +64,7 @@ public class SourceBruitGaussienTest {
     public void testRepetitionAvecSeed() {
         System.out.println("Test Répétition SourceBruitGaussien");
         int nbEch = 100000;
-        float puissance = 10;
+        double puissance = 10;
         int seed = 42;
         SourceBruitGaussien instance1 = new SourceBruitGaussien(nbEch, puissance, seed);
         SourceBruitGaussien instance2 = new SourceBruitGaussien(nbEch, puissance, seed);
@@ -81,23 +80,23 @@ public class SourceBruitGaussienTest {
     public void testRepartion() {
         System.out.println("Test Repartition SourceBruitGaussien");
         int nbEch = 10000000;
-        float puissance = 10;
+        double puissance = 10;
         SourceBruitGaussien instance = new SourceBruitGaussien(nbEch, puissance);
         assertEquals(instance.informationGeneree.nbElements(), nbEch);
         assertEquals(Tool.getPuissance(instance.informationGeneree), puissance, margeErreur * puissance);
-        Float[] values = new Float[nbEch];
+        Double[] values = new Double[nbEch];
         instance.informationGeneree.toArray(values);
         Statistic stat = new Statistic(values);
-        assertEquals(stat.getMean(), 0f, margeErreur); //check moyennes
+        assertEquals(stat.getMean(), 0.0, margeErreur); //check moyennes
         assertEquals(stat.getVariance(), puissance, margeErreur * puissance); //check variance
 
-        Float min = stat.getMin();
-        Float max = stat.getMax();
+        Double min = stat.getMin();
+        Double max = stat.getMax();
         int nbInterval = 100000;
-        Float interval = (max - min) / nbInterval;
-        float[] repartition = new float[nbInterval];
+        Double interval = (max - min) / nbInterval;
+        double[] repartition = new double[nbInterval];
         //System.out.println("Min : " + min + " Max : " + max + " Interval : " + interval);
-        for (Float val : values) {
+        for (Double val : values) {
             int index = (int) ((val - min) * 1 / interval);
             //System.out.println("Index : " + index);
             for (int i = 0; i < index; i++) {

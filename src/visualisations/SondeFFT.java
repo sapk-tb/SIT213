@@ -10,11 +10,11 @@ import javax.imageio.ImageIO;
 import tools.FFTBase;
 
 /**
- * Classe réalisant l'affichage d'information composée d'élèments réels (float)
+ * Classe réalisant l'affichage d'information composée d'élèments réels (double)
  *
  * @author prou
  */
-public class SondeFFT extends Sonde<Float> {
+public class SondeFFT extends Sonde<Double> {
 
     private String filename = null;
     private Integer screenSize = null;
@@ -53,7 +53,7 @@ public class SondeFFT extends Sonde<Float> {
     }
 
     @Override
-    public void recevoir(Information<Float> information) {
+    public void recevoir(Information<Double> information) {
         informationRecue = information;
         int nbElementsOri = information.nbElements();
 
@@ -65,17 +65,17 @@ public class SondeFFT extends Sonde<Float> {
         }
         //nbElements = nbElements / 2;
         //System.out.println("nbElement : " + nbElements + "nbElementOri : " + nbElementsOri); 0-Padding
-        float[] real = new float[nbElements];
-        float[] complex = new float[nbElements];
+        double[] real = new double[nbElements];
+        double[] complex = new double[nbElements];
         //informationRecue.toArray(real);
         for (int i = 0; i < nbElementsOri; i++) {
             real[i] = informationRecue.iemeElement(i);
         }
 
-        float[] fft = FFTBase.fft(real, complex, true);
+        double[] fft = FFTBase.fft(real, complex, true);
 //*
         int milieu = fft.length / 2;
-        float[] fftCorrected = new float[fft.length];
+        double[] fftCorrected = new double[fft.length];
         for (int i = 0; i < fft.length; i++) {
             if (i >= milieu) {
                 fftCorrected[i] = Math.abs(fft[i - milieu]);

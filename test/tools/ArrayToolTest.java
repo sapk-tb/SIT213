@@ -1,9 +1,6 @@
 package tools;
 
 import information.Information;
-import tools.Tool;
-
-import java.util.Arrays;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -42,14 +39,14 @@ public class ArrayToolTest {
     @Test
     public void testSumArraysInformations(){
     	
-        Float bits[] = {-1f, 2f, 0f};
-    	Information<Float> informationInitiale = new Information<>(bits);
-        Float bitsT1[] = {1f, -2f, 0f};
-        Information<Float> informationT1 = new Information<>(bitsT1);
-        Float bitsResult[] = {0f, 0f, 0f};
-        Information<Float>informationResult = new Information<>(bitsResult);
+        Double bits[] = {-1.0, 2.0, 0.0};
+    	Information<Double> informationInitiale = new Information<>(bits);
+        Double bitsT1[] = {1.0, -2.0, 0.0};
+        Information<Double> informationT1 = new Information<>(bitsT1);
+        Double bitsResult[] = {0.0, 0.0, 0.0};
+        Information<Double>informationResult = new Information<>(bitsResult);
         
-        Information<Float>informationTotale = ArrayTool.sumArrays(informationInitiale, informationT1);
+        Information<Double>informationTotale = ArrayTool.sumArrays(informationInitiale, informationT1);
       
         assertEquals(informationResult, informationTotale);
         
@@ -57,10 +54,10 @@ public class ArrayToolTest {
     @Test
     public void testSumArraysTableaux(){
     	
-        float bits[] = {-1f, 2f, 0f};
-        float bitsT1[] = {1f, -2f, 0f};
-        float bitsResult[] = {0f, 0f, 0f};
-        float resultat[] = ArrayTool.sumArrays(bits, bitsT1);
+        double bits[] = {-1f, 2f, 0f};
+        double bitsT1[] = {1f, -2f, 0f};
+        double bitsResult[] = {0f, 0f, 0f};
+        double resultat[] = ArrayTool.sumArrays(bits, bitsT1);
 
         assertArrayEquals(resultat,bitsResult, 0.0f);
         
@@ -69,12 +66,12 @@ public class ArrayToolTest {
     @Test
     public void testSumArraysFacto(){
     	
-        Float bits[] = {2f, -2f, 0f};
-        float facteur = 0.5f;
-        Float bitsResult[] = {1f, -1f, 0f};
-        Information<Float>info = new Information<>(bits);
-        Information<Float>resultatAttendu = new Information<>(bitsResult);
-        Information<Float>resultat = ArrayTool.factArrays(info, facteur);
+        Double bits[] = {2.0, -2.0, 0.0};
+        double facteur = 0.5f;
+        Double bitsResult[] = {1.0, -1.0, 0.0};
+        Information<Double>info = new Information<>(bits);
+        Information<Double>resultatAttendu = new Information<>(bitsResult);
+        Information<Double>resultat = ArrayTool.factArrays(info, facteur);
         
         assertEquals(resultatAttendu, resultat);
     }

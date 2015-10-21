@@ -1,7 +1,6 @@
 package visualisations;
 
 import information.Information;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,11 +9,11 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * Classe réalisant l'affichage d'information composée d'élèments réels (float)
+ * Classe réalisant l'affichage d'information composée d'élèments réels (double)
  *
  * @author prou
  */
-public class SondeDiagrammeOeil extends Sonde<Float> {
+public class SondeDiagrammeOeil extends Sonde<Double> {
 
     private final int nbEchParSym;
     private String filename = null;
@@ -58,11 +57,11 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
     }
 
     @Override
-    public void recevoir(Information<Float> information) {
+    public void recevoir(Information<Double> information) {
         informationRecue = information;
         int nbElements = information.nbElements();
         int nbSym = nbElements / nbEchParSym;
-        float[][] table = new float[nbSym][nbEchParSym];
+        double[][] table = new double[nbSym][nbEchParSym];
         //System.out.println("Nb Sym = " + nbSym + " nbEchParSym : " + nbEchParSym + " nbElements " + nbElements);
         for (int i = 0; i < nbSym; i++) {
             for (int j = 0; j < nbEchParSym; j++) {
@@ -70,7 +69,7 @@ public class SondeDiagrammeOeil extends Sonde<Float> {
             }
         }
         /*int i = 0;
-         for (float f : information) {
+         for (double f : information) {
          table[i / nbEchParSym][i % nbEchParSym] = f;
          i++;
          }*/

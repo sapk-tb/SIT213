@@ -1,7 +1,6 @@
 package tools;
 
 import information.Information;
-import tools.Tool;
 
 import java.util.Arrays;
 
@@ -42,9 +41,9 @@ public class ToolTest {
     @Test
     public void testGetPuissance(){
     	System.out.println("Test getPuissance Tool");
-    	Information<Float> info=new Information<Float>();
-    	info.add(1f);
-    	info.add(2f);
+    	Information<Double> info=new Information<Double>();
+    	info.add(1.0);
+    	info.add(2.0);
     	assertEquals(Tool.getPuissance(info), 2.5,0.1f);
     }
     
@@ -52,14 +51,14 @@ public class ToolTest {
     @Test(expected = NullPointerException.class)
     public void testGetPuissanceNullPointer(){
     	System.out.println("Test getPuissance Tool - NullPointerException");
-    	Information<Float> info = null;
+    	Information<Double> info = null;
     	assertEquals(Tool.getPuissance(info), 2.5,0.1f);
     }
     
     @Test
     public void testdBToLin(){
     	System.out.println("Test dBToLin Tool");
-    	float val=1;
+    	double val=1;
     	assertEquals(Tool.dBToLin(val), 1.25893,0.0001f);
     }
     

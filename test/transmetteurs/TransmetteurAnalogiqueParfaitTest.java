@@ -46,8 +46,8 @@ public class TransmetteurAnalogiqueParfaitTest {
     @Test
     public void testRecevoir() throws Exception {
         System.out.println("Test recevoir");
-        Float bits[] = {-1f, 2f, 0f};
-        Information<Float> information = new Information<>(bits);
+        Double bits[] = {-1.0, 2.0, 0.0};
+        Information<Double> information = new Information<>(bits);
         TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
         RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
         instance.connecter(recepteurAnalogique);
