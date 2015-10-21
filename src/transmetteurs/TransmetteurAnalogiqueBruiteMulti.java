@@ -34,8 +34,6 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
         }
         this.dt = dt;
         this.ar = ar;
-        this.SNR = SNR;
-        this.seed = seed;
     }
 
     /**
