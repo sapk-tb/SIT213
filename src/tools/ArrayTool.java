@@ -13,8 +13,8 @@ import tools.Thread.AddToNativeDoubleArray;
 /**
  *
  * @author Antoine GIRARD
+ * @author Cedric HERZOG
  */
-//TODO optimize
 public class ArrayTool {
 
     /**

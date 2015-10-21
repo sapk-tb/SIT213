@@ -52,23 +52,23 @@ public class RecepteurAnalogiqueMultiTest {
         Information<Double> expResult = infRecue;
         Information<Double> result = instance.cleanEch(infRecue);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
+
     @Test
     public void testClean() throws Exception {
         System.out.println("cleanEch");
-        Double[] echNotClean = {1.0, 1.0, 1.0};
-        Integer[] dt = {2};
-        Double[] ar = {0.5};
-        Double[] echClean = {1.0, 1.0, 0.5};
+        Integer[] dt = {3};
+        Double[] ar = {Math.ceil(Math.random() * 1000) / 1000}; //On limite la precisison car java se plante dans certains arrondi entre double.
+        Double[] echClean = {1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+        Double[] echNotClean = {1.0, 1.0, 0.0, 0.0 + (ar[0] * echClean[0]), 1.0 + (ar[0] * echClean[1]), 1.0 + (ar[0] * echClean[2]), 1.0 + (ar[0] * echClean[3]), 1.0 + (ar[0] * echClean[4]), 0.0 + (ar[0] * echClean[5]), 0.0 + (ar[0] * echClean[6]), 0.0 + (ar[0] * echClean[7]), 0.0 + (ar[0] * echClean[8]), (ar[0] * echClean[9]), (ar[0] * echClean[10]), (ar[0] * echClean[11])};
+
+//Double[] echNotClean =  {1.0, 1.0, 0.0, 0.5, 1.5, 1.0, 1.0, 1.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0};
         Information<Double> infRecue = new Information<Double>(echNotClean);
-        RecepteurAnalogiqueMulti instance = new RecepteurAnalogiqueMulti("RZ", 3, 1, -1, 1 / 3, 1 / 3, dt, ar);
+        RecepteurAnalogiqueMulti instance = new RecepteurAnalogiqueMulti("NRZ", 2, 0.0, 1.1, 1 / 3, 1 / 3, dt, ar);
         Information<Double> expResult = new Information<Double>(echClean);
+        //Information<Double> result = instance.cleanEch(infRecue); Le signal est déjà netoyé d'est la reception
         Information<Double> result = instance.cleanEch(infRecue);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }
