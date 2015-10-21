@@ -2,6 +2,8 @@ package transmetteurs;
 
 import information.Information;
 import information.InformationNonConforme;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tools.ArrayTool;
 
 /**
@@ -49,13 +51,14 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
 
         System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
         /* Mise en forme pour les multi-trajet */
+        Information<Float> infBruite = new Information<>(this.informationEmise);
         for (int i = 0; i < dt.length; i++) {
-            if(ar[i] == 0){
+            if (ar[i] == 0) {
                 continue;
             }
-            System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i]+" ) ");
+            System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i] + " ) ");
             //TODO check if we should maybe do Information retard = ArrayTool.factArrays(this.informationEmise, ar[i]); 
-            Information retard = ArrayTool.factArrays(this.informationRecue, ar[i]); //On génère une information factorisé par l'attenuation
+            Information retard = ArrayTool.factArrays(infBruite, ar[i]); //On génère une information factorisé par l'attenuation
             for (int j = 0; j < dt[i]; j++) {
                 retard.addAt(0, 0f); // On ajoute les retards
             }

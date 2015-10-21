@@ -31,6 +31,14 @@ public class Information<T> implements Iterable<T> {
         this.content = new ArrayList<T>(default_size);
     }
 
+    /**
+     * pour construire un clone à partir d'une information de T une information
+     *
+     * @param default_size la taille du tableau par défaut
+     */
+    public Information(Information<T> Inf) {
+        this.content = (ArrayList<T>) Inf.content.clone();
+    }
 
     /**
      * pour construire à partir d'un tableau de T une information
@@ -49,16 +57,6 @@ public class Information<T> implements Iterable<T> {
         //*/
     }
 
-    /**
-     * Retourne un clone
-     *
-     * @return le nombre d'élèments de l'information
-     * @throws java.lang.CloneNotSupportedException In case clone is not possible
-     */
-    @Override
-    public Information<T> clone() throws CloneNotSupportedException {
-        return (Information<T>) super.clone();
-    }
     /**
      * pour connaitre le nombre d'élèments d'une information
      *

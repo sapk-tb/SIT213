@@ -60,7 +60,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         /* Calcul du décalage maximum */
         int dtmax = 0;
         for (int i = 0; i < dt.length; i++) {
-            if (dt[i] > dtmax) {
+            if (ar[i] != 0 && dt[i] > dtmax) { // Si on est au dessus et que l'on a une amplitude non nulle
                 dtmax = dt[i];
             }
         }

@@ -55,6 +55,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
     /**
      * Ajoute le bruit au signal
+     *
      * @throws information.InformationNonConforme
      */
     protected void addBruit() throws InformationNonConforme {
@@ -70,11 +71,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
 
             this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
         } else { // Le bruit est null
-            try {
-                this.informationEmise = this.informationRecue.clone(); //We clone the object to not affect element in amount
-            } catch (CloneNotSupportedException ex) {
-                Logger.getLogger(TransmetteurAnalogiqueBruite.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            this.informationEmise = new Information<>(this.informationRecue); //We clone the object to not affect element in amount
         }
     }
 
