@@ -7,48 +7,48 @@ package tools;
  */
 public class Statistic {
 
-    Float[] data;
+    double[] data;
     int size;
 
-    public Statistic(Float[] data) {
+    public Statistic(double[] data) {
         this.data = data;
         size = data.length;
     }
 
-    public Float getMin() {
-        Float min = data[0];
-        for (Float a : data) {
+    public double getMin() {
+        double min = data[0];
+        for (double a : data) {
             min = (min < a) ? min : a;
         }
         return min;
     }
 
-    public Float getMax() {
-        Float max = data[0];
-        for (Float a : data) {
+    public double getMax() {
+        double max = data[0];
+        for (double a : data) {
             max = (max > a) ? max : a;
         }
         return max;
     }
 
-    public Float getMean() {
-        Float sum = 0.0f;
-        for (Float a : data) {
+    public double getMean() {
+        double sum = 0.0f;
+        for (double a : data) {
             sum += a;
         }
         return sum / size;
     }
 
-    public Float getVariance() {
-        Float mean = getMean();
-        Float temp = 0f;
-        for (Float a : data) {
+    public double getVariance() {
+        double mean = getMean();
+        double temp = 0f;
+        for (double a : data) {
             temp += (mean - a) * (mean - a);
         }
         return temp / size;
     }
 
-    public Float getStdDev() {
-        return (float) Math.sqrt(getVariance());
+    public double getStdDev() {
+        return Math.sqrt(getVariance());
     }
 }

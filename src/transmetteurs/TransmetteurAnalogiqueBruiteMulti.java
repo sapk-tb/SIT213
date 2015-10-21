@@ -5,25 +5,24 @@ import information.InformationNonConforme;
 import tools.ArrayTool;
 
 /**
- * Classe d'un composant qui transmet des informations de type Float sans
- * défaut.
+ * Classe d'un composant qui transmet des informations de type Double dans un
+ * canal bruité et avec des tarjets .
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
 public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBruite {
 
-    protected Information<Float> informationBruit;
     //Décalage en échantillions
     private final Integer[] dt;
     //Amplitude relative
-    private final Float[] ar;
+    private final Double[] ar;
 
-    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR) throws Exception {
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR) throws Exception {
         this(dt, ar, SNR, (int) (Math.random() * 1024));
     }
 
-    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Float[] ar, Float SNR, int seed) throws Exception {
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR, int seed) throws Exception {
         super(SNR, seed);
         if (dt.length != ar.length) {
             throw new Exception("Arguments de multiple trajet donnée invalide");
@@ -45,7 +44,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
 
         System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
         /* Mise en forme pour les multi-trajet */
-        Information<Float> infBruite = new Information<>(this.informationEmise);
+        Information<Double> infBruite = new Information<>(this.informationEmise);
         for (int i = 0; i < dt.length; i++) {
             if (ar[i] == 0) {
                 continue;

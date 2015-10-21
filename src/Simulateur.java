@@ -101,12 +101,12 @@ public class Simulateur {
     /**
      * l'amplitude minimale du signal, par défaut il s'agit de 0
      */
-    private Float amplMin = 0.0f;
+    private Double amplMin = 0.0;
 
     /**
      * l'amplitude maximale du signal, par défaut il s'agit de 1
      */
-    private Float amplMax = 1.0f;
+    private Double amplMax = 1.0;
 
     /**
      * le nombre d'échantillons du signal, par défaut il s'agit de 30
@@ -115,18 +115,18 @@ public class Simulateur {
     /**
      * le temps haut ou bas du signal RZ
      */
-    private final float dutyCycleRZ = (float) 1 / (float) 3;
+    private final double dutyCycleRZ =  1.0 / 3.0;
     /**
      * le temps de montée ou de descente à 1/3 du temps bit
      */
-    private final float tmpMontee = (float) 1 / (float) 3;
-    private Float snr = null; // en linéaires
-    private Float snrdB;
+    private final double tmpMontee = 1.0 / 3.0;
+    private Double snr = null; // en linéaires
+    private Double snrdB;
 
     /* Information pour les multi-trajets */
     private Integer nbTrajet = 0;
     private Integer[] dt = {0, 0, 0, 0, 0};
-    private Float[] ar = {0f, 0f, 0f, 0f, 0f};
+    private Double[] ar = {0.0, 0.0, 0.0, 0.0, 0.0};
 
     private boolean generate_pictures = false; /* generate picture when l'agrument -sat-img est saisie */
 
@@ -371,7 +371,7 @@ public class Simulateur {
                 i++;
                 // traiter la valeur associee
                 try {
-                    snrdB = new Float(args[i]);
+                    snrdB = new Double(args[i]);
                     System.out.println("SNR en dB saisie : " + snrdB);
                     snr = Tool.dBToLin(snrdB);
                     System.out.println("SNR en Lin : " + snr);
@@ -414,9 +414,9 @@ public class Simulateur {
                 }
 
                 i++;
-                amplMin = new Float(args[i]);
+                amplMin = new Double(args[i]);
                 i++; // on passe à l'argument suivant
-                amplMax = new Float(args[i]);
+                amplMax = new Double(args[i]);
 
                 if (amplMax <= amplMin) {
                     throw new ArgumentsException("Valeurs du parametre -ampl invalide : min:" + amplMin + " > max:" + amplMax);
@@ -458,7 +458,7 @@ public class Simulateur {
                 dt[nTrajet] = new Integer(args[i]);
                 i++;
                 //On récupère le ar du trajet
-                ar[nTrajet] = new Float(args[i]);
+                ar[nTrajet] = new Double(args[i]);
 
                 nbTrajet = 0;
                 for (int j = 0; j < 5; j++) {
@@ -493,7 +493,7 @@ public class Simulateur {
      *
      * @return La valeur du Taux dErreur Binaire.
      */
-    public float calculTauxErreurBinaire() {
+    public double calculTauxErreurBinaire() {
         int nbSymbole = source.getInformationEmise().nbElements();
 
         Boolean Emits[] = new Boolean[nbSymbole];
@@ -525,7 +525,7 @@ public class Simulateur {
         try {
             simulateur.execute();
             //*
-            float tauxErreurBinaire = simulateur.calculTauxErreurBinaire();
+            double tauxErreurBinaire = simulateur.calculTauxErreurBinaire();
             String s = "java  Simulateur  ";
             for (String arg : args) {
                 s += arg + "  ";

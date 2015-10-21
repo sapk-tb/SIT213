@@ -10,6 +10,7 @@ import java.util.*;
  * @author Cédric HERZOG
  * @author Pierrick CHOVELON
  * @author Mélanie CORRE
+ * @param <T> Le format des donnée dans l'information
  */
 public class Information<T> implements Iterable<T> {
 
@@ -19,7 +20,7 @@ public class Information<T> implements Iterable<T> {
      * pour construire une information vide
      */
     public Information() {
-        this.content = new ArrayList<T>();
+        this.content = new ArrayList<>();
     }
 
     /**
@@ -28,13 +29,13 @@ public class Information<T> implements Iterable<T> {
      * @param default_size la taille du tableau par défaut
      */
     public Information(int default_size) {
-        this.content = new ArrayList<T>(default_size);
+        this.content = new ArrayList<>(default_size);
     }
 
     /**
      * pour construire un clone à partir d'une information de T une information
      *
-     * @param default_size la taille du tableau par défaut
+     * @param Inf Information que l'on clone
      */
     public Information(Information<T> Inf) {
         this.content = (ArrayList<T>) Inf.content.clone();
@@ -134,6 +135,7 @@ public class Information<T> implements Iterable<T> {
      * mêmes places; "false" dans les autres cas
      */
     @SuppressWarnings("unchecked")
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof Information)) {
             return false;
@@ -153,6 +155,7 @@ public class Information<T> implements Iterable<T> {
     /**
      * pour afficher une information
      */
+    @Override
     public String toString() {
         String s = "";
         for (int i = 0; i < this.nbElements(); i++) {
@@ -164,6 +167,7 @@ public class Information<T> implements Iterable<T> {
     /**
      * pour utilisation du "for each"
      */
+    @Override
     public Iterator<T> iterator() {
         return content.iterator();
     }

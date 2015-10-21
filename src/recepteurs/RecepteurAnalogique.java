@@ -13,14 +13,14 @@ import information.InformationNonConforme;
  * @author Pierrick CHOVELON
  * @author Mélanie CORRE
  */
-public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
+public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
 
-    protected String form;
-    protected int nbEch;
-    protected float amplMin;
-    protected float amplMax;
-    protected float dutyCycleRZ;
-    protected float tmpMontee;
+    protected final String form;
+    protected final int nbEch;
+    protected final double amplMin;
+    protected final double amplMax;
+    protected final double dutyCycleRZ;
+    protected final double tmpMontee;
 
     public String getForm() {
         return form;
@@ -30,19 +30,19 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
         return nbEch;
     }
 
-    public float getAmplMin() {
+    public double getAmplMin() {
         return amplMin;
     }
 
-    public float getAmplMax() {
+    public double getAmplMax() {
         return amplMax;
     }
 
-    public float getDutyCycleRZ() {
+    public double getDutyCycleRZ() {
         return dutyCycleRZ;
     }
 
-    public float getTmpMontee() {
+    public double getTmpMontee() {
         return tmpMontee;
     }
 
@@ -57,7 +57,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
      */
-    public RecepteurAnalogique(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee) {
+    public RecepteurAnalogique(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee) {
         super();
         this.form = form;
         this.nbEch = nbEch;
@@ -74,7 +74,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      * @param information l'information reçue
      */
     @Override
-    public void recevoir(Information<Float> information) throws InformationNonConforme {
+    public void recevoir(Information<Double> information) throws InformationNonConforme {
         this.informationRecue = information;
         emettre();
     }
@@ -87,7 +87,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
      * @return les information binaire déduite
      * @throws InformationNonConforme
      */
-    protected Information<Boolean> parseEch(Information<Float> infRecue) throws InformationNonConforme {
+    protected Information<Boolean> parseEch(Information<Double> infRecue) throws InformationNonConforme {
         if (infRecue == null) {
             throw new InformationNonConforme("informationRecue == null");
         }
@@ -95,8 +95,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
         int nbEchTotal = infRecue.nbElements();
         int nbSymbole = nbEchTotal / nbEch;
         Information<Boolean> informationAEmettre = new Information<Boolean>(nbSymbole);
-        //Float allEch[] = new Float[nbEchTotal];
-        float total[] = new float[nbSymbole];
+        double total[] = new double[nbSymbole];
 
         /*
          * Calcul de la somme pour chaque échantillon
@@ -112,7 +111,7 @@ public class RecepteurAnalogique extends Recepteur<Float, Boolean> {
          * chaque échantillon
          */
         for (int i = 0; i < nbEchTotal / nbEch; i++) {
-            float moy_symbole = total[i] / (float) nbEch;
+            double moy_symbole = total[i] / (double) nbEch;
             //System.out.println("Moy symbole : "+moy_symbole);
             switch (form) {
                 case "RZ":

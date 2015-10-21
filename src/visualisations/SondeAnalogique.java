@@ -5,10 +5,10 @@
 
 
 /** 
- * Classe réalisant l'affichage d'information composée d'élèments réels (float)
+ * Classe réalisant l'affichage d'information composée d'élèments réels (double)
  * @author prou
  */
-   public class SondeAnalogique extends Sonde <Float> {
+   public class SondeAnalogique extends Sonde <Double> {
     
    
     /**
@@ -21,12 +21,12 @@
    
    
    	 
-      public void recevoir (Information <Float> information) { 
+      public void recevoir (Information <Double> information) { 
          informationRecue = information;
          int nbElements = information.nbElements();
-         float [] table = new float[nbElements];
+         double [] table = new double[nbElements];
          int i = 0;
-         for (float f : information) {
+         for (double f : information) {
             table[i] = f;
             i++;
          }

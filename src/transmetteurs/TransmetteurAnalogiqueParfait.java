@@ -1,7 +1,7 @@
 package transmetteurs;
 
 /**
- * Classe d'un composant qui transmet des informations de type Float sans
+ * Classe d'un composant qui transmet des informations de type Double sans
  * défaut.
  *
  * @author Antoine GIRARD

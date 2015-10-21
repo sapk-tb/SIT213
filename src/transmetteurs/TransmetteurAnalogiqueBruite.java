@@ -8,29 +8,29 @@ import tools.ArrayTool;
 import tools.Tool;
 
 /**
- * Classe d'un composant qui transmet des informations de type Float sans
+ * Classe d'un composant qui transmet des informations de type Double sans
  * défaut.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
  */
-public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
+public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
 
     /**
      * l'information reçue en entrée du transmetteur
      */
-    protected Information<Float> informationBruit;
-    protected Float SNR = null;
+    protected Information<Double> informationBruit;
+    protected Double SNR = null;
     protected int seed;
 
-    public TransmetteurAnalogiqueBruite(Float SNR, int seed) {
+    public TransmetteurAnalogiqueBruite(Double SNR, int seed) {
         super();
 
         this.SNR = SNR;
         this.seed = seed;
     }
 
-    public TransmetteurAnalogiqueBruite(Float SNR) {
+    public TransmetteurAnalogiqueBruite(Double SNR) {
         this(SNR, (int) (Math.random() * 1024));
     }
 
@@ -43,7 +43,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      * invalide
      */
     @Override
-    public void recevoir(Information<Float> information) throws InformationNonConforme {
+    public void recevoir(Information<Double> information) throws InformationNonConforme {
         if (information == null) {
             throw new InformationNonConforme("information recue == null");
         }
@@ -58,8 +58,8 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      */
     protected void addBruit() throws InformationNonConforme {
         if (this.SNR != null) { // On a du bruit
-            float puissance_signal = Tool.getPuissance(this.informationRecue);
-            float puissance_bruit = puissance_signal / this.SNR;
+            double puissance_signal = Tool.getPuissance(this.informationRecue);
+            double puissance_bruit = puissance_signal / this.SNR;
             int nbEl = this.informationRecue.nbElements();
 
             SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
@@ -79,13 +79,14 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      * @throws InformationNonConforme
      */
     protected void envoyerAuxSuivants() throws InformationNonConforme {
-        for (DestinationInterface<Float> destinationConnectee : destinationsConnectees) {
+        for (DestinationInterface<Double> destinationConnectee : destinationsConnectees) {
             destinationConnectee.recevoir(this.informationEmise);
         }
     }
 
     /**
-     * émet l'information construite par la transmetteur
+     * émet l'information construite par la transmette
+     * @throws information.InformationNonConforme
      */
     @Override
     public void emettre() throws InformationNonConforme {

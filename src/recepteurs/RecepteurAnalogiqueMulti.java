@@ -15,13 +15,13 @@ import information.InformationNonConforme;
 public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
 
     private final Integer[] dt;
-    private final Float[] ar;
+    private final Double[] ar;
 
     public Integer[] getDt() {
         return dt;
     }
 
-    public Float[] getAr() {
+    public Double[] getAr() {
         return ar;
     }
 
@@ -38,7 +38,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      * @param dt Tableau de décalage des multitrajet
      * @param ar Tableau d'atténuation des multitrajet
      */
-    public RecepteurAnalogiqueMulti(String form, int nbEch, float amplMin, float amplMax, float dutyCycleRZ, float tmpMontee, Integer[] dt, Float[] ar) {
+    public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar) {
         super(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
         this.dt = dt;
         this.ar = ar;
@@ -52,7 +52,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      * @return L'information nettoyée
      * @throws InformationNonConforme
      */
-    protected Information<Float> cleanEch(Information<Float> infRecue) throws InformationNonConforme {
+    protected Information<Double> cleanEch(Information<Double> infRecue) throws InformationNonConforme {
         if (infRecue == null) {
             throw new InformationNonConforme("informationRecue == null");
         }
@@ -65,17 +65,17 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         }
         int nbEchTotal = infRecue.nbElements();
         int nbEchFinal = nbEchTotal - (dtmax);
-        int nbSymbole = nbEchTotal / nbEch;
-        Information<Float> informationNettoyee = new Information(nbEchTotal);
+        
+        Information<Double> informationNettoyee = new Information(nbEchTotal);
         //TODO case dt[i] = 0;
         for (int i = 0; i < nbEchFinal; i++) {
             informationNettoyee.addAt(i, infRecue.iemeElement(i));
 
             for (int j = 0; j < dt.length; j++) {
                 if (ar[j] != 0 && (i - dt[j]) >= 0) { // Si on a un décalage et que l'amplitude est non nulle
-                    float valeurSignalPrec = informationNettoyee.iemeElement(i - dt[j]);
-                    float valeurReflection = (float) valeurSignalPrec * ar[j];
-                    informationNettoyee.setIemeElement(i, (float) informationNettoyee.iemeElement(i) - valeurReflection);
+                    double valeurSignalPrec = informationNettoyee.iemeElement(i - dt[j]);
+                    double valeurReflection = valeurSignalPrec * ar[j];
+                    informationNettoyee.setIemeElement(i, informationNettoyee.iemeElement(i) - valeurReflection);
                 }
             }
         }

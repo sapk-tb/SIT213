@@ -1,6 +1,7 @@
 package tools;
 
 import information.Information;
+import java.util.Objects;
 
 /**
  * Classe d'outils static
@@ -12,10 +13,10 @@ import information.Information;
  */
 public class Tool {
     /*
-     public static float getMoyenne(Information<Float> inf) {
-     float total = 0;
+     public static double getMoyenne(Information<Float> inf) {
+     double total = 0;
      for (Float content : inf) {
-     total += (float) content;
+     total += (double) content;
      }
      return total / inf.nbElements();
      }
@@ -26,17 +27,17 @@ public class Tool {
      *
      * @param a Le premier tableau
      * @param b le second tableau
-     * @return float : le rapport erreur/nbSymbole
+     * @return double : le rapport erreur/nbSymbole
      */
-    public static float compare(Boolean[] a, Boolean[] b) {
+    public static double compare(Boolean[] a, Boolean[] b) {
         int nbSymbole = a.length;
         int errors = 0;
         for (int i = 0; i < nbSymbole; i++) {
-            if (a[i] != b[i]) {
+            if (!Objects.equals(a[i], b[i])) {
                 errors++;
             }
         }
-        return (float) errors / (float) nbSymbole;
+        return (double) errors / (double) nbSymbole;
     }
 
     /**
@@ -46,26 +47,26 @@ public class Tool {
      * @return Retourne la puissance du signal
      */
     //*
-    public static float getPuissance(Information<Float> inf) {
+    public static double getPuissance(Information<Double> inf) {
         if (inf == null) {
             throw new NullPointerException("Information non définie");
         }
         Double total = 0.0;
-        for (Float content : inf) {
+        for (Double content : inf) {
             total += Math.pow(content, 2);
         }
-        return (float) (total / (float) inf.nbElements());
+        return (total / (double) inf.nbElements());
     }
 
     //*/
     /*
-     public static float getPuissance(Information<Float> inf) {
+     public static double getPuissance(Information<Float> inf) {
 
      Float total = inf.getStream().reduce(0f, Float::sum);
      //        double total = inf.getStream().mapToDouble(d->d).sum();
      //.mapToDouble(Double::doubleValue).sum();
 
-     return (float) (total / (float) inf.nbElements());
+     return (double) (total / (double) inf.nbElements());
      }
      //*/
     /**
@@ -74,8 +75,8 @@ public class Tool {
      * @param db la valeur à linéariser
      * @return Renvoie la valeur en linéaire
      */
-    public static float dBToLin(float db) {
-        return (float) Math.pow(10, db / 10f);
+    public static double dBToLin(double db) {
+        return Math.pow(10, db / 10f);
     }
 
 }

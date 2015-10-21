@@ -6,15 +6,15 @@ package tools;
  */
 public class Thread {
 
-    public static class AddToFloatArray implements Runnable {
+    public static class AddToDoubleArray implements Runnable {
 
-        private final Float[] output;
-        private final Float[] t1;
-        private final Float[] t2;
+        private final Double[] output;
+        private final Double[] t1;
+        private final Double[] t2;
         private final int index_start;
         private final int index_end;
 
-        AddToFloatArray(Float[] output, Float[] t1, Float[] t2, int start, int end) throws Exception {
+        AddToDoubleArray(Double[] output, Double[] t1, Double[] t2, int start, int end) throws Exception {
             this.output = output;
             this.t1 = t1;
             this.t2 = t2;
@@ -39,15 +39,15 @@ public class Thread {
         }
     }
 
-    public static class AddToNativeFloatArray implements Runnable {
+    public static class AddToNativeDoubleArray implements Runnable {
 
-        private final float[] output;
-        private final float[] t1;
-        private final float[] t2;
+        private final double[] output;
+        private final double[] t1;
+        private final double[] t2;
         private final int index_start;
         private final int index_end;
 
-        AddToNativeFloatArray(float[] output, float[] t1, float[] t2, int start, int end) throws Exception {
+        AddToNativeDoubleArray(double[] output, double[] t1, double[] t2, int start, int end) throws Exception {
             this.output = output;
             this.t1 = t1;
             this.t2 = t2;

@@ -4,14 +4,14 @@ import information.Information;
 
 /**
  * Classe réalisant l'affichage de répartition de valeurs composée d'élèments
- * réels (float)
+ * réels (double)
  *
  * @author Antoine GIRARD
  */
-public class SondeRepartitionAnalogique extends Sonde<Float> {
+public class SondeRepartitionAnalogique extends Sonde<Double> {
 
-    private final float max;
-    private final float min;
+    private final double max;
+    private final double min;
     private int nbPixels = 10; //Largeur en pixel par point 
     private int nbInterval = 1000;
 
@@ -23,7 +23,7 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * @param max la limite à gauche du graphique
      * @throws java.lang.Exception Si le max est inférieur à min
      */
-    public SondeRepartitionAnalogique(String nom, float min, float max) throws Exception {
+    public SondeRepartitionAnalogique(String nom, double min, double max) throws Exception {
         super(nom);
         if (min > max) {
             throw new Exception("Error : min > max");
@@ -42,7 +42,7 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * @param nbInterval le nombre d'intervalle de l'analyse
      * @throws java.lang.Exception Si le max est inférieur à min
      */
-    public SondeRepartitionAnalogique(String nom, float min, float max, int nbInterval) throws Exception {
+    public SondeRepartitionAnalogique(String nom, double min, double max, int nbInterval) throws Exception {
         this(nom, min, max);
         this.nbInterval = nbInterval;
     }
@@ -58,20 +58,20 @@ public class SondeRepartitionAnalogique extends Sonde<Float> {
      * @param nbPixels Nombre de pixel par pas
      * @throws java.lang.Exception Si le max est inférieur à min
      */
-    public SondeRepartitionAnalogique(String nom, float min, float max, int nbInterval, int nbPixels) throws Exception {
+    public SondeRepartitionAnalogique(String nom, double min, double max, int nbInterval, int nbPixels) throws Exception {
         this(nom, min, max, nbInterval);
         this.nbPixels = nbPixels;
     }
 
-    public void recevoir(Information<Float> information) {
+    public void recevoir(Information<Double> information) {
         informationRecue = information;
         //this.resolution = 10000/information.nbElements();
         int nbElements = nbInterval;
-        float resolution = ((max - min) / nbInterval);
+        double resolution = ((max - min) / nbInterval);
         System.out.println("max : " + max + " min : " + min + " nbElements : " + nbElements);
-        //float[] table = new float[nbElements*2]; //on multiplie par 2 afin de faire une signal carré
-        float[] table = new float[nbElements];
-        for (float f : information) {
+        //double[] table = new double[nbElements*2]; //on multiplie par 2 afin de faire une signal carré
+        double[] table = new double[nbElements];
+        for (double f : information) {
             //System.out.println("Test : " + f + /*" / " + f % resolution + */" / "+(f-(f%resolution))+" / "+(int)(f-(f%resolution) - min)*1/resolution + " / " +(int)(f*resolution) - min );
             //table[(int) ((f - (f % resolution) - min) * 1 / resolution)]++;
             int index = (int) ((f - min) * 1 / resolution);

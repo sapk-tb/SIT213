@@ -8,8 +8,6 @@ public class AutomateTransducteur {
 
 	/**
 	 * méthode qui test si le tableau de boolean passé en paramètre est valide ou nono
-	 * @param tab
-	 * @return true si accepté, false sinon
 	 */
 	public void AutomateTransducteur(){
 		

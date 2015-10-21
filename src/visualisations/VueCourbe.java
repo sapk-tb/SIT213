@@ -11,10 +11,10 @@ public class VueCourbe extends Vue {
 
     private static final long serialVersionUID = 1917L;
 
-    private Point2D.Float[] coordonnees;
-    private float yMax = 0;
-    private float yMin = 0;
-    private float transparence;
+    private Point2D.Double[] coordonnees;
+    private double yMax = 0;
+    private double yMin = 0;
+    private double transparence;
     private boolean isTransparance;
 
     public VueCourbe(boolean[] valeurs, int nbPixels, String nom) {
@@ -25,19 +25,19 @@ public class VueCourbe extends Vue {
         int yPosition = Vue.getYPosition();
         setLocation(xPosition, yPosition);
 
-        this.coordonnees = new Point2D.Float[(2 * valeurs.length) + 1];
+        this.coordonnees = new Point2D.Double[(2 * valeurs.length) + 1];
         yMax = 1;
         yMin = 0;
 
-        coordonnees[0] = new Point2D.Float(0, 0);
+        coordonnees[0] = new Point2D.Double(0, 0);
 
         for (int i = 0, j = 0; i < valeurs.length; i++, j += 2) {
             if (valeurs[i]) {
-                coordonnees[j + 1] = new Point2D.Float(i, 1);
-                coordonnees[j + 2] = new Point2D.Float(i + 1, 1);
+                coordonnees[j + 1] = new Point2D.Double(i, 1);
+                coordonnees[j + 2] = new Point2D.Double(i + 1, 1);
             } else {
-                coordonnees[j + 1] = new Point2D.Float(i, 0);
-                coordonnees[j + 2] = new Point2D.Float(i + 1, 0);
+                coordonnees[j + 1] = new Point2D.Double(i, 0);
+                coordonnees[j + 2] = new Point2D.Double(i + 1, 0);
             }
         }
 
@@ -51,7 +51,7 @@ public class VueCourbe extends Vue {
         paint();
     }
 
-    public VueCourbe(float[] valeurs, int nbPixels, String nom) {
+    public VueCourbe(double[] valeurs, int nbPixels, String nom) {
         this(valeurs, nom);
         int largeur = (valeurs.length * nbPixels) + 10;
         if (largeur > 1000) {
@@ -60,7 +60,7 @@ public class VueCourbe extends Vue {
         setSize(largeur, 200);
     }
 
-    public VueCourbe(float[] valeurs, String nom) {
+    public VueCourbe(double[] valeurs, String nom) {
 
         super(nom);
 
@@ -68,7 +68,7 @@ public class VueCourbe extends Vue {
         int yPosition = Vue.getYPosition();
         setLocation(xPosition, yPosition);
 
-        this.coordonnees = new Point2D.Float[valeurs.length];
+        this.coordonnees = new Point2D.Double[valeurs.length];
         yMax = 0;
         yMin = 0;
 
@@ -79,7 +79,7 @@ public class VueCourbe extends Vue {
             if (valeurs[i] < yMin) {
                 yMin = valeurs[i];
             }
-            coordonnees[i] = new Point2D.Float(i, valeurs[i]);
+            coordonnees[i] = new Point2D.Double(i, valeurs[i]);
         }
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -92,15 +92,15 @@ public class VueCourbe extends Vue {
         paint();
     }
 
-    public VueCourbe(float[][] tab_valeurs, String nom) {
-        this(tab_valeurs, 4f / (float) tab_valeurs.length, nom, true);
+    public VueCourbe(double[][] tab_valeurs, String nom) {
+        this(tab_valeurs, 4f / (double) tab_valeurs.length, nom, true);
     }
 
-    public VueCourbe(float[][] tab_valeurs, String nom, boolean toPaint) {
-        this(tab_valeurs, 4f / (float) tab_valeurs.length, nom, toPaint);
+    public VueCourbe(double[][] tab_valeurs, String nom, boolean toPaint) {
+        this(tab_valeurs, 4f / (double) tab_valeurs.length, nom, toPaint);
     }
 
-    public VueCourbe(float[][] tab_valeurs, float transparence, String nom, boolean toPaint) {
+    public VueCourbe(double[][] tab_valeurs, double transparence, String nom, boolean toPaint) {
 
         super(nom);
         this.isTransparance = true;
@@ -112,9 +112,9 @@ public class VueCourbe extends Vue {
         yMax = 0;
         yMin = 0;
 
-        this.coordonnees = new Point2D.Float[tab_valeurs.length * largeur_sym];
+        this.coordonnees = new Point2D.Double[tab_valeurs.length * largeur_sym];
         for (int n = 0; n < tab_valeurs.length; n++) {
-            float[] valeurs = tab_valeurs[n];
+            double[] valeurs = tab_valeurs[n];
 
             for (int i = 0; i < valeurs.length; i++) {
                 if (valeurs[i] > yMax) {
@@ -123,7 +123,7 @@ public class VueCourbe extends Vue {
                 if (valeurs[i] < yMin) {
                     yMin = valeurs[i];
                 }
-                coordonnees[n * largeur_sym + i] = new Point2D.Float(i, valeurs[i]);
+                coordonnees[n * largeur_sym + i] = new Point2D.Double(i, valeurs[i]);
             }
         }
         //System.out.println("Nb Sym = " + tab_valeurs.length + " nbEchParSym : " + largeur_sym + " nbElements " + coordonnees.length);
@@ -144,28 +144,28 @@ public class VueCourbe extends Vue {
 
     public void changer(boolean[] valeurs) {
 
-        this.coordonnees = new Point2D.Float[(2 * valeurs.length) + 1];
+        this.coordonnees = new Point2D.Double[(2 * valeurs.length) + 1];
         yMax = 1;
         yMin = 0;
 
-        coordonnees[0] = new Point2D.Float(0, 0);
+        coordonnees[0] = new Point2D.Double(0, 0);
 
         for (int i = 0, j = 0; i < valeurs.length; i++, j += 2) {
             if (valeurs[i]) {
-                coordonnees[j + 1] = new Point2D.Float(i, 1);
-                coordonnees[j + 2] = new Point2D.Float(i + 1, 1);
+                coordonnees[j + 1] = new Point2D.Double(i, 1);
+                coordonnees[j + 2] = new Point2D.Double(i + 1, 1);
             } else {
-                coordonnees[j + 1] = new Point2D.Float(i, 0);
-                coordonnees[j + 2] = new Point2D.Float(i + 1, 0);
+                coordonnees[j + 1] = new Point2D.Double(i, 0);
+                coordonnees[j + 2] = new Point2D.Double(i + 1, 0);
             }
         }
 
         paint();
     }
 
-    public void changer(float[] valeurs) {
+    public void changer(double[] valeurs) {
 
-        this.coordonnees = new Point2D.Float[valeurs.length];
+        this.coordonnees = new Point2D.Double[valeurs.length];
         yMax = 0;
         yMin = 0;
 
@@ -176,7 +176,7 @@ public class VueCourbe extends Vue {
             if (valeurs[i] < yMin) {
                 yMin = valeurs[i];
             }
-            coordonnees[i] = new Point2D.Float(i, valeurs[i]);
+            coordonnees[i] = new Point2D.Double(i, valeurs[i]);
         }
 
         paint();
@@ -198,10 +198,10 @@ public class VueCourbe extends Vue {
         g.setColor(Color.black);
 
         int x0Axe = 15;
-        float deltaX = getWidth() - (2 * x0Axe);
+        double deltaX = getWidth() - (2 * x0Axe);
 
         int y0Axe = 15;
-        float deltaY = getHeight() - (2 * y0Axe);
+        double deltaY = getHeight() - (2 * y0Axe);
 
         if ((yMax > 0) && (yMin <= 0)) {
             y0Axe += (int) (deltaY * (yMax / (yMax - yMin)));
@@ -219,8 +219,8 @@ public class VueCourbe extends Vue {
         g.drawLine(x0Axe - 5, 5, x0Axe, 0);
 
         // tracer la courbe
-        float dx = deltaX / (float) coordonnees[coordonnees.length - 1].getX();
-        float dy = 0.0f;
+        double dx = deltaX / (double) coordonnees[coordonnees.length - 1].getX();
+        double dy = 0.0f;
         if ((yMax >= 0) && (yMin <= 0)) {
             dy = deltaY / (yMax - yMin);
         } else if (yMin > 0) {
@@ -228,11 +228,11 @@ public class VueCourbe extends Vue {
         } else if (yMax < 0) {
             dy = -(deltaY / yMin);
         }
-        dy = (float) 0.8 * dy;
+        dy = (double) 0.8 * dy;
         int recursion = 0;
 
         if (isTransparance) {
-            g.setColor(new Color(0, 0, 0, Math.min(1f, Math.max(0.002f, transparence * getHeight() / 128))));
+            g.setColor(new Color(0, 0, 0, (float) Math.min(1, Math.max(0.002f, transparence * getHeight() / 128))));
             //g.setColor(new Color(0, 0, 0,  transparence * getHeight() / 128));
         }
         for (int i = 1; i < coordonnees.length; i++) {
