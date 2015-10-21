@@ -58,7 +58,7 @@ public class RecepteurAnalogiqueMultiTest {
     public void testClean() throws Exception {
         System.out.println("cleanEch");
         Integer[] dt = {3};
-        Double[] ar = {Math.ceil(Math.random() * 1000) / 1000}; //On limite la precisison car java se plante dans certains arrondi entre double.
+        Double[] ar = {Math.ceil(Math.random() * 100) / 100}; //On limite la precisison car java se plante dans certains arrondi entre double.
         Double[] echClean = {1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0};
         Double[] echNotClean = {1.0, 1.0, 0.0, 0.0 + (ar[0] * echClean[0]), 1.0 + (ar[0] * echClean[1]), 1.0 + (ar[0] * echClean[2]), 1.0 + (ar[0] * echClean[3]), 1.0 + (ar[0] * echClean[4]), 0.0 + (ar[0] * echClean[5]), 0.0 + (ar[0] * echClean[6]), 0.0 + (ar[0] * echClean[7]), 0.0 + (ar[0] * echClean[8]), (ar[0] * echClean[9]), (ar[0] * echClean[10]), (ar[0] * echClean[11])};
 
