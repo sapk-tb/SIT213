@@ -31,16 +31,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
         this.ar = ar;
     }
 
-    /**
-     * émet l'information construite par la transmetteur
-     *
-     * @throws InformationNonConforme Information nulle
-     */
-    @Override
-    public void emettre() throws InformationNonConforme {
-
-        /* Génération du Bruit */
-        addBruit();
+    protected void addMultiTrajet() {
 
         System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
         /* Mise en forme pour les multi-trajet */
@@ -60,6 +51,22 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
         }
 
         System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+    }
+
+    /**
+     * émet l'information construite par la transmetteur
+     *
+     * @throws InformationNonConforme Information nulle
+     */
+    @Override
+    public void emettre() throws InformationNonConforme {
+
+        checkInformationRecue();
+        /* Génération du Bruit */
+        addBruit();
+
+        /* Ajout des multi-trajet */
+        addMultiTrajet();
         envoyerAuxSuivants();
     }
 

@@ -20,22 +20,22 @@ import recepteurs.RecepteurAnalogique;
  * @author Antoine GIRARD
  */
 public class TransmetteurAnalogiqueParfaitTest {
-    
+
     public TransmetteurAnalogiqueParfaitTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -60,22 +60,22 @@ public class TransmetteurAnalogiqueParfaitTest {
     }
 
     /**
-     * Test of emettre method, of class TransmetteurAnalogiqueParfait.
+     * Test of class TransmetteurAnalogiqueParfait.
      */
     @Test
-    public void testEmettre() throws Exception {
+    public void testReceptionVide() throws Exception {
         System.out.println("emettre");
         TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
-        instance.emettre();
-        assertEquals(instance.informationEmise, null);
+        assertEquals(instance.informationRecue, null);
     }
-        /**
+
+    /**
      * Test of recevoir method, of class TransmetteurAnalogiqueParfait.
      */
     @Test(expected = InformationNonConforme.class)//Aucune infos passée en parem
     public void testRecevoirNonConforme() throws Exception {
-    	System.out.println("Test recevoir - Non conforme");
-    	  TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
-          instance.recevoir(null);
+        System.out.println("Test recevoir - Non conforme");
+        TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
+        instance.recevoir(null);
     }
 }

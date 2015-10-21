@@ -79,7 +79,7 @@ public class SourceBruitGaussienTest {
     @Test
     public void testRepartion() {
         System.out.println("Test Repartition SourceBruitGaussien");
-        int nbEch = 10000000;
+        int nbEch = 1000000;
         double puissance = 10;
         SourceBruitGaussien instance = new SourceBruitGaussien(nbEch, puissance);
         assertEquals(instance.informationGeneree.nbElements(), nbEch);

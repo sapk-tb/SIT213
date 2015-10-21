@@ -65,10 +65,12 @@ public class RecepteurAnalogiqueMultiTest {
 //Double[] echNotClean =  {1.0, 1.0, 0.0, 0.5, 1.5, 1.0, 1.0, 1.5, 0.5, 0.5, 0.5, 0.0, 0.0, 0.0, 0.0};
         Information<Double> infRecue = new Information<Double>(echNotClean);
         RecepteurAnalogiqueMulti instance = new RecepteurAnalogiqueMulti("NRZ", 2, 0.0, 1.1, 1 / 3, 1 / 3, dt, ar);
-        Information<Double> expResult = new Information<Double>(echClean);
-        //Information<Double> result = instance.cleanEch(infRecue); Le signal est déjà netoyé d'est la reception
         Information<Double> result = instance.cleanEch(infRecue);
-        assertEquals(expResult, result);
+
+        for (int i = 0; i < echClean.length; i++) {
+            Double echExp = echClean[i];
+            assertEquals(echExp, result.iemeElement(i),0.01);
+        }
     }
 
 }

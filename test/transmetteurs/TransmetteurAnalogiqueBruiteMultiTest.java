@@ -2,6 +2,7 @@ package transmetteurs;
 
 import static org.junit.Assert.*;
 import information.Information;
+import information.InformationNonConforme;
 
 import org.junit.Test;
 
@@ -11,6 +12,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
 
     @Test//Fonctionnement normal
     public void testConstructeur() throws Exception {
+        System.out.println("Test Constructeur");
         Integer nbTrajet = 2;
         Integer[] dt = {2, 5};
         Double[] ar = {1.0, 1.0};
@@ -21,6 +23,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
 
     @Test(expected = Exception.class)//Problème
     public void testConstructeurException() throws Exception {
+        System.out.println("Test ConstructeurException");
         Integer nbTrajet = 1;
         Integer[] dt = {2, 5};
         Double[] ar = {1.0};
@@ -36,7 +39,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
      */
     @Test//Comparaison de deux émissions de signal avec le même seed
     public void testRecevoirSeed() throws Exception {
-        System.out.println("Test recevoir");
+        System.out.println("Test RecevoirSeed");
         Double bits[] = {1.0, 1.0, 1.0};
         Information<Double> information = new Information<>(bits);
         Integer nbTrajets = 2;
@@ -59,22 +62,19 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
 
     /**
      * Test of recevoir method, of class TransmetteurAnalogiqueBruiteMulti.
+     *
      * @throws java.lang.Exception
      */
-    @Test(expected = Exception.class)//SNR null
+    @Test(expected = InformationNonConforme.class)//SNR null
     public void testRecevoirInformationNonConforme() throws Exception {
-        System.out.println("Test recevoir");
-        Double bits[] = {1.0, 1.0, 1.0};
-        Information<Double> information = new Information<>(bits);
-        Integer nbTrajets = 2;
+        System.out.println("Test testRecevoirInformationNonConforme");
+        Information<Double> information = null; //Object du test
         Integer[] dt = {1, 2};
         Double[] ar = {0.5, 0.5};
         int seed = 1;
-        Double SNR = null;//objet du test, on regarde que la méthode retourne bien InformationNonConforme si SNR = null
+        Double SNR = 10.0;
         TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed);
-        RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
-        instance.connecter(recepteurAnalogique);
         instance.recevoir(information);
     }
-
+//TODO verifier que l'onaccepte bien un snr null
 }

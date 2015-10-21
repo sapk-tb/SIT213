@@ -82,14 +82,13 @@ public class TransmetteurAnalogiqueParfaitMultiTest {
     }
 
     /**
-     * Test of emettre method, of class TransmetteurAnalogiqueParfait.
+     * Test of class TransmetteurAnalogiqueParfait.
      */
     @Test
-    public void testEmettre() throws Exception {
+    public void testReceptionVide() throws Exception {
         System.out.println("emettre");
         TransmetteurAnalogiqueParfait instance = new TransmetteurAnalogiqueParfait();
-        instance.emettre();
-        assertEquals(instance.informationEmise, null);
+        assertEquals(instance.informationRecue, null);
     }
         /**
      * Test of recevoir method, of class TransmetteurAnalogiqueParfait.

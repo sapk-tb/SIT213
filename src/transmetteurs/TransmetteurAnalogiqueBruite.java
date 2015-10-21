@@ -44,10 +44,8 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
      */
     @Override
     public void recevoir(Information<Double> information) throws InformationNonConforme {
-        if (information == null) {
-            throw new InformationNonConforme("information recue == null");
-        }
         this.informationRecue = information;
+        checkInformationRecue();
         emettre();
     }
 
@@ -57,6 +55,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
      * @throws information.InformationNonConforme
      */
     protected void addBruit() throws InformationNonConforme {
+        checkInformationRecue();
         if (this.SNR != null) { // On a du bruit
             double puissance_signal = Tool.getPuissance(this.informationRecue);
             double puissance_bruit = puissance_signal / this.SNR;
@@ -74,6 +73,17 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
+     * Verifie que le l'information recu est valide sinon déclanche un event de
+     * type InformationNonConforme
+     * @throws information.InformationNonConforme
+     */
+    protected void checkInformationRecue() throws InformationNonConforme {
+        if (this.informationRecue == null) {
+            throw new InformationNonConforme("information recue == null");
+        }
+    }
+
+    /**
      * Envoie l'informationEmise aux élément connectés
      *
      * @throws InformationNonConforme
@@ -86,11 +96,13 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
 
     /**
      * émet l'information construite par la transmette
+     *
      * @throws information.InformationNonConforme
      */
     @Override
     public void emettre() throws InformationNonConforme {
 
+        checkInformationRecue();
         /* Génération du Bruit */
         addBruit();
 
