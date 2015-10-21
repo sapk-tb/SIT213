@@ -24,13 +24,13 @@ import static org.junit.Assert.*;
 public class RecepteurAnalogiqueTest {
 
     private RecepteurAnalogique instance_RZ;
-    private final float instance_RZ_dutyCycle = 0.5f;
+    private final double instance_RZ_dutyCycle = 0.5f;
     private final int instance_RZ_nbEch = 10;
     private RecepteurAnalogique instance_NRZ;
     private final int instance_NRZ_nbEch = 42;
     private RecepteurAnalogique instance_NRZT;
     private final int instance_NRZT_nbEch = 44;
-    private final float instance_NRZT_tempsMontee = 0.33f;
+    private final double instance_NRZT_tempsMontee = 0.33f;
     private EmetteurAnalogique emetteur_RZ;
     private EmetteurAnalogique emetteur_NRZ;
     private EmetteurAnalogique emetteur_NRZT;
@@ -75,8 +75,8 @@ public class RecepteurAnalogiqueTest {
         return total;
     }
 
-    private Float[] getRandomFloatArray(String form, int nbSym, int nbEch, float min, float max, float dutyCylce, float tempsMontee) {
-        Float[] bits = new Float[nbSym * nbEch];
+    private Double[] getRandomDoubleArray(String form, int nbSym, int nbEch, double min, double max, double dutyCylce, double tempsMontee) {
+        Double[] bits = new Double[nbSym * nbEch];
         Random rnd = new Random();
 
         switch (form) {
@@ -100,13 +100,13 @@ public class RecepteurAnalogiqueTest {
                 }
                 break;
             case "NRZT":
-                float diff_max = (float) (Math.abs(max - min) / Math.floor(nbEch * tempsMontee));
+                double diff_max = (double) (Math.abs(max - min) / Math.floor(nbEch * tempsMontee));
                 
                 for (int i = 0; i < nbSym; i++) {
                     Boolean lvl = rnd.nextBoolean();
-                    float niv_prec = 0f;
+                    double niv_prec = 0f;
                     for (int n = 0; n < nbEch; n++) {
-                        float niv = (lvl) ? max : min;
+                        double niv = (lvl) ? max : min;
                         if (Math.abs(niv_prec - niv) > diff_max) {
                             if(niv> niv_prec){
                                 bits[i * nbEch + n] = niv_prec + diff_max; //On monte
@@ -126,12 +126,12 @@ public class RecepteurAnalogiqueTest {
         return bits;
     }
 
-    private Float[] getRandomFloatArray(int n) {
-        Float[] bits = new Float[n];
+    private Double[] getRandomDoubleArray(int n) {
+        Double[] bits = new Double[n];
         Random rnd = new Random();
 
         for (int i = 0; i < n; i++) {
-            bits[i] = rnd.nextFloat();
+            bits[i] = rnd.nextDouble();
         }
         return bits;
     }
@@ -152,10 +152,10 @@ public class RecepteurAnalogiqueTest {
     @Test
     public void testRecevoirRZ() throws Exception {
         System.out.println("Test methode : recevoir");
-        //Float[] bits = getRandomFloatArray(instance_RZ_nbEch * 10);
-        Float[] bits = getRandomFloatArray("RZ", 10, instance_RZ_nbEch, -1, 1, instance_RZ_dutyCycle, 0f);
+        //Double[] bits = getRandomDoubleArray(instance_RZ_nbEch * 10);
+        Double[] bits = getRandomDoubleArray("RZ", 10, instance_RZ_nbEch, -1, 1, instance_RZ_dutyCycle, 0f);
 
-        Information<Float> information = new Information<>(bits);
+        Information<Double> information = new Information<>(bits);
         instance_RZ.recevoir(information);
         assertEquals(information, instance_RZ.informationRecue);
         assertEquals(information, instance_RZ.getInformationRecue());
@@ -180,9 +180,9 @@ public class RecepteurAnalogiqueTest {
     @Test
     public void testRecevoirNRZ() throws Exception {
         System.out.println("Test methode : recevoir");
-        //Float[] bits = getRandomFloatArray(instance_NRZ_nbEch * 10);
-        Float[] bits = getRandomFloatArray("NRZ", 10, instance_NRZ_nbEch, -2, 2, 0f, 0f);
-        Information<Float> information = new Information<>(bits);
+        //Double[] bits = getRandomDoubleArray(instance_NRZ_nbEch * 10);
+        Double[] bits = getRandomDoubleArray("NRZ", 10, instance_NRZ_nbEch, -2, 2, 0f, 0f);
+        Information<Double> information = new Information<>(bits);
         instance_NRZ.recevoir(information);
         assertEquals(information, instance_NRZ.informationRecue);
         assertEquals(information, instance_NRZ.getInformationRecue());
@@ -205,9 +205,9 @@ public class RecepteurAnalogiqueTest {
     @Test
     public void testRecevoirNRZT() throws Exception {
         System.out.println("Test methode : recevoir");
-        //Float[] bits = getRandomFloatArray(instance_NRZT_nbEch * 10); //TODO generate real waveform
-        Float[] bits = getRandomFloatArray("NRZT", 10, instance_NRZT_nbEch, -3, 1, 0f, instance_NRZT_tempsMontee);
-        Information<Float> information = new Information<>(bits);
+        //Double[] bits = getRandomDoubleArray(instance_NRZT_nbEch * 10); //TODO generate real waveform
+        Double[] bits = getRandomDoubleArray("NRZT", 10, instance_NRZT_nbEch, -3, 1, 0f, instance_NRZT_tempsMontee);
+        Information<Double> information = new Information<>(bits);
         instance_NRZT.recevoir(information);
         assertEquals(information, instance_NRZT.informationRecue);
         assertEquals(information, instance_NRZT.getInformationRecue());

@@ -10,6 +10,13 @@ public class Statistic {
     double[] data;
     int size;
 
+    public Statistic(Double[] data) {
+        size = data.length;
+        this.data = new double[size];
+        for (int i = 0; i < size; i++) {
+            this.data[i] = data[i];
+        }
+    }
     public Statistic(double[] data) {
         this.data = data;
         size = data.length;

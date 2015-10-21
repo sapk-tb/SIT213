@@ -44,12 +44,13 @@ public class TransmetteurAnalogiqueBruiteTest {
 
     /**
      * Test of recevoir method, of class TransmetteurAnalogiqueBruite.
+     * @throws java.lang.Exception
      */
     @Test
     public void testRecevoir() throws Exception {
         System.out.println("Test recevoir");
-        Float bits[] = {-1f, 2f, 0f};
-        Information<Float> information = new Information<>(bits);
+        Double bits[] = {-1.0, 2.0, 0.0};
+        Information<Double> information = new Information<>(bits);
         TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(null);
         RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
         instance.connecter(recepteurAnalogique);
@@ -78,7 +79,7 @@ public class TransmetteurAnalogiqueBruiteTest {
     @Test(expected = NullPointerException.class) //on lui donne rien à émettre
     public void testEmettre() throws Exception {
         System.out.println("emettre - null pointer");
-        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1f);
+        TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1.0);
         instance.emettre();
         assertEquals(instance.informationEmise.iemeElement(0), null);
         //assertTrue(instance.informationEmise.iemeElement(0)>instance.informationEmise.iemeElement(1));

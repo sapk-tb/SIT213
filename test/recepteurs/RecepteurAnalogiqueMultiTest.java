@@ -44,13 +44,13 @@ public class RecepteurAnalogiqueMultiTest {
     @Test
     public void testCleanEchAREqual0() throws Exception {
         System.out.println("cleanEch");
-        Float[] echNotClean = {1f, 1f};
+        Double[] echNotClean = {1.0, 1.0};
         Integer[] dt = {2};
-        Float[] ar = {0f};
-        Information<Float> infRecue = new Information<Float>(echNotClean);
+        Double[] ar = {0.0};
+        Information<Double> infRecue = new Information<Double>(echNotClean);
         RecepteurAnalogiqueMulti instance = new RecepteurAnalogiqueMulti("RZ", 3, 1, -1, 1 / 3, 1 / 3, dt, ar);
-        Information<Float> expResult = infRecue;
-        Information<Float> result = instance.cleanEch(infRecue);
+        Information<Double> expResult = infRecue;
+        Information<Double> result = instance.cleanEch(infRecue);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -58,14 +58,14 @@ public class RecepteurAnalogiqueMultiTest {
     @Test
     public void testClean() throws Exception {
         System.out.println("cleanEch");
-        Float[] echNotClean = {1f, 1f, 1f};
+        Double[] echNotClean = {1.0, 1.0, 1.0};
         Integer[] dt = {2};
-        Float[] ar = {0.5f};
-        Float[] echClean = {1f, 1f, 0.5f};
-        Information<Float> infRecue = new Information<Float>(echNotClean);
+        Double[] ar = {0.5};
+        Double[] echClean = {1.0, 1.0, 0.5};
+        Information<Double> infRecue = new Information<Double>(echNotClean);
         RecepteurAnalogiqueMulti instance = new RecepteurAnalogiqueMulti("RZ", 3, 1, -1, 1 / 3, 1 / 3, dt, ar);
-        Information<Float> expResult = new Information<Float>(echClean);
-        Information<Float> result = instance.cleanEch(infRecue);
+        Information<Double> expResult = new Information<Double>(echClean);
+        Information<Double> result = instance.cleanEch(infRecue);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

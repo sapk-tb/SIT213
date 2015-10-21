@@ -148,6 +148,7 @@ public class SimulateurTest {
 
     /**
      * Test of analyze of args (seed) of class Simulateur.
+     * @throws ArgumentsException
      */
     @Test
     public void testAnalyseArgumentsSeedValide() throws ArgumentsException, Exception {
@@ -158,6 +159,7 @@ public class SimulateurTest {
     
     /**
      * Test of analyze of args (seed) of class Simulateur.
+     * @throws ArgumentsException
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsSeedInvalide() throws ArgumentsException, Exception {
@@ -395,8 +397,8 @@ public class SimulateurTest {
     public void testCalculTauxErreurBinaire() {
         System.out.println("calculTauxErreurBinaire");
         Simulateur instance = null;
-        float expResult = 0.0F;
-        float result = instance.calculTauxErreurBinaire();
+        double expResult = 0.0F;
+        double result = instance.calculTauxErreurBinaire();
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
