@@ -22,8 +22,8 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Float, Float> {
      * l'information reçue en entrée du transmetteur
      */
     protected Information<Float> informationBruit;
-    private Float SNR = null;
-    private int seed;
+    protected Float SNR = null;
+    protected int seed;
 
     public TransmetteurAnalogiqueBruite(Float SNR, int seed) {
         super();
