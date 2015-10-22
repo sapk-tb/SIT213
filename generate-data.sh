@@ -9,13 +9,12 @@ function get-teb-by-snr {
     ./simulateur $ARGS -snr $1 | grep TEB | cut -d":" -f2 | tr -d " "
 }
 function generate-teb-by-snr {
-	# generate-teb-by-snr $from $to $nbSym $nbEch
-    echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT"
-    for snr in $(seq $1 1 $2)
+    # generate-teb-by-snr $from $to $pas $nbSym $nbEch
+    for snr in $(seq $1 $3 $2)
     do
-        TEB_RZ=$(get-teb-by-snr $snr "RZ" $3 $4)
-        TEB_NRZ=$(get-teb-by-snr $snr "NRZ" $3 $4)
-	TEB_NRZT=$(get-teb-by-snr $snr "NRZT" $3 $4)
+        TEB_RZ=$(get-teb-by-snr $snr "RZ" $4 $5)
+        TEB_NRZ=$(get-teb-by-snr $snr "NRZ" $4 $5)
+	TEB_NRZT=$(get-teb-by-snr $snr "NRZT" $4 $5)
 	echo "$snr,$TEB_RZ,$TEB_NRZ,$TEB_NRZT"
     done
 }
@@ -35,18 +34,27 @@ mkdir data/img
 
 git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
-git checkout etape4
+git checkout etape-5
 for nbSym in 9 99 999 9999 99999 999999
 	do
 	for nbEch in 3 5 10 15 30 60
 		do
-		echo "generate-teb-by-snr -60 10 $nbSym $nbEch"
-#    		time generate-teb-by-snr -60 10 $nbSym $nbEch > "../data/teb-by-snr-$nbSym-$nbEch.csv"
+    		echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		echo "generate-teb-by-snr -60 -21 2 $nbSym $nbEch"
+    		time generate-teb-by-snr  -60 -21 2 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch"
+    		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		echo "generate-teb-by-snr -10 -4 0.5 $nbSym $nbEch"
+    		time generate-teb-by-snr  -10 -3 0.5 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		echo "generate-teb-by-snr -3 4 0.3 $nbSym $nbEch"
+    		time generate-teb-by-snr  -3 4 0.3 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		echo "generate-teb-by-snr 5 10 1 $nbSym $nbEch"
+    		time generate-teb-by-snr  5 10 1 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
     	done
 done
-for nbSym in 99 999
+for nbSym in 9 99 999
 	do
-	for nbEch in 3 5 10 15 30 60
+	for nbEch in 3 10 30 60
 		do
 		echo "generate-oeil -60 10 $nbSym $nbEch"
     		time generate-oeil -60 10 $nbSym $nbEch
