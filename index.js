@@ -133,7 +133,7 @@ var S = {
 			nbSym = $("#chart-teb-by-snr #nbSym").val();
 			nbEch = $("#chart-teb-by-snr #nbEch").val();
 			console.log("Paramètre graphique : ",nbSym,nbEch);
-			urlData = "data/teb-by-snr-"+nbSym+"-"+nbEch+".csv";
+			urlData = "data/csv/teb-by-snr-"+nbSym+"-"+nbEch+".csv";
 			$.get(urlData+"?"+Date.now(),function(csv){
 				S.chart.draw(S.tool.parseData(csv,nbSym,nbEch),{nbSym:nbSym,nbEch:nbEch});
 			});
