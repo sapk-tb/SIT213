@@ -87,6 +87,7 @@ var S = {
 				            }
 				        },
 				        yAxis: {
+				            type: $("#chart-teb-by-snr #typeEchelle").val(),
 				            title: {
 				                text: 'TEB'
 				            },
