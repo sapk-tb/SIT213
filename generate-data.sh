@@ -19,15 +19,14 @@ function generate-teb-by-snr {
     done
 }
 function generate-oeil {
-    NB_SYM=${3:-9999}
-    NB_ECH=${4:-30}
+    # generate-oeil $SNR $nbSym $nbEch
+    SNR=${1:-3}
+    NB_SYM=${2:-9999}
+    NB_ECH=${3:-30}
     ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img ../data/img/ 1024 "
-    for snr in $(seq $1 1 $2)
-    do
-    	xvfb-run -a ./simulateur $ARGS -snr $snr -form "RZ"
-    	xvfb-run -a ./simulateur $ARGS -snr $snr -form "NRZ"
-    	xvfb-run -a ./simulateur $ARGS -snr $snr -form "NRZT"
-    done
+    xvfb-run -a ./simulateur $ARGS -snr $SNR -form "RZ"
+    xvfb-run -a ./simulateur $ARGS -snr $SNR -form "NRZ"
+    xvfb-run -a ./simulateur $ARGS -snr $SNR -form "NRZT"
 }
 rm data/img/*
 mkdir data/img
@@ -55,9 +54,11 @@ done
 for nbSym in 9 99 999
 	do
 	for nbEch in 3 10 30 60
-		do
-		echo "generate-oeil -60 10 $nbSym $nbEch"
-    		time generate-oeil -60 10 $nbSym $nbEch
+		for SNR in 10 5 3 1 0 -1 -3 -5 -10
+			do
+			echo "generate-oeil $SNR $nbSym $nbEch"
+	    		time generate-oeil $SNR $nbSym $nbEch
+    		done
     	done
 done
 cd ..
