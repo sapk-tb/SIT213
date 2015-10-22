@@ -29,7 +29,12 @@ function generate-oeil {
     xvfb-run -a ./simulateur $ARGS -snr $SNR -form "NRZT"
 }
 rm data/img/*
+rm data/csv/*
 mkdir data/img
+mkdir data/csv
+
+
+BASE_DIR=$(pwd);
 
 git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
@@ -38,22 +43,33 @@ for nbSym in 9 99 999 9999 99999 999999
 	do
 	for nbEch in 3 5 10 15 30 60
 		do
-    		echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "../data/teb-by-snr-$nbSym-$nbEch.csv"
-		echo "generate-teb-by-snr -60 -21 2 $nbSym $nbEch"
-    		time generate-teb-by-snr  -60 -21 2 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+		OUTPUT="$BASE_DIR/data/csv/teb-by-snr-$nbSym-$nbEch.csv"
+    		echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "$OUTPUT"                
+		
+		echo "generate-teb-by-snr -60 -30 5 $nbSym $nbEch"
+                time generate-teb-by-snr  -60 -21 2 $nbSym $nbEch >> "$OUTPUT"
+
+		echo "generate-teb-by-snr -32 -21 2 $nbSym $nbEch"
+    		time generate-teb-by-snr  -60 -21 2 $nbSym $nbEch >> "$OUTPUT"
+
 		echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch"
-    		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+    		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "$OUTPUT"
+
 		echo "generate-teb-by-snr -10 -4 0.5 $nbSym $nbEch"
-    		time generate-teb-by-snr  -10 -3 0.5 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+    		time generate-teb-by-snr  -10 -3 0.5 $nbSym $nbEch >> "$OUTPUT"
+
 		echo "generate-teb-by-snr -3 4 0.3 $nbSym $nbEch"
-    		time generate-teb-by-snr  -3 4 0.3 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+    		time generate-teb-by-snr  -3 4 0.3 $nbSym $nbEch >> "$OUTPUT"
+
 		echo "generate-teb-by-snr 5 10 1 $nbSym $nbEch"
-    		time generate-teb-by-snr  5 10 1 $nbSym $nbEch >> "../data/teb-by-snr-$nbSym-$nbEch.csv"
+    		time generate-teb-by-snr  5 10 1 $nbSym $nbEch >> "$OUTPUT"
+
     	done
 done
 for nbSym in 9 99 999
 	do
 	for nbEch in 3 10 30 60
+		do
 		for SNR in 10 5 3 1 0 -1 -3 -5 -10
 			do
 			echo "generate-oeil $SNR $nbSym $nbEch"
