@@ -46,8 +46,8 @@ public class TransducteurRecepteur extends Transducteur<Boolean, Boolean> {
         //déclaration de l'automate pour tester la validité des infos 
         AutomateTransducteur automate = new AutomateTransducteur();
 
-        int nbElements = this.informationRecue.nbElements() / 3; // --> /3 pour avoir le nombre d'élément de l'information réelle
-        boolean tabTest[] = new boolean[3];//contiendra les valeurs des booleans à tester
+        int nbElements = this.informationRecue.nbElements() / 3; // --> /3 pour avoir le nombre d'élément de l'information réelle car 3 bits dans un élément
+        boolean tabTest[] = new boolean[3];//contiendra les valeurs des booléens à tester
 
         Boolean tabBoolean[] = new Boolean[nbElements];
         informationGeneree = new Information<>(tabBoolean);
@@ -57,9 +57,9 @@ public class TransducteurRecepteur extends Transducteur<Boolean, Boolean> {
             tabTest[1] = this.informationRecue.iemeElement(i * 3 + 1);
             tabTest[2] = this.informationRecue.iemeElement(i * 3 + 2);
 
-            if (automate.accepte(tabTest))//on test si les 3 caractères correspondants sont corrects (bonne alternance de 0(false) et de 1(true))
+            if (automate.accepte(tabTest))//on teste si les 3 caractères correspondants sont corrects (bonne alternance de 0(false) et de 1(true))
             {
-                //On peut regarder que le premier boolean car on sait que les 3 sont corrects
+                //On peut regarder que le premier booléen car on sait que les 3 sont corrects
                 if (tabTest[0] == true) //true 
                 {
                     this.informationGeneree.setIemeElement(i, true);
