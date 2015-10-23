@@ -10,7 +10,7 @@ function get-teb-by-snr {
 }
 function generate-teb-by-snr {
     # generate-teb-by-snr $from $to $pas $nbSym $nbEch
-    for snr in $(seq $1 $3 $2)
+    for snr in $(seq $1 $3 $2 | tr "," ".")
     do
         TEB_RZ=$(get-teb-by-snr $snr "RZ" $4 $5)
         TEB_NRZ=$(get-teb-by-snr $snr "NRZ" $4 $5)
