@@ -47,22 +47,22 @@ for nbSym in 9 99 999 9999 99999 999999
     		echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "$OUTPUT"                
 		
 		echo "generate-teb-by-snr -60 -30 5 $nbSym $nbEch"
-                time generate-teb-by-snr  -60 -21 2 $nbSym $nbEch >> "$OUTPUT"
+                time generate-teb-by-snr  -60 -30 2 $nbSym $nbEch >> "$OUTPUT"
 
 		echo "generate-teb-by-snr -32 -21 2 $nbSym $nbEch"
-    		time generate-teb-by-snr  -60 -21 2 $nbSym $nbEch >> "$OUTPUT"
+    		time generate-teb-by-snr  -32 -21 2 $nbSym $nbEch >> "$OUTPUT"
 
 		echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch"
     		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "$OUTPUT"
 
-		echo "generate-teb-by-snr -10 -4 0.5 $nbSym $nbEch"
-    		time generate-teb-by-snr  -10 -3 0.5 $nbSym $nbEch >> "$OUTPUT"
+		echo "generate-teb-by-snr -10 -3.5 0.5 $nbSym $nbEch"
+    		time generate-teb-by-snr  -10 -3.5 0.5 $nbSym $nbEch >> "$OUTPUT"
 
 		echo "generate-teb-by-snr -3 4 0.3 $nbSym $nbEch"
     		time generate-teb-by-snr  -3 4 0.3 $nbSym $nbEch >> "$OUTPUT"
 
-		echo "generate-teb-by-snr 5 10 1 $nbSym $nbEch"
-    		time generate-teb-by-snr  5 10 1 $nbSym $nbEch >> "$OUTPUT"
+		echo "generate-teb-by-snr 4.5 10 1 $nbSym $nbEch"
+    		time generate-teb-by-snr  4.5 10 1 $nbSym $nbEch >> "$OUTPUT"
 
     	done
 done
