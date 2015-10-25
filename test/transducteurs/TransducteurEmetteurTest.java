@@ -39,9 +39,9 @@ public class TransducteurEmetteurTest {
             informationEmise.add(false);
             Information <Boolean>  informationGeneree;
             int nbElements = informationRecue.nbElements();
-            System.out.println("Test methode : emettre");
             informationGeneree = new Information<Boolean>(nbElements * 3);
             TransducteurEmetteur instance= new TransducteurEmetteur();
+            System.out.println("Test methode : recevoir");
             instance.recevoir(informationRecue);
             assertEquals(instance.informationEmise, instance.informationGeneree);
         }

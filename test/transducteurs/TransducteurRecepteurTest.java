@@ -42,7 +42,7 @@ public class TransducteurRecepteurTest {
         Boolean tabBoolean[] = new Boolean[nbElements];
         informationGeneree = new Information<>(tabBoolean);
         TransducteurRecepteur instance = new TransducteurRecepteur();
-        System.out.println("Test methode : emettre");
+        System.out.println("Test methode : recevoir");
         instance.recevoir(informationRecue);
         assertEquals(instance.informationEmise, instance.informationGeneree);
 	}

@@ -361,7 +361,7 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTransducteur() throws ArgumentsException, Exception{
         System.out.println("Test -transducteur");
-        String[] args = ("-transducteur").split(" "); //manque données
+        String[] args = ("-transducteur").split(""); //manque données
         new Simulateur(args);
     }
 }
