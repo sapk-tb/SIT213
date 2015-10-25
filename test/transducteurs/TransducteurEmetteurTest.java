@@ -30,8 +30,6 @@ public class TransducteurEmetteurTest {
             Information<Boolean> informationRecue= new Information<Boolean>();
             informationRecue.add(true);
             informationRecue.add(false);
-            //informationRecue={true, false};
-            Boolean[] contenu={true, false, true, false, true, false};
             Information<Boolean> informationEmise=new Information<Boolean>();
             informationEmise.add(true);
             informationEmise.add(false);
@@ -39,16 +37,13 @@ public class TransducteurEmetteurTest {
             informationEmise.add(false);
             informationEmise.add(true);
             informationEmise.add(false);
-            //Information<Boolean> informationEmise={true, false, true, false, true, false};
             Information <Boolean>  informationGeneree;
-            int taille=2;
             int nbElements = informationRecue.nbElements();
             System.out.println("Test methode : emettre");
-            informationGeneree = new Information<>(nbElements * 3);
+            informationGeneree = new Information<Boolean>(nbElements * 3);
             TransducteurEmetteur instance= new TransducteurEmetteur();
-            instance.emettre();
-            assertEquals(informationEmise, informationGeneree);
-            //assertEquals(this.informationEmise, informationGeneree);
+            instance.recevoir(informationRecue);
+            assertEquals(instance.informationEmise, instance.informationGeneree);
         }
     
 }
