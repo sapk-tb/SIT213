@@ -24,7 +24,7 @@ public class TransducteurRecepteurTest {
 	}
 
 	@Test
-	public void testRecevoirInformationOfBoolean() {
+	public void testRecevoirInformationOfBoolean() throws Exception {
         Information<Boolean> informationEmise= new Information<Boolean>();
         informationEmise.add(true);
         informationEmise.add(false);
