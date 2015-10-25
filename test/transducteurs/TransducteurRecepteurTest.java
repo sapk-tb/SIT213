@@ -22,7 +22,9 @@ public class TransducteurRecepteurTest {
 	public void testTransducteurRecepteur() {
 		
 	}
-
+/*
+ * Test de la méthode recevoirInformation
+ */
 	@Test
 	public void testRecevoirInformationOfBoolean() throws Exception {
         Information<Boolean> informationEmise= new Information<Boolean>();
