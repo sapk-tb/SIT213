@@ -17,25 +17,25 @@ import org.junit.Test;
  * @author Mélanie Corre
  */
 public class TransducteurEmetteurTest {
-    Information<R> informationRecue;
-    Information<E> informationEmise;
-    Information <Boolean>  informationGeneree;
+
     
 
         public TransducteurEmetteurTest() {
             
     }
-        public void testGenererInformation(){
+        @Test
+        public void testGenererInformation() throws Exception{
+            Information<Boolean> informationRecue= new Information<Boolean>();
+            informationRecue={true, false};
+            Information<Boolean> informationEmise={true, false, true, false, true, false};
+            Information <Boolean>  informationGeneree;
+            int taille=2;
+            int nbElements = informationRecue.nbElements();
             System.out.println("Test methode : emettre");
-            informationGeneree = new Information<>(informationRecue.nbElements() * 3);
-            /* TODO tester :
-            La classe reçoit une information de taille N avec des true et des false.
-Elle génère une information de taille 3*N qui contient des true et false.
-Ex :
-Taille N = 2.
-Reçue : {true, false}
-Émise : {true, false, true, false, true, false}
-            */
+            informationGeneree = new Information<>(nbElements * 3);
+            TransducteurEmetteur instance= new TransducteurEmetteur();
+            instance.emettre();
+            assertEquals(this.informationEmise, informationGeneree);
         }
     
 }
