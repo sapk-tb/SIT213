@@ -5,10 +5,12 @@
  */
 package transducteurs;
 
+import static org.junit.Assert.*;
 import destinations.DestinationInterface;
 import information.Information;
 
 import java.util.LinkedList;
+
 import org.junit.Test;
 
 
@@ -30,7 +32,7 @@ public class TransducteurEmetteurTest {
             informationRecue.add(false);
             //informationRecue={true, false};
             Boolean[] contenu={true, false, true, false, true, false};
-            Information<Boolean> informationEmise;
+            Information<Boolean> informationEmise=new Information<Boolean>();
             informationEmise.add(true);
             informationEmise.add(false);
             informationEmise.add(true);
