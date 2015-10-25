@@ -6,10 +6,8 @@
 package transducteurs;
 
 import static org.junit.Assert.*;
-import destinations.DestinationInterface;
 import information.Information;
 
-import java.util.LinkedList;
 
 import org.junit.Test;
 
@@ -37,9 +35,6 @@ public class TransducteurEmetteurTest {
             informationEmise.add(false);
             informationEmise.add(true);
             informationEmise.add(false);
-            Information <Boolean>  informationGeneree;
-            int nbElements = informationRecue.nbElements();
-            informationGeneree = new Information<Boolean>(nbElements * 3);
             TransducteurEmetteur instance= new TransducteurEmetteur();
             System.out.println("Test methode : recevoir");
             instance.recevoir(informationRecue);

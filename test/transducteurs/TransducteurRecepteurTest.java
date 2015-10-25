@@ -37,10 +37,6 @@ public class TransducteurRecepteurTest {
         informationRecue.add(false);
         informationRecue.add(true);
         informationRecue.add(false);
-        Information <Boolean>  informationGeneree;
-        int nbElements = informationRecue.nbElements()/3;
-        Boolean tabBoolean[] = new Boolean[nbElements];
-        informationGeneree = new Information<>(tabBoolean);
         TransducteurRecepteur instance = new TransducteurRecepteur();
         System.out.println("Test methode : recevoir");
         instance.recevoir(informationRecue);
