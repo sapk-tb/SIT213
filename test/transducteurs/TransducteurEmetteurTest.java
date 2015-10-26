@@ -38,6 +38,8 @@ public class TransducteurEmetteurTest {
             TransducteurEmetteur instance= new TransducteurEmetteur();
             System.out.println("Test methode : recevoir");
             instance.recevoir(informationRecue);
+            //modifier le code parce que là, forcément que les deux sont égaux. On ne peut pas voir s'il y a une erreur
+            
             assertEquals(instance.informationEmise, instance.informationGeneree);
         }
     
