@@ -36,7 +36,6 @@ public class TransducteurEmetteurTest {
             informationEmise.add(true);
             informationEmise.add(false);
             TransducteurEmetteur instance= new TransducteurEmetteur();
-            instance.informationEmise=informationEmise;
             System.out.println("Test methode : recevoir");
             instance.recevoir(informationRecue);
             assertEquals(informationEmise, instance.informationEmise);
