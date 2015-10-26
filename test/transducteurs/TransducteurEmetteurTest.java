@@ -39,7 +39,7 @@ public class TransducteurEmetteurTest {
             instance.informationEmise=informationEmise;
             System.out.println("Test methode : recevoir");
             instance.recevoir(informationRecue);
-            assertEquals(instance.informationEmise, instance.informationGeneree);
+            assertEquals(informationEmise, instance.informationEmise);
         }
     
 }
