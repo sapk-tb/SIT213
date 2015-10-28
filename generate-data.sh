@@ -39,7 +39,7 @@ BASE_DIR=$(pwd);
 git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
 git checkout etape-5
-for nbSym in 9 99 999 9999 99999 999999
+for nbSym in 9999 99999 999999
 	do
 	for nbEch in 3 5 10 15 30 60
 		do
