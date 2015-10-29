@@ -380,12 +380,16 @@ public class Simulateur {
                 }
             } else if (args[i].matches("-mess")) {
                 i++;
+                Integer NB_MAX_SYMBOLE = 6;
+                if (System.getenv("SIMU_NB_MAX_SYMBOLE") != null) {
+                    NB_MAX_SYMBOLE = new Integer(System.getenv("SIMU_NB_MAX_SYMBOLE"));
+                }
                 // traiter la valeur associee
                 messageString = args[i];
-                if (args[i].matches("[0,1]{7,}")) {
+                if (args[i].matches("[0,1]{"+(NB_MAX_SYMBOLE+1)+",}")) {
                     messageAleatoire = false;
                     nbBitsMess = args[i].length();
-                } else if (args[i].matches("[0-9]{1,6}")) {
+                } else if (args[i].matches("[0-9]{1,"+NB_MAX_SYMBOLE+"}")) {
                     messageAleatoire = true;
                     nbBitsMess = new Integer(args[i]);
                     if (nbBitsMess < 1) {
