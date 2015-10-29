@@ -33,7 +33,7 @@ rm data/csv/*
 mkdir data/img
 mkdir data/csv
 
-export SIMU_JAVA_OPTIONS="-Xmx10G" 
+export SIMU_JAVA_OPTIONS="-Xmx14G" 
 export SIMU_NB_MAX_SYMBOLE="12" 
 
 BASE_DIR=$(pwd);
@@ -60,11 +60,11 @@ for nbSym in 100 10000 1000000 10000000
 		echo "generate-teb-by-snr -10 -3.5 0.5 $nbSym $nbEch"
     		time generate-teb-by-snr  -10 -3.5 0.5 $nbSym $nbEch >> "$OUTPUT"
 
-		echo "generate-teb-by-snr -3 4 0.3 $nbSym $nbEch"
-    		time generate-teb-by-snr  -3 4 0.3 $nbSym $nbEch >> "$OUTPUT"
+		echo "generate-teb-by-snr -3 4.9 0.1 $nbSym $nbEch"
+    		time generate-teb-by-snr  -3 4.9 0.1 $nbSym $nbEch >> "$OUTPUT"
 
-		echo "generate-teb-by-snr 4.5 10 1 $nbSym $nbEch"
-    		time generate-teb-by-snr  4.5 10 1 $nbSym $nbEch >> "$OUTPUT"
+		echo "generate-teb-by-snr 5 10 0.5 $nbSym $nbEch"
+    		time generate-teb-by-snr  5 10 0.5 $nbSym $nbEch >> "$OUTPUT"
 
     	done
 done
