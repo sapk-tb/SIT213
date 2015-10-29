@@ -71,7 +71,7 @@ var S = {
 		draw : function(data,options){
 		    	$("#chart-teb-by-snr .chart").highcharts({
 			            chart: {
-			            	type: 'spline',
+			            	type: 'line',
 			                zoomType: 'x'
 			            },
 				        title: {
@@ -97,10 +97,10 @@ var S = {
 				                width: 1,
 				                color: '#808080'
 				            }], 
-				            max : 0.5
+				            max : ($("#chart-teb-by-snr #nbSym").val()>=10000)?0.5:null
 				        },
 			            plotOptions: {
-				            spline: {
+				            line: {
 			                    cursor: 'pointer',
 			                    marker: {
 				                    enabled: true
