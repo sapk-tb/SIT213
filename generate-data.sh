@@ -2,7 +2,7 @@
 
 
 function get-teb-by-snr {
-    NB_SYM=${3:-999999}
+    NB_SYM=${3:-1000000}
     NB_ECH=${4:-30}
     FORM=${2:-"NRZ"}
     ARGS="-form $FORM -mess $NB_SYM -nbEch $NB_ECH -ampl -1 1"
@@ -21,7 +21,7 @@ function generate-teb-by-snr {
 function generate-oeil {
     # generate-oeil $SNR $nbSym $nbEch
     SNR=${1:-3}
-    NB_SYM=${2:-9999}
+    NB_SYM=${2:-10000}
     NB_ECH=${3:-30}
     ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img ../data/img/ 1024 "
     xvfb-run -a ./simulateur $ARGS -snr $SNR -form "RZ"
@@ -33,13 +33,15 @@ rm data/csv/*
 mkdir data/img
 mkdir data/csv
 
+export SIMU_JAVA_OPTIONS="-Xmx10G" 
+export SIMU_NB_MAX_SYMBOLE="12" 
 
 BASE_DIR=$(pwd);
 
 git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
 git checkout etape-5
-for nbSym in 9999 99999 999999
+for nbSym in 100 10000 1000000 10000000
 	do
 	for nbEch in 3 5 10 15 30 60
 		do
@@ -49,8 +51,8 @@ for nbSym in 9999 99999 999999
 		echo "generate-teb-by-snr -60 -30 5 $nbSym $nbEch"
                 time generate-teb-by-snr  -60 -30 5 $nbSym $nbEch >> "$OUTPUT"
 
-		echo "generate-teb-by-snr -32 -21 2 $nbSym $nbEch"
-    		time generate-teb-by-snr  -32 -21 2 $nbSym $nbEch >> "$OUTPUT"
+		echo "generate-teb-by-snr -28 -21 2 $nbSym $nbEch"
+    		time generate-teb-by-snr  -28 -21 2 $nbSym $nbEch >> "$OUTPUT"
 
 		echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch"
     		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "$OUTPUT"
@@ -66,6 +68,7 @@ for nbSym in 9999 99999 999999
 
     	done
 done
+
 for nbSym in 9 99 999
 	do
 	for nbEch in 3 10 30 60

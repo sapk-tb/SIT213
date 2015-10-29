@@ -32,11 +32,12 @@ var S = {
 			csv.split("\n").slice(1, -1).forEach(function (line, index) {
 //					if(index == 0 || index == 72) return;
 					l = line.split(",");
-					data.labels.push(l[0]);
+					//data.labels.push(new Date(parseFloat(l[0])*1000));
 					for (i=1;i<l.length;i++){
-						data.series[i-1].data.push(parseFloat(l[i]));
+						data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
 					}
 			});
+			console.log(data);
 	    	return data;
 		}	
 	},
@@ -70,6 +71,7 @@ var S = {
 		draw : function(data,options){
 		    	$("#chart-teb-by-snr .chart").highcharts({
 			            chart: {
+			            	type: 'spline',
 			                zoomType: 'x'
 			            },
 				        title: {
@@ -81,7 +83,6 @@ var S = {
 				            x: -20
 				        },
 				        xAxis: {
-				            categories: data.labels,
 				            title: {
 				                text: 'SNR (dB)'
 				            }
@@ -98,25 +99,28 @@ var S = {
 				            }]/*, max : 0.5*/
 				        },
 			            plotOptions: {
-			                series: {
+				            spline: {
 			                    cursor: 'pointer',
+			                    marker: {
+				                    enabled: true
+				                },
 			                    point: {
-			            events: {
-                            click: function (e) {
-                                hs.htmlExpand(null, {
-                                    pageOrigin: {
-                                        x: e.pageX || e.clientX,
-                                        y: e.pageY || e.clientY
-                                    },
-                                    headingText: this.series.name,
-                                    maincontentText: "<img src='data/img/sondeDiagrammeOeilApresEmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+(this.x-60)+".0.png'/>"+
-                                    					"<img src='data/img/sondeDiagrammeOeilApresTransmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+(this.x-60)+".0.png'/>",
-                                    width: 200
-                                });
-                            }
-                        }
+						            events: {
+			                            click: function (e) {
+			                                hs.htmlExpand(null, {
+			                                    pageOrigin: {
+			                                        x: e.pageX || e.clientX,
+			                                        y: e.pageY || e.clientY
+			                                    },
+			                                    headingText: this.series.name,
+			                                    maincontentText: "<img src='data/img/sondeDiagrammeOeilApresEmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+(this.x-60)+".0.png'/>"+
+			                                    					"<img src='data/img/sondeDiagrammeOeilApresTransmetteur-"+this.series.name.split(" ")[6].split(")")[0]+"-"+$("#chart-teb-by-snr #nbSym").val()+"-"+$("#chart-teb-by-snr #nbEch").val()+"-"+(this.x-60)+".0.png'/>",
+			                                    width: 200
+			                                });
+			                            }
+			                        }
 			                    }
-			                }
+				            }
 			            },
 				        legend: {
 				            layout: 'vertical',
