@@ -8,6 +8,13 @@ import java.util.LinkedList;
 import sources.SourceInterface;
 import destinations.DestinationInterface;
 
+/**
+ * 
+ * @author pierrick
+ * Classe abstraite qui sert de base pour les classes TransducteurEmeteur et TransducteurRecepteur
+ * @param <R>
+ * @param <E>
+ */
 public abstract class Transducteur <R, E> implements DestinationInterface<R>, SourceInterface<E>  {
 	
 	/**
@@ -80,7 +87,7 @@ public abstract class Transducteur <R, E> implements DestinationInterface<R>, So
     /**
      * reçoit une information. Cette méthode, en fin d'exécution, appelle la
      * méthode émettre.
-     *
+     * @throws InformationNonConforme
      * @param information l'information reçue
      */
     public abstract void recevoir(Information<R> information) throws InformationNonConforme;

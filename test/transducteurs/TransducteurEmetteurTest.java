@@ -40,5 +40,5 @@ public class TransducteurEmetteurTest {
             instance.recevoir(informationRecue);
             assertEquals(informationEmise, instance.informationEmise);
         }
-    
+        
 }
