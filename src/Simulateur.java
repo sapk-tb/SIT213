@@ -115,7 +115,7 @@ public class Simulateur {
     /**
      * le temps haut ou bas du signal RZ
      */
-    private final double dutyCycleRZ =  1.0 / 3.0;
+    private final double dutyCycleRZ = 1.0 / 3.0;
     /**
      * le temps de montée ou de descente à 1/3 du temps bit
      */
@@ -128,19 +128,27 @@ public class Simulateur {
     private Integer[] dt = {0, 0, 0, 0, 0};
     private Double[] ar = {0.0, 0.0, 0.0, 0.0, 0.0};
 
-    private boolean generate_pictures = false; /* generate picture when l'agrument -sat-img est saisie */
+    private boolean generate_pictures = false;
+    /* generate picture when l'agrument -sat-img est saisie */
 
-    private String pictureFolder; /* définit le dossier ou mettre les images de -stat-img */
+    private String pictureFolder;
+    /* définit le dossier ou mettre les images de -stat-img */
 
-    private Integer pictureSize; /* définit la taille des visualisations exportées avec -stat-img */
+    private Integer pictureSize;
+    /* définit la taille des visualisations exportées avec -stat-img */
 
-    private boolean affichageFFT = false; /* Affiche un graphique de la FFT */
+    private boolean affichageFFT = false;
+    /* Affiche un graphique de la FFT */
 
-    private boolean affichageOeil = false; /* Affiche un graphique de l'oeil */
+    private boolean affichageOeil = false;
+    /* Affiche un graphique de l'oeil */
 
-    private boolean affichageRepartition = false; /* Affiche un graphique de répartition */
+    private boolean affichageRepartition = false;
+    /* Affiche un graphique de répartition */
 
-    private boolean transducteur = false;
+    private boolean transducteur = false; //Active le transducteur
+
+    private boolean noMultiCorrection = false; // déssactive la correction des multi-trajets
 
     /**
      * <p>
@@ -220,7 +228,7 @@ public class Simulateur {
          * instancie recepteur de type RecepteurAnalogique avec les paramètres
          * propres à la classe
          */
-        recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar);
+        recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar, noMultiCorrection);
         /*
          * On relie le transmetteurAnalogique au recepteur
          */
@@ -239,7 +247,7 @@ public class Simulateur {
             recepteur.connecter(transducteurRecepteur);
             transducteurRecepteur.connecter(destination);
         } else {//fonctionnement normal
-			/*
+            /*
              * On relie le recepteur à la destination
              */
             recepteur.connecter(destination);
@@ -343,7 +351,9 @@ public class Simulateur {
                 affichageFFT = true;
             } else if (args[i].matches("-repartition")) {
                 affichageRepartition = true;
-            }  else if (args[i].matches("-doeil")) {
+            } else if (args[i].matches("-noMultiCorrection")) {
+                noMultiCorrection = true;
+            } else if (args[i].matches("-doeil")) {
                 affichageOeil = true;
             } else if (args[i].matches("-stat-img")) {
                 generate_pictures = true;
@@ -386,10 +396,10 @@ public class Simulateur {
                 }
                 // traiter la valeur associee
                 messageString = args[i];
-                if (args[i].matches("[0,1]{"+(NB_MAX_SYMBOLE+1)+",}")) {
+                if (args[i].matches("[0,1]{" + (NB_MAX_SYMBOLE + 1) + ",}")) {
                     messageAleatoire = false;
                     nbBitsMess = args[i].length();
-                } else if (args[i].matches("[0-9]{1,"+NB_MAX_SYMBOLE+"}")) {
+                } else if (args[i].matches("[0-9]{1," + NB_MAX_SYMBOLE + "}")) {
                     messageAleatoire = true;
                     nbBitsMess = new Integer(args[i]);
                     if (nbBitsMess < 1) {

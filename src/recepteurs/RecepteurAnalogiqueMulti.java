@@ -16,6 +16,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
 
     private final Integer[] dt;
     private final Double[] ar;
+    private boolean noMultiCorrection = false;
 
     public Integer[] getDt() {
         return dt;
@@ -45,6 +46,24 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
     }
 
     /**
+     * Constructeur du récepteur analogique
+     *
+     * @param form Forme du signal à recevoir
+     * @param nbEch Nombre d'écahntillon par symbole
+     * @param amplMin Amplitude pour la valeur binaire 0
+     * @param amplMax Amplitude pour la valeur binaire 1
+     * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
+     * NRZT
+     * @param dt Tableau de décalage des multitrajet
+     * @param ar Tableau d'atténuation des multitrajet
+     */
+    public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar, boolean noMultiCorrection) {
+        this(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar);
+        this.noMultiCorrection = noMultiCorrection;
+    }
+
+    /**
      * Enlève les trajets multiples des échantillons //TODO ajouter des solution
      * pour limiter les différents bruits
      *
@@ -65,7 +84,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         }
         int nbEchTotal = infRecue.nbElements();
         int nbEchFinal = nbEchTotal - (dtmax);
-        
+
         Information<Double> informationNettoyee = new Information(nbEchTotal);
         //TODO case dt[i] = 0;
         for (int i = 0; i < nbEchFinal; i++) {
@@ -90,7 +109,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      */
     @Override
     public void emettre() throws InformationNonConforme {
-        this.informationEmise = parseEch(cleanEch(this.informationRecue));
+        this.informationEmise = parseEch((noMultiCorrection)?this.informationRecue:cleanEch(this.informationRecue));
         envoyerAuxSuivants();
     }
 
