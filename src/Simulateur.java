@@ -2,6 +2,7 @@
 import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
+import java.util.Arrays;
 import recepteurs.Recepteur;
 import recepteurs.RecepteurAnalogiqueMulti;
 import tools.Tool;
@@ -512,9 +513,10 @@ public class Simulateur {
 
         Boolean Emits[] = new Boolean[nbSymbole];
         source.getInformationEmise().toArray(Emits);
+        
         Boolean Recus[] = new Boolean[nbSymbole];
         destination.getInformationRecue().toArray(Recus);
-
+        
         return Tool.compare(Recus, Emits);
     }
 

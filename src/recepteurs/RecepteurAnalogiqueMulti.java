@@ -64,14 +64,14 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
     }
 
     /**
-     * Enlève les trajets multiples des échantillons //TODO ajouter des solution
-     * pour limiter les différents bruits
+     * Enleve les echantillons en trop
      *
-     * @param infRecue L'information à nettoyer
-     * @return L'information nettoyée
+     * @param infRecue
+     * @return l'information raccourcie
      * @throws InformationNonConforme
      */
-    protected Information<Double> cleanEch(Information<Double> infRecue) throws InformationNonConforme {
+    protected Information<Double> stripEch(Information<Double> infRecue) throws InformationNonConforme {
+
         if (infRecue == null) {
             throw new InformationNonConforme("informationRecue == null");
         }
@@ -85,10 +85,32 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         int nbEchTotal = infRecue.nbElements();
         int nbEchFinal = nbEchTotal - (dtmax);
 
-        Information<Double> informationNettoyee = new Information(nbEchTotal);
+        Information<Double> informationStriped = new Information(nbEchFinal);
+        for (int i = 0; i < nbEchFinal; i++) {
+            informationStriped.add(infRecue.iemeElement(i));
+        }
+        System.out.println("nbEch après stripping : " + informationStriped.nbElements());
+        return informationStriped;
+    }
+
+    /**
+     * Enlève les trajets multiples des échantillons //TODO ajouter des solution
+     * pour limiter les différents bruits
+     *
+     * @param infRecue L'information à nettoyer
+     * @return L'information nettoyée
+     * @throws InformationNonConforme
+     */
+    protected Information<Double> cleanEch(Information<Double> infRecue) throws InformationNonConforme {
+        if (infRecue == null) {
+            throw new InformationNonConforme("informationRecue == null");
+        }
+        int nbEchTotal = infRecue.nbElements();
+
+        Information<Double> informationNettoyee = stripEch(infRecue);
+        int nbEchFinal = informationNettoyee.nbElements();
         //TODO case dt[i] = 0;
         for (int i = 0; i < nbEchFinal; i++) {
-            informationNettoyee.addAt(i, infRecue.iemeElement(i));
 
             for (int j = 0; j < dt.length; j++) {
                 if (ar[j] != 0 && (i - dt[j]) >= 0) { // Si on a un décalage et que l'amplitude est non nulle
@@ -98,7 +120,6 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
                 }
             }
         }
-        System.out.println("nbEch après nettoyage : " + informationNettoyee.nbElements());
         return informationNettoyee;
     }
 
@@ -109,7 +130,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      */
     @Override
     public void emettre() throws InformationNonConforme {
-        this.informationEmise = parseEch((noMultiCorrection)?this.informationRecue:cleanEch(this.informationRecue));
+        this.informationEmise = parseEch((noMultiCorrection) ? stripEch(this.informationRecue) : cleanEch(this.informationRecue));
         envoyerAuxSuivants();
     }
 
