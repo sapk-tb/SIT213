@@ -38,6 +38,7 @@ function generate-teb-by-multi-loop {
 	    	done
 	done
 }
+
 function get-teb-by-snr {
     NB_SYM=${3:-1000000}
     NB_ECH=${4:-30}
@@ -127,8 +128,8 @@ git clone https://github.com/sapk-tb/SIT213.git tmp
 cd tmp
 git checkout etape-5
 
-generate-teb-by-snr-loop()
-generate-teb-by-multi-loop()
-generate-oeil-loop()
+#generate-teb-by-snr-loop
+generate-teb-by-multi-loop
+generate-oeil-loop
 cd ..
 rm -Rf tmp
