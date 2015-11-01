@@ -31,16 +31,16 @@
 	<p> 
 		<span>
 			Nombre Symbole :
-			<select id="nbSym" onchange="S.chart.update();">
-				<option selected="selected">10000000</option>
-				<option>1000000</option>
+			<select id="nbSym" onchange="S.snr.chart.update();">
+				<option>10000000</option>
+				<option selected="selected">1000000</option>
 				<option>10000</option>
 				<option>100</option>
 			</select>
 		</span>
 		<span>
 			Nombre Echantillon :
-			<select id="nbEch" onchange="S.chart.update();">
+			<select id="nbEch" onchange="S.snr.chart.update();">
 				<option>60</option>
 				<option selected="selected">30</option>
 				<option>15</option>
@@ -51,7 +51,7 @@
 		</span>
 		<span>
 			Echelle :
-			<select id="typeEchelle" onchange="S.chart.update();">
+			<select id="typeEchelle" onchange="S.snr.chart.update();">
 				<option value="linear">Linéaire</option>
 				<option selected="selected" value="logarithmic">Logarithmique</option>
 			</select>
@@ -64,7 +64,7 @@
 	<p> 
 		<span>
 			Forme Symbole :
-			<select id="formSym" onchange="S.oeil.update();">
+			<select id="formSym" onchange="S.snr.oeil.update();">
 				<option selected="selected">RZ</option>
 				<option>NRZ</option>
 				<option>NRZT</option>
@@ -72,7 +72,7 @@
 		</span>
 		<span>
 			Nombre Symbole :
-			<select id="nbSym" onchange="S.oeil.update();">
+			<select id="nbSym" onchange="S.snr.oeil.update();">
 <!--				<option>9999</option> -->
 				<option>999</option>
 				<option selected="selected">99</option>
@@ -81,7 +81,7 @@
 		</span>
 		<span>
 			Nombre Echantillon :
-			<select id="nbEch" onchange="S.oeil.update();">
+			<select id="nbEch" onchange="S.snr.oeil.update();">
 				<option selected="selected">60</option>
 				<option>30</option>
 				<option>10</option>
@@ -90,7 +90,7 @@
 		</span>
 		<span>
 			SNR :
-			<select id="SNR" onchange="S.oeil.update();">
+			<select id="SNR" onchange="S.snr.oeil.update();">
 				<option selected="selected">-10</option>
 				<option>-5</option>
 				<option>-3</option>
@@ -106,5 +106,59 @@
 	</p>
 	<div class="oeil" style="width:100%;"></div>
 </div>
+
+	<br>
+<div id="chart-teb-by-multi">
+	<h2>TEB en fonction d'un trajet indirect sans correction</h2>
+	<p> 
+		<span>
+			Nombre Symbole :
+			<select id="nbSym" onchange="S.multi.chart.update();">
+				<option>10000000</option>
+				<option selected="selected">1000000</option>
+				<option>10000</option>
+				<option>100</option>
+			</select>
+		</span>
+		<span>
+			Nombre Echantillon :
+			<select id="nbEch" onchange="S.multi.chart.update();">
+				<option>60</option>
+				<option selected="selected">30</option>
+				<option>15</option>
+				<option>10</option>
+				<option>5</option>
+				<option>3</option>
+			</select>
+		</span>
+		<!--
+		<span>
+			Retard en %:
+			<select id="perRetard" onchange="S.multi.chart.update();">
+				<option>500</option>
+				<option selected="selected">300</option>
+				<option>150</option>
+				<option>100</option>
+				<option>50</option>
+				<option>30</option>
+				<option>10</option>
+				<option>5</option>
+				<option>0</option>
+			</select>
+		</span>
+		-->
+		<span>
+			Amplitude trajet indirect :
+			<select id="multiAmpl" onchange="S.multi.chart.update();">
+				<option>1</option>
+				<option selected="selected">0.5</option>
+				<option>0.3</option>
+				<option>0</option>
+			</select>
+		</span>
+	</p>
+	<div class="chart" style="width:100%; height:480px;"></div>
+</div>
+
     </body>
 </html>
