@@ -27,13 +27,13 @@ function generate-teb-by-multi-loop {
 		do
 		for nbEch in 3 5 10 15 30 60
 			do
-			for multiAmpl in 0 0.3 0.5 1
+			for multiAmpl in 0.1 0.3 0.5 1
 				do
-				OUTPUT="$BASE_DIR/data/csv/teb-by-multi-$nbSym-$nbEch.csv"
+				OUTPUT="$BASE_DIR/data/csv/teb-by-multi-$multiAmpl-$nbSym-$nbEch.csv"
 		    	echo "DT,TEB_RZ,TEB_NRZ,TEB_NRZT" > "$OUTPUT"                
 				
 				echo "generate-teb-by-multi 0 120 1 $nbSym $nbEch $multiAmpl"
-		        time generate-teb-by-multi  0 120 1 $nbSym $nbEch $multiAmpl >> "$OUTPUT"
+		        time generate-teb-by-multi  0 120 1 $nbSym $nbEch $multiAmpl  >> "$OUTPUT"
 		    	done
 	    	done
 	done
