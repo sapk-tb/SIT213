@@ -2,9 +2,9 @@
 import sources.*;
 import destinations.*;
 import emetteurs.EmetteurAnalogique;
-import java.util.Arrays;
 import recepteurs.Recepteur;
 import recepteurs.RecepteurAnalogiqueMulti;
+import recepteurs.RecepteurAnalogiqueMultiIntelligent;
 import tools.Tool;
 import transducteurs.TransducteurEmetteur;
 import transducteurs.TransducteurRecepteur;
@@ -151,6 +151,7 @@ public class Simulateur {
 
     private boolean noMultiCorrection = false; // déssactive la correction des multi-trajets
     private boolean quickMode = false; // Simplifie certains calcul (bruit gaussien)
+    private boolean aveugle = false; // Mode aveugle pour le recepeteur
 
     /**
      * <p>
@@ -230,7 +231,11 @@ public class Simulateur {
          * instancie recepteur de type RecepteurAnalogique avec les paramètres
          * propres à la classe
          */
-        recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar, noMultiCorrection);
+        if (aveugle) {
+            recepteur = new RecepteurAnalogiqueMultiIntelligent(form, nbEch, dutyCycleRZ, tmpMontee); //TODO use a more simple type with less information
+        } else {
+            recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar, noMultiCorrection);
+        }
         /*
          * On relie le transmetteurAnalogique au recepteur
          */
@@ -353,6 +358,8 @@ public class Simulateur {
                 affichageFFT = true;
             } else if (args[i].matches("-quick")) {
                 quickMode = true;
+            } else if (args[i].matches("-aveugle")) {
+                aveugle = true;
             } else if (args[i].matches("-repartition")) {
                 affichageRepartition = true;
             } else if (args[i].matches("-noMultiCorrection")) {

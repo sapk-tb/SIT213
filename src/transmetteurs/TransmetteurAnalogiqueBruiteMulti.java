@@ -37,24 +37,24 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
 
     protected void addMultiTrajet() {
 
-        System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
+        //System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
         /* Mise en forme pour les multi-trajet */
         Information<Double> infBruite = new Information<>(this.informationEmise);
         for (int i = 0; i < dt.length; i++) {
             if (ar[i] == 0) {
                 continue;
             }
-            System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i] + " ) ");
+            //System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i] + " ) ");
             //TODO check if we should maybe do Information retard = ArrayTool.factArrays(this.informationEmise, ar[i]); 
             Information<Double> retard = ArrayTool.factArrays(infBruite, ar[i]); //On génère une information factorisé par l'attenuation
             for (int j = 0; j < dt[i]; j++) {
                 retard.addAt(0, 0.0); // On ajoute les retards
             }
-            System.out.println("Taille du tableau de retard : " + retard.nbElements());
+            //System.out.println("Taille du tableau de retard : " + retard.nbElements());
             this.informationEmise = ArrayTool.sumArrays(this.informationEmise, retard);
         }
 
-        System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
+        //System.out.println("nbEch dans sortie : " + this.informationEmise.nbElements());
     }
 
     /**

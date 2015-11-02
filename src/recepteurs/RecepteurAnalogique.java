@@ -17,8 +17,8 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
 
     protected final String form;
     protected final int nbEch;
-    protected final double amplMin;
-    protected final double amplMax;
+    protected double amplMin;
+    protected double amplMax;
     protected final double dutyCycleRZ;
     protected final double tmpMontee;
 

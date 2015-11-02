@@ -5,7 +5,7 @@ import information.InformationNonConforme;
 
 /**
  * Classe d'un composant recepteur d'informations dont les élèments sont de type
- * RecepteurAnalogique qui hérite de la classe Recepteur
+ * Double qui hérite de la classe Recepteur
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
@@ -14,9 +14,9 @@ import information.InformationNonConforme;
  */
 public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
 
-    private final Integer[] dt;
-    private final Double[] ar;
-    private boolean noMultiCorrection = false;
+    protected Integer[] dt;
+    protected Double[] ar;
+    protected boolean noMultiCorrection = false;
 
     public Integer[] getDt() {
         return dt;
@@ -57,6 +57,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      * NRZT
      * @param dt Tableau de décalage des multitrajet
      * @param ar Tableau d'atténuation des multitrajet
+     * @param noMultiCorrection
      */
     public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar, boolean noMultiCorrection) {
         this(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar);
@@ -89,7 +90,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         for (int i = 0; i < nbEchFinal; i++) {
             informationStriped.add(infRecue.iemeElement(i));
         }
-        System.out.println("nbEch après stripping : " + informationStriped.nbElements());
+        //System.out.println("nbEch après stripping : " + informationStriped.nbElements());
         return informationStriped;
     }
 
