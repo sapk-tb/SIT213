@@ -44,6 +44,7 @@ public class TransmetteurAnalogiqueBruiteTest {
 
     /**
      * Test of recevoir method, of class TransmetteurAnalogiqueBruite.
+     *
      * @throws java.lang.Exception
      */
     @Test
@@ -76,13 +77,11 @@ public class TransmetteurAnalogiqueBruiteTest {
     /**
      * Test of emettre method, of class TransmetteurAnalogiqueBruite.
      */
-    @Test(expected = NullPointerException.class) //on lui donne rien à émettre
+    @Test(expected = InformationNonConforme.class) //on lui donne rien à émettre
     public void testEmettre() throws Exception {
         System.out.println("emettre - null pointer");
         TransmetteurAnalogiqueBruite instance = new TransmetteurAnalogiqueBruite(1.0);
         instance.emettre();
-        assertEquals(instance.informationEmise.iemeElement(0), null);
-        //assertTrue(instance.informationEmise.iemeElement(0)>instance.informationEmise.iemeElement(1));
     }
 
 }

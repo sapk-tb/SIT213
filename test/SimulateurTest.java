@@ -361,61 +361,7 @@ public class SimulateurTest {
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTransducteur() throws ArgumentsException, Exception{
         System.out.println("Test -transducteur");
-        String[] args = ("-transducteur").split(" "); //manque données
+        String[] args = ("-transducteur").split(""); //manque données
         new Simulateur(args);
     }
-
-    /**
-     * Test of analyseArguments method, of class Simulateur.
-     */
-    @Test
-    public void testAnalyseArguments() throws Exception {
-        System.out.println("analyseArguments");
-        String[] args = null;
-        Simulateur instance = null;
-        instance.analyseArguments(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of execute method, of class Simulateur.
-     */
-    @Test
-    public void testExecute() throws Exception {
-        System.out.println("execute");
-        Simulateur instance = null;
-        instance.execute();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of calculTauxErreurBinaire method, of class Simulateur.
-     */
-    @Test
-    public void testCalculTauxErreurBinaire() {
-        System.out.println("calculTauxErreurBinaire");
-        Simulateur instance = null;
-        double expResult = 0.0F;
-        double result = instance.calculTauxErreurBinaire();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of main method, of class Simulateur.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        Simulateur.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    
-    
 }

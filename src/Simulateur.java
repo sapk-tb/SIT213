@@ -4,6 +4,7 @@ import destinations.*;
 import emetteurs.EmetteurAnalogique;
 import recepteurs.Recepteur;
 import recepteurs.RecepteurAnalogiqueMulti;
+import recepteurs.RecepteurAnalogiqueMultiIntelligent;
 import tools.Tool;
 import transducteurs.TransducteurEmetteur;
 import transducteurs.TransducteurRecepteur;
@@ -115,7 +116,7 @@ public class Simulateur {
     /**
      * le temps haut ou bas du signal RZ
      */
-    private final double dutyCycleRZ =  1.0 / 3.0;
+    private final double dutyCycleRZ = 1.0 / 3.0;
     /**
      * le temps de montée ou de descente à 1/3 du temps bit
      */
@@ -128,19 +129,30 @@ public class Simulateur {
     private Integer[] dt = {0, 0, 0, 0, 0};
     private Double[] ar = {0.0, 0.0, 0.0, 0.0, 0.0};
 
-    private boolean generate_pictures = false; /* generate picture when l'agrument -sat-img est saisie */
+    private boolean generate_pictures = false;
+    /* generate picture when l'agrument -sat-img est saisie */
 
-    private String pictureFolder; /* définit le dossier ou mettre les images de -stat-img */
+    private String pictureFolder;
+    /* définit le dossier ou mettre les images de -stat-img */
 
-    private Integer pictureSize; /* définit la taille des visualisations exportées avec -stat-img */
+    private Integer pictureSize;
+    /* définit la taille des visualisations exportées avec -stat-img */
 
-    private boolean affichageFFT = false; /* Affiche un graphique de la FFT */
+    private boolean affichageFFT = false;
+    /* Affiche un graphique de la FFT */
 
-    private boolean affichageOeil = false; /* Affiche un graphique de l'oeil */
+    private boolean affichageOeil = false;
+    /* Affiche un graphique de l'oeil */
 
-    private boolean affichageRepartition = false; /* Affiche un graphique de répartition */
+    private boolean affichageRepartition = false;
+    /* Affiche un graphique de répartition */
 
-    private boolean transducteur = false;
+    private boolean transducteur = false; //Active le transducteur
+
+    private boolean noMultiCorrection = false; // déssactive la correction des multi-trajets
+    private boolean quickMode = false; // Simplifie certains calcul (bruit gaussien)
+    private boolean aveugle = false; // Mode aveugle pour le recepeteur
+    private Integer nbSymParOeil = 2;
 
     /**
      * <p>
@@ -207,9 +219,9 @@ public class Simulateur {
          * TransmetteurAnalogiqueParfait
          */
         if (aleatoireAvecGerme) {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, seed);
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, seed, quickMode);
         } else {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr);
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, quickMode);
         }
         /*
          * On relie l'emetteur au transmetteurAnalogique
@@ -220,7 +232,11 @@ public class Simulateur {
          * instancie recepteur de type RecepteurAnalogique avec les paramètres
          * propres à la classe
          */
-        recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar);
+        if (aveugle) {
+            recepteur = new RecepteurAnalogiqueMultiIntelligent(form, nbEch, dutyCycleRZ, tmpMontee); //TODO use a more simple type with less information
+        } else {
+            recepteur = new RecepteurAnalogiqueMulti(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee, dt, ar, noMultiCorrection);
+        }
         /*
          * On relie le transmetteurAnalogique au recepteur
          */
@@ -239,7 +255,7 @@ public class Simulateur {
             recepteur.connecter(transducteurRecepteur);
             transducteurRecepteur.connecter(destination);
         } else {//fonctionnement normal
-			/*
+            /*
              * On relie le recepteur à la destination
              */
             recepteur.connecter(destination);
@@ -258,15 +274,15 @@ public class Simulateur {
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
 
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
+            if (transducteur) {
+                transducteurEmetteur.connecter(new SondeLogique("sondeApresTransducteurEmetteur", 256));
+                transducteurRecepteur.connecter(new SondeLogique("sondeApresTransducteurRecepteur", 256));
+            }
         }
 
-        if (transducteur) {
-            transducteurEmetteur.connecter(new SondeLogique("sondeApresTransducteurEmetteur", 256));
-            transducteurRecepteur.connecter(new SondeLogique("sondeApresTransducteurRecepteur", 256));
-        }
         if (affichageOeil) {
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch*nbSymParOeil));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch*nbSymParOeil));
         }
         if (affichageRepartition) {
             if (snr != null) {
@@ -341,11 +357,20 @@ public class Simulateur {
                 affichage = true;
             } else if (args[i].matches("-fft")) {
                 affichageFFT = true;
+            } else if (args[i].matches("-quick")) {
+                quickMode = true;
+            } else if (args[i].matches("-aveugle")) {
+                aveugle = true;
             } else if (args[i].matches("-repartition")) {
                 affichageRepartition = true;
-            }  else if (args[i].matches("-doeil")) {
+            } else if (args[i].matches("-noMultiCorrection")) {
+                noMultiCorrection = true;
+            } else if (args[i].matches("-doeil")) {
                 affichageOeil = true;
-            } else if (args[i].matches("-stat-img")) {
+            } else if (args[i].matches("-nbSymParOeil")) {
+                i++; // on passe à l'argument suivant
+                nbSymParOeil = new Integer(args[i]);
+            }  else if (args[i].matches("-stat-img")) {
                 generate_pictures = true;
                 if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre folder -stat-img non saisie !");
@@ -380,12 +405,16 @@ public class Simulateur {
                 }
             } else if (args[i].matches("-mess")) {
                 i++;
+                Integer NB_MAX_SYMBOLE = 6;
+                if (System.getenv("SIMU_NB_MAX_SYMBOLE") != null) {
+                    NB_MAX_SYMBOLE = new Integer(System.getenv("SIMU_NB_MAX_SYMBOLE"));
+                }
                 // traiter la valeur associee
                 messageString = args[i];
-                if (args[i].matches("[0,1]{7,}")) {
+                if (args[i].matches("[0,1]{" + (NB_MAX_SYMBOLE + 1) + ",}")) {
                     messageAleatoire = false;
                     nbBitsMess = args[i].length();
-                } else if (args[i].matches("[0-9]{1,6}")) {
+                } else if (args[i].matches("[0-9]{1," + NB_MAX_SYMBOLE + "}")) {
                     messageAleatoire = true;
                     nbBitsMess = new Integer(args[i]);
                     if (nbBitsMess < 1) {
@@ -496,9 +525,10 @@ public class Simulateur {
     public double calculTauxErreurBinaire() {
         int nbSymbole = source.getInformationEmise().nbElements();
 
-        Boolean Emits[] = new Boolean[nbSymbole];
+        Boolean Emits[] = new Boolean[source.getInformationEmise().nbElements()];
         source.getInformationEmise().toArray(Emits);
-        Boolean Recus[] = new Boolean[nbSymbole];
+
+        Boolean Recus[] = new Boolean[destination.getInformationRecue().nbElements()];
         destination.getInformationRecue().toArray(Recus);
 
         return Tool.compare(Recus, Emits);

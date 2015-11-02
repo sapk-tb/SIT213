@@ -30,7 +30,7 @@ public class Tool {
      * @return double : le rapport erreur/nbSymbole
      */
     public static double compare(Boolean[] a, Boolean[] b) {
-        int nbSymbole = a.length;
+        int nbSymbole = Math.min(a.length,b.length);
         int errors = 0;
         for (int i = 0; i < nbSymbole; i++) {
             if (!Objects.equals(a[i], b[i])) {
