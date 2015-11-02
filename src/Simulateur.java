@@ -274,12 +274,12 @@ public class Simulateur {
             transmetteurAnalogique.connecter(new SondePuissance("sondePuissanceApresTransmetteur"));
 
             recepteur.connecter(new SondeLogique("sondeApresRecepteur", 256));
+            if (transducteur) {
+                transducteurEmetteur.connecter(new SondeLogique("sondeApresTransducteurEmetteur", 256));
+                transducteurRecepteur.connecter(new SondeLogique("sondeApresTransducteurRecepteur", 256));
+            }
         }
 
-        if (transducteur) {
-            transducteurEmetteur.connecter(new SondeLogique("sondeApresTransducteurEmetteur", 256));
-            transducteurRecepteur.connecter(new SondeLogique("sondeApresTransducteurRecepteur", 256));
-        }
         if (affichageOeil) {
             emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch*nbSymParOeil));
             transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch*nbSymParOeil));
