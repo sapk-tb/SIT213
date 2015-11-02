@@ -22,12 +22,18 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     protected Information<Double> informationBruit;
     protected Double SNR = null;
     protected int seed;
+    private boolean modeQuick = false;
 
-    public TransmetteurAnalogiqueBruite(Double SNR, int seed) {
+    public TransmetteurAnalogiqueBruite(Double SNR, int seed, boolean modeQuick) {
         super();
 
         this.SNR = SNR;
         this.seed = seed;
+        this.modeQuick = modeQuick;
+    }
+
+    public TransmetteurAnalogiqueBruite(Double SNR, int seed) {
+        this(SNR, seed, false);
     }
 
     public TransmetteurAnalogiqueBruite(Double SNR) {
@@ -61,7 +67,8 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
             double puissance_bruit = puissance_signal / this.SNR;
             int nbEl = this.informationRecue.nbElements();
 
-            SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
+            //SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed);
+            SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed, modeQuick);
             bruit.emettre();
             this.informationBruit = bruit.getInformationEmise();
             System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
@@ -75,6 +82,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     /**
      * Verifie que le l'information recu est valide sinon déclanche un event de
      * type InformationNonConforme
+     *
      * @throws information.InformationNonConforme
      */
     protected void checkInformationRecue() throws InformationNonConforme {

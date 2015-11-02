@@ -150,6 +150,7 @@ public class Simulateur {
     private boolean transducteur = false; //Active le transducteur
 
     private boolean noMultiCorrection = false; // déssactive la correction des multi-trajets
+    private boolean quickMode = false; // Simplifie certains calcul (bruit gaussien)
 
     /**
      * <p>
@@ -216,9 +217,9 @@ public class Simulateur {
          * TransmetteurAnalogiqueParfait
          */
         if (aleatoireAvecGerme) {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, seed);
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, seed, quickMode);
         } else {
-            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr);
+            transmetteurAnalogique = new TransmetteurAnalogiqueBruiteMulti(dt, ar, snr, quickMode);
         }
         /*
          * On relie l'emetteur au transmetteurAnalogique
@@ -350,6 +351,8 @@ public class Simulateur {
                 affichage = true;
             } else if (args[i].matches("-fft")) {
                 affichageFFT = true;
+            } else if (args[i].matches("-quick")) {
+                quickMode = true;
             } else if (args[i].matches("-repartition")) {
                 affichageRepartition = true;
             } else if (args[i].matches("-noMultiCorrection")) {
@@ -513,10 +516,10 @@ public class Simulateur {
 
         Boolean Emits[] = new Boolean[nbSymbole];
         source.getInformationEmise().toArray(Emits);
-        
+
         Boolean Recus[] = new Boolean[nbSymbole];
         destination.getInformationRecue().toArray(Recus);
-        
+
         return Tool.compare(Recus, Emits);
     }
 

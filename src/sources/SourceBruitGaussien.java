@@ -26,6 +26,7 @@ public class SourceBruitGaussien extends Source<Double> {
     public SourceBruitGaussien(int nbEch) {
         this(nbEch, 1f, (int) (Math.random() * 1024));
     }
+
     /**
      * Un constructeur qui génère nbEch aléatoirement
      *
@@ -37,18 +38,45 @@ public class SourceBruitGaussien extends Source<Double> {
     }
 
     /**
+     * Un constructeur qui génère nbEch aléatoirement rapidement
+     *
+     * @param nbEch Nombre de bit à générer
+     * @param puissance Puissance du signal
+     * @param seed le grain de génération
+     * @param quick Utiliser un mode rapide mais moins proche de la réalité
+     *
+     */
+    //*
+    public SourceBruitGaussien(int nbEch, double puissance, final int seed, boolean quick) {
+        this.seed = seed;
+        if (quick) {
+            int nbEchQuick = (int) Math.max(1000, nbEch / 1000);
+            System.out.println("Source de bruit mode quick enabled : " + nbEchQuick);
+            Double[] bruitQuick = createBruit(nbEchQuick, puissance, this.seed);
+            this.informationGeneree = new Information<Double>(nbEch);
+            Random rand = new Random(this.seed);
+            for (int i = 0; i < nbEch; i++) {
+                this.informationGeneree.add(bruitQuick[rand.nextInt(nbEchQuick)]);
+            }
+        } else {
+            this.informationGeneree = new Information<Double>(createBruit(nbEch, puissance, this.seed));
+        }
+    }
+
+    /**
      * Un constructeur qui génère nbEch aléatoirement
      *
      * @param nbEch Nombre de bit à générer
      * @param puissance Puissance du signal
      * @param seed le grain de génération
-     * 
+     *
      */
     //*
     public SourceBruitGaussien(int nbEch, double puissance, final int seed) {
-        super();
-        this.seed = seed;
-        //this.informationGeneree = new Information<Double>(nbEch);
+        this(nbEch, puissance, seed, false);
+    }
+
+    private static Double[] createBruit(int nbEch, double puissance, final int seed) {
         Double[] bruit = new Double[nbEch];
         double puissance_sqrt = Math.sqrt(puissance);
         int nb_thread = Runtime.getRuntime().availableProcessors();
@@ -92,8 +120,6 @@ public class SourceBruitGaussien extends Source<Double> {
         } catch (InterruptedException ex) {
             Logger.getLogger(SourceBruitGaussien.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.informationGeneree = new Information<Double>(bruit);
-
+        return bruit;
     }
-
 }

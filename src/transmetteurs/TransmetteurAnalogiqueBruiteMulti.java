@@ -19,11 +19,15 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     private final Double[] ar;
 
     public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR) throws Exception {
-        this(dt, ar, SNR, (int) (Math.random() * 1024));
+        this(dt, ar, SNR, (int) (Math.random() * 1024), false);
     }
 
-    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR, int seed) throws Exception {
-        super(SNR, seed);
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR, boolean quickMode) throws Exception {
+        this(dt, ar, SNR, (int) (Math.random() * 1024), quickMode);
+    }
+
+    public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR, int seed, boolean quickMode) throws Exception {
+        super(SNR, seed, quickMode);
         if (dt.length != ar.length) {
             throw new Exception("Arguments de multiple trajet donnée invalide");
         }
