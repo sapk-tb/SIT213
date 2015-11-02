@@ -43,40 +43,41 @@ function get-teb-by-snr {
     NB_SYM=${3:-1000000}
     NB_ECH=${4:-30}
     FORM=${2:-"NRZ"}
+    OTHERS_ARGS=${5:-""}
     ARGS="-form $FORM -mess $NB_SYM -nbEch $NB_ECH -ampl -1 1"
-    ./simulateur $ARGS -snr $1 | grep TEB | cut -d":" -f2 | tr -d " "
+    ./simulateur $ARGS $OTHERS_ARGS -snr $1 | grep TEB | cut -d":" -f2 | tr -d " "
 }
 
 function generate-teb-by-snr {
     # generate-teb-by-snr $from $to $pas $nbSym $nbEch
     for snr in $(seq $1 $3 $2 | tr "," ".")
     do
-        TEB_RZ=$(get-teb-by-snr $snr "RZ" $4 $5)
-        TEB_NRZ=$(get-teb-by-snr $snr "NRZ" $4 $5)
-		TEB_NRZT=$(get-teb-by-snr $snr "NRZT" $4 $5)
+        TEB_RZ=$(get-teb-by-snr $snr "RZ" $4 $5 $6)
+        TEB_NRZ=$(get-teb-by-snr $snr "NRZ" $4 $5 $6)
+	TEB_NRZT=$(get-teb-by-snr $snr "NRZT" $4 $5 $6)
 	echo "$snr,$TEB_RZ,$TEB_NRZ,$TEB_NRZT"
     done
 }
 
 function generate-teb-by-snr-loop {
-	for nbSym in 100 10000 1000000 10000000
+	for nbSym in 10000000
 		do
-		for nbEch in 3 5 10 15 30 60
+		for nbEch in 10 15 30 60
 			do
 			OUTPUT="$BASE_DIR/data/csv/teb-by-snr-$nbSym-$nbEch.csv"
-	    		echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "$OUTPUT"                
+#	    		echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "$OUTPUT"                
 			
-			echo "generate-teb-by-snr -60 -30 5 $nbSym $nbEch"
-	                time generate-teb-by-snr  -60 -30 5 $nbSym $nbEch >> "$OUTPUT"
+#			echo "generate-teb-by-snr -60 -30 5 $nbSym $nbEch"
+#	                time generate-teb-by-snr  -60 -30 5 $nbSym $nbEch >> "$OUTPUT"
 	
-			echo "generate-teb-by-snr -28 -21 2 $nbSym $nbEch"
-	    		time generate-teb-by-snr  -28 -21 2 $nbSym $nbEch >> "$OUTPUT"
+#			echo "generate-teb-by-snr -28 -21 2 $nbSym $nbEch"
+#	    		time generate-teb-by-snr  -28 -21 2 $nbSym $nbEch >> "$OUTPUT"
 	
-			echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch"
-	    		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "$OUTPUT"
+#			echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch"
+#	    		time generate-teb-by-snr  -20 -11 1 $nbSym $nbEch >> "$OUTPUT"
 	
-			echo "generate-teb-by-snr -10 -3.5 0.5 $nbSym $nbEch"
-	    		time generate-teb-by-snr  -10 -3.5 0.5 $nbSym $nbEch >> "$OUTPUT"
+#			echo "generate-teb-by-snr -10 -3.5 0.5 $nbSym $nbEch"
+#	    		time generate-teb-by-snr  -10 -3.5 0.5 $nbSym $nbEch >> "$OUTPUT"
 	
 			echo "generate-teb-by-snr -3 4.9 0.1 $nbSym $nbEch"
 	    		time generate-teb-by-snr  -3 4.9 0.1 $nbSym $nbEch >> "$OUTPUT"
@@ -86,6 +87,35 @@ function generate-teb-by-snr-loop {
 	
 	    	done
 	done
+}
+
+function generate-teb-by-snr-transducteur-loop {
+	for nbSym in 100 10000 1000000 10000000
+		do
+		for nbEch in 3 5 10 15 30 60
+                        do
+                        OUTPUT="$BASE_DIR/data/csv/teb-by-snr-transducteur-$nbSym-$nbEch.csv"
+                        echo "SNR,TEB_RZ,TEB_NRZ,TEB_NRZT" > "$OUTPUT"
+
+ #                       echo "generate-teb-by-snr -60 -30 5 $nbSym $nbEch -transducteur"
+ #                       time generate-teb-by-snr  -60 -30 5 $nbSym $nbEch "-transducteur" >> "$OUTPUT"
+
+ #                       echo "generate-teb-by-snr -28 -21 2 $nbSym $nbEch -transducteur"
+ #                       time  generate-teb-by-snr  -28 -21 2 $nbSym $nbEch "-transducteur"  >> "$OUTPUT"
+
+                        echo "generate-teb-by-snr -20 -11 1 $nbSym $nbEch -transducteur"
+                        time  generate-teb-by-snr  -20 -11 1 $nbSym $nbEch "-transducteur"  >> "$OUTPUT"
+
+                        echo "generate-teb-by-snr -10 -3.5 0.5 $nbSym $nbEch -transducteur"
+                        time  generate-teb-by-snr  -10 -3.5 0.5 $nbSym $nbEch "-transducteur"  >> "$OUTPUT"
+
+                        echo "generate-teb-by-snr -3 4.9 0.1 $nbSym $nbEch  -transducteur"
+                        time  generate-teb-by-snr  -3 4.9 0.1 $nbSym $nbEch "-transducteur"  >> "$OUTPUT"
+
+                        echo "generate-teb-by-snr 5 10 0.5 $nbSym $nbEch -transducteur"
+                        time  generate-teb-by-snr  5 10 0.5 $nbSym $nbEch "-transducteur"  >> "$OUTPUT"
+                done
+        done
 }
 
 function generate-oeil {
@@ -129,7 +159,8 @@ cd tmp
 git checkout etape-5
 
 #generate-teb-by-snr-loop
+generate-teb-by-snr-transducteur-loop
 #generate-teb-by-multi-loop
-generate-oeil-loop
+#generate-oeil-loop
 cd ..
-rm -Rf tmp
+#rm -Rf tmp
