@@ -80,7 +80,7 @@ var S = {
 					            x: -20 //center
 					        },
 					        subtitle: {
-					            text: 'NbEch: '+options.nbEch+', NbSymbole : '+options.nbSym,
+					            text: 'Ampl. : -1 1, NbEch : '+options.nbEch+', NbSymbole : '+options.nbSym,
 					            x: -20
 					        },
 					        xAxis: {
@@ -208,7 +208,7 @@ var S = {
 					            x: -20 //center
 					        },
 					        subtitle: {
-					            text: 'multiAmpl: '+options.multiAmpl+',NbEch: '+options.nbEch+', NbSymbole : '+options.nbSym,
+					            text: 'Ampl. : -1 1, Ampl. Retard: '+options.multiAmpl+', NbEch : '+options.nbEch+', NbSymbole : '+options.nbSym+ ', -noMultiCorrection ',
 					            x: -20
 					        },
 					        xAxis: {
