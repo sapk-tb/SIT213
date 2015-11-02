@@ -525,10 +525,10 @@ public class Simulateur {
     public double calculTauxErreurBinaire() {
         int nbSymbole = source.getInformationEmise().nbElements();
 
-        Boolean Emits[] = new Boolean[nbSymbole];
+        Boolean Emits[] = new Boolean[source.getInformationEmise().nbElements()];
         source.getInformationEmise().toArray(Emits);
 
-        Boolean Recus[] = new Boolean[nbSymbole];
+        Boolean Recus[] = new Boolean[destination.getInformationRecue().nbElements()];
         destination.getInformationRecue().toArray(Recus);
 
         return Tool.compare(Recus, Emits);
