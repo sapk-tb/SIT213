@@ -398,7 +398,7 @@ var S = {
 				nbSym = $("#chart-teb-by-snr-transducteur #nbSym").val();
 				nbEch = $("#chart-teb-by-snr-transducteur #nbEch").val();
 				console.log("Paramètre graphique : ",nbSym,nbEch);
-				urlData = "data/csv/teb-by-snr-transducteur-"+nbSym+"-"+nbEch+".csv";
+				urlData = "data/csv/teb-by-snr-"+nbSym+"-"+nbEch+".csv";
 				urlDatatransducteur = "data/csv/teb-by-snr-transducteur-"+nbSym+"-"+nbEch+".csv";
 				$.get(urlData+"?"+Date.now(),function(csv){
 					$.get(urlDatatransducteur+"?"+Date.now(),function(csvtransducteur){
