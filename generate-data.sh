@@ -93,7 +93,7 @@ function generate-oeil {
     SNR=${1:-3}
     NB_SYM=${2:-10000}
     NB_ECH=${3:-30}
-    ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img ../data/img/ 1024 "
+    ARGS="-mess $NB_SYM -nbEch $NB_ECH -ampl -1 1 -stat-img ../data/img/ 1024 -nbSymParOeil 2"
     xvfb-run -a ./simulateur $ARGS -snr $SNR -form "RZ"
     xvfb-run -a ./simulateur $ARGS -snr $SNR -form "NRZ"
     xvfb-run -a ./simulateur $ARGS -snr $SNR -form "NRZT"
@@ -101,9 +101,9 @@ function generate-oeil {
 
 
 function generate-oeil-loop {
-	for nbSym in 9 99 999
+	for nbSym in 10 100 
 		do
-		for nbEch in 3 10 30 60
+		for nbEch in 3 10 30
 			do
 			for SNR in 10 5 3 1 0 -1 -3 -5 -10
 				do
@@ -129,7 +129,7 @@ cd tmp
 git checkout etape-5
 
 #generate-teb-by-snr-loop
-generate-teb-by-multi-loop
+#generate-teb-by-multi-loop
 generate-oeil-loop
 cd ..
 rm -Rf tmp
