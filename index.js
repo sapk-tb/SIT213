@@ -260,11 +260,128 @@ var S = {
 				});
 			}
 		}
-	}
+	},
+	"snr-transducteur" : {
+		tool : {
+			parseData : function(csv,nbSym,nbEch){
+				data = {
+		    		labels :  [],
+			    	series :  [
+					        {
+					        	info : {form : "RZ"},
+					            name: "TEB en fonction du SNR (Signal RZ)",
+					            marker : {
+					            	radius : 3
+					            },
+					            data: []
+					        },
+					        {
+					        	info : {form : "NRZ"},
+					            name: "TEB en fonction du SNR (Signal NRZ)",
+					            marker : {
+					            	radius : 3
+					            },
+					            data: []
+					        },
+					        {
+					        	info : {form : "NRZT"},
+					            name: "TEB en fonction du SNR (Signal NRZT)",
+					            marker : {
+					            	radius : 3
+					            },
+					            data: []
+					        }]
+		    	};
+				csv.split("\n").slice(1, -1).forEach(function (line, index) {
+	//					if(index == 0 || index == 72) return;
+						l = line.split(",");
+						//data.labels.push(new Date(parseFloat(l[0])*1000));
+						for (i=1;i<l.length;i++){
+							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
+						}
+				});
+				console.log(data);
+		    	return data;
+			}	
+		},
+		chart : {
+			chart : {},
+			init : function(){
+		    	/*
+		    	$("#chart-teb-by-snr-transducteur .chart").attr("width",($(window).width()-100)+"px");
+		    	$("#chart-teb-by-snr-transducteur .chart").attr("height",($(window).height()-100)+"px");
+		    	*/
+		    	S["snr-transducteur"].chart.update();
+			},
+			draw : function(data,options){
+			    	$("#chart-teb-by-snr-transducteur .chart").highcharts({
+				            chart: {
+				            	type: 'line',
+				                zoomType: 'x'
+				            },
+					        title: {
+					            text: 'TEB en fonction du SNR',
+					            x: -20 //center
+					        },
+					        subtitle: {
+					            text: 'Ampl. : -1 1, NbEch : '+options.nbEch+', NbSymbole : '+options.nbSym + ", -transducteur",
+					            x: -20
+					        },
+					        xAxis: {
+					            title: {
+					                text: 'SNR (dB)'
+					            }
+					        },
+					        yAxis: {
+					            type: $("#chart-teb-by-snr-transducteur #typeEchelle").val(),
+					            title: {
+					                text: 'TEB'
+					            },
+					            plotLines: [{
+					                value: 0,
+					                width: 1,
+					                color: '#808080'
+					            }], 
+					            max : ($("#chart-teb-by-snr-transducteur #nbSym").val()>=10000)?0.5:null
+					        },
+				            plotOptions: {
+					            line: {
+				                    cursor: 'pointer',
+				                    marker: {
+					                    enabled: true
+					                },
+				                    point: {
+				                    }
+					            }
+				            },
+					        legend: {
+					            layout: 'vertical',
+					            align: 'right',
+					            verticalAlign: 'top',
+					            floating : true,
+					            borderWidth: 0
+					        },
+					        series: data.series
+					});
+			},
+			update : function(){
+				$("#chart-teb-by-snr-transducteur .chart").html("").removeAttr("data-highcharts-chart");
+				console.log("Updating snr-transducteur graphique ...");
+				nbSym = $("#chart-teb-by-snr-transducteur #nbSym").val();
+				nbEch = $("#chart-teb-by-snr-transducteur #nbEch").val();
+				console.log("Paramètre graphique : ",nbSym,nbEch);
+				urlData = "data/csv/teb-by-snr-transducteur-"+nbSym+"-"+nbEch+".csv";
+				$.get(urlData+"?"+Date.now(),function(csv){
+					S["snr-transducteur"].chart.draw(S.snr.tool.parseData(csv,nbSym,nbEch),{nbSym:nbSym,nbEch:nbEch});
+				});
+			}
+		}
+	},
 }
 
 $(function(){
 	S.snr.chart.init();
 	S.snr.oeil.init();
 	S.multi.chart.init();
+	S["snr-transducteur"].chart.init();
 })
