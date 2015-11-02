@@ -165,7 +165,7 @@
 	<p> 
 		<span>
 			Nombre Symbole :
-			<select id="nbSym" onchange="S.snr.chart.update();">
+			<select id="nbSym" onchange="S['snr-transducteur'].chart.update();">
 				<option>10000000</option>
 				<option selected="selected">1000000</option>
 				<option>10000</option>
@@ -174,7 +174,7 @@
 		</span>
 		<span>
 			Nombre Echantillon :
-			<select id="nbEch" onchange="S.snr.chart.update();">
+			<select id="nbEch" onchange="S['snr-transducteur'].chart.update();">
 				<option>60</option>
 				<option selected="selected">30</option>
 				<option>15</option>
@@ -185,7 +185,7 @@
 		</span>
 		<span>
 			Echelle :
-			<select id="typeEchelle" onchange="S.snr.chart.update();">
+			<select id="typeEchelle" onchange="S['snr-transducteur'].chart.update();">
 				<option value="linear">Linéaire</option>
 				<option selected="selected" value="logarithmic">Logarithmique</option>
 			</select>
