@@ -48,7 +48,7 @@ public class RecepteurAnalogiqueMultiIntelligent extends RecepteurAnalogiqueMult
         Statistic stats = new Statistic(data);
         this.amplMax = stats.getMax();
         this.amplMin = stats.getMin();
-
+        System.out.println("Valeurs estimée : [Etat haut : "+ this.amplMax+", Etat bas : "+ this.amplMin+"]");
         //TODO detectect and clean noise and multi 
         emettre();
     }

@@ -152,6 +152,7 @@ public class Simulateur {
     private boolean noMultiCorrection = false; // déssactive la correction des multi-trajets
     private boolean quickMode = false; // Simplifie certains calcul (bruit gaussien)
     private boolean aveugle = false; // Mode aveugle pour le recepeteur
+    private Integer nbSymParOeil = 2;
 
     /**
      * <p>
@@ -280,8 +281,8 @@ public class Simulateur {
             transducteurRecepteur.connecter(new SondeLogique("sondeApresTransducteurRecepteur", 256));
         }
         if (affichageOeil) {
-            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch));
-            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch));
+            emetteur.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresEmetteur", nbEch*nbSymParOeil));
+            transmetteurAnalogique.connecter(new SondeDiagrammeOeil("sondeDiagrammeOeilApresTransmetteur", nbEch*nbSymParOeil));
         }
         if (affichageRepartition) {
             if (snr != null) {
@@ -366,7 +367,10 @@ public class Simulateur {
                 noMultiCorrection = true;
             } else if (args[i].matches("-doeil")) {
                 affichageOeil = true;
-            } else if (args[i].matches("-stat-img")) {
+            } else if (args[i].matches("-nbSymParOeil")) {
+                i++; // on passe à l'argument suivant
+                nbSymParOeil = new Integer(args[i]);
+            }  else if (args[i].matches("-stat-img")) {
                 generate_pictures = true;
                 if (i + 1 >= args.length) {
                     throw new ArgumentsException("Valeur du parametre folder -stat-img non saisie !");
