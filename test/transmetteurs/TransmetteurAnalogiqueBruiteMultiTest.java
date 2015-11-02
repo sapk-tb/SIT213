@@ -18,7 +18,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
         Double[] ar = {1.0, 1.0};
         Double SNR = 10.0;
         int seed = 1;
-        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed);
+        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed, false);
     }
 
     @Test(expected = Exception.class)//Problème
@@ -29,7 +29,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
         Double[] ar = {1.0};
         Double SNR = 10.0;
         int seed = 1;
-        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed);
+        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed, false);
     }
 
     /**
@@ -47,7 +47,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
         Double[] ar = {0.5, 0.5};
         int seed = 1;
         Double SNR = 10.0;
-        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed);
+        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed,false);
         RecepteurAnalogique recepteurAnalogique = new RecepteurAnalogique("RZ", 3, -2f, 2f, 0.2f, 0.1f);
         instance.connecter(recepteurAnalogique);
         //On vérifie que l'information reçue est bien l'information qu'on a passée en paramètre
@@ -55,7 +55,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
         assertEquals(instance.informationRecue, information);
 
         //émission d'un deuxième signal qui va être comparé au premier. Comme c'est le même seed : ils doivent être égaux, même avec du bruit
-        TransmetteurAnalogiqueBruiteMulti instance2 = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed);
+        TransmetteurAnalogiqueBruiteMulti instance2 = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed, false);
         instance2.recevoir(information);
         assertEquals(instance.informationRecue, instance.informationRecue);
     }
@@ -73,7 +73,7 @@ public class TransmetteurAnalogiqueBruiteMultiTest {
         Double[] ar = {0.5, 0.5};
         int seed = 1;
         Double SNR = 10.0;
-        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed);
+        TransmetteurAnalogiqueBruiteMulti instance = new TransmetteurAnalogiqueBruiteMulti(dt, ar, SNR, seed,false);
         instance.recevoir(information);
     }
 //TODO verifier que l'onaccepte bien un snr null
