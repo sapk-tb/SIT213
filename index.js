@@ -155,6 +155,31 @@ var S = {
 			    	series :  [
 					        {
 					        	info : {form : "RZ"},
+					            name: "TEB en fonction du Retard (Signal RZ) -noMultiCorrection ",
+					            marker : {
+					            	radius : 3
+					            },
+					            data: []
+					        },
+					        {
+					        	info : {form : "NRZ"},
+					            name: "TEB en fonction du Retard (Signal NRZ) -noMultiCorrection ",
+					            marker : {
+					            	radius : 3
+					            },
+					            data: []
+					        },
+					        {
+					        	info : {form : "NRZT"},
+					            name: "TEB en fonction du Retard (Signal NRZT) -noMultiCorrection ",
+					            marker : {
+					            	radius : 3
+					            },
+					            data: []
+					        }
+					        /*
+					        ,{
+					        	info : {form : "RZ"},
 					            name: "TEB en fonction du Retard (Signal RZ)",
 					            marker : {
 					            	radius : 3
@@ -176,7 +201,9 @@ var S = {
 					            	radius : 3
 					            },
 					            data: []
-					        }]
+					        }
+					        */
+					        ]
 		    	};
 				csv.split("\n").slice(1, -1).forEach(function (line, index) {
 	//					if(index == 0 || index == 72) return;
@@ -184,6 +211,7 @@ var S = {
 						//data.labels.push(new Date(parseFloat(l[0])*1000));
 						for (i=1;i<l.length;i++){
 							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
+							//.series[i-1+l.length-1].data.push([parseFloat(l[0]),0]); //TODO check that it is really 0
 						}
 				});
 				console.log(data);
@@ -320,11 +348,12 @@ var S = {
 		    	csvtransducteur = csvtransducteur.split("\n").slice(1, -1);
 		    	for (index = 0; index < csvtransducteur.length; ++index) {
 						l = csvtransducteur[index].split(",");
-						l2 = csv[index].split(",");
+						l2 = csv[index+11].split(",");
 						for (i=1;i<l.length;i++){
 							console.log(i-1,i-1+l.length-1);
 							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
 							data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]);
+							//data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]); (décaler au meme début que ltransducteur)
 						}
 				}
 		    	
