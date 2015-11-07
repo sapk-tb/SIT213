@@ -1,7 +1,7 @@
 package automates;
 
 /**
- * Classe de l'automate utilisé par le transcodeur récepteur pour décoder le message.
+ * Classe de l'automate utilise par le transcodeur recepteur pour decoder le message.
  * @author Pierrick Chovelon
  */
 public class AutomateTransducteur {
@@ -12,20 +12,20 @@ public class AutomateTransducteur {
 	}
 	
 	/**
-	 * méthode qui teste si le tableau de boolean passé en paramètre est valide ou non
-	 * @return validité du tableau
+	 * methode qui teste si le tableau de boolean passe en parametre est valide ou non
+	 * @return validite du tableau
 	 */
 	public boolean accepte(boolean tab[]){
 		int etat = 0; 
 		int etatDepart = 0; 
-		// 2 états possibles :
+		// 2 etats possibles :
 		// - 1 : valeur 1
 		// - 0 : valeur 0
 		int index = 0;
 		int nbElem = 3;
-		boolean booleanCourant = false; //élément courant 
+		boolean booleanCourant = false; //element courant 
 		
-		if(tab[0] == true)//premier caractère égal à  1
+		if(tab[0] == true)//premier caractere egal a 1
 		{
 			etatDepart = 1; 
 		}
@@ -39,11 +39,11 @@ public class AutomateTransducteur {
 		
 		while(index != nbElem){
 		
-			if((etat == 0) && (tab[index] == true))//passage d'un 0(false) à  un 1(true)
+			if((etat == 0) && (tab[index] == true))//passage d'un 0(false) a un 1(true)
 			{
 				etat = 1;
 			}
-			else if( (etat == 1) && (tab[index] == false))//passage d'un 1(true) à  un 0(false)
+			else if( (etat == 1) && (tab[index] == false))//passage d'un 1(true) a un 0(false)
 			{
 				etat = 0;
 			}
@@ -55,15 +55,15 @@ public class AutomateTransducteur {
 			index++;
 		}
 			
-		if (etat == etatDepart) //si on est revenu au départ
+		if (etat == etatDepart) //si on est revenu au depart
 		{
 			return true;
 		}
-		return false;//au cas où
+		return false;//au cas ou
 	}
 	
 	/*
-	//utilisé pour tester
+	//utilise pour tester
 	public static void main(String args[]){
 		
 		AutomateTransducteur at = new AutomateTransducteur();

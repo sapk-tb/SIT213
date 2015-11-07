@@ -18,15 +18,15 @@ import visualisations.SondeRepartitionAnalogique;
 
 /**
  * La classe Simulateur permet de construire et simuler une chaine de
- * transmission composée d'une Source, d'un nombre variable de Transmetteur(s)
+ * transmission composee d'une Source, d'un nombre variable de Transmetteur(s)
  * et d'une Destination.
  *
  * @author cousin
  * @author prou
  * @author Antoine GIRARD
- * @author Cédric HERZOG
+ * @author Cedric HERZOG
  * @author Pierrick CHOVELON
- * @author Mélanie CORRE
+ * @author Melanie CORRE
  */
 public class Simulateur {
 
@@ -35,25 +35,25 @@ public class Simulateur {
      */
     private boolean affichage = false;
     /**
-     * indique si le Simulateur utilise un message généré de manière aléatoire
+     * indique si le Simulateur utilise un message genere de maniere aleatoire
      */
     private boolean messageAleatoire = true;
     /**
      * indique si le Simulateur utilise un germe pour initialiser les
-     * générateurs aléatoires
+     * generateurs aleatoires
      */
     private boolean aleatoireAvecGerme = false;
     /**
-     * la valeur de la semence utilisée pour les générateurs aléatoires
+     * la valeur de la semence utilisee pour les generateurs aleatoires
      */
     private Integer seed = null;
     /*
-     * la longueur du message aléatoire à  transmettre si un message n'est pas
-     * imposé
+     * la longueur du message aleatoire a transmettre si un message n'est pas
+     * impose
      */
     private int nbBitsMess = 100;
     /*
-     * la chaine de caractères correspondant à  m dans l'argument -mess m
+     * la chaine de caracteres correspondant a m dans l'argument -mess m
      */
     private String messageString = "100";
 
@@ -85,47 +85,47 @@ public class Simulateur {
     private final EmetteurAnalogique emetteur;
 
     /**
-     * le composant Transducteur en émision de la chaine de transmission
+     * le composant Transducteur en emision de la chaine de transmission
      */
     private TransducteurEmetteur transducteurEmetteur;
 
     /**
-     * le composant Transducteur en réception de la chaine de transmission
+     * le composant Transducteur en reception de la chaine de transmission
      */
     private TransducteurRecepteur transducteurRecepteur;
 
     /*
-     * la forme du signal, par défaut il s'agit d'un signal RZ
+     * la forme du signal, par defaut il s'agit d'un signal RZ
      */
     private String form = "RZ";
 
     /*
-     * l'amplitude minimale du signal, par défaut il s'agit de 0
+     * l'amplitude minimale du signal, par defaut il s'agit de 0
      */
     private Double amplMin = 0.0;
 
     /*
-     * l'amplitude maximale du signal, par défaut il s'agit de 1
+     * l'amplitude maximale du signal, par defaut il s'agit de 1
      */
     private Double amplMax = 1.0;
 
     /*
-     * le nombre d'échantillons du signal, par défaut il s'agit de 30
+     * le nombre d'echantillons du signal, par defaut il s'agit de 30
      */
     private Integer nbEch = 30;
     /*
-     * le temps haut ou bas du signal RZ, par défaut à 1/3
+     * le temps haut ou bas du signal RZ, par defaut e 1/3
      */
     private final double dutyCycleRZ = 1.0 / 3.0;
     /*
-     * le temps de montée ou de descente à  1/3 du temps bit
+     * le temps de montee ou de descente a 1/3 du temps bit
      */
     private final double tmpMontee = 1.0 / 3.0;
     
     /*
-     * le SNR en linéaire, par défaut nul
+     * le SNR en lineaire, par defaut nul
      */
-    private Double snr = null; // en linéaire
+    private Double snr = null; // en lineaire
     /*
      * le SNR en dB
      */
@@ -137,12 +137,12 @@ public class Simulateur {
      */
     private Integer nbTrajet = 0;
     /*
-     * la valeur du décalage temporel du ième trajet indirect en nombre d'échantillons par bit
+     * la valeur du decalage temporel du ieme trajet indirect en nombre d'echantillons par bit
      */
     private Integer[] dt = {0, 0, 0, 0, 0};
     
     /*
-     * l'amplitude relative au signal initial du signal ayant effectué le ième trajet indirect
+     * l'amplitude relative au signal initial du signal ayant effectue le ieme trajet indirect
      */
     private Double[] ar = {0.0, 0.0, 0.0, 0.0, 0.0};
 
@@ -150,10 +150,10 @@ public class Simulateur {
     /* generate picture when l'agrument -sat-img est saisie */
 
     private String pictureFolder;
-    /* définit le dossier ou mettre les images de -stat-img */
+    /* definit le dossier ou mettre les images de -stat-img */
 
     private Integer pictureSize;
-    /* définit la taille des visualisations exportées avec -stat-img */
+    /* definit la taille des visualisations exportees avec -stat-img */
 
     private boolean affichageFFT = false;
     /* Affiche un graphique de la FFT */
@@ -162,7 +162,7 @@ public class Simulateur {
     /* Affiche un graphique de l'oeil */
 
     private boolean affichageRepartition = false;
-    /* Affiche un graphique de répartition */
+    /* Affiche un graphique de repartition */
 
     /**
      * Active le transducteur si true
@@ -176,7 +176,7 @@ public class Simulateur {
     private boolean quickMode = false; // Simplifie certains calcul (bruit gaussien)
     
     /**
-     * active le mode aveugle pour le récepteur
+     * active le mode aveugle pour le recepteur
      */
     private boolean aveugle = false;
     
@@ -188,49 +188,49 @@ public class Simulateur {
     /**
      * <p>
      * Le constructeur de Simulateur construit une chaine de transmission
-     * composée d'une Source Boolean, d'une Destination Boolean et de
-     * Transmetteur(s) [voir la méthode analyseArguments]...</p>
+     * composee d'une Source Boolean, d'une Destination Boolean et de
+     * Transmetteur(s) [voir la methode analyseArguments]...</p>
      * <p>
-     * Les différents composants de la chaine de transmission (Source,
-     * Transmetteur(s), Destination, Sonde(s) de visualisation) sont créés et
-     * connectés.</p>
+     * Les differents composants de la chaine de transmission (Source,
+     * Transmetteur(s), Destination, Sonde(s) de visualisation) sont crees et
+     * connectes.</p>
      *
-     * @param args le tableau des différents arguments.
+     * @param args le tableau des differents arguments.
      *
      * @throws ArgumentsException si un des arguments est incorrect
      *
      */
     public Simulateur(String[] args) throws ArgumentsException, Exception {
 
-        // analyser et récupérer les arguments
+        // analyser et recuperer les arguments
         analyseArguments(args);
 
         if (messageAleatoire) {
-            System.out.println("Mode aléatoire : " + nbBitsMess);
+            System.out.println("Mode aleatoire : " + nbBitsMess);
             if (aleatoireAvecGerme) {
                 source = new SourceAleatoire(nbBitsMess, seed);
             } else {
                 source = new SourceAleatoire(nbBitsMess);
             }
         } else {
-            System.out.println("Mode  non aléatoire : " + messageString);
+            System.out.println("Mode  non aleatoire : " + messageString);
             source = new SourceFixe(messageString);
         }
 
         /*
-         * Affichage des paramètres
+         * Affichage des parametres
          */
-        System.out.println("Paramètre de transmission : " + form + " / " + nbEch + " / " + amplMin + " / " + amplMax);
+        System.out.println("Parametre de transmission : " + form + " / " + nbEch + " / " + amplMin + " / " + amplMax);
 
         /*
-         * instancie emetteur de type EmetteurAnalogique avec les paramètres
-         * propres à  la classe
+         * instancie emetteur de type EmetteurAnalogique avec les parametres
+         * propres a la classe
          */
         emetteur = new EmetteurAnalogique(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
 
         if (transducteur == true) {
             /*
-             * On relie la source au transducteur et le transducteur à  l'émetteur
+             * On relie la source au transducteur et le transducteur a l'emetteur
              */
             transducteurEmetteur = new TransducteurEmetteur();
 
@@ -240,7 +240,7 @@ public class Simulateur {
         } else// fonctionnement normal
         {
             /*
-             * On relie la source à  l'emetteur
+             * On relie la source a l'emetteur
              */
             source.connecter(emetteur);
         }
@@ -260,8 +260,8 @@ public class Simulateur {
         emetteur.connecter(transmetteurAnalogique);
 
         /*
-         * instancie recepteur de type RecepteurAnalogique avec les paramètres
-         * propres à  la classe
+         * instancie recepteur de type RecepteurAnalogique avec les parametres
+         * propres a la classe
          */
         if (aveugle) {
             recepteur = new RecepteurAnalogiqueMultiIntelligent(form, nbEch, dutyCycleRZ, tmpMontee); //TODO use a more simple type with less information
@@ -280,14 +280,14 @@ public class Simulateur {
         if (transducteur == true) {
 
             /*
-             * On relie le recepteur au transducteur en réception et le transducteur à  la destination
+             * On relie le recepteur au transducteur en reception et le transducteur a la destination
              */
             transducteurRecepteur = new TransducteurRecepteur();
             recepteur.connecter(transducteurRecepteur);
             transducteurRecepteur.connecter(destination);
         } else {//fonctionnement normal
             /*
-             * On relie le recepteur à  la destination
+             * On relie le recepteur a la destination
              */
             recepteur.connecter(destination);
         }
@@ -320,13 +320,13 @@ public class Simulateur {
         }
         
         /*
-         * Affichage de la répartition
+         * Affichage de la repartition
          */
         if (affichageRepartition) {
             if (snr != null) {
-                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
+                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionApresTransmetteur", Math.min(amplMin, amplMin * 1 / snr) - 1, Math.max(amplMax, amplMax * 1 / snr) + 1));
             } else {
-                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionAprèsTransmetteur", amplMin - 1, amplMax + 1));
+                transmetteurAnalogique.connecter(new SondeRepartitionAnalogique("sondeRepartitionApresTransmetteur", amplMin - 1, amplMax + 1));
             }
         }
         
@@ -344,48 +344,48 @@ public class Simulateur {
     }
 
     /**
-     * La méthode analyseArguments extrait d'un tableau de chaines de caractéres
-     * les différentes options de la simulation. Elle met à  jour les attributs
+     * La methode analyseArguments extrait d'un tableau de chaines de caracteres
+     * les differentes options de la simulation. Elle met a jour les attributs
      * du Simulateur.
      *
-     * @param args le tableau des différents arguments.
+     * @param args le tableau des differents arguments.
      *
      * <p>
-     * Les arguments autorisés sont :</p>
+     * Les arguments autorises sont :</p>
      *
      * <dl>
-     * <dt> -mess m  </dt><dd> m (String) constitué de 7 ou plus digits à  0 | 1,
-     * le message à  transmettre</dd>
-     * <dt> -mess m  </dt><dd> m (int) constitué de 1 à  6 digits, le nombre de
-     * bits du message "aléatoire" à  transmettre</dd>
+     * <dt> -mess m  </dt><dd> m (String) constitue de 7 ou plus digits e 0 | 1,
+     * le message a transmettre</dd>
+     * <dt> -mess m  </dt><dd> m (int) constitue de 1 e 6 digits, le nombre de
+     * bits du message "aleatoire" a transmettre</dd>
      * <dt> -s </dt><dd> utilisation des sondes d'affichage</dd>
-     * <dt> -seed v </dt><dd> v (int) d'initialisation pour les générateurs
-     * aléatoires</dd>
+     * <dt> -seed v </dt><dd> v (int) d'initialisation pour les generateurs
+     * aleatoires</dd>
      *
      * <dt> -form f </dt><dd> codage (String) RZ, NRZ, NRZT, la forme d'onde du
-     * signal à  transmettre (RZ par défaut)</dd>
-     * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'échantillons par bit (ne
+     * signal a transmettre (RZ par defaut)</dd>
+     * <dt> -nbEch ne </dt><dd> ne (int) le nombre d'echantillons par bit (ne
      * &gt;= 6 pour du NRZ, ne &gt;= 9 pour du NRZT, ne &gt;= 18 pour du RZ, 30
-     * par défaut))</dd>
+     * par defaut))</dd>
      * <dt> -ampl min max </dt><dd> min (float) et max (float), les amplitudes
-     * min et max du signal analogique à  transmettre ( min &lt; max, 0.0 et 1.0
-     * par défaut))</dd>
+     * min et max du signal analogique a transmettre ( min &lt; max, 0.0 et 1.0
+     * par defaut))</dd>
      *
      * <dt> -snr s</dt>
      * <dd> s (float) le rapport signal/bruit en dB</dd>
      *
-     * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 à  5),
-     * dt (int) valeur du decalage temporel du ième trajet indirect en nombre
-     * d'échantillons par bit, ar (float) amplitude relative au signal initial
-     * du signal ayant effectué le ième trajet indirect</dd>
+     * <dt> -ti i dt ar </dt><dd> i (int) numero du trajet indirect (de 1 e 5),
+     * dt (int) valeur du decalage temporel du ieme trajet indirect en nombre
+     * d'echantillons par bit, ar (float) amplitude relative au signal initial
+     * du signal ayant effectue le ieme trajet indirect</dd>
      *
      * <dt> -transducteur </dt><dd> utilisation de transducteur</dd>
      *
-     * <dt> -aveugle </dt><dd> les récepteurs ne connaissent ni l'amplitude min
-     * et max du signal, ni les différents trajets indirects (s'il y en a).</dd>
+     * <dt> -aveugle </dt><dd> les recepteurs ne connaissent ni l'amplitude min
+     * et max du signal, ni les differents trajets indirects (s'il y en a).</dd>
      *
      * </dl>
-     * <b>Contraintes</b> : Il y a des interdépendances sur les paramètres
+     * <b>Contraintes</b> : Il y a des interdependances sur les parametres
      * effectifs.
      *
      * @throws ArgumentsException si un des arguments est incorrect.
@@ -410,7 +410,7 @@ public class Simulateur {
             } else if (args[i].matches("-doeil")) {
                 affichageOeil = true;
             } else if (args[i].matches("-nbSymParOeil")) {
-                i++; // on passe à  l'argument suivant
+                i++; // on passe e l'argument suivant
                 nbSymParOeil = new Integer(args[i]);
             }  else if (args[i].matches("-stat-img")) {
                 generate_pictures = true;
@@ -423,7 +423,7 @@ public class Simulateur {
 
                 i++;
                 pictureFolder = args[i];
-                i++; // on passe à  l'argument suivant
+                i++; // on passe a l'argument suivant
                 pictureSize = new Integer(args[i]);
             } else if (args[i].matches("-seed")) {
                 aleatoireAvecGerme = true;
@@ -486,7 +486,7 @@ public class Simulateur {
 
                 i++;
                 amplMin = new Double(args[i]);
-                i++; // on passe à  l'argument suivant
+                i++; // on passe a l'argument suivant
                 amplMax = new Double(args[i]);
 
                 if (amplMax <= amplMin) {
@@ -509,7 +509,7 @@ public class Simulateur {
                 }
 
             } else if (args[i].matches("-ti")) {
-                //Verification de la saisie du paramètre i ar dt
+                //Verification de la saisie du parametre i ar dt
                 String[] params = {"-ti", "i", "dt", "ar"};
                 for (int j = 1; j <= 3; j++) {
                     if (i + j >= args.length || args[i + j].startsWith("-")) {
@@ -518,23 +518,23 @@ public class Simulateur {
                 }
 
                 i++;
-                //On récupère le numero de trajet
+                //On recupere le numero de trajet
                 Integer nTrajet = new Integer(args[i]);
                 if (!(nTrajet >= 1 && nTrajet <= 5)) {
                     throw new ArgumentsException("Valeur du parametre numTrajet <1 ou >5");
                 }
 
                 i++;
-                //On récupère le dt du trajet
+                //On recupere le dt du trajet
                 dt[nTrajet] = new Integer(args[i]);
                 i++;
-                //On récupère le ar du trajet
+                //On recupere le ar du trajet
                 ar[nTrajet] = new Double(args[i]);
 
                 nbTrajet = 0;
                 for (int j = 0; j < 5; j++) {
                     if (ar[j] != 0) {
-                        nbTrajet++; //nbTrajet indique le nombre de trajet non null qui seront généré mais n'est pas indispensable
+                        nbTrajet++; //nbTrajet indique le nombre de trajet non null qui seront genere mais n'est pas indispensable
                     }
                 }
                 System.out.println("nbTrajet : " + nbTrajet);
@@ -548,10 +548,10 @@ public class Simulateur {
     }
 
     /**
-     * La méthode execute effectue un envoi de message par la source de la
+     * La methode execute effectue un envoi de message par la source de la
      * chaine de transmission du Simulateur.
      *
-     * @throws Exception si un problème survient lors de l'exécution
+     * @throws Exception si un probleme survient lors de l'execution
      *
      */
     public void execute() throws Exception {
@@ -559,8 +559,8 @@ public class Simulateur {
     }
 
     /**
-     * La méthode qui calcule le taux d'erreur binaire en comparant les bits du
-     * message émis avec ceux du message reà§u.
+     * La methode qui calcule le taux d'erreur binaire en comparant les bits du
+     * message emis avec ceux du message recu.
      *
      * @return La valeur du Taux dErreur Binaire.
      */
@@ -577,10 +577,10 @@ public class Simulateur {
     }
 
     /**
-     * La fonction main instancie un Simulateur à  l'aide des arguments
-     * paramètres et affiche le résultat de l'exécution d'une transmission.
+     * La fonction main instancie un Simulateur a l'aide des arguments
+     * parametres et affiche le resultat de l'execution d'une transmission.
      *
-     * @param args les différents arguments qui serviront à  l'instanciation du
+     * @param args les differents arguments qui serviront a l'instanciation du
      * Simulateur.
      */
     public static void main(String[] args) {

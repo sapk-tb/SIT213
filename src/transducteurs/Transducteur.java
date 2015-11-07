@@ -18,27 +18,27 @@ import destinations.DestinationInterface;
 public abstract class Transducteur <R, E> implements DestinationInterface<R>, SourceInterface<E>  {
 	
 	/**
-     * la liste des composants destination connectés en sortie du transducteur
+     * la liste des composants destination connectes en sortie du transducteur
      */
     protected LinkedList<DestinationInterface<E>> destinationsConnectees;
 
     /**
-     * l'information reçue en entrée du transducteur
+     * l'information recue en entree du transducteur
      */
     protected Information<R> informationRecue;
 
     /**
-     * l'information émise en sortie du transcducteur
+     * l'information emise en sortie du transcducteur
      */
     protected Information<E> informationEmise;
     
 	/** 
-	 * l'information générée par le transducteur récepteur
+	 * l'information generee par le transducteur recepteur
 	 */
 	protected Information <Boolean>  informationGeneree;
 
     /**
-     * un constructeur factorisant les initialisations communes aux réalisations
+     * un constructeur factorisant les initialisations communes aux realisations
      * de la classe abstraite Transmetteur
      */
     public Transducteur() {
@@ -49,7 +49,7 @@ public abstract class Transducteur <R, E> implements DestinationInterface<R>, So
     }
 
     /**
-     * retourne la dernière information reçue en entrée du transducteur
+     * retourne la derniere information recue en entree du transducteur
      *
      * @return une information
      */
@@ -58,7 +58,7 @@ public abstract class Transducteur <R, E> implements DestinationInterface<R>, So
     }
 
     /**
-     * retourne la dernière information émise en sortie du  transducteur
+     * retourne la derniere information emise en sortie du  transducteur
      *
      * @return une information
      */
@@ -67,33 +67,33 @@ public abstract class Transducteur <R, E> implements DestinationInterface<R>, So
     }
 
     /**
-     * connecte une destination à la sortie du  transducteur
+     * connecte une destination a la sortie du  transducteur
      *
-     * @param destination la destination à connecter
+     * @param destination la destination a connecter
      */
     public void connecter(DestinationInterface<E> destination) {
         destinationsConnectees.add(destination);
     }
 
     /**
-     * déconnecte une destination de la sortie du  transducteur
+     * deconnecte une destination de la sortie du  transducteur
      *
-     * @param destination la destination à déconnecter
+     * @param destination la destination a deconnecter
      */
     public void deconnecter(DestinationInterface<E> destination) {
         destinationsConnectees.remove(destination);
     }
 
     /**
-     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
-     * méthode émettre.
+     * reeoit une information. Cette methode, en fin d'execution, appelle la
+     * methode emettre.
      * @throws InformationNonConforme
-     * @param information l'information reçue
+     * @param information l'information recue
      */
     public abstract void recevoir(Information<R> information) throws InformationNonConforme;
 
     /**
-     * émet l'information construite par le recepteur
+     * emet l'information construite par le recepteur
      */
     public abstract void emettre() throws InformationNonConforme;
 
