@@ -64,9 +64,9 @@ function generate-teb-by-snr-with-multi {
 
 
 function generate-teb-by-snr-with-multi-loop {
-	for nbSym in 10000000
+	for nbSym in 100 10000 1000000 10000000
 		do
-		for nbEch in 10 15 30 60
+		for nbEch in 3 5 10 15 30 60
 			do
 			for form in "RZ" "NRZ" "NRZT"
 				do
