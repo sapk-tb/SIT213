@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 /**
  * Classe réalisant l'affichage d'information composée d'élèments réels (double)
  *
- * @author Antoine GIRARD
+ * @author prou
  */
 public class SondeDiagrammeOeil extends Sonde<Double> {
 

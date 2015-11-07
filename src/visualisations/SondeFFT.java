@@ -12,7 +12,7 @@ import tools.FFTBase;
 /**
  * Classe réalisant l'affichage d'information composée d'élèments réels (double)
  *
- * @author Antoine GIRARD
+ * @author prou
  */
 public class SondeFFT extends Sonde<Double> {
 

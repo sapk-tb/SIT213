@@ -4,13 +4,13 @@ import information.Information;
 import information.InformationNonConforme;
 
 /**
- * Classe d'un composant recepteur d'informations dont les elements sont de type
- * Double qui herite de la classe Recepteur
+ * Classe d'un composant recepteur d'informations dont les élèments sont de type
+ * Double qui hérite de la classe Recepteur
  *
  * @author Antoine GIRARD
- * @author Cedric HERZOG
+ * @author Cédric HERZOG
  * @author Pierrick CHOVELON
- * @author Melanie CORRE
+ * @author Mélanie CORRE
  */
 public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
 
@@ -27,17 +27,17 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
     }
 
     /**
-     * Constructeur du recepteur analogique
+     * Constructeur du récepteur analogique
      *
-     * @param form Forme du signal a recevoir
-     * @param nbEch Nombre d'echantillons par symbole
+     * @param form Forme du signal à recevoir
+     * @param nbEch Nombre d'écahntillon par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
-     * @param dutyCycleRZ Dutycycle a utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montee a respecter dans le cadre d'une forme
+     * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
-     * @param dt Tableau de decalage des multitrajets
-     * @param ar Tableau d'attenuation des multitrajets
+     * @param dt Tableau de décalage des multitrajet
+     * @param ar Tableau d'atténuation des multitrajet
      */
     public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar) {
         super(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
@@ -46,17 +46,17 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
     }
 
     /**
-     * Constructeur du recepteur analogique
+     * Constructeur du récepteur analogique
      *
-     * @param form Forme du signal a recevoir
-     * @param nbEch Nombre d'echantillons par symbole
+     * @param form Forme du signal à recevoir
+     * @param nbEch Nombre d'écahntillon par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
-     * @param dutyCycleRZ Dutycycle a utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montee a respecter dans le cadre d'une forme
+     * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
+     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
-     * @param dt Tableau de decalage des multitrajets
-     * @param ar Tableau d'attenuation des multitrajets
+     * @param dt Tableau de décalage des multitrajet
+     * @param ar Tableau d'atténuation des multitrajet
      * @param noMultiCorrection
      */
     public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar, boolean noMultiCorrection) {
@@ -76,7 +76,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         if (infRecue == null) {
             throw new InformationNonConforme("informationRecue == null");
         }
-        /* Calcul du decalage maximum */
+        /* Calcul du décalage maximum */
         int dtmax = 0;
         for (int i = 0; i < dt.length; i++) {
             if (ar[i] != 0 && dt[i] > dtmax) { // Si on est au dessus et que l'on a une amplitude non nulle
@@ -90,16 +90,16 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         for (int i = 0; i < nbEchFinal; i++) {
             informationStriped.add(infRecue.iemeElement(i));
         }
-        //System.out.println("nbEch apres stripping : " + informationStriped.nbElements());
+        //System.out.println("nbEch après stripping : " + informationStriped.nbElements());
         return informationStriped;
     }
 
     /**
-     * Enleve les trajets multiples des echantillons //TODO ajouter des solutions
-     * pour limiter les differents bruits
+     * Enlève les trajets multiples des échantillons //TODO ajouter des solution
+     * pour limiter les différents bruits
      *
-     * @param infRecue L'information a nettoyer
-     * @return L'information nettoyee
+     * @param infRecue L'information à nettoyer
+     * @return L'information nettoyée
      * @throws InformationNonConforme
      */
     protected Information<Double> cleanEch(Information<Double> infRecue) throws InformationNonConforme {
@@ -114,7 +114,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
         for (int i = 0; i < nbEchFinal; i++) {
 
             for (int j = 0; j < dt.length; j++) {
-                if (ar[j] != 0 && (i - dt[j]) >= 0) { // Si on a un decalage et que l'amplitude est non nulle
+                if (ar[j] != 0 && (i - dt[j]) >= 0) { // Si on a un décalage et que l'amplitude est non nulle
                     double valeurSignalPrec = informationNettoyee.iemeElement(i - dt[j]);
                     double valeurReflection = valeurSignalPrec * ar[j];
                     informationNettoyee.setIemeElement(i, informationNettoyee.iemeElement(i) - valeurReflection);
@@ -125,7 +125,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
     }
 
     /**
-     * emet l'information construite par l'emetteur
+     * émet l'information construite par l'emetteur
      *
      * @throws information.InformationNonConforme
      */

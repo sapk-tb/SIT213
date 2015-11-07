@@ -3,14 +3,14 @@ package information;
 import java.util.*;
 
 /**
- * La classe Information sert a contenir des d'un signal logique ou numerique.
+ * La classe Information sert à contenir des d'un signal logique ou numérique.
  *
  * @author prou
  * @author Antoine GIRARD
- * @author Cedric HERZOG
+ * @author Cédric HERZOG
  * @author Pierrick CHOVELON
- * @author Melanie CORRE
- * @param <T> Le format des donnees dans l'information
+ * @author Mélanie CORRE
+ * @param <T> Le format des donnée dans l'information
  */
 public class Information<T> implements Iterable<T> {
 
@@ -24,27 +24,27 @@ public class Information<T> implements Iterable<T> {
     }
 
     /**
-     * pour construire a partir d'un tableau de T une information
+     * pour construire à partir d'un tableau de T une information
      *
-     * @param default_size la taille du tableau par defaut
+     * @param default_size la taille du tableau par défaut
      */
     public Information(int default_size) {
         this.content = new ArrayList<>(default_size);
     }
 
     /**
-     * pour construire un clone a partir d'une information de T une information
+     * pour construire un clone à partir d'une information de T une information
      *
-     * @param information que l'on clone
+     * @param Inf Information que l'on clone
      */
     public Information(Information<T> Inf) {
         this.content = (ArrayList<T>) Inf.content.clone();
     }
 
     /**
-     * pour construire a partir d'un tableau de T une information
+     * pour construire à partir d'un tableau de T une information
      *
-     * @param content le tableau d'elements pour initialiser l'information
+     * @param content le tableau d'élèments pour initialiser l'information
      * construite
      */
     public Information(T[] content) {
@@ -59,18 +59,18 @@ public class Information<T> implements Iterable<T> {
     }
 
     /**
-     * pour connaitre le nombre d'elements d'une information
+     * pour connaitre le nombre d'élèments d'une information
      *
-     * @return le nombre d'elements de l'information
+     * @return le nombre d'élèments de l'information
      */
     public int nbElements() {
         return this.content.size();
     }
 
-    /*
-     * pour recuperer le stream des donnees d'une information
+    /**
+     * pour recuperer le stream des données d'une information
      *
-     * @return le stream des donnees d'une information
+     * @return le stream des données d'une information
      */
     /*
      public Stream<T> getStream() {
@@ -78,7 +78,7 @@ public class Information<T> implements Iterable<T> {
      }
      //*/
     /**
-     * pour renvoyer un tableau basique d'elements d'une information
+     * pour renvoyer un tableau basique d'élèment d'une information
      *
      * @param array Le tableau a remplir avec les valeurs
      */
@@ -89,39 +89,39 @@ public class Information<T> implements Iterable<T> {
 
     //*/
     /**
-     * pour renvoyer un element d'une information
+     * pour renvoyer un élèment d'une information
      *
-     * @param i indice de l'element a retourner
-     * @return le ieme element de l'information
+     * @param i indice de l'élèmetn à retourné
+     * @return le ieme élèment de l'information
      */
     public T iemeElement(int i) {
         return this.content.get(i);
     }
 
     /**
-     * pour modifier le ieme element d'une information
+     * pour modifier le ième élèment d'une information
      *
-     * @param i indice de l'element a modifier
-     * @param v valeur a modifier
+     * @param i indice de l'élèmetn à modifier
+     * @param v valeur à modifier
      */
     public void setIemeElement(int i, T v) {
         this.content.set(i, v);
     }
 
     /**
-     * pour ajouter un element a la fin de l'information
+     * pour ajouter un élèment à la fin de l'information
      *
-     * @param valeur l'element a rajouter
+     * @param valeur l'élèment à rajouter
      */
     public void add(T valeur) {
         this.content.add(valeur);
     }
 
     /**
-     * pour ajouter un element a la fin de l'information
+     * pour ajouter un élèment à la fin de l'information
      *
      * @param i index
-     * @param valeur l'element a rajouter
+     * @param valeur l'élèment à rajouter
      */
     public void addAt(int i, T valeur) {
         this.content.add(i, valeur);
@@ -130,9 +130,9 @@ public class Information<T> implements Iterable<T> {
     /**
      * pour comparer l'information courante avec une autre information
      *
-     * @param o l'information a comparer
-     * @return "true" si les 2 informations contiennent les memes elements aux
-     * memes places; "false" dans les autres cas
+     * @param o l'information avec laquelle se comparer
+     * @return "true" si les 2 informations contiennent les mêmes élèments aux
+     * mêmes places; "false" dans les autres cas
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -154,7 +154,6 @@ public class Information<T> implements Iterable<T> {
 
     /**
      * pour afficher une information
-     * @return s String, chaine creee
      */
     @Override
     public String toString() {

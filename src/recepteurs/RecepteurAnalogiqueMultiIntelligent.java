@@ -10,13 +10,13 @@ import information.InformationNonConforme;
 import tools.Statistic;
 
 /**
- * Classe d'un composant recepteur d'informations dont les elements sont de type
- * Double qui herite de la classe Recepteur
+ * Classe d'un composant recepteur d'informations dont les élèments sont de type
+ * Double qui hérite de la classe Recepteur
  *
  * @author Antoine GIRARD
- * @author Cedric HERZOG
+ * @author Cédric HERZOG
  * @author Pierrick CHOVELON
- * @author Melanie CORRE
+ * @author Mélanie CORRE
  */
 public class RecepteurAnalogiqueMultiIntelligent extends RecepteurAnalogiqueMulti {
 
@@ -34,10 +34,10 @@ public class RecepteurAnalogiqueMultiIntelligent extends RecepteurAnalogiqueMult
     }
 
     /**
-     * reeoit une information. Cette methode, en fin d'execution, appelle la
-     * methode emettre.
+     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
+     * méthode emettre.
      *
-     * @param information l'information recue
+     * @param information l'information reçue
      * @throws information.InformationNonConforme
      */
     @Override
@@ -48,8 +48,8 @@ public class RecepteurAnalogiqueMultiIntelligent extends RecepteurAnalogiqueMult
         Statistic stats = new Statistic(data);
         this.amplMax = stats.getMax();
         this.amplMin = stats.getMin();
-        System.out.println("Valeurs estimee : [Etat haut : "+ this.amplMax+", Etat bas : "+ this.amplMin+"]");
-        //TODO detect and clean noise and multi 
+        System.out.println("Valeurs estimée : [Etat haut : "+ this.amplMax+", Etat bas : "+ this.amplMin+"]");
+        //TODO detectect and clean noise and multi 
         emettre();
     }
 }

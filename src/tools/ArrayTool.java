@@ -18,10 +18,10 @@ import tools.Thread.AddToNativeDoubleArray;
 public class ArrayTool {
 
     /**
-     * Additionne deux tables de Double
+     * Additionne deux table de Double
      *
-     * @param t1 la premiere table de Double
-     * @param t2 la deuxieme table de Double
+     * @param t1 la première table de Double
+     * @param t2 la deuxième table de Double
      * @return la somme des tableaux
      */
     public static Double[] sumArrays(Double[] t1, Double[] t2) {
@@ -52,10 +52,10 @@ public class ArrayTool {
     }
 
     /**
-     * Additionne deux tables de double
+     * Additionne deux table de double
      *
-     * @param t1 la premiere table de double
-     * @param t2 la deuxieme table de double
+     * @param t1 la première table de double
+     * @param t2 la deuxième table de double
      * @return la somme des tableaux
      */
     public static double[] sumArrays(double[] t1, double[] t2) {
@@ -86,9 +86,9 @@ public class ArrayTool {
     /**
      * Additionne deux Informations
      *
-     * @param i1 la premiere Information
-     * @param i2 la deuxieme Information
-     * @return la somme des deux informations
+     * @param i1 la première Information
+     * @param i2 la deuxième Information
+     * @return la somem des deux informations
      */
     public static Information sumArrays(Information i1, Information i2) {
         Double[] t1 = new Double[i1.nbElements()];
@@ -104,18 +104,18 @@ public class ArrayTool {
     /**
      * Facteur table de double
      *
-     * @param i1 Information a factoriser
+     * @param i1 Information à factoriser
      * @param ar Facteur de factorisation
-     * @return le tableau multiplie par le facteur (Dans une information)
+     * @return le tableau multiplié par le facteur (Dans une information)
      */
     public static Information factArrays(Information<Double> i1, double ar) {
-        //Creation d'un tableau contenant l'information factorisee
+        //Création d'un tableau contenant l'information factorisée
         int size = i1.nbElements();
         Double[] tab = new Double[size];
         for (int i = 0; i < size; i++) {
             tab[i] = i1.iemeElement(i) * ar;
         }
-        //Cree et retourne une nouvelle info contenant le tableau precedent
+        //Créé et retourne une nouvelle info contenant le tableau précédent
         return new Information(tab);
     }
 }

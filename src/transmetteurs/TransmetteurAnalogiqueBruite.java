@@ -9,15 +9,15 @@ import tools.Tool;
 
 /**
  * Classe d'un composant qui transmet des informations de type Double sans
- * defaut.
+ * défaut.
  *
  * @author Antoine GIRARD
- * @author Cedric HERZOG
+ * @author Cédric HERZOG
  */
 public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
 
     /**
-     * l'information recue en entree du transmetteur
+     * l'information reçue en entrée du transmetteur
      */
     protected Information<Double> informationBruit;
     protected Double SNR = null;
@@ -41,10 +41,10 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
-     * reeoit une information. Cette methode, en fin d'execution, appelle la
-     * methode emettre.
+     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
+     * méthode emettre.
      *
-     * @param information l'information recue
+     * @param information l'information reçue
      * @throws information.InformationNonConforme Quand l'information est
      * invalide
      */
@@ -71,7 +71,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
             SourceBruitGaussien bruit = new SourceBruitGaussien(nbEl, puissance_bruit, seed, modeQuick);
             bruit.emettre();
             this.informationBruit = bruit.getInformationEmise();
-            System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance reel du bruit " + Tool.getPuissance(this.informationBruit));
+            System.out.println("Puissance signal recu : " + puissance_signal + " / SNR canal " + this.SNR + " / Puissance du bruit à appliquer " + puissance_bruit + " / Puissance réel du bruit " + Tool.getPuissance(this.informationBruit));
 
             this.informationEmise = ArrayTool.sumArrays(informationRecue, informationBruit);
         } else { // Le bruit est null
@@ -80,7 +80,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
-     * Verifie que l'information recue est valide sinon declenche une exception de
+     * Verifie que le l'information recu est valide sinon déclanche un event de
      * type InformationNonConforme
      *
      * @throws information.InformationNonConforme
@@ -92,7 +92,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
-     * Envoie l'informationEmise aux elements connectes
+     * Envoie l'informationEmise aux élément connectés
      *
      * @throws InformationNonConforme
      */
@@ -103,7 +103,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
-     * emet l'information construite par le transmetteur
+     * émet l'information construite par la transmette
      *
      * @throws information.InformationNonConforme
      */
@@ -111,7 +111,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     public void emettre() throws InformationNonConforme {
 
         checkInformationRecue();
-        /* Generation du Bruit */
+        /* Génération du Bruit */
         addBruit();
 
         envoyerAuxSuivants();

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Antoine GIRARD
+ * @author sapk
  */
 public class RecepteurAnalogiqueMultiTest {
 

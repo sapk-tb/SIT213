@@ -8,7 +8,7 @@ import information.InformationNonConforme;
 /**
  * Classe permettant le décodage de source dans la chaine de transmission
  *
- * @author Pierrick  CHOVELON
+ * @author Pierrick
  */
 public class TransducteurRecepteur extends Transducteur<Boolean, Boolean> {
 

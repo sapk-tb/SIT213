@@ -6,14 +6,14 @@ import tools.ArrayTool;
 
 /**
  * Classe d'un composant qui transmet des informations de type Double dans un
- * canal bruite et avec des trajets .
+ * canal bruité et avec des tarjets .
  *
  * @author Antoine GIRARD
- * @author Cedric HERZOG
+ * @author Cédric HERZOG
  */
 public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBruite {
 
-    //Decalage en echantillions
+    //Décalage en échantillions
     private final Integer[] dt;
     //Amplitude relative
     private final Double[] ar;
@@ -29,7 +29,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     public TransmetteurAnalogiqueBruiteMulti(Integer[] dt, Double[] ar, Double SNR, int seed, boolean quickMode) throws Exception {
         super(SNR, seed, quickMode);
         if (dt.length != ar.length) {
-            throw new Exception("Arguments de multiple trajet donnee invalide");
+            throw new Exception("Arguments de multiple trajet donnée invalide");
         }
         this.dt = dt;
         this.ar = ar;
@@ -46,7 +46,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
             }
             //System.out.println("Generating trajet n°" + i + " ( dt : " + dt[i] + ", ar : " + ar[i] + " ) ");
             //TODO check if we should maybe do Information retard = ArrayTool.factArrays(this.informationEmise, ar[i]); 
-            Information<Double> retard = ArrayTool.factArrays(infBruite, ar[i]); //On genère une information factorise par l'attenuation
+            Information<Double> retard = ArrayTool.factArrays(infBruite, ar[i]); //On génère une information factorisé par l'attenuation
             for (int j = 0; j < dt[i]; j++) {
                 retard.addAt(0, 0.0); // On ajoute les retards
             }
@@ -58,7 +58,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     }
 
     /**
-     * emet l'information construite par le transmetteur
+     * émet l'information construite par la transmetteur
      *
      * @throws InformationNonConforme Information nulle
      */
@@ -66,7 +66,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     public void emettre() throws InformationNonConforme {
 
         checkInformationRecue();
-        /* Generation du Bruit */
+        /* Génération du Bruit */
         addBruit();
 
         /* Ajout des multi-trajet */
