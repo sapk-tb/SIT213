@@ -8,6 +8,12 @@
 		<script src="http://www.highcharts.com/joomla/media/com_demo/js/highslide.config.js" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="http://www.highcharts.com/joomla/media/com_demo/highslide.css" />
 		<script src="index.js" ></script>
+		<script src="scripts/S.snr.js" ></script>
+		<script src="scripts/S.multi.js" ></script>
+		<script src="scripts/S.multisnr.js" ></script>
+		<script src="scripts/S.snr-transducteur.js" ></script>
+		
+		
 		<style>
 			.highslide-container>table, .highslide-maincontent {
 			    width: 180px;
@@ -158,10 +164,50 @@
 	</p>
 	<div class="chart" style="width:100%; height:480px;"></div>
 </div>
-
+<div id="chart-teb-by-snr-with-multi">
+	<h2>TEB en fonction du SNR avec diverse reflections avec et sans correction à la reception</h2>
+	<p> 
+		<span>
+			Nombre Symbole :
+			<select id="nbSym" onchange="S.multisnr.chart.update();">
+				<option>10000000</option>
+				<option selected="selected">1000000</option>
+				<option>10000</option>
+				<option>100</option>
+			</select>
+		</span>
+		<span>
+			Nombre Echantillon :
+			<select id="nbEch" onchange="S.multisnr.chart.update();">
+				<option>60</option>
+				<option selected="selected">30</option>
+				<option>15</option>
+				<option>10</option>
+				<option>5</option>
+				<option>3</option>
+			</select>
+		</span>
+		<span>
+			Forme d'onde :
+			<select id="form" onchange="S.multisnr.chart.update();">
+				<option selected="selected">RZ</option>
+				<option>NRZ</option>
+				<option>NRZT</option>
+			</select>
+		</span>
+		<span>
+			Echelle :
+			<select id="typeEchelle" onchange="S.multisnr.chart.update();">
+				<option value="linear">Linéaire</option>
+				<option selected="selected" value="logarithmic">Logarithmique</option>
+			</select>
+		</span>
+	</p>
+	<div class="chart" style="width:100%; height:480px;"></div>
+</div>
 	<br>
 <div id="chart-teb-by-snr-transducteur">
-	<h2>TEB en fonction du SNR</h2>
+	<h2>TEB en fonction du SNR (Comparaison avec et sans transducteur) </h2>
 	<p> 
 		<span>
 			Nombre Symbole :
