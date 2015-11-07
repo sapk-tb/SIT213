@@ -62,7 +62,7 @@ S["snr-transducteur"] = {
 						l = csvtransducteur[index].split(",");
 						l2 = csv[index+11].split(",");
 						for (i=1;i<l.length;i++){
-							console.log(i-1,i-1+l.length-1);
+							//console.log(i-1,i-1+l.length-1);
 							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
 							data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]);
 							//data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]); (décaler au meme début que ltransducteur)

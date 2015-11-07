@@ -70,17 +70,9 @@ S.multisnr = {
 					            	radius : 3
 					            },
 					            data: []
-					        },]
+					        },
+					        ]
 		    	};
-				csvNoCor.split("\n").slice(1, -1).forEach(function (line, index) {
-	//					if(index == 0 || index == 72) return;
-						l = line.split(",");
-						//data.labels.push(new Date(parseFloat(l[0])*1000));
-						for (i=1;i<l.length;i++){
-							console.log(i,[parseFloat(l[0]),parseFloat(l[i])])
-							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
-						}
-				});
 				
 				
 		    	csv = csv.split("\n").slice(1, -1);
@@ -88,8 +80,8 @@ S.multisnr = {
 		    	for (index = 0; index < csv.length; ++index) {
 						l = csvNoCor[index].split(",");
 						l2 = csv[index].split(",");
+						//console.log(l,l2);
 						for (i=1;i<l.length;i++){
-							console.log(i-1,i-1+l.length-1);
 							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l[i])]);
 							data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]);
 							//data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]); (décaler au meme début que ltransducteur)
