@@ -7,9 +7,9 @@ import java.util.Objects;
  * Classe d'outils static
  *
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
  * @author Pierrick CHOVELON
- * @author MÃ©lanie CORRE
+ * @author Mélanie CORRE
  */
 public class Tool {
     /*
@@ -23,7 +23,7 @@ public class Tool {
      */
 
     /**
-     * Retourne le pourcentage de diffÃ©rence entre deux tableau de Boolean
+     * Retourne le pourcentage de différence entre deux tableau de Boolean
      *
      * @param a Le premier tableau
      * @param b le second tableau
@@ -41,7 +41,7 @@ public class Tool {
     }
 
     /**
-     * Retourne la puissance d'une information contenant des Ã©chantillons
+     * Retourne la puissance d'une information contenant des échantillons
      *
      * @param inf l'Information contenant le signal
      * @return Retourne la puissance du signal
@@ -49,7 +49,7 @@ public class Tool {
     //*
     public static double getPuissance(Information<Double> inf) {
         if (inf == null) {
-            throw new NullPointerException("Information non dÃ©finie");
+            throw new NullPointerException("Information non définie");
         }
         Double total = 0.0;
         for (Double content : inf) {
@@ -72,8 +72,8 @@ public class Tool {
     /**
      * Fait la transformation de dB en linaire
      *
-     * @param db la valeur Ã  linÃ©ariser
-     * @return Renvoie la valeur en linÃ©aire
+     * @param db la valeur à linéariser
+     * @return Renvoie la valeur en linéaire
      */
     public static double dBToLin(double db) {
         return Math.pow(10, db / 10f);

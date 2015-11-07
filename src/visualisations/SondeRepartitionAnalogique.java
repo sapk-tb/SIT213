@@ -3,7 +3,7 @@ package visualisations;
 import information.Information;
 
 /**
- * Classe réalisant l'affichage de répartition de valeurs composée d'élèments
+ * Classe réalisant l'affichage de répartition de valeurs composées d'élèments
  * réels (double)
  *
  * @author Antoine GIRARD

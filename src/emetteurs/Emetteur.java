@@ -7,35 +7,35 @@ import information.*;
 import java.util.*;
 
 /**
- * Classe Abstraite d'un composant emetteur d'informations dont les Ã©lÃ¨ments
- * sont de type R en entrÃ©e et de type E en sortie; l'entrÃ©e de emetteur
- * implÃ©mente l'interface DestinationInterface, la sortie de emetteur
- * implÃ©mente l'interface SourceInterface
+ * Classe Abstraite d'un composant emetteur d'informations dont les éléments
+ * sont de type R en entrée et de type E en sortie; l'entrée de emetteur
+ * implémente l'interface DestinationInterface, la sortie de emetteur
+ * implémente l'interface SourceInterface
  *
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
  * @author Pierrick CHOVELON
- * @author MÃ©lanie CORRE
+ * @author Mélanie CORRE
  */
 public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceInterface<E> {
 
     /**
-     * la liste des composants destination connectÃ©s en sortie de emetteur
+     * la liste des composants destination connectés en sortie de emetteur
      */
     protected LinkedList<DestinationInterface<E>> destinationsConnectees;
 
     /**
-     * l'information reÃ§ue en entrÃ©e de emetteur
+     * l'information reçue en entrée de emetteur
      */
     protected Information<R> informationRecue;
 
     /**
-     * l'information Ã©mise en sortie de emetteur
+     * l'information émise en sortie de emetteur
      */
     protected Information<E> informationEmise;
 
     /**
-     * un constructeur factorisant les initialisations communes aux rÃ©alisations
+     * un constructeur factorisant les initialisations communes aux réalisations
      * de la classe abstraite Transmetteur
      */
     public Emetteur() {
@@ -45,7 +45,7 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
     }
 
     /**
-     * retourne la derniÃ¨re information reÃ§ue en entrÃ©e de emetteur
+     * retourne la dernière information reçue en entrée de emetteur
      *
      * @return une information
      */
@@ -55,7 +55,7 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
     }
 
     /**
-     * retourne la derniÃ¨re information Ã©mise en sortie de emetteur
+     * retourne la dernière information émise en sortie de emetteur
      *
      * @return une information
      */
@@ -65,9 +65,9 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
     }
 
     /**
-     * connecte une destination Ã  la sortie de emetteur
+     * connecte une destination à  la sortie de emetteur
      *
-     * @param destination la destination Ã  connecter
+     * @param destination la destination à connecter
      */
     @Override
     public void connecter(DestinationInterface<E> destination) {
@@ -75,25 +75,25 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
     }
 
     /**
-     * dÃ©connecte une destination de la la sortie de emetteur
+     * déconnecte une destination de la sortie de emetteur
      *
-     * @param destination la destination Ã  dÃ©connecter
+     * @param destination la destination à déconnecter
      */
     public void deconnecter(DestinationInterface<E> destination) {
         destinationsConnectees.remove(destination);
     }
 
     /**
-     * reÃ§oit une information. Cette mÃ©thode, en fin d'exÃ©cution, appelle la
-     * mÃ©thode Ã©mettre.
+     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
+     * méthode émettre.
      *
-     * @param information l'information reÃ§ue
+     * @param information l'information reçue
      */
     @Override
     public abstract void recevoir(Information<R> information) throws InformationNonConforme;
 
     /**
-     * Ã©met l'information construite par l'emetteur
+     * émet l'information construite par l'emetteur
      */
     @Override
     public abstract void emettre() throws InformationNonConforme;

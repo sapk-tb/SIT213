@@ -4,24 +4,24 @@ import information.Information;
 import java.util.Random;
 
 /**
- * Classe d'un composant source d'informations alÃ©atoire dont les Ã©lÃ¨ments sont de type Boolean
+ * Classe d'un composant source d'informations aléatoire dont les éléments sont de type Boolean
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
  */
 public class SourceAleatoire extends Source<Boolean> {
 
     /**
-    * Un constructeur qui gÃ©nÃ¨re nbBits alÃ©atoirement
-     * @param nbBits nombre de bit Ã  gÃ©nÃ©rer
+    * Un constructeur qui génère nbBits aléatoirement
+     * @param nbBits nombre de bit à générer
     */
     public SourceAleatoire(int nbBits) {
         this(nbBits, (int) (Math.random() * 1024));
     }
 
     /**
-    * Un constructeur qui gÃ©nÃ¨re nbBits alÃ©atoirement basÃ© sur un seed
-     * @param nbBits nombre de bit Ã  gÃ©nÃ©rer
-     * @param seed graine utilisÃ© comme base pour le message pseudo-alÃ©atoire
+    * Un constructeur qui génére nbBits aléatoirement basé sur un seed
+     * @param nbBits nombre de bit à générer
+     * @param seed graine utilisé comme base pour le message pseudo-aléatoire
     */
     public SourceAleatoire(int nbBits, int seed) {
         super();

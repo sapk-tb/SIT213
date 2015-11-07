@@ -9,7 +9,9 @@ import static org.junit.Assert.*;
 /**
  *
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
+ * @author Pierrick CHOVELON
+ * @author Mélanie CORRE
  */
 public class SimulateurTest {
     
@@ -356,7 +358,7 @@ public class SimulateurTest {
     }
 
     /**
-     * Test of analyze -ti, of class Simulateur.
+     * Test of analyze -transducteur, of class Simulateur.
      */
     @Test(expected = ArgumentsException.class)
     public void testAnalyseArgumentsTransducteur() throws ArgumentsException, Exception{

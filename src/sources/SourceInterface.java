@@ -5,27 +5,27 @@ package sources;
 	import destinations.DestinationInterface;
 
 /** 
- * Interface d'un composant ayant le comportement d'une source d'informations dont les Ã©lÃ¨ments sont de type T 
+ * Interface d'un composant ayant le comportement d'une source d'informations dont les éléments sont de type T 
  * @author prou
- * @param <T> Le format de donnÃ©e de la source
+ * @param <T> Le format de données de la source
  */
     public interface SourceInterface <T>  {
    
    /**
-    * pour obtenir la derniÃ¨re information Ã©mise par une source.
+    * pour obtenir la dernière information émise par une source.
     * @return une information   
     */
        public Information <T>  getInformationEmise();
    
    /**
-    * pour connecter une  destination Ã  la source 
-    * @param destination  la destination Ã  connecter
+    * pour connecter une  destination à  la source 
+    * @param destination  la destination à  connecter
 	 */
        public void connecter (DestinationInterface <T> destination);
    
    /**
-    * pour Ã©mettre l'information  contenue dans une source
-     * @throws information.InformationNonConforme DÃ©crit un information null ou non valide
+    * pour émettre l'information  contenue dans une source
+     * @throws information.InformationNonConforme Décrit un information null ou non valide
     */
        public void emettre() throws InformationNonConforme; 
    

@@ -2,10 +2,10 @@ package transmetteurs;
 
 /**
  * Classe d'un composant qui transmet des informations de type Double avec des
- * trajets multiples mais sans dÃ©faut.
+ * trajets multiples mais sans défaut.
  *
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
  */
 public class TransmetteurAnalogiqueParfaitMulti extends TransmetteurAnalogiqueBruiteMulti {
 

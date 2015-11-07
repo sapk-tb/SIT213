@@ -5,7 +5,7 @@
 
 
 /** 
- * Classe réalisant l'affichage (textuel) d'information composée d'élèments de type T
+ * Classe réalisant l'affichage (textuel) d'informations composées d'élèments de type T
  * @author prou
  */
     public class SondeTextuelle <T> extends Sonde <T> {

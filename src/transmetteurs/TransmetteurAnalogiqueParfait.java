@@ -2,7 +2,7 @@ package transmetteurs;
 
 /**
  * Classe d'un composant qui transmet des informations de type Double sans
- * défaut.
+ * d�faut.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG

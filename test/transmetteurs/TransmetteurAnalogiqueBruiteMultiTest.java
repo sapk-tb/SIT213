@@ -8,6 +8,14 @@ import org.junit.Test;
 
 import recepteurs.RecepteurAnalogique;
 
+/**
+*
+* @author Antoine GIRARD
+* @author Cédric HERZOG
+* @author Mélanie CORRE
+* @author Pierrick CHOVELON
+*/
+
 public class TransmetteurAnalogiqueBruiteMultiTest {
 
     @Test//Fonctionnement normal

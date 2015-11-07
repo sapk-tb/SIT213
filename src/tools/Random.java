@@ -16,7 +16,7 @@ public class Random extends java.util.Random {
 
     /**
      * 
-     * @return Renvoi un double respectant une loi gausisène en ne se basant pas sur MathStrict comme la version originell.
+     * @return Renvoie un double respectant une loi gaussienne en ne se basant pas sur MathStrict comme la version originelle.
      */
     @Override
     public double nextGaussian() {

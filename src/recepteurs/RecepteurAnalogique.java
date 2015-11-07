@@ -5,13 +5,13 @@ import information.Information;
 import information.InformationNonConforme;
 
 /**
- * Classe d'un composant recepteur d'informations dont les √©l√®ments sont de type
- * RecepteurAnalogique qui h√©rite de la classe Recepteur
+ * Classe d'un composant recepteur d'informations dont les ÈlÈments sont de type
+ * RecepteurAnalogique qui hÈrite de la classe Recepteur
  *
  * @author Antoine GIRARD
- * @author C√©dric HERZOG
+ * @author CÈdric HERZOG
  * @author Pierrick CHOVELON
- * @author M√©lanie CORRE
+ * @author MÈlanie CORRE
  */
 public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
 
@@ -47,14 +47,14 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * Constructeur du r√©cepteur analogique
+     * Constructeur du rÈcepteur analogique
      *
-     * @param form Forme du signal √† recevoir
-     * @param nbEch Nombre d'√©cahntillon par symbole
+     * @param form Forme du signal ‡† recevoir
+     * @param nbEch Nombre d'Èchantillon par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
-     * @param dutyCycleRZ Dutycycle √† utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de mont√©e √† respect√© dans le cadre d'une forme
+     * @param dutyCycleRZ Dutycycle ‡† utiliser dans le cadre d'une forme RZ
+     * @param tmpMontee Temps de montÈe ‡† respecter dans le cadre d'une forme
      * NRZT
      */
     public RecepteurAnalogique(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee) {
@@ -68,10 +68,10 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * re√ßoit une information. Cette m√©thode, en fin d'ex√©cution, appelle la
-     * m√©thode emettre.
+     * reÁoit une information. Cette mÈthode, en fin d'exÈcution, appelle la
+     * mÈthode emettre.
      *
-     * @param information l'information re√ßue
+     * @param information l'information reÁue
      */
     @Override
     public void recevoir(Information<Double> information) throws InformationNonConforme {
@@ -80,11 +80,11 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * Analyze un information contenant des √©chantillon et en d√©termine les
-     * valaurs binaires en se basant sur les apram√®tres du recepteur
+     * Analyse une information contenant des Èchantillons et en dÈtermine les
+     * valeurs binaires en se basant sur les paramËtres du recepteur
      *
-     * @param infRecue l'information contenant les d'√©chantillon
-     * @return les information binaire d√©duite
+     * @param infRecue l'information contenant les d'Èchantillons
+     * @return les informations binaires dÈduites
      * @throws InformationNonConforme
      */
     protected Information<Boolean> parseEch(Information<Double> infRecue) throws InformationNonConforme {
@@ -98,7 +98,7 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
         double total[] = new double[nbSymbole];
 
         /*
-         * Calcul de la somme pour chaque √©chantillon
+         * Calcul de la somme pour chaque Èchantillon
          */
         for (int i = 0; i < nbSymbole; i++) {
             for (int n = 0; n < nbEch; n++) {
@@ -108,7 +108,7 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
 
         /*
          * Calcul de la moyenne d'un symbole afin de retrouver le niveau de
-         * chaque √©chantillon
+         * chaque Èchantillon
          */
         for (int i = 0; i < nbEchTotal / nbEch; i++) {
             double moy_symbole = total[i] / (double) nbEch;
@@ -130,7 +130,7 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * Envoie l'informationEmise aux √©l√©ment connect√©s
+     * Envoie l'informationEmise aux ÈlÈments connectÈs
      *
      * @throws InformationNonConforme
      */
@@ -141,7 +141,7 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * √©met l'information construite par l'emetteur
+     * Èmet l'information construite par l'emetteur
      *
      * @throws information.InformationNonConforme
      */

@@ -6,18 +6,18 @@ import information.InformationNonConforme;
 
 /**
  * Classe d'un composant qui transmet des informations de type Boolean sans
- * dÃ©faut.
+ * défaut.
  *
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
  */
 public class TransmetteurLogiqueParfait extends Transmetteur<Boolean, Boolean> {
 
     /**
-     * reÃ§oit une information. Cette mÃ©thode, en fin d'exÃ©cution, appelle la
-     * mÃ©thode emettre.
+     * reçoit une information. Cette méthode, en fin d'exécution, appelle la
+     * méthode emettre.
      *
-     * @param information l'information reÃ§ue
+     * @param information l'information reçue
      * @throws information.InformationNonConforme Quand l'information est invalide
      */
     @Override
@@ -30,7 +30,7 @@ public class TransmetteurLogiqueParfait extends Transmetteur<Boolean, Boolean> {
     }
 
     /**
-     * Ã©met l'information construite par la transmetteur
+     * émet l'information construite par la transmetteur
      * @throws information.InformationNonConforme
      */
     @Override

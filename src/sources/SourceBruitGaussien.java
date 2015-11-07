@@ -12,25 +12,25 @@ import java.util.logging.Logger;
 /**
  *
  * @author Antoine GIRARD
- * @author CÃ©dric HERZOG
+ * @author Cédric HERZOG
  */
 public class SourceBruitGaussien extends Source<Double> {
 
     private final int seed;
 
     /**
-     * Un constructeur qui gÃ©nÃ¨re nbEch alÃ©atoirement
+     * Un constructeur qui génère nbEch aléatoirement
      *
-     * @param nbEch nombre de bit Ã  gÃ©nÃ©rer
+     * @param nbEch nombre de bit à générer
      */
     public SourceBruitGaussien(int nbEch) {
         this(nbEch, 1f, (int) (Math.random() * 1024));
     }
 
     /**
-     * Un constructeur qui gÃ©nÃ¨re nbEch alÃ©atoirement
+     * Un constructeur qui génère nbEch aléatoirement
      *
-     * @param nbEch nombre de bit Ã  gÃ©nÃ©rer
+     * @param nbEch nombre de bit à générer
      * @param puissance puissance du bruit
      */
     public SourceBruitGaussien(int nbEch, double puissance) {
@@ -38,12 +38,12 @@ public class SourceBruitGaussien extends Source<Double> {
     }
 
     /**
-     * Un constructeur qui gÃ©nÃ¨re nbEch alÃ©atoirement rapidement
+     * Un constructeur qui génère nbEch aléatoirement rapidement
      *
-     * @param nbEch Nombre de bit Ã  gÃ©nÃ©rer
+     * @param nbEch Nombre de bits à générer
      * @param puissance Puissance du signal
-     * @param seed le grain de gÃ©nÃ©ration
-     * @param quick Utiliser un mode rapide mais moins proche de la rÃ©alitÃ©
+     * @param seed le grain de génération
+     * @param quick Utiliser un mode rapide mais moins proche de la réalité
      *
      */
     //*
@@ -64,11 +64,11 @@ public class SourceBruitGaussien extends Source<Double> {
     }
 
     /**
-     * Un constructeur qui gÃ©nÃ¨re nbEch alÃ©atoirement
+     * Un constructeur qui génère nbEch aléatoirement
      *
-     * @param nbEch Nombre de bit Ã  gÃ©nÃ©rer
+     * @param nbEch Nombre de bit à générer
      * @param puissance Puissance du signal
-     * @param seed le grain de gÃ©nÃ©ration
+     * @param seed le grain de génération
      *
      */
     //*
