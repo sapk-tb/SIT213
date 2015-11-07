@@ -39,6 +39,62 @@ function generate-teb-by-multi-loop {
 	done
 }
 
+function get-teb-by-snr-with-multi {
+    SNR=${1:-"10"}
+    NB_SYM=${2:-100}
+    NB_ECH=${3:-30}
+    FORM=${4:-"NRZ"}
+    MULTI=${5:-"-ti 1 10 0.5"}
+    ARGS="-form $FORM -mess $NB_SYM -nbEch $NB_ECH -snr $SNR -ampl -1 1 $MULTI -noMultiCorrection"
+    ./simulateur $ARGS | grep TEB | cut -d":" -f2 | tr -d " "
+}
+
+function generate-teb-by-snr-with-multi {
+    # generate-teb-by-snr $from $to $pas $nbSym $nbEch $form
+    FORM=${6:-"NRZ"}
+    for snr in $(seq $1 $3 $2 | tr "," ".")
+    do
+        TEB_T1=$(get-teb-by-snr $snr $FORM $4 $5 "")
+        TEB_T2=$(get-teb-by-snr $snr $FORM $4 $5 "-ti 1 12 1")
+        TEB_T3=$(get-teb-by-snr $snr $FORM $4 $5 "-ti 1 60 1")
+		TEB_T4=$(get-teb-by-snr $snr $FORM $4 $5 "-ti 1 45 0.7 -ti 2 60 0.4")
+	echo "$snr,$TEB_T1,$TEB_T2,$TEB_T3,$TEB_T4"
+    done
+}
+
+
+function generate-teb-by-snr-with-multi-loop {
+	for nbSym in 10000000
+		do
+		for nbEch in 10 15 30 60
+			do
+			for form in "RZ" "NRZ" "NRZT"
+				do
+				OUTPUT="$BASE_DIR/data/csv/teb-by-snr-with-multi-$form-$nbSym-$nbEch.csv"
+	    		echo "SNR,TEB_T1,TEB_T2,TEB_T3,TEB_T4" > "$OUTPUT"                
+				
+	#			echo "generate-teb-by-snr-with-multi -60 -30 5 $nbSym $nbEch $form"
+	#	                time generate-teb-by-snr-with-multi  -60 -30 5 $nbSym $nbEch $form >> "$OUTPUT"
+		
+	#			echo "generate-teb-by-snr-with-multi -28 -21 2 $nbSym $nbEch $form"
+	#	    		time generate-teb-by-snr-with-multi  -28 -21 2 $nbSym $nbEch $form >> "$OUTPUT"
+		
+				echo "generate-teb-by-snr-with-multi -20 -11 1 $nbSym $nbEch $form"
+		    		time generate-teb-by-snr-with-multi  -20 -11 1 $nbSym $nbEch $form >> "$OUTPUT"
+		
+				echo "generate-teb-by-snr-with-multi -10 -3.5 0.5 $nbSym $nbEch $form"
+		    		time generate-teb-by-snr-with-multi  -10 -3.5 0.5 $nbSym $nbEch $form >> "$OUTPUT"
+		
+				echo "generate-teb-by-snr-with-multi -3 4.9 0.1 $nbSym $nbEch $form"
+		    		time generate-teb-by-snr-with-multi  -3 4.9 0.1 $nbSym $nbEch $form >> "$OUTPUT"
+		
+				echo "generate-teb-by-snr-with-multi 5 10 0.5 $nbSym $nbEch $form"
+		    		time generate-teb-by-snr-with-multi  5 10 0.5 $nbSym $nbEch $form >> "$OUTPUT"
+		    	done
+	    	done
+	done
+}
+
 function get-teb-by-snr {
     NB_SYM=${3:-1000000}
     NB_ECH=${4:-30}
@@ -88,7 +144,6 @@ function generate-teb-by-snr-loop {
 	    	done
 	done
 }
-
 function generate-teb-by-snr-transducteur-loop {
 	for nbSym in 100 10000 1000000 10000000
 		do
@@ -159,7 +214,8 @@ cd tmp
 git checkout etape-5
 
 #generate-teb-by-snr-loop
-generate-teb-by-snr-transducteur-loop
+generate-teb-by-snr-with-multi-loop
+#generate-teb-by-snr-transducteur-loop
 #generate-teb-by-multi-loop
 #generate-oeil-loop
 cd ..
