@@ -49,7 +49,7 @@ public class Simulateur {
     private Integer seed = null;
     /**
      * la longueur du message aléatoire à transmettre si un message n'est pas
-     * impose
+     * imposé
      */
     private int nbBitsMess = 100;
     /**
@@ -149,8 +149,8 @@ public class Simulateur {
 
     private boolean transducteur = false; //Active le transducteur
 
-    private boolean noMultiCorrection = false; // déssactive la correction des multi-trajets
-    private boolean quickMode = false; // Simplifie certains calcul (bruit gaussien)
+    private boolean noMultiCorrection = false; // désactive la correction des multi-trajets
+    private boolean quickMode = false; // Simplifie certains calculs (bruit gaussien)
     private boolean aveugle = false; // Mode aveugle pour le recepeteur
     private Integer nbSymParOeil = 2;
 
@@ -302,7 +302,7 @@ public class Simulateur {
     }
 
     /**
-     * La méthode analyseArguments extrait d'un tableau de chaines de caractéres
+     * La méthode analyseArguments extrait d'un tableau de chaines de caractères
      * les différentes options de la simulation. Elle met à jour les attributs
      * du Simulateur.
      *
@@ -492,7 +492,7 @@ public class Simulateur {
                 nbTrajet = 0;
                 for (int j = 0; j < 5; j++) {
                     if (ar[j] != 0) {
-                        nbTrajet++; //nbTrajet indique le nombre de trajet non null qui seront généré mais n'est pas indispensable
+                        nbTrajet++; //nbTrajet indique le nombre de trajets non null qui seront générés mais n'est pas indispensable
                     }
                 }
                 System.out.println("nbTrajet : " + nbTrajet);
