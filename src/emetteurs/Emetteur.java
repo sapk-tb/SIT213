@@ -7,10 +7,10 @@ import information.*;
 import java.util.*;
 
 /**
- * Classe Abstraite d'un composant emetteur d'informations dont les élèments
+ * Classe Abstraite d'un composant emetteur d'informations dont les éléments
  * sont de type R en entrée et de type E en sortie; l'entrée de emetteur
  * implémente l'interface DestinationInterface, la sortie de emetteur
- * implémente l'interface SourceInterface
+ * implémente l'interface SourceInterface.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
@@ -75,7 +75,7 @@ public abstract class Emetteur<R, E> implements DestinationInterface<R>, SourceI
     }
 
     /**
-     * déconnecte une destination de la la sortie de emetteur
+     * déconnecte une destination de la sortie de emetteur
      *
      * @param destination la destination à déconnecter
      */
