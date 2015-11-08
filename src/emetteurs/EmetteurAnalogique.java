@@ -5,8 +5,8 @@ import information.Information;
 import information.InformationNonConforme;
 
 /**
- * Classe d'un composant emetteur d'informations dont les élèments sont de type
- * EmetteurAnalogique qui hérite de la classe Emetteur
+ * Classe d'un composant emetteur d'informations dont les éléments sont de type
+ * EmetteurAnalogique qui hérite de la classe Emetteur.
  *
  * @author Antoine GIRARD
  * @author Cédric HERZOG
@@ -50,11 +50,11 @@ public class EmetteurAnalogique extends Emetteur<Boolean, Double> {
      * un constructeur de l'émetteur analogique
      *
      * @param form Forme du signal à émettre
-     * @param nbEch Nombre d'écahntillon par symbole
+     * @param nbEch Nombre d'échantillons par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
+     * @param tmpMontee Temps de montée à respecter dans le cadre d'une forme
      * NRZT
      */
     public EmetteurAnalogique(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee) {
