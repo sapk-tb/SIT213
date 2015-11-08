@@ -13,7 +13,7 @@ import tools.ArrayTool;
  */
 public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBruite {
 
-    //Décalage en échantillions
+    //Décalage en échantillons
     private final Integer[] dt;
     //Amplitude relative
     private final Double[] ar;
@@ -38,7 +38,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     protected void addMultiTrajet() {
 
         //System.out.println("nbEch avant multi-trajet : " + this.informationEmise.nbElements());
-        /* Mise en forme pour les multi-trajet */
+        /* Mise en forme pour les multi-trajets */
         Information<Double> infBruite = new Information<>(this.informationEmise);
         for (int i = 0; i < dt.length; i++) {
             if (ar[i] == 0) {
@@ -58,7 +58,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
     }
 
     /**
-     * émet l'information construite par la transmetteur
+     * émet l'information construite par le transmetteur
      *
      * @throws InformationNonConforme Information nulle
      */
@@ -69,7 +69,7 @@ public class TransmetteurAnalogiqueBruiteMulti extends TransmetteurAnalogiqueBru
         /* Génération du Bruit */
         addBruit();
 
-        /* Ajout des multi-trajet */
+        /* Ajout des multi-trajets */
         addMultiTrajet();
         envoyerAuxSuivants();
     }
