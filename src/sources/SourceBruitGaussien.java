@@ -21,7 +21,7 @@ public class SourceBruitGaussien extends Source<Double> {
     /**
      * Un constructeur qui génère nbEch aléatoirement
      *
-     * @param nbEch nombre de bit à générer
+     * @param nbEch nombre de bits à générer
      */
     public SourceBruitGaussien(int nbEch) {
         this(nbEch, 1f, (int) (Math.random() * 1024));
@@ -30,7 +30,7 @@ public class SourceBruitGaussien extends Source<Double> {
     /**
      * Un constructeur qui génère nbEch aléatoirement
      *
-     * @param nbEch nombre de bit à générer
+     * @param nbEch nombre de bits à générer
      * @param puissance puissance du bruit
      */
     public SourceBruitGaussien(int nbEch, double puissance) {
@@ -40,7 +40,7 @@ public class SourceBruitGaussien extends Source<Double> {
     /**
      * Un constructeur qui génère nbEch aléatoirement rapidement
      *
-     * @param nbEch Nombre de bit à générer
+     * @param nbEch Nombre de bits à générer
      * @param puissance Puissance du signal
      * @param seed le grain de génération
      * @param quick Utiliser un mode rapide mais moins proche de la réalité
@@ -66,7 +66,7 @@ public class SourceBruitGaussien extends Source<Double> {
     /**
      * Un constructeur qui génère nbEch aléatoirement
      *
-     * @param nbEch Nombre de bit à générer
+     * @param nbEch Nombre de bits à générer
      * @param puissance Puissance du signal
      * @param seed le grain de génération
      *
