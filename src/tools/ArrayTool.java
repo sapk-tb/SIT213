@@ -18,7 +18,7 @@ import tools.Thread.AddToNativeDoubleArray;
 public class ArrayTool {
 
     /**
-     * Additionne deux table de Double
+     * Additionne deux tables de Double
      *
      * @param t1 la première table de Double
      * @param t2 la deuxième table de Double
@@ -52,7 +52,7 @@ public class ArrayTool {
     }
 
     /**
-     * Additionne deux table de double
+     * Additionne deux tables de double
      *
      * @param t1 la première table de double
      * @param t2 la deuxième table de double
@@ -88,7 +88,7 @@ public class ArrayTool {
      *
      * @param i1 la première Information
      * @param i2 la deuxième Information
-     * @return la somem des deux informations
+     * @return la somme des deux informations
      */
     public static Information sumArrays(Information i1, Information i2) {
         Double[] t1 = new Double[i1.nbElements()];
