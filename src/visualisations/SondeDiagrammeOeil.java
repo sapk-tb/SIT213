@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
- * Classe réalisant l'affichage d'information composée d'élèments réels (double)
+ * Classe réalisant l'affichage d'information composée d'éléments réels (double)
  *
  * @author prou
  */
@@ -23,7 +23,7 @@ public class SondeDiagrammeOeil extends Sonde<Double> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param nbEchParSym Le nombre d'echantillon par symbole
+     * @param nbEchParSym Le nombre d'échantillons par symbole
      * @param screenFilename Le nom du fichier ou enregistrer le screenshot
      * @param screenSize taille de la capture de l'oeil
      */
@@ -37,8 +37,8 @@ public class SondeDiagrammeOeil extends Sonde<Double> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param nbEchParSym Le nombre d'echantillon par symbole
-     * @param screen_filename Le nom du fichier ou enregistrer le screenshot
+     * @param nbEchParSym Le nombre d'échantillons par symbole
+     * @param screen_filename Le nom du fichier où enregistrer le screenshot
      */
     public SondeDiagrammeOeil(String nom, int nbEchParSym, String screen_filename) {
         this(nom, nbEchParSym);
@@ -49,7 +49,7 @@ public class SondeDiagrammeOeil extends Sonde<Double> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param nbEchParSym Le nombre d'echantillon par symbole
+     * @param nbEchParSym Le nombre d'échantillons par symbole
      */
     public SondeDiagrammeOeil(String nom, int nbEchParSym) {
         super(nom);
