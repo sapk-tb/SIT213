@@ -10,7 +10,7 @@ import information.InformationNonConforme;
 import tools.Statistic;
 
 /**
- * Classe d'un composant recepteur d'informations dont les élèments sont de type
+ * Classe d'un composant recepteur d'informations dont les éléments sont de type
  * Double qui hérite de la classe Recepteur
  *
  * @author Antoine GIRARD
