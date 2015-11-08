@@ -30,7 +30,7 @@ public class TransmetteurLogiqueParfait extends Transmetteur<Boolean, Boolean> {
     }
 
     /**
-     * émet l'information construite par la transmetteur
+     * émet l'information construite par le transmetteur
      * @throws information.InformationNonConforme
      */
     @Override
