@@ -7,7 +7,7 @@ import information.*;
 import java.util.*;
 
 /**
- * Classe Abstraite d'un composant recepteur d'informations dont les élèments
+ * Classe Abstraite d'un composant recepteur d'informations dont les éléments
  * sont de type R en entrée et de type E en sortie; l'entrée du recepteur
  * implémente l'interface DestinationInterface, la sortie du recepteur
  * implémente l'interface SourceInterface
@@ -82,7 +82,7 @@ public abstract class Recepteur<R, E> implements DestinationInterface<R>, Source
 
     /**
      * reçoit une information. Cette méthode, en fin d'exécution, appelle la
-     * méthode émettre.
+     * méthode emettre.
      *
      * @param information l'information reçue
      */
