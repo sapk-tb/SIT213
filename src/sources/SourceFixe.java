@@ -3,7 +3,7 @@ package sources;
 import information.Information;
 
 /**
- * Classe d'un composant source d'informations fixé dont les élèments sont de
+ * Classe d'un composant source d'informations fixées dont les éléments sont de
  * type Boolean
  *
  * @author Antoine GIRARD
@@ -12,7 +12,7 @@ import information.Information;
 public class SourceFixe extends Source<Boolean> {
 
     /**
-    * Un constructeur qui génère les bits basé sur messageSimulateur
+    * Un constructeur qui génère les bits basés sur messageSimulateur
      * @param messageSimulateur le message qui fixe les bits */
     public SourceFixe(String messageSimulateur) {
         super();
