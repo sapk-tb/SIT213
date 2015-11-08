@@ -80,7 +80,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
-     * Verifie que le l'information recu est valide sinon déclanche un event de
+     * Verifie que l'information recue est valide sinon déclenche une exception de
      * type InformationNonConforme
      *
      * @throws information.InformationNonConforme
@@ -92,7 +92,7 @@ public class TransmetteurAnalogiqueBruite extends Transmetteur<Double, Double> {
     }
 
     /**
-     * Envoie l'informationEmise aux élément connectés
+     * Envoie l'informationEmise aux éléments connectés
      *
      * @throws InformationNonConforme
      */
