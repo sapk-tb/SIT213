@@ -34,12 +34,21 @@ S["gain-transducteur"] = {
 		    	};
 		    	csv = csv.split("\n").slice(1, -1);
 		    	csvtransducteur = csvtransducteur.split("\n").slice(1, -1);
+		    	var methode = $("#chart-gain-by-snr-transducteur #typeCalcul").val();
 		    	for (index = 0; index < csvtransducteur.length; ++index) {
 						l = csvtransducteur[index].split(",");
 						l2 = csv[index+11].split(",");
 						for (i=1;i<l.length;i++){
 							//console.log(i-1,i-1+l.length-1);
-							data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l2[i])-parseFloat(l[i])]);
+							if(methode == "ratio"){
+								if(parseFloat(l[i]) != 0)
+									data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l2[i])/parseFloat(l[i])]);
+								else 
+									data.series[i-1].data.push([parseFloat(l[0]),0]);
+							}else if(methode == "ecart"){
+									data.series[i-1].data.push([parseFloat(l[0]),parseFloat(l2[i])-parseFloat(l[i])]);
+							}
+							
 							//data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]);
 							//data.series[i-1+l.length-1].data.push([parseFloat(l[0]),parseFloat(l2[i])]); (décaler au meme début que ltransducteur)
 						}
@@ -65,7 +74,7 @@ S["gain-transducteur"] = {
 				                zoomType: 'x'
 				            },
 					        title: {
-					            text: 'Gain avec transducteur en fonction du SNR',
+					            text: 'Gain avec transducteur en fonction du SNR ('+$("#chart-gain-by-snr-transducteur #typeCalcul").val()+')',
 					            x: -20 //center
 					        },
 					        subtitle: {

@@ -111,7 +111,8 @@ S["snr-transducteur"] = {
 					                width: 1,
 					                color: '#808080'
 					            }], 
-					            max : ($("#chart-teb-by-snr-transducteur #nbSym").val()>=10000)?0.5:null
+					            max : null
+					            //($("#chart-teb-by-snr-transducteur #nbSym").val()>=10000)?0.5:null
 					        },
 				            plotOptions: {
 					            line: {
