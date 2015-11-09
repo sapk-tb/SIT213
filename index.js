@@ -6,4 +6,5 @@ $(function(){
 	S.multi.chart.init();
 	S.multisnr.chart.init();
 	S["snr-transducteur"].chart.init();
+	S["gain-transducteur"].chart.init();
 })
