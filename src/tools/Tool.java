@@ -23,7 +23,7 @@ public class Tool {
      */
 
     /**
-     * Retourne le pourcentage de différence entre deux tableau de Boolean
+     * Retourne le pourcentage de différences entre deux tableau de Boolean
      *
      * @param a Le premier tableau
      * @param b le second tableau

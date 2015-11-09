@@ -7,7 +7,7 @@ package automates;
 public class AutomateTransducteur {
 
 	/**
-	 * méthode qui test si le tableau de boolean passé en paramètre est valide ou nono
+	 * méthode qui teste si le tableau de boolean passé en paramètre est valide ou non
 	 */
 	public void AutomateTransducteur(){
 		

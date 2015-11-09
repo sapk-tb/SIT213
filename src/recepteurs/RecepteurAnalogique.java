@@ -5,7 +5,7 @@ import information.Information;
 import information.InformationNonConforme;
 
 /**
- * Classe d'un composant recepteur d'informations dont les élèments sont de type
+ * Classe d'un composant recepteur d'informations dont les éléments sont de type
  * RecepteurAnalogique qui hérite de la classe Recepteur
  *
  * @author Antoine GIRARD
@@ -50,11 +50,11 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
      * Constructeur du récepteur analogique
      *
      * @param form Forme du signal à recevoir
-     * @param nbEch Nombre d'écahntillon par symbole
+     * @param nbEch Nombre d'échantillons par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
+     * @param tmpMontee Temps de montée à respecter dans le cadre d'une forme
      * NRZT
      */
     public RecepteurAnalogique(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee) {
@@ -80,10 +80,10 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * Analyze un information contenant des échantillon et en détermine les
-     * valaurs binaires en se basant sur les apramètres du recepteur
+     * Analyse un information contenant des échantillons et en détermine les
+     * valeurs binaires en se basant sur les paramètres du recepteur
      *
-     * @param infRecue l'information contenant les d'échantillon
+     * @param infRecue l'information contenant les échantillons
      * @return les information binaire déduite
      * @throws InformationNonConforme
      */
@@ -130,7 +130,7 @@ public class RecepteurAnalogique extends Recepteur<Double, Boolean> {
     }
 
     /**
-     * Envoie l'informationEmise aux élément connectés
+     * Envoie l'informationEmise aux éléments connectés
      *
      * @throws InformationNonConforme
      */

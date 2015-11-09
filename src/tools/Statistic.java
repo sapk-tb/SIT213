@@ -1,7 +1,7 @@
 package tools;
 
 /**
- * Class servant à faire des statistiques
+ * Classe servant à faire des statistiques
  * source principale : http://stackoverflow.com/questions/7988486/how-do-you-calculate-the-variance-median-and-standard-deviation-in-c-or-java
  * @author Antoine GIRARD
  */

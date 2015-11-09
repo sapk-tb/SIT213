@@ -3,7 +3,7 @@ package visualisations;
 import information.Information;
 
 /**
- * Classe réalisant l'affichage de répartition de valeurs composée d'élèments
+ * Classe réalisant l'affichage de répartition de valeurs composé d'éléments
  * réels (double)
  *
  * @author Antoine GIRARD
@@ -39,7 +39,7 @@ public class SondeRepartitionAnalogique extends Sonde<Double> {
      * @param nom le nom de la fenêtre d'affichage
      * @param min la limite à gauche du graphique
      * @param max la limite à gauche du graphique
-     * @param nbInterval le nombre d'intervalle de l'analyse
+     * @param nbInterval le nombre d'intervalles de l'analyse
      * @throws java.lang.Exception Si le max est inférieur à min
      */
     public SondeRepartitionAnalogique(String nom, double min, double max, int nbInterval) throws Exception {

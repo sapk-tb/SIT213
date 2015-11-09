@@ -4,7 +4,7 @@ import information.Information;
 import information.InformationNonConforme;
 
 /**
- * Classe d'un composant recepteur d'informations dont les élèments sont de type
+ * Classe d'un composant recepteur d'informations dont les éléments sont de type
  * Double qui hérite de la classe Recepteur
  *
  * @author Antoine GIRARD
@@ -30,14 +30,14 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      * Constructeur du récepteur analogique
      *
      * @param form Forme du signal à recevoir
-     * @param nbEch Nombre d'écahntillon par symbole
+     * @param nbEch Nombre d'échantillons par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
      * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
      * NRZT
-     * @param dt Tableau de décalage des multitrajet
-     * @param ar Tableau d'atténuation des multitrajet
+     * @param dt Tableau de décalage des multitrajets
+     * @param ar Tableau d'atténuation des multitrajets
      */
     public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar) {
         super(form, nbEch, amplMin, amplMax, dutyCycleRZ, tmpMontee);
@@ -49,14 +49,14 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
      * Constructeur du récepteur analogique
      *
      * @param form Forme du signal à recevoir
-     * @param nbEch Nombre d'écahntillon par symbole
+     * @param nbEch Nombre d'échantillons par symbole
      * @param amplMin Amplitude pour la valeur binaire 0
      * @param amplMax Amplitude pour la valeur binaire 1
      * @param dutyCycleRZ Dutycycle à utiliser dans le cadre d'une forme RZ
-     * @param tmpMontee Temps de montée à respecté dans le cadre d'une forme
+     * @param tmpMontee Temps de montée à respecter dans le cadre d'une forme
      * NRZT
-     * @param dt Tableau de décalage des multitrajet
-     * @param ar Tableau d'atténuation des multitrajet
+     * @param dt Tableau de décalage des multitrajets
+     * @param ar Tableau d'atténuation des multitrajets
      * @param noMultiCorrection
      */
     public RecepteurAnalogiqueMulti(String form, int nbEch, double amplMin, double amplMax, double dutyCycleRZ, double tmpMontee, Integer[] dt, Double[] ar, boolean noMultiCorrection) {
@@ -95,7 +95,7 @@ public class RecepteurAnalogiqueMulti extends RecepteurAnalogique {
     }
 
     /**
-     * Enlève les trajets multiples des échantillons //TODO ajouter des solution
+     * Enlève les trajets multiples des échantillons //TODO ajouter des solutions
      * pour limiter les différents bruits
      *
      * @param infRecue L'information à nettoyer

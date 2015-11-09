@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import tools.FFTBase;
 
 /**
- * Classe réalisant l'affichage d'information composée d'élèments réels (double)
+ * Classe réalisant l'affichage d'information composée d'éléments réels (double)
  *
  * @author prou
  */
@@ -23,7 +23,7 @@ public class SondeFFT extends Sonde<Double> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param screenFilename Le nom du fichier ou enregistrer le screenshot
+     * @param screenFilename Le nom du fichier où enregistrer le screenshot
      * @param screenSize taille de la capture de l'oeil
      */
     public SondeFFT(String nom, String screenFilename, Integer screenSize) {
@@ -36,7 +36,7 @@ public class SondeFFT extends Sonde<Double> {
      * pour construire une sonde analogique
      *
      * @param nom le nom de la fenêtre d'affichage
-     * @param screen_filename Le nom du fichier ou enregistrer le screenshot
+     * @param screen_filename Le nom du fichier où enregistrer le screenshot
      */
     public SondeFFT(String nom, String screen_filename) {
         this(nom);

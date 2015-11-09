@@ -76,7 +76,7 @@ public abstract class Transducteur <R, E> implements DestinationInterface<R>, So
     }
 
     /**
-     * déconnecte une destination de la la sortie du  transducteur
+     * déconnecte une destination de la sortie du  transducteur
      *
      * @param destination la destination à déconnecter
      */

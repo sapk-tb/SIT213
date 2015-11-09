@@ -5,9 +5,9 @@ package sources;
 	import destinations.DestinationInterface;
 
 /** 
- * Interface d'un composant ayant le comportement d'une source d'informations dont les élèments sont de type T 
+ * Interface d'un composant ayant le comportement d'une source d'informations dont les éléments sont de type T 
  * @author prou
- * @param <T> Le format de donnée de la source
+ * @param <T> Le format de données de la source
  */
     public interface SourceInterface <T>  {
    
