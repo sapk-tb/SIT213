@@ -342,6 +342,11 @@ public class Simulateur {
      * <dt> -aveugle </dt><dd> les récepteurs ne connaissent ni l'amplitude min
      * et max du signal, ni les différents trajets indirects (s'il y en a).</dd>
      *
+     * <dt> -fft </dt><dd> Affiche les sondes de représentation de la FFT.</dd>
+     * <dt> -repartition </dt><dd> Affiche les sondes de repartition des valeurs prisent par les signaux.</dd>
+     * <dt> -noMultiCorrection </dt><dd> Désactive la correction des multi-trajets.</dd>
+     * <dt> -doeil </dt><dd> Affiche les sondes de diagramme de l'oeil.</dd>
+     * <dt> -nbSymParOeil </dt><dd> Définit le nombre de symbole par oeil. Par défaut : 2 </dd>
      * </dl>
      * <b>Contraintes</b> : Il y a des interdépendances sur les paramètres
      * effectifs.
